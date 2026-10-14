@@ -1,0 +1,56 @@
+{
+  "name": "fitness-journal",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/with-env.mjs node_modules/next/dist/bin/next dev --hostname 0.0.0.0",
+    "build": "node scripts/with-env.mjs --without-proxy node_modules/next/dist/bin/next build",
+    "start": "node scripts/with-env.mjs node_modules/next/dist/bin/next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "test:db": "node scripts/with-env.mjs --import tsx scripts/test-isolation.ts",
+    "test:smoke": "node scripts/smoke.mjs",
+    "format": "prettier --write src tests scripts",
+    "supabase:check": "node scripts/with-env.mjs scripts/check-supabase.mjs",
+    "supabase:inspect": "node scripts/migrate-supabase.mjs",
+    "supabase:migrate": "node scripts/migrate-supabase.mjs --apply",
+    "supabase:prepare": "node scripts/prepare-supabase.mjs",
+    "test:session": "node scripts/with-env.mjs --import tsx scripts/test-session.ts"
+  },
+  "dependencies": {
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.117.3",
+    "exceljs": "4.4.0",
+    "jszip": "3.10.2",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "0.35.5",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.9",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "24.19.2",
+    "@types/pg": "^8.23.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "pg": "^8.23.1",
+    "prettier": "3.9.10",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.2"
+  },
+  "overrides": {
+    "exceljs": {
+      "uuid": "11.1.1"
+    }
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}
