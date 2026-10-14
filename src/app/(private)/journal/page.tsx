@@ -1,4 +1,4 @@
-import { Journal } from "@/components/Journal";
+import { redirect } from "next/navigation";
 import { dateSchema } from "@/lib/domain";
 export default async function Page({
   searchParams,
@@ -6,5 +6,5 @@ export default async function Page({
   searchParams: Promise<{ date?: string }>;
 }) {
   const date = dateSchema.safeParse((await searchParams).date);
-  return <Journal initialDate={date.success ? date.data : undefined} />;
+  redirect(`/dashboard${date.success ? `?date=${date.data}` : ""}`);
 }

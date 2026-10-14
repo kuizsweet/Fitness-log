@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { AuthLinkErrors } from "@/components/AuthLinkErrors";
 export const metadata: Metadata = {
-  title: "Fitness Journal · 健身日志",
+  title: "kuizfit · 控制台",
   description: "个人训练与三餐记录",
   robots: { index: false, follow: false },
-  appleWebApp: { capable: true, title: "Fitness Journal" },
+  appleWebApp: { capable: true, title: "kuizfit" },
 };
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#fafcfb",
+  themeColor: "#ffffff",
 };
 export default function RootLayout({
   children,
@@ -19,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
-      <body>{children}</body>
+      <body>
+        <AuthLinkErrors />
+        {children}
+      </body>
     </html>
   );
 }

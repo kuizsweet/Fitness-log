@@ -16,7 +16,7 @@ const root = await fetch(origin);
 assert.equal(root.status, 200);
 assert.match(await root.text(), /Fitness Journal/);
 for (const page of [
-  "journal",
+  "dashboard",
   "train",
   "history",
   "catalog",

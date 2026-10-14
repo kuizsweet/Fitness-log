@@ -16,6 +16,8 @@ export async function GET(request: Request) {
       "meal_entries",
       "meal_photos",
       "import_batches",
+      "daily_checkins",
+      "checkin_preferences",
     ] as const;
     const result: Record<string, unknown[]> = {};
     for (const table of tables) {
@@ -24,7 +26,13 @@ export async function GET(request: Request) {
         const page = await db
           .from(table)
           .select("*")
-          .order(table === "profiles" ? "user_id" : "id")
+          .order(
+            table === "daily_checkins"
+              ? "checkin_date"
+              : ["profiles", "checkin_preferences"].includes(table)
+                ? "user_id"
+                : "id",
+          )
           .range(start, start + 499);
         check(page.error);
         rows.push(...page.data!);

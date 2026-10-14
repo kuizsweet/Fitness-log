@@ -7,3 +7,4 @@ node_modules/
 supabase-ca.crt
 test-results/
 playwright-report/
+.impeccable/review/

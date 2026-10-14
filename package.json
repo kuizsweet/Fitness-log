@@ -16,9 +16,13 @@
     "supabase:inspect": "node scripts/migrate-supabase.mjs",
     "supabase:migrate": "node scripts/migrate-supabase.mjs --apply",
     "supabase:prepare": "node scripts/prepare-supabase.mjs",
-    "test:session": "node scripts/with-env.mjs --import tsx scripts/test-session.ts"
+    "test:session": "node scripts/with-env.mjs --import tsx scripts/test-session.ts",
+    "test:checkins": "node scripts/with-env.mjs --import tsx scripts/test-checkins.ts",
+    "test:calendar": "node scripts/with-env.mjs --import tsx scripts/test-calendar.ts",
+    "perf:navigation": "node scripts/with-env.mjs --import tsx scripts/measure-navigation.ts"
   },
   "dependencies": {
+    "@marsidev/react-turnstile": "1.6.2",
     "@supabase/ssr": "0.12.7",
     "@supabase/supabase-js": "2.117.3",
     "exceljs": "4.4.0",
@@ -27,6 +31,7 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "sharp": "0.35.5",
+    "undici": "7.30.0",
     "zod": "4.6.7"
   },
   "devDependencies": {

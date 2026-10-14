@@ -54,11 +54,11 @@ async function main() {
       [...jar.values()].some((c) => (c.options.maxAge ?? 0) > 0),
       "Cookie 应跨页面请求保持",
     );
-    const page = await fetch(`${origin}/journal`, {
+    const page = await fetch(`${origin}/dashboard`, {
       headers: headers(),
       redirect: "manual",
     });
-    assert.equal(page.status, 200, "真实 Cookie 应允许访问日志页");
+    assert.equal(page.status, 200, "真实 Cookie 应允许访问控制台");
     for (let i = 0; i < 2; i++) {
       const profile = await fetch(`${origin}/api/profile`, {
         headers: headers(),

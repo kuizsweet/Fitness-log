@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 import { serverClient } from "./supabase/server";
 import { configured } from "./supabase/config";
+import { verifiedClaims } from "./supabase/claims";
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -23,9 +24,15 @@ export async function context(request?: Request) {
       throw new ApiError("请求来源无效", 403);
   }
   const db = await serverClient();
-  const { data, error } = await db.auth.getUser();
-  if (error || !data.user) throw new ApiError("请先登录", 401);
-  return { db, user: data.user };
+  if (request && !["GET", "HEAD"].includes(request.method)) {
+    const { data, error } = await db.auth.getUser();
+    if (error || !data.user) throw new ApiError("请先登录", 401);
+    return { db, user: data.user };
+  }
+  // getClaims verifies signature and expiry; never authorize from getSession.
+  const { data, error } = await verifiedClaims(db);
+  if (error || !data?.claims.sub) throw new ApiError("请先登录", 401);
+  return { db, user: { id: data.claims.sub } };
 }
 export function check(error: { message: string; code?: string } | null) {
   if (error) {

@@ -104,6 +104,7 @@ export const workoutExerciseSchema = z.object({
 export const sessionSchema = z.object({
   id: z.uuid(),
   training_date: dateSchema,
+  training_type: z.enum(["strength", "cardio"]).nullable().optional(),
   status: z.enum(["planned", "in_progress", "paused", "completed"]),
   started_at: z.iso.datetime({ offset: true }).nullable(),
   ended_at: z.iso.datetime({ offset: true }).nullable(),
@@ -216,6 +217,7 @@ export function newSession(date: string, active = false): Session {
   return {
     id: crypto.randomUUID(),
     training_date: date,
+    training_type: null,
     status: active ? "in_progress" : "completed",
     started_at: active ? new Date().toISOString() : null,
     ended_at: null,

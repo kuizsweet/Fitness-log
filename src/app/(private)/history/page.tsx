@@ -1,4 +1,4 @@
-import { History } from "@/components/History";
+import { redirect } from "next/navigation";
 export default function Page() {
-  return <History />;
+  redirect("/dashboard");
 }

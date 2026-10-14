@@ -132,6 +132,23 @@ export function SessionEditor({
               <option value="completed">完成</option>
             </select>
           </label>
+          <label>
+            训练类型
+            <select
+              value={session.training_type ?? ""}
+              onChange={(e) =>
+                change({
+                  ...session,
+                  training_type: (e.target.value ||
+                    null) as Session["training_type"],
+                })
+              }
+            >
+              <option value="">未分类</option>
+              <option value="strength">力量</option>
+              <option value="cardio">有氧</option>
+            </select>
+          </label>
         </div>
         <label>
           训练备注
@@ -261,12 +278,14 @@ export function SessionEditor({
         >
           保存训练
         </button>
-        <a href={`/journal?date=${session.training_date}`}>返回日志</a>
+        <a href={`/dashboard?date=${session.training_date}`}>返回控制台</a>
         {session.revision > 0 && (
           <button
             disabled={busy}
             onClick={async () => {
-              if (!confirm("删除本次训练？可以在历史查询的已删除记录中恢复。"))
+              if (
+                !confirm("删除本次训练？可以在当天控制台的已删除记录中恢复。")
+              )
                 return;
               setBusy(true);
               setError("");
@@ -281,7 +300,9 @@ export function SessionEditor({
                   "PATCH",
                 );
                 setDirty(false);
-                window.location.assign("/history");
+                window.location.assign(
+                  `/dashboard?date=${session.training_date}`,
+                );
               } catch (e) {
                 setError((e as Error).message);
                 setBusy(false);

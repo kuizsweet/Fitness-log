@@ -109,7 +109,7 @@ if (!raw) {
           "存在超出预期的数据库访问权限，请运行 supabase/inspect.sql 检查",
         );
       console.log(
-        "真实数据库检查通过：10 张业务表启用 RLS，匿名无表权限，meal-photos 为私有 bucket。",
+        `真实数据库检查通过：${businessTables.length} 张业务表启用 RLS，匿名无表权限，meal-photos 为私有 bucket。`,
       );
     }
   } catch (error) {

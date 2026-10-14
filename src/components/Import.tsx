@@ -256,7 +256,7 @@ export function Import() {
                   "PATCH",
                 );
                 setMessage(
-                  `已撤销 ${r.removed} 次训练，保留 ${r.kept} 次已修改训练。可在历史查询恢复已撤销记录。`,
+                  `已撤销 ${r.removed} 次训练，保留 ${r.kept} 次已修改训练。可在对应日期控制台的已删除记录中恢复。`,
                 );
                 batches.reload();
               } catch (e) {

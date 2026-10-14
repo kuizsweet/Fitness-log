@@ -29,8 +29,8 @@ npm.cmd run supabase:migrate   # 事务执行缺失迁移
 ## 本地邮箱注册与登录
 
 1. **Authentication → Sign In / Providers（或 Email provider）**：启用 Email/password、Allow new users to sign up，开启 Confirm email。不要开启匿名登录来替代账号。
-2. **Authentication → URL Configuration**：Site URL 设为 `http://localhost:3000`；Additional Redirect URLs 添加 `http://localhost:3000/**`，本地通配符覆盖确认与重置回调，生产部署时换为准确 HTTPS 回调路径。
-3. **Authentication → Email Templates**：保留默认 ConfirmationURL 可用于同浏览器 PKCE。若需跨浏览器点击确认邮件，Confirm signup 链接使用 `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=signup`；Reset password 使用 `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=recovery`。现有回调同时支持 code/token_hash。
+2. **Authentication → URL Configuration**：这个项目已用于正式网站，Site URL 必须是 `https://kuizfit.cc.cd`，不要再改回 localhost。本地 `.env.local` 的 `NEXT_PUBLIC_SITE_URL=http://localhost:3000` 仅供开发，不等于 Supabase 的 Site URL。准确回调白名单与生产配置见 [正式认证与注册防护](auth-production-and-abuse.md)。
+3. **Authentication → Email Templates**：保留默认 ConfirmationURL 可用于同浏览器 PKCE。若需跨浏览器点击确认邮件，Confirm signup 链接使用 `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=signup`；Reset password 使用 `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=recovery`。token_hash 链接现在先展示确认按钮，再通过同源 POST 验证，防止邮件安全扫描器只访问 GET 就消耗令牌。模板更改须在新版回调已上线后进行；默认 ConfirmationURL 会先访问 Supabase 验证接口，仍可能被邮件预取消耗。部分免费项目需配置自己的 SMTP 才能自定义模板，先核对当前控制台能力。
 4. **Authentication → SMTP Settings**：默认邮件服务可能仅允许组织已授权邮箱且限额较低；面向一般邮箱的真实注册应配置自己的 SMTP。不要用关闭邮箱验证冒充邮件流程成功。
 5. 打开 `/auth` 注册、确认邮件并登录。现有 `@supabase/ssr` 浏览器/服务端客户端共享 cookie，会话通过 proxy 刷新；服务端使用 getUser 验证，不依赖客户端自报登录状态。
 6. 刷新浏览器、新开同浏览器标签页应维持登录；退出后私有页面应进入登录页。多设备使用同一账号的数据库数据。

@@ -1,0 +1,914 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T10:20:38.3980982Z",
+  "title": "Design System: kuizfit Fitness Console",
+  "extensions": {
+    "colorMeta": {
+      "surface": {
+        "role": "neutral",
+        "displayName": "surface",
+        "tonalRamp": [
+          "oklch(15% 0.01273 243.35)",
+          "oklch(26.43% 0.01273 243.35)",
+          "oklch(37.86% 0.01273 243.35)",
+          "oklch(49.29% 0.01273 243.35)",
+          "oklch(60.71% 0.01273 243.35)",
+          "oklch(72.14% 0.01273 243.35)",
+          "oklch(83.57% 0.01273 243.35)",
+          "oklch(95% 0.01273 243.35)"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "field",
+        "tonalRamp": [
+          "oklch(15% 0.01338 243.56)",
+          "oklch(26.43% 0.01338 243.56)",
+          "oklch(37.86% 0.01338 243.56)",
+          "oklch(49.29% 0.01338 243.56)",
+          "oklch(60.71% 0.01338 243.56)",
+          "oklch(72.14% 0.01338 243.56)",
+          "oklch(83.57% 0.01338 243.56)",
+          "oklch(95% 0.01338 243.56)"
+        ]
+      },
+      "training-ink": {
+        "role": "secondary",
+        "displayName": "training-ink",
+        "tonalRamp": [
+          "oklch(15% 0.07667 67.22)",
+          "oklch(26.43% 0.07667 67.22)",
+          "oklch(37.86% 0.07667 67.22)",
+          "oklch(49.29% 0.07667 67.22)",
+          "oklch(60.71% 0.07667 67.22)",
+          "oklch(72.14% 0.07667 67.22)",
+          "oklch(83.57% 0.07667 67.22)",
+          "oklch(95% 0.07667 67.22)"
+        ]
+      },
+      "training-bg": {
+        "role": "secondary",
+        "displayName": "training-bg",
+        "tonalRamp": [
+          "oklch(15% 0.00946 88.77)",
+          "oklch(26.43% 0.00946 88.77)",
+          "oklch(37.86% 0.00946 88.77)",
+          "oklch(49.29% 0.00946 88.77)",
+          "oklch(60.71% 0.00946 88.77)",
+          "oklch(72.14% 0.00946 88.77)",
+          "oklch(83.57% 0.00946 88.77)",
+          "oklch(95% 0.00946 88.77)"
+        ]
+      },
+      "meals-ink": {
+        "role": "secondary",
+        "displayName": "meals-ink",
+        "tonalRamp": [
+          "oklch(15% 0.07461 178.73)",
+          "oklch(26.43% 0.07461 178.73)",
+          "oklch(37.86% 0.07461 178.73)",
+          "oklch(49.29% 0.07461 178.73)",
+          "oklch(60.71% 0.07461 178.73)",
+          "oklch(72.14% 0.07461 178.73)",
+          "oklch(83.57% 0.07461 178.73)",
+          "oklch(95% 0.07461 178.73)"
+        ]
+      },
+      "meals-bg": {
+        "role": "secondary",
+        "displayName": "meals-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01516 196.32)",
+          "oklch(26.43% 0.01516 196.32)",
+          "oklch(37.86% 0.01516 196.32)",
+          "oklch(49.29% 0.01516 196.32)",
+          "oklch(60.71% 0.01516 196.32)",
+          "oklch(72.14% 0.01516 196.32)",
+          "oklch(83.57% 0.01516 196.32)",
+          "oklch(95% 0.01516 196.32)"
+        ]
+      },
+      "lunch-ink": {
+        "role": "tertiary",
+        "displayName": "lunch-ink",
+        "tonalRamp": [
+          "oklch(15% 0.05956 253.15)",
+          "oklch(26.43% 0.05956 253.15)",
+          "oklch(37.86% 0.05956 253.15)",
+          "oklch(49.29% 0.05956 253.15)",
+          "oklch(60.71% 0.05956 253.15)",
+          "oklch(72.14% 0.05956 253.15)",
+          "oklch(83.57% 0.05956 253.15)",
+          "oklch(95% 0.05956 253.15)"
+        ]
+      },
+      "lunch-bg": {
+        "role": "tertiary",
+        "displayName": "lunch-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01930 254.82)",
+          "oklch(26.43% 0.01930 254.82)",
+          "oklch(37.86% 0.01930 254.82)",
+          "oklch(49.29% 0.01930 254.82)",
+          "oklch(60.71% 0.01930 254.82)",
+          "oklch(72.14% 0.01930 254.82)",
+          "oklch(83.57% 0.01930 254.82)",
+          "oklch(95% 0.01930 254.82)"
+        ]
+      },
+      "dinner-ink": {
+        "role": "tertiary",
+        "displayName": "dinner-ink",
+        "tonalRamp": [
+          "oklch(15% 0.05826 62.66)",
+          "oklch(26.43% 0.05826 62.66)",
+          "oklch(37.86% 0.05826 62.66)",
+          "oklch(49.29% 0.05826 62.66)",
+          "oklch(60.71% 0.05826 62.66)",
+          "oklch(72.14% 0.05826 62.66)",
+          "oklch(83.57% 0.05826 62.66)",
+          "oklch(95% 0.05826 62.66)"
+        ]
+      },
+      "dinner-bg": {
+        "role": "tertiary",
+        "displayName": "dinner-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01265 51.67)",
+          "oklch(26.43% 0.01265 51.67)",
+          "oklch(37.86% 0.01265 51.67)",
+          "oklch(49.29% 0.01265 51.67)",
+          "oklch(60.71% 0.01265 51.67)",
+          "oklch(72.14% 0.01265 51.67)",
+          "oklch(83.57% 0.01265 51.67)",
+          "oklch(95% 0.01265 51.67)"
+        ]
+      },
+      "checkin-ink": {
+        "role": "tertiary",
+        "displayName": "checkin-ink",
+        "tonalRamp": [
+          "oklch(15% 0.10400 299.17)",
+          "oklch(26.43% 0.10400 299.17)",
+          "oklch(37.86% 0.10400 299.17)",
+          "oklch(49.29% 0.10400 299.17)",
+          "oklch(60.71% 0.10400 299.17)",
+          "oklch(72.14% 0.10400 299.17)",
+          "oklch(83.57% 0.10400 299.17)",
+          "oklch(95% 0.10400 299.17)"
+        ]
+      },
+      "checkin-bg": {
+        "role": "tertiary",
+        "displayName": "checkin-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01838 289.71)",
+          "oklch(26.43% 0.01838 289.71)",
+          "oklch(37.86% 0.01838 289.71)",
+          "oklch(49.29% 0.01838 289.71)",
+          "oklch(60.71% 0.01838 289.71)",
+          "oklch(72.14% 0.01838 289.71)",
+          "oklch(83.57% 0.01838 289.71)",
+          "oklch(95% 0.01838 289.71)"
+        ]
+      },
+      "hero-start": {
+        "role": "secondary",
+        "displayName": "hero-start",
+        "tonalRamp": [
+          "oklch(15% 0.09082 56.29)",
+          "oklch(26.43% 0.09082 56.29)",
+          "oklch(37.86% 0.09082 56.29)",
+          "oklch(49.29% 0.09082 56.29)",
+          "oklch(60.71% 0.09082 56.29)",
+          "oklch(72.14% 0.09082 56.29)",
+          "oklch(83.57% 0.09082 56.29)",
+          "oklch(95% 0.09082 56.29)"
+        ]
+      },
+      "hero-end": {
+        "role": "secondary",
+        "displayName": "hero-end",
+        "tonalRamp": [
+          "oklch(15% 0.07809 90.47)",
+          "oklch(26.43% 0.07809 90.47)",
+          "oklch(37.86% 0.07809 90.47)",
+          "oklch(49.29% 0.07809 90.47)",
+          "oklch(60.71% 0.07809 90.47)",
+          "oklch(72.14% 0.07809 90.47)",
+          "oklch(83.57% 0.07809 90.47)",
+          "oklch(95% 0.07809 90.47)"
+        ]
+      },
+      "hero-ink": {
+        "role": "secondary",
+        "displayName": "hero-ink",
+        "tonalRamp": [
+          "oklch(15% 0.01467 118.80)",
+          "oklch(26.43% 0.01467 118.80)",
+          "oklch(37.86% 0.01467 118.80)",
+          "oklch(49.29% 0.01467 118.80)",
+          "oklch(60.71% 0.01467 118.80)",
+          "oklch(72.14% 0.01467 118.80)",
+          "oklch(83.57% 0.01467 118.80)",
+          "oklch(95% 0.01467 118.80)"
+        ]
+      },
+      "hero-muted": {
+        "role": "secondary",
+        "displayName": "hero-muted",
+        "tonalRamp": [
+          "oklch(15% 0.01467 96.67)",
+          "oklch(26.43% 0.01467 96.67)",
+          "oklch(37.86% 0.01467 96.67)",
+          "oklch(49.29% 0.01467 96.67)",
+          "oklch(60.71% 0.01467 96.67)",
+          "oklch(72.14% 0.01467 96.67)",
+          "oklch(83.57% 0.01467 96.67)",
+          "oklch(95% 0.01467 96.67)"
+        ]
+      },
+      "button-bg": {
+        "role": "neutral",
+        "displayName": "button-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01515 240.39)",
+          "oklch(26.43% 0.01515 240.39)",
+          "oklch(37.86% 0.01515 240.39)",
+          "oklch(49.29% 0.01515 240.39)",
+          "oklch(60.71% 0.01515 240.39)",
+          "oklch(72.14% 0.01515 240.39)",
+          "oklch(83.57% 0.01515 240.39)",
+          "oklch(95% 0.01515 240.39)"
+        ]
+      },
+      "button-hover-bg": {
+        "role": "neutral",
+        "displayName": "button-hover-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01750 231.69)",
+          "oklch(26.43% 0.01750 231.69)",
+          "oklch(37.86% 0.01750 231.69)",
+          "oklch(49.29% 0.01750 231.69)",
+          "oklch(60.71% 0.01750 231.69)",
+          "oklch(72.14% 0.01750 231.69)",
+          "oklch(83.57% 0.01750 231.69)",
+          "oklch(95% 0.01750 231.69)"
+        ]
+      },
+      "primary-ink": {
+        "role": "neutral",
+        "displayName": "primary-ink",
+        "tonalRamp": [
+          "oklch(15% 0.02061 156.52)",
+          "oklch(26.43% 0.02061 156.52)",
+          "oklch(37.86% 0.02061 156.52)",
+          "oklch(49.29% 0.02061 156.52)",
+          "oklch(60.71% 0.02061 156.52)",
+          "oklch(72.14% 0.02061 156.52)",
+          "oklch(83.57% 0.02061 156.52)",
+          "oklch(95% 0.02061 156.52)"
+        ]
+      },
+      "module-button-ink": {
+        "role": "neutral",
+        "displayName": "module-button-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00973 234.31)",
+          "oklch(26.43% 0.00973 234.31)",
+          "oklch(37.86% 0.00973 234.31)",
+          "oklch(49.29% 0.00973 234.31)",
+          "oklch(60.71% 0.00973 234.31)",
+          "oklch(72.14% 0.00973 234.31)",
+          "oklch(83.57% 0.00973 234.31)",
+          "oklch(95% 0.00973 234.31)"
+        ]
+      },
+      "glass-bg": {
+        "role": "neutral",
+        "displayName": "glass-bg",
+        "tonalRamp": [
+          "oklch(15% 0.01471 244.15)",
+          "oklch(26.43% 0.01471 244.15)",
+          "oklch(37.86% 0.01471 244.15)",
+          "oklch(49.29% 0.01471 244.15)",
+          "oklch(60.71% 0.01471 244.15)",
+          "oklch(72.14% 0.01471 244.15)",
+          "oklch(83.57% 0.01471 244.15)",
+          "oklch(95% 0.01471 244.15)"
+        ]
+      },
+      "glass-line": {
+        "role": "neutral",
+        "displayName": "glass-line",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      },
+      "glass-fallback": {
+        "role": "neutral",
+        "displayName": "glass-fallback",
+        "tonalRamp": [
+          "oklch(15% 0.01471 244.15)",
+          "oklch(26.43% 0.01471 244.15)",
+          "oklch(37.86% 0.01471 244.15)",
+          "oklch(49.29% 0.01471 244.15)",
+          "oklch(60.71% 0.01471 244.15)",
+          "oklch(72.14% 0.01471 244.15)",
+          "oklch(83.57% 0.01471 244.15)",
+          "oklch(95% 0.01471 244.15)"
+        ]
+      },
+      "navigation-selected-bg": {
+        "role": "neutral",
+        "displayName": "navigation-selected-bg",
+        "tonalRamp": [
+          "oklch(15% 0.00551 211.04)",
+          "oklch(26.43% 0.00551 211.04)",
+          "oklch(37.86% 0.00551 211.04)",
+          "oklch(49.29% 0.00551 211.04)",
+          "oklch(60.71% 0.00551 211.04)",
+          "oklch(72.14% 0.00551 211.04)",
+          "oklch(83.57% 0.00551 211.04)",
+          "oklch(95% 0.00551 211.04)"
+        ]
+      },
+      "navigation-selected-ink": {
+        "role": "neutral",
+        "displayName": "navigation-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.01872 241.94)",
+          "oklch(26.43% 0.01872 241.94)",
+          "oklch(37.86% 0.01872 241.94)",
+          "oklch(49.29% 0.01872 241.94)",
+          "oklch(60.71% 0.01872 241.94)",
+          "oklch(72.14% 0.01872 241.94)",
+          "oklch(83.57% 0.01872 241.94)",
+          "oklch(95% 0.01872 241.94)"
+        ]
+      },
+      "card-line": {
+        "role": "neutral",
+        "displayName": "card-line",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      },
+      "error-ink": {
+        "role": "neutral",
+        "displayName": "error-ink",
+        "tonalRamp": [
+          "oklch(15% 0.08957 28.41)",
+          "oklch(26.43% 0.08957 28.41)",
+          "oklch(37.86% 0.08957 28.41)",
+          "oklch(49.29% 0.08957 28.41)",
+          "oklch(60.71% 0.08957 28.41)",
+          "oklch(72.14% 0.08957 28.41)",
+          "oklch(83.57% 0.08957 28.41)",
+          "oklch(95% 0.08957 28.41)"
+        ]
+      },
+      "error-bg": {
+        "role": "neutral",
+        "displayName": "error-bg",
+        "tonalRamp": [
+          "oklch(15% 0.03837 19.64)",
+          "oklch(26.43% 0.03837 19.64)",
+          "oklch(37.86% 0.03837 19.64)",
+          "oklch(49.29% 0.03837 19.64)",
+          "oklch(60.71% 0.03837 19.64)",
+          "oklch(72.14% 0.03837 19.64)",
+          "oklch(83.57% 0.03837 19.64)",
+          "oklch(95% 0.03837 19.64)"
+        ]
+      },
+      "notice-ink": {
+        "role": "neutral",
+        "displayName": "notice-ink",
+        "tonalRamp": [
+          "oklch(15% 0.06767 157.99)",
+          "oklch(26.43% 0.06767 157.99)",
+          "oklch(37.86% 0.06767 157.99)",
+          "oklch(49.29% 0.06767 157.99)",
+          "oklch(60.71% 0.06767 157.99)",
+          "oklch(72.14% 0.06767 157.99)",
+          "oklch(83.57% 0.06767 157.99)",
+          "oklch(95% 0.06767 157.99)"
+        ]
+      },
+      "notice-bg": {
+        "role": "neutral",
+        "displayName": "notice-bg",
+        "tonalRamp": [
+          "oklch(15% 0.02864 166.46)",
+          "oklch(26.43% 0.02864 166.46)",
+          "oklch(37.86% 0.02864 166.46)",
+          "oklch(49.29% 0.02864 166.46)",
+          "oklch(60.71% 0.02864 166.46)",
+          "oklch(72.14% 0.02864 166.46)",
+          "oklch(83.57% 0.02864 166.46)",
+          "oklch(95% 0.02864 166.46)"
+        ]
+      },
+      "calendar-idle": {
+        "role": "neutral",
+        "displayName": "calendar-idle",
+        "tonalRamp": [
+          "oklch(15.00% 0.01942 248.16)",
+          "oklch(26.43% 0.01942 248.16)",
+          "oklch(37.86% 0.01942 248.16)",
+          "oklch(49.29% 0.01942 248.16)",
+          "oklch(60.71% 0.01942 248.16)",
+          "oklch(72.14% 0.01942 248.16)",
+          "oklch(83.57% 0.01942 248.16)",
+          "oklch(95.00% 0.01942 248.16)"
+        ]
+      },
+      "calendar-strength": {
+        "role": "tertiary",
+        "displayName": "calendar-strength",
+        "tonalRamp": [
+          "oklch(15.00% 0.14584 249.86)",
+          "oklch(26.43% 0.14584 249.86)",
+          "oklch(37.86% 0.14584 249.86)",
+          "oklch(49.29% 0.14584 249.86)",
+          "oklch(60.71% 0.14584 249.86)",
+          "oklch(72.14% 0.14584 249.86)",
+          "oklch(83.57% 0.14584 249.86)",
+          "oklch(95.00% 0.14584 249.86)"
+        ]
+      },
+      "calendar-cardio": {
+        "role": "tertiary",
+        "displayName": "calendar-cardio",
+        "tonalRamp": [
+          "oklch(15.00% 0.13609 152.85)",
+          "oklch(26.43% 0.13609 152.85)",
+          "oklch(37.86% 0.13609 152.85)",
+          "oklch(49.29% 0.13609 152.85)",
+          "oklch(60.71% 0.13609 152.85)",
+          "oklch(72.14% 0.13609 152.85)",
+          "oklch(83.57% 0.13609 152.85)",
+          "oklch(95.00% 0.13609 152.85)"
+        ]
+      },
+      "calendar-selected-bg": {
+        "role": "neutral",
+        "displayName": "calendar-selected-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.06022 247.76)",
+          "oklch(26.43% 0.06022 247.76)",
+          "oklch(37.86% 0.06022 247.76)",
+          "oklch(49.29% 0.06022 247.76)",
+          "oklch(60.71% 0.06022 247.76)",
+          "oklch(72.14% 0.06022 247.76)",
+          "oklch(83.57% 0.06022 247.76)",
+          "oklch(95.00% 0.06022 247.76)"
+        ]
+      },
+      "calendar-selected-ink": {
+        "role": "neutral",
+        "displayName": "calendar-selected-ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.04255 248.68)",
+          "oklch(26.43% 0.04255 248.68)",
+          "oklch(37.86% 0.04255 248.68)",
+          "oklch(49.29% 0.04255 248.68)",
+          "oklch(60.71% 0.04255 248.68)",
+          "oklch(72.14% 0.04255 248.68)",
+          "oklch(83.57% 0.04255 248.68)",
+          "oklch(95.00% 0.04255 248.68)"
+        ]
+      },
+      "calendar-selected-strength": {
+        "role": "tertiary",
+        "displayName": "calendar-selected-strength",
+        "tonalRamp": [
+          "oklch(15.00% 0.15467 251.76)",
+          "oklch(26.43% 0.15467 251.76)",
+          "oklch(37.86% 0.15467 251.76)",
+          "oklch(49.29% 0.15467 251.76)",
+          "oklch(60.71% 0.15467 251.76)",
+          "oklch(72.14% 0.15467 251.76)",
+          "oklch(83.57% 0.15467 251.76)",
+          "oklch(95.00% 0.15467 251.76)"
+        ]
+      },
+      "calendar-selected-cardio": {
+        "role": "tertiary",
+        "displayName": "calendar-selected-cardio",
+        "tonalRamp": [
+          "oklch(15.00% 0.14290 150.45)",
+          "oklch(26.43% 0.14290 150.45)",
+          "oklch(37.86% 0.14290 150.45)",
+          "oklch(49.29% 0.14290 150.45)",
+          "oklch(60.71% 0.14290 150.45)",
+          "oklch(72.14% 0.14290 150.45)",
+          "oklch(83.57% 0.14290 150.45)",
+          "oklch(95.00% 0.14290 150.45)"
+        ]
+      },
+      "calendar-today-line": {
+        "role": "neutral",
+        "displayName": "calendar-today-line",
+        "tonalRamp": [
+          "oklch(15.00% 0.05869 243.04)",
+          "oklch(26.43% 0.05869 243.04)",
+          "oklch(37.86% 0.05869 243.04)",
+          "oklch(49.29% 0.05869 243.04)",
+          "oklch(60.71% 0.05869 243.04)",
+          "oklch(72.14% 0.05869 243.04)",
+          "oklch(83.57% 0.05869 243.04)",
+          "oklch(95.00% 0.05869 243.04)"
+        ]
+      },
+      "calendar-hover-bg": {
+        "role": "neutral",
+        "displayName": "calendar-hover-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.02154 243.05)",
+          "oklch(26.43% 0.02154 243.05)",
+          "oklch(37.86% 0.02154 243.05)",
+          "oklch(49.29% 0.02154 243.05)",
+          "oklch(60.71% 0.02154 243.05)",
+          "oklch(72.14% 0.02154 243.05)",
+          "oklch(83.57% 0.02154 243.05)",
+          "oklch(95.00% 0.02154 243.05)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.01872 241.94)",
+          "oklch(26.43% 0.01872 241.94)",
+          "oklch(37.86% 0.01872 241.94)",
+          "oklch(49.29% 0.01872 241.94)",
+          "oklch(60.71% 0.01872 241.94)",
+          "oklch(72.14% 0.01872 241.94)",
+          "oklch(83.57% 0.01872 241.94)",
+          "oklch(95.00% 0.01872 241.94)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.02364 239.10)",
+          "oklch(26.43% 0.02364 239.10)",
+          "oklch(37.86% 0.02364 239.10)",
+          "oklch(49.29% 0.02364 239.10)",
+          "oklch(60.71% 0.02364 239.10)",
+          "oklch(72.14% 0.02364 239.10)",
+          "oklch(83.57% 0.02364 239.10)",
+          "oklch(95.00% 0.02364 239.10)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "line",
+        "tonalRamp": [
+          "oklch(15.00% 0.00935 232.38)",
+          "oklch(26.43% 0.00935 232.38)",
+          "oklch(37.86% 0.00935 232.38)",
+          "oklch(49.29% 0.00935 232.38)",
+          "oklch(60.71% 0.00935 232.38)",
+          "oklch(72.14% 0.00935 232.38)",
+          "oklch(83.57% 0.00935 232.38)",
+          "oklch(95.00% 0.00935 232.38)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.09275 163.20)",
+          "oklch(26.43% 0.09275 163.20)",
+          "oklch(37.86% 0.09275 163.20)",
+          "oklch(49.29% 0.09275 163.20)",
+          "oklch(60.71% 0.09275 163.20)",
+          "oklch(72.14% 0.09275 163.20)",
+          "oklch(83.57% 0.09275 163.20)",
+          "oklch(95.00% 0.09275 163.20)"
+        ]
+      },
+      "page-bg": {
+        "role": "neutral",
+        "displayName": "page-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 89.88)",
+          "oklch(26.43% 0.00000 89.88)",
+          "oklch(37.86% 0.00000 89.88)",
+          "oklch(49.29% 0.00000 89.88)",
+          "oklch(60.71% 0.00000 89.88)",
+          "oklch(72.14% 0.00000 89.88)",
+          "oklch(83.57% 0.00000 89.88)",
+          "oklch(95.00% 0.00000 89.88)"
+        ]
+      },
+      "focus": {
+        "role": "neutral",
+        "displayName": "focus",
+        "tonalRamp": [
+          "oklch(15.00% 0.09275 163.20)",
+          "oklch(26.43% 0.09275 163.20)",
+          "oklch(37.86% 0.09275 163.20)",
+          "oklch(49.29% 0.09275 163.20)",
+          "oklch(60.71% 0.09275 163.20)",
+          "oklch(72.14% 0.09275 163.20)",
+          "oklch(83.57% 0.09275 163.20)",
+          "oklch(95.00% 0.09275 163.20)"
+        ]
+      },
+      "dark-ink": {
+        "role": "neutral",
+        "displayName": "dark-ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.00343 247.86)",
+          "oklch(26.43% 0.00343 247.86)",
+          "oklch(37.86% 0.00343 247.86)",
+          "oklch(49.29% 0.00343 247.86)",
+          "oklch(60.71% 0.00343 247.86)",
+          "oklch(72.14% 0.00343 247.86)",
+          "oklch(83.57% 0.00343 247.86)",
+          "oklch(95.00% 0.00343 247.86)"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "dark-muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.01630 248.04)",
+          "oklch(26.43% 0.01630 248.04)",
+          "oklch(37.86% 0.01630 248.04)",
+          "oklch(49.29% 0.01630 248.04)",
+          "oklch(60.71% 0.01630 248.04)",
+          "oklch(72.14% 0.01630 248.04)",
+          "oklch(83.57% 0.01630 248.04)",
+          "oklch(95.00% 0.01630 248.04)"
+        ]
+      },
+      "dark-line": {
+        "role": "neutral",
+        "displayName": "dark-line",
+        "tonalRamp": [
+          "oklch(15.00% 0.01695 241.41)",
+          "oklch(26.43% 0.01695 241.41)",
+          "oklch(37.86% 0.01695 241.41)",
+          "oklch(49.29% 0.01695 241.41)",
+          "oklch(60.71% 0.01695 241.41)",
+          "oklch(72.14% 0.01695 241.41)",
+          "oklch(83.57% 0.01695 241.41)",
+          "oklch(95.00% 0.01695 241.41)"
+        ]
+      },
+      "dark-accent": {
+        "role": "primary",
+        "displayName": "dark-accent",
+        "tonalRamp": [
+          "oklch(15.00% 0.09823 135.77)",
+          "oklch(26.43% 0.09823 135.77)",
+          "oklch(37.86% 0.09823 135.77)",
+          "oklch(49.29% 0.09823 135.77)",
+          "oklch(60.71% 0.09823 135.77)",
+          "oklch(72.14% 0.09823 135.77)",
+          "oklch(83.57% 0.09823 135.77)",
+          "oklch(95.00% 0.09823 135.77)"
+        ]
+      },
+      "dark-focus": {
+        "role": "neutral",
+        "displayName": "dark-focus",
+        "tonalRamp": [
+          "oklch(15.00% 0.06008 206.72)",
+          "oklch(26.43% 0.06008 206.72)",
+          "oklch(37.86% 0.06008 206.72)",
+          "oklch(49.29% 0.06008 206.72)",
+          "oklch(60.71% 0.06008 206.72)",
+          "oklch(72.14% 0.06008 206.72)",
+          "oklch(83.57% 0.06008 206.72)",
+          "oklch(95.00% 0.06008 206.72)"
+        ]
+      },
+      "training-heading": {
+        "role": "tertiary",
+        "displayName": "training-heading",
+        "tonalRamp": [
+          "oklch(15.00% 0.11928 42.24)",
+          "oklch(26.43% 0.11928 42.24)",
+          "oklch(37.86% 0.11928 42.24)",
+          "oklch(49.29% 0.11928 42.24)",
+          "oklch(60.71% 0.11928 42.24)",
+          "oklch(72.14% 0.11928 42.24)",
+          "oklch(83.57% 0.11928 42.24)",
+          "oklch(95.00% 0.11928 42.24)"
+        ]
+      },
+      "catalog-heading": {
+        "role": "tertiary",
+        "displayName": "catalog-heading",
+        "tonalRamp": [
+          "oklch(15.00% 0.14510 304.83)",
+          "oklch(26.43% 0.14510 304.83)",
+          "oklch(37.86% 0.14510 304.83)",
+          "oklch(49.29% 0.14510 304.83)",
+          "oklch(60.71% 0.14510 304.83)",
+          "oklch(72.14% 0.14510 304.83)",
+          "oklch(83.57% 0.14510 304.83)",
+          "oklch(95.00% 0.14510 304.83)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "页面标题",
+        "purpose": "其他页面主标题。"
+      },
+      "title": {
+        "displayName": "卡片标题",
+        "purpose": "训练、签到与三餐标题；手机减为1.1rem。"
+      },
+      "body": {
+        "displayName": "系统正文",
+        "purpose": "中英文记录、状态与操作。"
+      },
+      "label": {
+        "displayName": "标签",
+        "purpose": "表单与辅助标签。"
+      },
+      "streak": {
+        "displayName": "连续天数",
+        "purpose": "控制台签到数字；手机减为2.5rem。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "glass-layer",
+        "value": "0 4px 18px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+        "purpose": "导航与账号层。"
+      },
+      {
+        "name": "selected-navigation",
+        "value": "0 1px 5px rgba(24, 52, 43, 0.12)",
+        "purpose": "选中导航项。"
+      }
+    ],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "console-two-columns",
+        "value": "800px"
+      },
+      {
+        "name": "navigation-and-leaderboard",
+        "value": "760px"
+      },
+      {
+        "name": "compact-and-expanded-active-meal",
+        "value": "520px"
+      },
+      {
+        "name": "compact-navigation",
+        "value": "360px"
+      }
+    ],
+    "materials": [
+      {
+        "name": "glass-filter",
+        "value": "blur(20px) saturate(150%)",
+        "purpose": "仅导航与账号层；减少透明度时移除滤镜。"
+      },
+      {
+        "name": "training-hero",
+        "value": "linear-gradient(110deg, #f6b98e, #efdaa0)",
+        "purpose": "控制台当天训练卡；不是全站通用卡片底。"
+      },
+      {
+        "name": "opaque-header",
+        "value": "background: #ffffff; border-bottom: 1px solid #d9e0e4",
+        "purpose": "完整粘性头部；导航和账号区域在其中保持独立深色玻璃材质。"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default primary action outside colored sections.",
+      "html": "<button class=\"ds-primary\">保存</button>",
+      "css": ".ds-primary{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;border:1px solid var(--line,#384148);border-radius:16px;padding:9px 14px;min-height:44px;cursor:pointer;background:var(--accent,#bae6a5);color:#16211a;border-color:var(--accent,#bae6a5)}@media(hover:hover){.ds-primary:hover:not(:disabled){background:#3d484e;color:var(--ink,#f3f5f7)}}.ds-primary:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px;}.ds-primary:disabled{opacity:.5;cursor:wait;}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Label above a full-width field; native focus treatment.",
+      "html": "<label class=\"ds-field-label\">榜单昵称<input class=\"ds-field\" maxlength=\"40\"></label>",
+      "css": ".ds-field-label{display:block;color:var(--muted,#52606a);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:.9rem;line-height:1.6}.ds-field{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;box-sizing:border-box;display:block;width:100%;min-height:44px;font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line,#384148);border-radius:12px;background:var(--field,#141a1f);color:var(--ink,#f3f5f7);caret-color:var(--accent,#bae6a5)}.ds-field:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px;}"
+    },
+    {
+      "name": "Segmented Navigation",
+      "kind": "nav",
+      "description": "当前控制台的居中深色玻璃导航；预览仅显示静态状态，实际 pending 由原生导航决定。",
+      "html": "<nav class=\"ds-nav\" aria-label=\"主要导航\"><a href=\"/dashboard\" aria-current=\"page\">控制台<span class=\"ds-nav-pending\" aria-hidden=\"true\"></span></a><a href=\"/train\">训练<span class=\"ds-nav-pending\" aria-hidden=\"true\"></span></a><a href=\"/catalog\">动作与器材<span class=\"ds-nav-pending\" aria-hidden=\"true\"></span></a><a href=\"/leaderboard\">排行榜<span class=\"ds-nav-pending\" aria-hidden=\"true\"></span></a></nav>",
+      "css": ".ds-nav{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#a2dce4;display:flex;flex-wrap:nowrap;align-items:center;gap:2px;margin:0;padding:5px;border-radius:24px;background:rgba(38,45,51,.95);border:1px solid rgba(255,255,255,.12);box-shadow:0 4px 18px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6}.ds-nav>a{position:relative;display:flex;align-items:center;justify-content:center;min-height:44px;padding:8px 20px;border-radius:18px;color:var(--muted,#aeb7c0);white-space:nowrap;text-decoration:none}.ds-nav>a:hover{background:rgba(255,255,255,.08)}.ds-nav>a[aria-current=page]{color:#172027;background:#eef3f4;box-shadow:0 1px 5px rgba(24,52,43,.12);font-weight:650}.ds-nav>a:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px}@supports not(backdrop-filter:blur(1px)){.ds-nav{background:#262d33}}@media(prefers-reduced-transparency:reduce){.ds-nav{background:#262d33;backdrop-filter:none;-webkit-backdrop-filter:none}}@media(max-width:520px){.ds-nav{gap:0;padding:4px;border-radius:20px}.ds-nav>a{padding:8px;font-size:.85rem;border-radius:15px}}@media(max-width:360px){.ds-nav>a{padding:8px 6px;font-size:.8rem}}.ds-nav-pending{position:absolute;bottom:4px;left:14px;right:14px;height:3px;border-radius:2px;background:var(--accent,#bae6a5);opacity:0}.ds-nav-pending.is-pending{opacity:1}",
+      "refersTo": "navigation"
+    },
+    {
+      "name": "Check-in Card",
+      "kind": "card",
+      "refersTo": "card-checkin",
+      "description": "控制台签到卡片，数字仅用于结构预览，不代表实时数据。",
+      "html": "<section class=\"ds-checkin-card\"><h2>每日签到</h2><p class=\"ds-count\">连续 <strong>0</strong> 天</p><button class=\"ds-card-action\">今日签到</button><a href=\"/leaderboard\">查看排行榜与上榜设置</a></section>",
+      "css": ".ds-checkin-card{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#a2dce4;box-sizing:border-box;display:flex;flex-direction:column;min-width:0;min-height:300px;padding:24px;background:var(--checkin-bg,#272630);border:1px solid rgba(255,255,255,.06);border-radius:26px;color:var(--ink,#f3f5f7);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6}.ds-checkin-card h2{margin:0 0 16px;font-size:1.3rem;font-weight:650;color:var(--checkin-ink,#cbb3fc)}.ds-count{margin:10px 0;color:var(--muted,#aeb7c0);font-size:1.05rem}.ds-count strong{font-size:3.5rem;line-height:1.15;color:var(--checkin-ink,#cbb3fc);font-variant-numeric:tabular-nums}.ds-card-action{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;border:1px solid var(--line,#384148);border-radius:16px;padding:9px 14px;min-height:44px;cursor:pointer;align-self:start;background:var(--checkin-ink,#cbb3fc);border-color:var(--checkin-ink,#cbb3fc);color:#12171a}.ds-checkin-card a{margin-top:auto;padding:8px 0;min-height:44px;font-size:.9rem;font-weight:600;color:var(--checkin-ink,#cbb3fc)}.ds-card-action:focus-visible,.ds-checkin-card a:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px;}@media(max-width:760px){.ds-checkin-card{padding:20px}}@media(max-width:520px){.ds-checkin-card{padding:16px;border-radius:24px;min-height:0}.ds-checkin-card h2{font-size:1.1rem}.ds-count strong{font-size:2.5rem}.ds-checkin-card a{font-size:.8rem}}"
+    },
+    {
+      "name": "Account Menu",
+      "kind": "custom",
+      "refersTo": "account-trigger",
+      "description": "Separate upper-right account disclosure. Preview uses native details only; application dismissal and sign-out handlers are not simulated.",
+      "html": "<details class=\"ds-account\"><summary aria-label=\"个人账号\" title=\"个人账号\"><svg viewBox=\"0 0 24 24\" width=\"22\" height=\"22\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"8\" r=\"3.5\"/><path d=\"M5 21v-2a7 7 0 0 1 14 0v2\"/></svg></summary><div class=\"ds-account-panel\"><p>个人账号</p><a href=\"/settings\">账号设置与导出</a><a href=\"/import\">Excel 导入</a><button>退出</button></div></details>",
+      "css": ".ds-account{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;position:relative;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;color:var(--ink,#f3f5f7)}.ds-account>summary,.ds-account-panel{background:rgba(38,45,51,.95);border:1px solid rgba(255,255,255,.12);box-shadow:0 4px 18px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08);-webkit-backdrop-filter:blur(20px) saturate(150%);backdrop-filter:blur(20px) saturate(150%)}.ds-account>summary{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:18px;cursor:pointer;list-style:none;color:var(--ink,#f3f5f7)}.ds-account>summary::-webkit-details-marker{display:none}.ds-account[open]>summary{background:#353e45}.ds-account-panel{--focus:#a2dce4;position:absolute;right:0;top:calc(100% + 10px);width:min(240px,calc(100vw - 24px));padding:10px;border-radius:22px;display:grid;gap:4px}.ds-account-panel p{margin:2px 10px 6px;color:var(--muted,#aeb7c0);font-size:.8rem}.ds-account-panel a,.ds-account-panel button{font:inherit;min-height:44px;padding:10px;border:0;border-radius:12px;text-align:left;color:var(--ink,#f3f5f7);text-decoration:none;background:transparent;cursor:pointer}.ds-account-panel a:hover,.ds-account-panel button:hover{background:rgba(255,255,255,.08)}.ds-account>summary:focus-visible,.ds-account-panel a:focus-visible,.ds-account-panel button:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px}@supports not(backdrop-filter:blur(1px)){.ds-account>summary,.ds-account-panel{background:#262d33}}@media(prefers-reduced-transparency:reduce){.ds-account>summary,.ds-account-panel{background:#262d33;backdrop-filter:none;-webkit-backdrop-filter:none}}@media(max-width:520px){.ds-account>summary{width:44px;height:44px;border-radius:16px}}"
+    },
+    {
+      "name": "Daily Training Card",
+      "kind": "card",
+      "refersTo": "card-training",
+      "description": "控制台当天训练卡，真实空状态与现有操作；桌面占一列。",
+      "html": "<section class=\"ds-training-hero\"><h2>当天训练</h2><p>这一天还没有训练记录，可以只记录饮食。</p><div class=\"ds-hero-actions\"><a class=\"ds-hero-primary\" href=\"/session/new\">新增训练记录</a><a class=\"ds-hero-secondary\" href=\"/train\">开始训练</a></div></section>",
+      "css": ".ds-training-hero{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#176b4c;box-sizing:border-box;display:flex;flex-direction:column;min-height:300px;padding:24px;border:1px solid rgba(255,255,255,.06);border-radius:26px;background:linear-gradient(110deg,#f6b98e,#efdaa0);color:#25271f;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6}.ds-training-hero h2{margin:0 0 16px;font-size:1.3rem;font-weight:650}.ds-training-hero p{margin:10px 0;padding:12px 0 24px;color:#525047}.ds-hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:20px}.ds-hero-actions a{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;border:1px solid var(--line,#384148);border-radius:16px;padding:9px 14px;min-height:44px;cursor:pointer;display:inline-block;text-decoration:none;border-color:transparent}.ds-hero-primary{background:#25271f;color:white}.ds-hero-secondary{background:rgba(255,255,255,.65);color:#25271f}.ds-hero-actions a:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px;}@media(max-width:760px){.ds-training-hero{padding:20px}}@media(max-width:520px){.ds-training-hero{padding:16px;border-radius:24px;min-height:250px}.ds-training-hero h2{font-size:1.1rem}}"
+    },
+    {
+      "name": "Meal Photo Picker",
+      "kind": "input",
+      "refersTo": "photo-picker",
+      "description": "可点击图标空区域连接原生文件选择器；预览不模拟上传或保存。",
+      "html": "<label class=\"ds-photo-picker\"><svg viewBox=\"0 0 24 24\" width=\"26\" height=\"26\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><circle cx=\"8\" cy=\"8\" r=\"1.5\"/><path d=\"m3 17 5-5 4 4 4-5 5 5\"/></svg><span>添加早餐照片</span><input class=\"ds-hidden-file\" aria-label=\"添加早餐照片\" type=\"file\" accept=\"image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif\" multiple></label>",
+      "css": ".ds-photo-picker{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#a2dce4;box-sizing:border-box;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;min-height:120px;padding:16px;border:1px dashed color-mix(in srgb,var(--meals-ink,#98dfcf) 30%,transparent);border-radius:18px;color:var(--meals-ink,#98dfcf);background:rgba(0,0,0,.1);cursor:pointer;text-align:center;font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:.9rem;line-height:1.6}.ds-photo-picker:focus-within{outline:3px solid var(--accent,#bae6a5);outline-offset:3px}.ds-photo-picker:has(input:disabled){opacity:.5;cursor:wait}.ds-hidden-file{position:absolute;width:1px;height:1px;min-height:0;padding:0;border:0;clip-path:inset(50%);overflow:hidden}@media(max-width:520px){.ds-photo-picker{min-height:108px;padding:12px 8px;font-size:.8rem}}"
+    },
+    {
+      "name": "Training Calendar",
+      "kind": "custom",
+      "refersTo": "training-calendar",
+      "description": "当前训练日历的2026年10月静态结构示例；不模拟分类记录、月份切换或数据加载。",
+      "html": "<section class=\"ds-calendar\" aria-label=\"训练日历\"><div class=\"ds-calendar-heading\"><h2>训练日历</h2><div class=\"ds-calendar-period\"><select aria-label=\"年份\"><option>2026 年</option></select><select aria-label=\"月份\"><option>10 月</option></select></div><div class=\"ds-calendar-actions\"><button aria-label=\"上一月\">‹</button><button aria-label=\"下一月\">›</button><button>今天</button></div></div><div class=\"ds-calendar-grid\"><span class=\"ds-calendar-weekday\">一</span><span class=\"ds-calendar-weekday\">二</span><span class=\"ds-calendar-weekday\">三</span><span class=\"ds-calendar-weekday\">四</span><span class=\"ds-calendar-weekday\">五</span><span class=\"ds-calendar-weekday\">六</span><span class=\"ds-calendar-weekday\">日</span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><button class=\"ds-calendar-day\" aria-label=\"2026-10-01，无分类标记\" aria-pressed=\"false\"><span>1</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-02，无分类标记\" aria-pressed=\"false\"><span>2</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-03，无分类标记\" aria-pressed=\"false\"><span>3</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-04，无分类标记\" aria-pressed=\"false\"><span>4</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-05，无分类标记\" aria-pressed=\"false\"><span>5</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-06，无分类标记\" aria-pressed=\"false\"><span>6</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-07，无分类标记\" aria-pressed=\"false\"><span>7</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-08，无分类标记\" aria-pressed=\"false\"><span>8</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-09，无分类标记\" aria-pressed=\"false\"><span>9</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-10，无分类标记\" aria-pressed=\"false\"><span>10</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-11，无分类标记\" aria-pressed=\"false\"><span>11</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-12，无分类标记\" aria-pressed=\"false\"><span>12</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-13，无分类标记\" aria-pressed=\"false\"><span>13</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-14，无分类标记\" aria-pressed=\"true\" aria-current=\"date\"><span>14</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-15，无分类标记\" aria-pressed=\"false\"><span>15</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-16，无分类标记\" aria-pressed=\"false\"><span>16</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-17，无分类标记\" aria-pressed=\"false\"><span>17</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-18，无分类标记\" aria-pressed=\"false\"><span>18</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-19，无分类标记\" aria-pressed=\"false\"><span>19</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-20，无分类标记\" aria-pressed=\"false\"><span>20</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-21，无分类标记\" aria-pressed=\"false\"><span>21</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-22，无分类标记\" aria-pressed=\"false\"><span>22</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-23，无分类标记\" aria-pressed=\"false\"><span>23</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-24，无分类标记\" aria-pressed=\"false\"><span>24</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-25，无分类标记\" aria-pressed=\"false\"><span>25</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-26，无分类标记\" aria-pressed=\"false\"><span>26</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-27，无分类标记\" aria-pressed=\"false\"><span>27</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-28，无分类标记\" aria-pressed=\"false\"><span>28</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-29，无分类标记\" aria-pressed=\"false\"><span>29</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-30，无分类标记\" aria-pressed=\"false\"><span>30</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><button class=\"ds-calendar-day\" aria-label=\"2026-10-31，无分类标记\" aria-pressed=\"false\"><span>31</span><span class=\"ds-calendar-dots\" aria-hidden=\"true\"><i class=\"ds-day-dot ds-dot-idle\"></i></span></button><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span><span class=\"ds-calendar-blank\" aria-hidden=\"true\"></span></div></section>",
+      "css": ".ds-calendar{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#a2dce4;box-sizing:border-box;min-width:0;padding:24px;border:1px solid rgba(255,255,255,.06);border-radius:26px;background:var(--surface,#20262b);color:var(--ink,#f3f5f7);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;min-height:440px}.ds-calendar-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px}.ds-calendar h2{margin:0;font-size:1.3rem;font-weight:650}.ds-calendar-period,.ds-calendar-actions{display:flex;gap:8px;align-items:center}.ds-calendar select{font:inherit;min-height:44px;width:auto;min-width:86px;padding:8px 10px;border:1px solid var(--line,#384148);border-radius:12px;background:var(--field,#141a1f);color:var(--ink,#f3f5f7)}.ds-calendar-actions button{font:inherit;min-width:44px;min-height:44px;padding:8px 10px;border:1px solid var(--line,#384148);border-radius:16px;background:#30383e;color:var(--ink,#f3f5f7);cursor:pointer}.ds-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.ds-calendar-weekday{text-align:center;font-size:.8rem;color:var(--muted,#aeb7c0);padding-bottom:10px}.ds-calendar-day{font:inherit;color:var(--ink,#f3f5f7);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:5px 0;border:0;border-radius:14px;background:transparent;cursor:pointer}.ds-calendar-day:hover{background:#303b44}.ds-calendar-day[aria-current=date]{box-shadow:inset 0 0 0 1px #779bb8}.ds-calendar-day[aria-pressed=true]{color:#102335;background:#b5d8fa}.ds-calendar-dots{display:flex;justify-content:center;gap:4px;min-height:6px}.ds-day-dot{display:inline-block;width:6px;height:6px;flex-shrink:0;border-radius:50%}.ds-dot-idle{background:#737d87}.ds-dot-strength{background:#53a8fa}.ds-dot-cardio{background:#74d995}.ds-calendar-day[aria-pressed=true] .ds-dot-strength{background:#1674c9}.ds-calendar-day[aria-pressed=true] .ds-dot-cardio{background:#178943}.ds-calendar button:focus-visible,.ds-calendar select:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px;}.ds-calendar button:disabled{opacity:.5;cursor:wait}@media(max-width:760px){.ds-calendar{padding:20px}}@media(max-width:520px){.ds-calendar{padding:16px;border-radius:24px;min-height:0}.ds-calendar h2{font-size:1.1rem;flex-basis:100%}.ds-calendar-heading{gap:10px;margin-bottom:14px}.ds-calendar-period{gap:5px}.ds-calendar select{min-width:0;padding:7px 5px;font-size:.85rem}.ds-calendar-actions{gap:4px}.ds-calendar-actions button{min-width:40px;padding:7px 5px;font-size:.85rem}.ds-calendar-grid{gap:2px}.ds-calendar-day{min-height:44px;border-radius:12px}}"
+    },
+    {
+      "name": "Merged Meal Tabs",
+      "kind": "custom",
+      "refersTo": "meal-tabs",
+      "description": "三餐卡标签页的默认视觉状态；应用实现方向键、Home/End和保留未保存备注，预览不模拟React状态。",
+      "html": "<section class=\"ds-meals-card\" aria-label=\"三餐记录\"><h2>三餐记录</h2><div class=\"ds-meal-tabs\" role=\"tablist\" aria-label=\"选择餐次\"><button id=\"ds-breakfast-tab\" role=\"tab\" aria-selected=\"true\" aria-controls=\"ds-breakfast-panel\" tabindex=\"0\">早餐</button><button id=\"ds-lunch-tab\" role=\"tab\" aria-selected=\"false\" aria-controls=\"ds-lunch-panel\" tabindex=\"-1\">午餐</button><button id=\"ds-dinner-tab\" role=\"tab\" aria-selected=\"false\" aria-controls=\"ds-dinner-panel\" tabindex=\"-1\">晚餐</button></div><div id=\"ds-breakfast-panel\" role=\"tabpanel\" aria-labelledby=\"ds-breakfast-tab\"><details><summary>备注</summary><label>备注<textarea></textarea></label></details></div><div id=\"ds-lunch-panel\" role=\"tabpanel\" aria-labelledby=\"ds-lunch-tab\" hidden></div><div id=\"ds-dinner-panel\" role=\"tabpanel\" aria-labelledby=\"ds-dinner-tab\" hidden></div></section>",
+      "css": ".ds-meals-card{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#a2dce4;box-sizing:border-box;min-width:0;padding:24px;border:1px solid rgba(255,255,255,.06);border-radius:26px;background:var(--surface,#20262b);color:var(--ink,#f3f5f7);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;background:var(--meals-bg,#202b2b)}.ds-meals-card h2{margin:0 0 16px;font-size:1.3rem;font-weight:650;color:var(--meals-ink,#98dfcf)}.ds-meal-tabs{display:flex;gap:4px;padding:4px;background:rgba(0,0,0,.16);border-radius:16px;margin-bottom:12px}.ds-meal-tabs button{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;line-height:1.6;color:var(--ink,#f3f5f7);min-height:44px;flex:1;min-width:0;padding:8px 4px;border:0;background:transparent;border-radius:12px;font-size:.85rem;cursor:pointer}.ds-meal-tabs button[aria-selected=true]{color:#132a22;background:#98dfcf}.ds-meals-card summary{cursor:pointer;padding:8px 0;min-height:40px;color:var(--meals-ink,#98dfcf)}.ds-meals-card textarea{box-sizing:border-box;display:block;width:100%;min-height:44px;font:inherit;padding:8px 10px;border:1px solid var(--line,#384148);border-radius:12px;background:var(--field,#141a1f);color:var(--ink,#f3f5f7);resize:vertical}.ds-meals-card button:focus-visible,.ds-meals-card textarea:focus-visible,.ds-meals-card summary:focus-visible{outline:3px solid var(--focus,#176b4c);outline-offset:3px;}@media(max-width:760px){.ds-meals-card{padding:20px}}@media(max-width:520px){.ds-meals-card{padding:16px;border-radius:24px}.ds-meals-card h2{font-size:1.1rem}.ds-meal-tabs{padding:3px;gap:1px}.ds-meal-tabs button{font-size:.75rem;padding:8px 0}}"
+    },
+    {
+      "name": "Reserved Empty Card",
+      "kind": "card",
+      "refersTo": "reserved-card",
+      "description": "用户指定的中等空白保留位置，没有内容或交互；不代表加载状态。",
+      "html": "<div class=\"ds-reserved\" aria-hidden=\"true\"></div>",
+      "css": ".ds-reserved{color-scheme:dark;--ink:#f3f5f7;--muted:#aeb7c0;--line:#384148;--accent:#bae6a5;--focus:#a2dce4;box-sizing:border-box;min-width:0;padding:24px;border:1px solid rgba(255,255,255,.06);border-radius:26px;background:var(--surface,#20262b);color:var(--ink,#f3f5f7);font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\",\"Microsoft YaHei\",sans-serif;font-size:16px;line-height:1.6;min-height:260px;align-self:start}@media(max-width:760px){.ds-reserved{padding:20px}}@media(max-width:520px){.ds-reserved{padding:16px;border-radius:24px;min-height:220px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "",
+    "overview": "当前控制台以训练日历作为日期入口：大日历先建立月份与所选日期，再联动当天训练与三餐。纯白页面与不透明白色粘性头部承载深色日历、浅桃黄训练卡、紫色签到卡、合并三餐卡和刻意留白的保留位置。页面没有额外标题或标语；顶部“控制台”导航承担当前页面识别。\n\n这是可调整的视觉初版。保留卡片没有内容，也不是服务器加载状态；未来用途仍由用户决定。现有实现不增加虚构指标、热量、图表或完成率。本文件提取自 globals.css、Dashboard.tsx、TrainingCalendar.tsx、MealsCard.tsx、Meals.tsx、Checkins.tsx 与 AppNavigation.tsx。已核对 .impeccable/review/white-console-desktop.png 与 white-console-mobile.png，原有卡片几何与当前源码一致。",
+    "keyCharacteristics": [
+      "大训练日历直接选择日期，无独立日期工具栏。",
+      "灰、蓝、绿点表达无分类、力量、有氧；混合日保留两个分类点。",
+      "三餐合并为一个有键盘操作的标签页卡片。",
+      "深色玻璃导航与独立个人账号入口。",
+      "纯白页面和不透明白色头部，卡片内保留原有深色与彩色体系。",
+      "刻意保留空白卡片，真实加载与留白分别表达。"
+    ],
+    "rules": [],
+    "dos": [
+      "Do 保留训练日历、真实记录、分类点与日期的可访问名称。",
+      "Do 保留手机两列关系，仅为当前展开的餐次编辑提供整行空间。",
+      "Do 将保留空白的用途、卡片数据、密度和色调视为待决定参数。",
+      "Do 保留可见焦点、可换行内容与足够的触控高度。"
+    ],
+    "donts": [
+      "Don't 添加没有真实数据来源的指标、图表、热量或完成率。",
+      "Don't 用假餐图伪装上传记录，也不要让预览代表保存成功。",
+      "Don't 在每个内部条目上嵌套新卡片或长期展开全部辅助操作。",
+      "Don't 默认开启上榜，也不要在排名中展示私人训练、三餐或签到历史。"
+    ]
+  }
+}

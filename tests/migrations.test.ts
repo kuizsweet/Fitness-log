@@ -27,7 +27,7 @@ alter default privileges in schema public grant all on tables to authenticated,a
   assert.equal(
     (await db.query("select * from fitness_journal_meta.migrations")).rows
       .length,
-    3,
+    5,
   );
   assert.equal(
     (

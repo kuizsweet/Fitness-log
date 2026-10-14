@@ -22,6 +22,12 @@ test("实际 PostgreSQL 引擎执行迁移、RLS、事务与撤销规则", async
   );
   await db.exec(
     await readFile(
+      "supabase/migrations/202610140002_training_type.sql",
+      "utf8",
+    ),
+  );
+  await db.exec(
+    await readFile(
       "supabase/migrations/202610130002_import_previews.sql",
       "utf8",
     ),
@@ -275,5 +281,54 @@ test("实际 PostgreSQL 引擎执行迁移、RLS、事务与撤销规则", async
       /permission denied/,
     );
   });
+  await t.test(
+    "训练分类随事务保存，旧客户端不清空分类，跨账号不可读取",
+    async () => {
+      await asUser(a);
+      const typed: Session = {
+        ...newSession("2026-10-14"),
+        training_type: "strength",
+      };
+      typed.revision = (await save(typed)).revision;
+      assert.equal(
+        (
+          await db.query<{ training_type: string }>(
+            "select training_type from public.workout_sessions where id=$1",
+            [typed.id],
+          )
+        ).rows[0].training_type,
+        "strength",
+      );
+      typed.training_type = "cardio";
+      typed.revision = (await save(typed)).revision;
+      delete typed.training_type;
+      typed.revision = (await save(typed)).revision;
+      assert.equal(
+        (
+          await db.query<{ training_type: string }>(
+            "select training_type from public.workout_sessions where id=$1",
+            [typed.id],
+          )
+        ).rows[0].training_type,
+        "cardio",
+      );
+      await assert.rejects(
+        db.query(
+          "update public.workout_sessions set training_type='mixed' where id=$1",
+          [typed.id],
+        ),
+        /check constraint/,
+      );
+      await asUser(b);
+      assert.equal(
+        (
+          await db.query("select * from public.workout_sessions where id=$1", [
+            typed.id,
+          ])
+        ).rows.length,
+        0,
+      );
+    },
+  );
   await db.close();
 });

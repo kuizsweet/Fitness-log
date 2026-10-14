@@ -11,6 +11,8 @@ export const businessTables = [
   "meal_photos",
   "import_batches",
   "import_previews",
+  "daily_checkins",
+  "checkin_preferences",
 ];
 export async function migrationBundle() {
   const files = (await readdir("supabase/migrations"))
@@ -39,12 +41,13 @@ revoke all on table fitness_journal_meta.migrations from public,anon,authenticat
 if exists(select 1 from fitness_journal_meta.migrations where version='${version}') then
  if not exists(select 1 from fitness_journal_meta.migrations where version='${version}' and checksum='${checksum}') then raise exception '迁移 ${version} 校验和不匹配，已停止'; end if;
 else
- ${guard}
+${guard ? ` ${guard}` : ""}
  execute ${delimiter}\n${sql}\n${delimiter};
  insert into fitness_journal_meta.migrations(version,checksum) values('${version}','${checksum}');
 end if; end $fj_apply$;`);
   }
   pieces.push(`commit;
+notify pgrst, 'reload schema';
 select version,applied_at from fitness_journal_meta.migrations order by version;`);
   return pieces.join("\n\n");
 }

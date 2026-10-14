@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   turbopack: { root: process.cwd() },
-  serverExternalPackages: ["exceljs", "sharp"],
+  serverExternalPackages: ["exceljs", "sharp", "undici"],
   async headers() {
     return [
       {
@@ -11,6 +11,10 @@ const config: NextConfig = {
           { key: "Referrer-Policy", value: "same-origin" },
           { key: "X-Frame-Options", value: "DENY" },
         ],
+      },
+      {
+        source: "/auth/callback",
+        headers: [{ key: "Referrer-Policy", value: "no-referrer" }],
       },
     ];
   },

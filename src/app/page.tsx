@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { configured } from "@/lib/supabase/config";
 export default function Home() {
-  if (configured()) redirect("/journal");
+  if (configured()) redirect("/dashboard");
   return (
     <main className="narrow">
       <h1>Fitness Journal</h1>

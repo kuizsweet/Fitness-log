@@ -19,5 +19,11 @@ export async function api<T>(
   });
   const result = await response.json();
   if (!response.ok) throw new Error(result.error ?? "操作失败");
+  if (method !== "GET" && method !== "HEAD")
+    window.dispatchEvent(
+      new CustomEvent("fitness-data-change", {
+        detail: { resource: path.split(/[/?]/)[0] },
+      }),
+    );
   return result as T;
 }
