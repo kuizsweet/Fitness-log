@@ -22,3 +22,15 @@ export function authCallbackUrl(
 
 export const emailLinkError =
   "验证链接已失效或已使用，请重新发送验证邮件，并打开最新的一封。";
+
+export function authLinkFailureUrl(origin: string, recovery = false) {
+  const url = new URL("/auth", origin);
+  if (recovery) url.searchParams.set("mode", "reset");
+  url.searchParams.set(
+    "error",
+    recovery
+      ? "重置链接无法验证，可能已过期、已使用，或未在发起找回的浏览器中打开。请重新发送重置邮件。"
+      : emailLinkError,
+  );
+  return url;
+}

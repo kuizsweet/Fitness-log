@@ -1,0 +1,344 @@
+.page {
+  --auth-background: #f5f5f5;
+  --auth-card: #ffffff;
+  --auth-foreground: #171717;
+  --auth-muted: #626262;
+  --auth-border: #e5e5e5;
+  --auth-ring: #737373;
+  color-scheme: light;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: none;
+  min-height: 100svh;
+  margin: 0;
+  padding: max(24px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+  background: var(--auth-background);
+  color: var(--auth-foreground);
+  font-family:
+    "PingFang SC", "Noto Sans SC Variable", "Noto Sans SC",
+    "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.page p {
+  max-width: none;
+}
+.brand {
+  margin: 0;
+  color: var(--auth-foreground);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.page [data-slot="card"] {
+  width: 100%;
+  max-width: 384px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 0;
+  background: var(--auth-card);
+  border: 1px solid var(--auth-border);
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+.page [data-slot="card-header"] {
+  display: grid;
+  gap: 8px;
+  padding: 0 24px;
+}
+.signupHeader {
+  text-align: center;
+}
+.loginHeader {
+  text-align: center;
+}
+.page [data-slot="card-title"] {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+}
+.page [data-slot="card-description"],
+.page [data-slot="field-description"] {
+  margin: 0;
+  color: var(--auth-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.page [data-slot="card-content"] {
+  padding: 0 24px;
+}
+.page [data-slot="field-group"] {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.page .loginFields {
+  gap: 14px;
+}
+.page [data-slot="field"] {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.page [data-slot="field-label"] {
+  color: var(--auth-foreground);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.passwordInputWrap {
+  position: relative;
+  min-width: 0;
+}
+.page .passwordInput {
+  padding-right: 44px;
+}
+.page .passwordVisibility {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  padding: 0;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--auth-muted);
+  cursor: pointer;
+}
+.page .passwordVisibility:hover {
+  background: #f5f5f5;
+  color: var(--auth-foreground);
+}
+.page .passwordVisibility:focus-visible {
+  outline: 2px solid var(--auth-ring);
+  outline-offset: 1px;
+}
+.passwordVisibility svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+.page [data-slot="input"] {
+  color-scheme: light;
+  width: 100%;
+  height: 44px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--auth-border);
+  border-radius: 6px;
+  color: var(--auth-foreground);
+  background: var(--auth-card);
+  caret-color: var(--auth-foreground);
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 1.5;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+}
+.page [data-slot="input"]::placeholder {
+  color: #737373;
+}
+.page [data-slot="input"]:focus-visible {
+  outline: 3px solid rgb(115 115 115 / 0.25);
+  outline-offset: 1px;
+  border-color: var(--auth-ring);
+}
+.page [data-slot="input"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.page [data-slot="button"] {
+  color-scheme: light;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid var(--auth-foreground);
+  border-radius: 6px;
+  background: var(--auth-foreground);
+  color: #fafafa;
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.page [data-slot="button"]:hover:not(:disabled) {
+  background: #323232;
+  color: #fafafa;
+}
+.page [data-slot="button"]:active:not(:disabled) {
+  background: #404040;
+}
+.page [data-slot="button"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.page [data-slot="button"]:focus-visible,
+.page .textButton:focus-visible,
+.page a:focus-visible {
+  outline: 2px solid var(--auth-ring);
+  outline-offset: 3px;
+}
+.page .textButton,
+.page a {
+  display: inline;
+  min-height: 0;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--auth-foreground);
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.page .textButton:hover:not(:disabled),
+.page a:hover {
+  color: var(--auth-foreground);
+  background: transparent;
+  text-decoration-thickness: 2px;
+}
+.page .textButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.footer {
+  text-align: center;
+  margin-top: 20px;
+}
+.page .forgotPassword {
+  align-self: auto;
+}
+.loginActions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.codeRow {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.page .codeRow [data-slot="input"] {
+  flex: 1;
+  min-width: 0;
+}
+.page .sendCode {
+  flex: none;
+  width: auto;
+  padding-inline: 12px;
+  border-color: var(--auth-border);
+  background: var(--auth-card);
+  color: var(--auth-foreground);
+}
+.page .sendCode:hover:not(:disabled) {
+  background: #f5f5f5;
+  color: var(--auth-foreground);
+}
+.page [data-slot="input"]:read-only {
+  background: #fafafa;
+  color: var(--auth-muted);
+}
+.captcha {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  min-width: 0;
+  min-height: 65px;
+}
+.captchaWidget {
+  position: relative;
+  min-width: 0;
+  min-height: 65px;
+}
+.captchaLoading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  min-height: 65px;
+  color: var(--auth-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+.page .error,
+.page .status {
+  padding: 12px;
+  margin: 16px 0 0;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+}
+.page .error {
+  color: #991b1b;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.page .status {
+  color: #262626;
+  background: #f5f5f5;
+  border: 1px solid var(--auth-border);
+}
+.otp {
+  letter-spacing: 0.3em;
+  font-variant-numeric: tabular-nums;
+}
+/* Turnstile's native flexible widget needs at least 300px. On narrow
+   screens only its container uses the card gutter; the iframe is unscaled. */
+@media (max-width: 383px) {
+  .page {
+    padding-inline: max(8px, env(safe-area-inset-left))
+      max(8px, env(safe-area-inset-right));
+  }
+  .captcha {
+    margin-inline: -24px;
+  }
+}
+@media (min-width: 768px) {
+  .page {
+    padding: 40px;
+  }
+}
+@media (prefers-contrast: more) {
+  .page {
+    --auth-border: #737373;
+    --auth-muted: #404040;
+  }
+}

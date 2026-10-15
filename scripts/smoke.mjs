@@ -14,7 +14,11 @@ const configured = Boolean(
 );
 const root = await fetch(origin);
 assert.equal(root.status, 200);
-assert.match(await root.text(), /Fitness Journal/);
+assert.match(
+  await root.text(),
+  configured ? /登录你的账号/ : /尚未连接 Supabase/,
+);
+if (configured) assert.equal(new URL(root.url).pathname, "/auth");
 for (const page of [
   "dashboard",
   "train",

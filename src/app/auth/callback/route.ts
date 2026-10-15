@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { serverClient } from "@/lib/supabase/server";
-import { emailLinkError } from "@/lib/auth-links";
+import { authLinkFailureUrl } from "@/lib/auth-links";
 
 const headers = {
   "Cache-Control": "private, no-store",
@@ -14,9 +14,9 @@ function requestOrigin(request: Request) {
     ? new URL(process.env.NEXT_PUBLIC_SITE_URL).origin
     : url.origin;
 }
-function failed(origin: string) {
+function failed(origin: string, recovery = false) {
   const response = NextResponse.redirect(
-    new URL(`/auth?error=${encodeURIComponent(emailLinkError)}`, origin),
+    authLinkFailureUrl(origin, recovery),
     303,
   );
   Object.entries(headers).forEach(([key, value]) =>
@@ -36,7 +36,10 @@ function escape(value: string) {
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const origin = requestOrigin(request);
-  if (url.searchParams.has("error")) return failed(origin);
+  const recovery =
+    url.searchParams.get("next") === "/auth?mode=update" ||
+    url.searchParams.get("type") === "recovery";
+  if (url.searchParams.has("error")) return failed(origin, recovery);
   const next =
     url.searchParams.get("next") === "/auth?mode=update"
       ? "/auth?mode=update"
@@ -71,12 +74,13 @@ export async function GET(request: Request) {
     );
     return response;
   } catch {
-    return failed(origin);
+    return failed(origin, recovery);
   }
 }
 
 export async function POST(request: Request) {
   const origin = requestOrigin(request);
+  let recovery = false;
   if (request.headers.get("origin") !== origin)
     return new Response("Forbidden", { status: 403, headers });
   if (
@@ -89,6 +93,7 @@ export async function POST(request: Request) {
     const form = await request.formData();
     const hash = form.get("token_hash");
     const type = form.get("type");
+    recovery = type === "recovery" || form.get("next") === "/auth?mode=update";
     if (
       typeof hash !== "string" ||
       !hash ||
@@ -96,13 +101,13 @@ export async function POST(request: Request) {
       typeof type !== "string" ||
       !validTypes.includes(type)
     )
-      return failed(origin);
+      return failed(origin, recovery);
     const db = await serverClient();
     const result = await db.auth.verifyOtp({
       token_hash: hash,
       type: type as "signup" | "recovery" | "email",
     });
-    if (result.error) return failed(origin);
+    if (result.error) return failed(origin, recovery);
     const next =
       type === "recovery" || form.get("next") === "/auth?mode=update"
         ? "/auth?mode=update"
@@ -113,6 +118,6 @@ export async function POST(request: Request) {
     );
     return response;
   } catch {
-    return failed(origin);
+    return failed(origin, recovery);
   }
 }
