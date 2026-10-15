@@ -501,9 +501,9 @@ export function AuthForm({ configured }: { configured: boolean }) {
               {error}
             </p>
           )}
-          {!isSignup && (busy || message) && (
+          {!isSignup && !busy && message && (
             <p role="status" className={styles.status}>
-              {busy ? "正在处理，请稍候…" : message}
+              {message}
             </p>
           )}
           {mode !== "login" && (
