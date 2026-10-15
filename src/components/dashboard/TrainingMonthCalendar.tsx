@@ -5,9 +5,10 @@ import {
   trainingMarkers,
 } from "@/lib/calendar";
 import { today, type Session } from "@/lib/domain";
-import { Feedback } from "./Feedback";
+import { Feedback } from "../Feedback";
+import styles from "./Dashboard.module.css";
 
-export function TrainingCalendar({
+export function TrainingMonthCalendar({
   date,
   timezone,
   sessions,
@@ -15,7 +16,6 @@ export function TrainingCalendar({
   error,
   onSelect,
   checkedDate,
-  title = "训练日历",
 }: {
   date: string;
   timezone: string;
@@ -24,7 +24,6 @@ export function TrainingCalendar({
   error: string;
   onSelect: (date: string) => void;
   checkedDate?: string;
-  title?: string;
 }) {
   const info = calendarMonth(date);
   const currentDay = today(timezone);
@@ -36,13 +35,13 @@ export function TrainingCalendar({
   }
   return (
     <section
-      className="module training-calendar"
-      aria-label={title}
+      className={styles.monthCalendar}
+      aria-label="训练月历"
       aria-busy={loading}
     >
-      <div className="calendar-heading">
-        <h2>{title}</h2>
-        <div className="calendar-period">
+      <div className={styles.calendarHeading}>
+        <h2>训练月历</h2>
+        <div className={styles.calendarPeriod}>
           <select
             aria-label="年份"
             value={info.year}
@@ -74,7 +73,7 @@ export function TrainingCalendar({
             ))}
           </select>
         </div>
-        <div className="calendar-actions">
+        <div className={styles.calendarActions}>
           <button
             aria-label="上一月"
             disabled={info.year === 1900 && info.month === 1}
@@ -92,9 +91,9 @@ export function TrainingCalendar({
           <button onClick={() => onSelect(currentDay)}>今天</button>
         </div>
       </div>
-      <div className="training-calendar-grid">
+      <div className={styles.calendarGrid}>
         {["一", "二", "三", "四", "五", "六", "日"].map((day) => (
-          <span className="calendar-weekday" key={day}>
+          <span className={styles.calendarWeekday} key={day}>
             {day}
           </span>
         ))}
@@ -102,7 +101,11 @@ export function TrainingCalendar({
           const number = i - info.offset + 1;
           if (number < 1 || number > info.days)
             return (
-              <span className="calendar-blank" key={i} aria-hidden="true" />
+              <span
+                className={styles.calendarBlank}
+                key={i}
+                aria-hidden="true"
+              />
             );
           const day = `${date.slice(0, 7)}-${String(number).padStart(2, "0")}`;
           const markers = trainingMarkers(sessions, day);
@@ -119,7 +122,7 @@ export function TrainingCalendar({
                 : "无分类标记";
           return (
             <button
-              className="calendar-day"
+              className={styles.calendarDay}
               key={i}
               aria-label={`${day}，${description}${day === checkedDate ? "，已签到" : ""}`}
               title={`${day}，${description}${day === checkedDate ? "，已签到" : ""}`}
@@ -129,13 +132,16 @@ export function TrainingCalendar({
               onClick={() => onSelect(day)}
             >
               <span>{number}</span>
-              <span className="calendar-dots" aria-hidden="true">
+              <span className={styles.calendarDots} aria-hidden="true">
                 {markers.map((type) => (
-                  <i key={type} className={`day-dot dot-${type}`} />
+                  <i
+                    key={type}
+                    className={`${styles.dayDot} ${styles[`dot-${type}`]}`}
+                  />
                 ))}
               </span>
               {day === checkedDate && (
-                <span className="calendar-check" aria-hidden="true">
+                <span className={styles.calendarCheck} aria-hidden="true">
                   ✓
                 </span>
               )}
@@ -143,7 +149,12 @@ export function TrainingCalendar({
           );
         })}
       </div>
-      <Feedback error={error} loading={loading} />
+      {loading && (
+        <span className={styles.srOnly} role="status">
+          正在加载训练月历…
+        </span>
+      )}
+      <Feedback error={error} />
     </section>
   );
 }

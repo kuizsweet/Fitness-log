@@ -5,7 +5,7 @@ import { today, workingSets, type Session } from "@/lib/domain";
 import type { CheckinDashboard } from "@/lib/checkins";
 import { nextStrengthPlan } from "@/lib/dashboard";
 import { useResource } from "../resource";
-import { TrainingCalendar } from "../TrainingCalendar";
+import { TrainingMonthCalendar } from "./TrainingMonthCalendar";
 import { MealsCard } from "../MealsCard";
 import { Checkins } from "../Checkins";
 import { Feedback } from "../Feedback";
@@ -14,7 +14,7 @@ import { DeletedRecords } from "./DeletedRecords";
 import type { DashboardData } from "./useDashboardData";
 import styles from "./Dashboard.module.css";
 
-export function DesktopDashboard({ data }: { data: DashboardData }) {
+export function DashboardWorkspace({ data }: { data: DashboardData }) {
   const { date, profile, sessions, meals, setPicked } = data;
   const [checkin, setCheckin] = useState<CheckinDashboard | null>(null);
   const mealsDialog = useRef<HTMLDialogElement>(null);
@@ -40,8 +40,7 @@ export function DesktopDashboard({ data }: { data: DashboardData }) {
         <TrainingConsole data={data} />
         <PlanCard currentDay={currentDay} />
         <div className={styles.calendarSlot}>
-          <TrainingCalendar
-            title="训练月历"
+          <TrainingMonthCalendar
             date={date}
             timezone={profile.data?.timezone ?? "Asia/Shanghai"}
             sessions={sessions.data ?? []}
