@@ -8,11 +8,9 @@ import { useResource } from "./resource";
 import { Feedback } from "./Feedback";
 
 export function Checkins({
-  compact = false,
   toolbar = false,
   onData,
 }: {
-  compact?: boolean;
   toolbar?: boolean;
   onData?: (data: CheckinDashboard | null) => void;
 }) {
@@ -82,19 +80,12 @@ export function Checkins({
     );
 
   return (
-    <div className={compact ? "checkin-compact" : "leaderboard-page"}>
-      {compact ? (
-        <h2>每日签到</h2>
-      ) : (
-        <div className="page-heading">
-          <h1>排行榜</h1>
-          <Link href="/dashboard">返回控制台</Link>
-        </div>
-      )}
-      <section
-        className={compact ? undefined : "module module-checkin"}
-        aria-label="我的签到"
-      >
+    <div className="leaderboard-page">
+      <div className="page-heading">
+        <h1>排行榜</h1>
+        <Link href="/dashboard">返回控制台</Link>
+      </div>
+      <section className="module module-checkin" aria-label="我的签到">
         <div className="checkin-action">
           <div>
             <p className="checkin-count">
@@ -108,7 +99,7 @@ export function Checkins({
                 "读取签到记录…"
               )}
             </p>
-            {!compact && data && (
+            {data && (
               <small>
                 <>
                   <span className="checkin-date">{data.date}</span>
@@ -127,7 +118,7 @@ export function Checkins({
             {data?.checked_in ? "今日已签到" : "今日签到"}
           </button>
         </div>
-        {!compact && data && (
+        {data && (
           <p className="checkin-rule">
             按 {data.timezone}{" "}
             每日签到一次。昨天的连续记录保留至今日结束，漏签一天重新计算，不支持补签。
@@ -140,63 +131,54 @@ export function Checkins({
         loading={source.loading || busy}
       />
       {source.error && <button onClick={source.reload}>重新加载签到</button>}
-      {compact ? (
-        <Link className="module-link" href="/leaderboard">
-          查看排行榜与上榜设置
-        </Link>
-      ) : (
-        data && (
-          <div className="leaderboard-layout">
-            <section
-              className="module module-checkin"
-              aria-labelledby="ranking-title"
-            >
-              <div className="module-heading">
-                <h2 id="ranking-title">连续签到排名</h2>
-                <button
-                  onClick={source.reload}
-                  disabled={source.loading || busy}
-                >
-                  刷新榜单
-                </button>
-              </div>
-              <p className="muted">
-                仅展示主动上榜且连续签到至少 1 天的用户，最多 50
-                位；天数相同并列排名。
+      {data && (
+        <div className="leaderboard-layout">
+          <section
+            className="module module-checkin"
+            aria-labelledby="ranking-title"
+          >
+            <div className="module-heading">
+              <h2 id="ranking-title">连续签到排名</h2>
+              <button onClick={source.reload} disabled={source.loading || busy}>
+                刷新榜单
+              </button>
+            </div>
+            <p className="muted">
+              仅展示主动上榜且连续签到至少 1 天的用户，最多 50
+              位；天数相同并列排名。
+            </p>
+            {data.leaderboard.length ? (
+              <ol className="ranking-list">
+                {data.leaderboard.map((row, i) => (
+                  <li key={i} className={row.is_self ? "ranking-self" : ""}>
+                    <span
+                      className="ranking-position"
+                      aria-label={`第 ${row.rank} 名`}
+                    >
+                      {row.rank}
+                    </span>
+                    <span className="ranking-name">
+                      {row.display_name}
+                      {row.is_self && <small>你</small>}
+                    </span>
+                    <span className="ranking-days">
+                      <strong>{row.streak}</strong> 天
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            ) : (
+              <p className="empty-state">
+                暂时没有上榜用户。完成签到后，可以自主选择参与。
               </p>
-              {data.leaderboard.length ? (
-                <ol className="ranking-list">
-                  {data.leaderboard.map((row, i) => (
-                    <li key={i} className={row.is_self ? "ranking-self" : ""}>
-                      <span
-                        className="ranking-position"
-                        aria-label={`第 ${row.rank} 名`}
-                      >
-                        {row.rank}
-                      </span>
-                      <span className="ranking-name">
-                        {row.display_name}
-                        {row.is_self && <small>你</small>}
-                      </span>
-                      <span className="ranking-days">
-                        <strong>{row.streak}</strong> 天
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              ) : (
-                <p className="empty-state">
-                  暂时没有上榜用户。完成签到后，可以自主选择参与。
-                </p>
-              )}
-            </section>
-            <CheckinPreferences
-              key={`${data.listed}:${data.display_name}`}
-              data={data}
-              reload={source.reload}
-            />
-          </div>
-        )
+            )}
+          </section>
+          <CheckinPreferences
+            key={`${data.listed}:${data.display_name}`}
+            data={data}
+            reload={source.reload}
+          />
+        </div>
       )}
     </div>
   );
