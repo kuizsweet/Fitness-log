@@ -16,7 +16,7 @@ const root = await fetch(origin);
 assert.equal(root.status, 200);
 assert.match(
   await root.text(),
-  configured ? /登录你的账号/ : /尚未连接 Supabase/,
+  configured ? /id="auth-password"/ : /尚未连接 Supabase/,
 );
 if (configured) assert.equal(new URL(root.url).pathname, "/auth");
 for (const page of [

@@ -7,6 +7,7 @@ import {
   AppNavigation,
   AccountMenu,
   AppMain,
+  DashboardBrand,
 } from "@/components/AppNavigation";
 export const dynamic = "force-dynamic";
 export default async function PrivateLayout({
@@ -21,6 +22,7 @@ export default async function PrivateLayout({
   return (
     <>
       <header className="app-header">
+        <DashboardBrand />
         <AppNavigation />
         <div className="header-actions">
           <AccountMenu />

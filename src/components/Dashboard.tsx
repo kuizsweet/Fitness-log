@@ -1,52 +1,43 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { useResource } from "./resource";
-import {
-  today,
-  workingSets,
-  type Profile,
-  type Session,
-  type Meal,
-} from "@/lib/domain";
-import { calendarMonth } from "@/lib/calendar";
+import { workingSets } from "@/lib/domain";
 import { TrainingCalendar } from "./TrainingCalendar";
 import { MealsCard } from "./MealsCard";
 import { Feedback } from "./Feedback";
 import { Checkins } from "./Checkins";
-import { api } from "@/lib/client";
+import { DeletedRecords } from "./dashboard/DeletedRecords";
+import {
+  useDashboardData,
+  type DashboardData,
+} from "./dashboard/useDashboardData";
+import { DesktopDashboard } from "./dashboard/DesktopDashboard";
+
+const desktopQuery = "(min-width: 961px)";
+function subscribeDesktop(change: () => void) {
+  const media = window.matchMedia(desktopQuery);
+  media.addEventListener("change", change);
+  return () => media.removeEventListener("change", change);
+}
 export function Dashboard({ initialDate }: { initialDate?: string }) {
-  const profile = useResource<Profile>("profile");
-  const [picked, setPicked] = useState(initialDate ?? "");
-  const [showDeleted, setShowDeleted] = useState(false);
-  const date = picked || today(profile.data?.timezone);
-  const month = calendarMonth(date);
-  const sessions = useResource<Session[]>(
-    `sessions?from=${month.from}&to=${month.to}`,
-    true,
+  const data = useDashboardData(initialDate);
+  const desktop = useSyncExternalStore(
+    subscribeDesktop,
+    () => window.matchMedia(desktopQuery).matches,
+    () => null,
   );
-  const meals = useResource<Meal[]>(`meals?date=${date}`, true);
-  const records = sessions.data?.filter((s) => s.training_date === date) ?? [];
-  const refreshSessions = sessions.reload;
-  const refreshMeals = meals.reload;
-  useEffect(() => {
-    const refresh = () => {
-      refreshSessions();
-      refreshMeals();
-    };
-    const changed = (event: Event) => {
-      const resource = (event as CustomEvent<{ resource: string }>).detail
-        .resource;
-      if (["sessions", "imports"].includes(resource)) refreshSessions();
-      if (["meals", "photos"].includes(resource)) refreshMeals();
-    };
-    window.addEventListener("focus", refresh);
-    window.addEventListener("fitness-data-change", changed);
-    return () => {
-      window.removeEventListener("focus", refresh);
-      window.removeEventListener("fitness-data-change", changed);
-    };
-  }, [refreshSessions, refreshMeals]);
+  if (desktop === null) return <p role="status">加载控制台…</p>;
+  return desktop ? (
+    <DesktopDashboard data={data} />
+  ) : (
+    <LegacyDashboard data={data} />
+  );
+}
+
+// Retained for the existing small-screen presentation, outside this PC phase.
+function LegacyDashboard({ data }: { data: DashboardData }) {
+  const { profile, date, sessions, meals, records, setPicked } = data;
+  const [showDeleted, setShowDeleted] = useState(false);
   return (
     <div className="dashboard-board">
       <TrainingCalendar
@@ -128,59 +119,5 @@ export function Dashboard({ initialDate }: { initialDate?: string }) {
       />
       <div className="module reserved-card" aria-hidden="true" />
     </div>
-  );
-}
-function DeletedRecords({
-  date,
-  reload,
-}: {
-  date: string;
-  reload: () => void;
-}) {
-  const source = useResource<Session[]>(
-    `sessions?from=${date}&to=${date}&deleted=1`,
-  );
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  return (
-    <>
-      <Feedback
-        error={source.error || error}
-        loading={source.loading || busy}
-      />
-      {!source.loading && !source.error && !source.data?.length && (
-        <p>这一天没有已删除的训练。</p>
-      )}
-      {source.data?.map((s) => (
-        <div className="entry" key={s.id}>
-          <p>
-            {s.exercises.map((e) => e.exercise_name).join("、") || "未添加动作"}{" "}
-            · {workingSets(s)} 个正式组
-          </p>
-          <button
-            disabled={busy}
-            onClick={async () => {
-              setBusy(true);
-              setError("");
-              try {
-                await api(
-                  "sessions",
-                  { id: s.id, revision: s.revision, restore: true },
-                  "PATCH",
-                );
-                source.reload();
-                reload();
-              } catch (e) {
-                setError(e instanceof Error ? e.message : "恢复失败，请重试");
-              } finally {
-                setBusy(false);
-              }
-            }}
-          >
-            恢复训练
-          </button>
-        </div>
-      ))}
-    </>
   );
 }

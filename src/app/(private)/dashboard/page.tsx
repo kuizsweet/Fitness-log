@@ -1,6 +1,6 @@
 import { Dashboard } from "@/components/Dashboard";
 import { dateSchema } from "@/lib/domain";
-export const metadata = { title: "kuizfit · 控制台" };
+export const metadata = { title: "kuizFit · 控制台" };
 export default async function Page({
   searchParams,
 }: {

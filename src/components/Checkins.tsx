@@ -7,13 +7,24 @@ import type { CheckinDashboard } from "@/lib/checkins";
 import { useResource } from "./resource";
 import { Feedback } from "./Feedback";
 
-export function Checkins({ compact = false }: { compact?: boolean }) {
+export function Checkins({
+  compact = false,
+  toolbar = false,
+  onData,
+}: {
+  compact?: boolean;
+  toolbar?: boolean;
+  onData?: (data: CheckinDashboard | null) => void;
+}) {
   const source = useResource<CheckinDashboard>("checkins", true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const data = source.data;
   const reload = source.reload;
+  useEffect(() => {
+    onData?.(data);
+  }, [data, onData]);
   useEffect(() => {
     const refresh = () => reload();
     window.addEventListener("focus", refresh);
@@ -41,6 +52,34 @@ export function Checkins({ compact = false }: { compact?: boolean }) {
       setBusy(false);
     }
   }
+
+  if (toolbar)
+    return (
+      <div className="dashboard-checkin" aria-label="每日签到">
+        <span>
+          {data
+            ? `连续签到 ${data.streak} 天`
+            : source.error
+              ? "签到暂不可用"
+              : "读取签到…"}
+        </span>
+        <button
+          disabled={!data || busy || data.checked_in || source.loading}
+          onClick={() => void signin()}
+        >
+          {busy ? "签到中…" : data?.checked_in ? "今日已签到" : "今日签到"}
+        </button>
+        {source.error && <button onClick={reload}>重试</button>}
+        {(source.error || error) && (
+          <span role="alert">{source.error || error}</span>
+        )}
+        {message && (
+          <span className="visually-hidden" role="status">
+            {message}
+          </span>
+        )}
+      </div>
+    );
 
   return (
     <div className={compact ? "checkin-compact" : "leaderboard-page"}>

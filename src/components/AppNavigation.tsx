@@ -3,6 +3,31 @@ import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { SignOut } from "./SignOut";
+import dashboardStyles from "./dashboard/Dashboard.module.css";
+
+export function DashboardBrand() {
+  return usePathname() === "/dashboard" ? (
+    <Link
+      href="/dashboard"
+      className={dashboardStyles.brand}
+      aria-label="kuizFit 控制台"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        aria-hidden="true"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <path d="m5 13 4-4 4 6 3-5h3" />
+      </svg>
+      kuizFit
+    </Link>
+  ) : null;
+}
 
 const links = [
   ["/dashboard", "控制台", "dashboard"],

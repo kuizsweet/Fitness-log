@@ -14,6 +14,8 @@ export function TrainingCalendar({
   loading,
   error,
   onSelect,
+  checkedDate,
+  title = "训练日历",
 }: {
   date: string;
   timezone: string;
@@ -21,6 +23,8 @@ export function TrainingCalendar({
   loading: boolean;
   error: string;
   onSelect: (date: string) => void;
+  checkedDate?: string;
+  title?: string;
 }) {
   const info = calendarMonth(date);
   const currentDay = today(timezone);
@@ -33,11 +37,11 @@ export function TrainingCalendar({
   return (
     <section
       className="module training-calendar"
-      aria-label="训练日历"
+      aria-label={title}
       aria-busy={loading}
     >
       <div className="calendar-heading">
-        <h2>训练日历</h2>
+        <h2>{title}</h2>
         <div className="calendar-period">
           <select
             aria-label="年份"
@@ -117,7 +121,9 @@ export function TrainingCalendar({
             <button
               className="calendar-day"
               key={i}
-              aria-label={`${day}，${description}`}
+              aria-label={`${day}，${description}${day === checkedDate ? "，已签到" : ""}`}
+              title={`${day}，${description}${day === checkedDate ? "，已签到" : ""}`}
+              data-checked-in={day === checkedDate || undefined}
               aria-pressed={date === day}
               aria-current={day === currentDay ? "date" : undefined}
               onClick={() => onSelect(day)}
@@ -128,6 +134,11 @@ export function TrainingCalendar({
                   <i key={type} className={`day-dot dot-${type}`} />
                 ))}
               </span>
+              {day === checkedDate && (
+                <span className="calendar-check" aria-hidden="true">
+                  ✓
+                </span>
+              )}
             </button>
           );
         })}
