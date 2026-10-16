@@ -9,9 +9,11 @@ import { useResource } from "./resource";
 
 export function Checkins({
   toolbar = false,
+  dataOnly = false,
   onData,
 }: {
   toolbar?: boolean;
+  dataOnly?: boolean;
   onData?: (data: CheckinDashboard | null) => void;
 }) {
   const source = useResource<CheckinDashboard>("checkins", true);
@@ -35,6 +37,8 @@ export function Checkins({
       window.clearInterval(timer);
     };
   }, [reload, data]);
+
+  if (dataOnly) return null;
 
   async function signin() {
     setBusy(true);

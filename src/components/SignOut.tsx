@@ -2,28 +2,24 @@
 import { useState } from "react";
 import { browserClient } from "@/lib/supabase/browser";
 import { clearUserCache } from "@/lib/query-cache";
-export function SignOut() {
+export function useSignOut() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  return (
-    <>
-      <button
-        disabled={busy}
-        onClick={async () => {
-          setBusy(true);
-          const result = await browserClient().auth.signOut();
-          if (result.error) {
-            setError(result.error.message);
-            setBusy(false);
-          } else {
-            clearUserCache();
-            window.location.assign("/auth");
-          }
-        }}
-      >
-        退出
-      </button>
-      {error && <span role="alert">{error}</span>}
-    </>
-  );
+  async function signOut() {
+    setBusy(true);
+    setError("");
+    const result = await browserClient().auth.signOut();
+    if (result.error) {
+      setError(result.error.message);
+      setBusy(false);
+    } else {
+      clearUserCache();
+      window.location.assign("/auth");
+    }
+  }
+  return { signOut, error, busy };
+}
+
+export function SignOut() {
+  return <span>退出</span>;
 }

@@ -66,53 +66,6 @@
   color: #b7cdee;
   text-underline-offset: 4px;
 }
-.toolbar {
-  min-height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex: none;
-}
-.dateContext,
-.quickActions,
-.quickActions :global(.dashboard-checkin) {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-.dateContext > span,
-.quickActions :global(.dashboard-checkin) > span {
-  color: #a1a1aa;
-  font-size: 12px;
-}
-.dateContext time {
-  font-variant-numeric: tabular-nums;
-  font-size: 13px;
-}
-.quickActions {
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-.quickActions > a {
-  font-size: 12px;
-  color: #bcbcc1;
-}
-.toolbarDivider {
-  height: 16px;
-  width: 1px;
-  background: #383838;
-}
-.quickActions :global(.dashboard-checkin) > [role="status"] {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
 .grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -721,14 +674,6 @@
     min-width: 0;
     height: auto;
     min-height: 100%;
-  }
-  .toolbar {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  .quickActions {
-    justify-content: flex-start;
-    gap: 8px;
   }
   .grid {
     display: flex;

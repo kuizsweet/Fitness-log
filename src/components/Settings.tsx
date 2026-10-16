@@ -4,11 +4,11 @@ import { useResource } from "./resource";
 import { api } from "@/lib/client";
 import type { Profile } from "@/lib/domain";
 import { Feedback } from "./Feedback";
-export function Settings() {
+export function Settings({ embedded = false }: { embedded?: boolean }) {
   const profile = useResource<Profile>("profile");
   return (
     <>
-      <h1>设置与导出</h1>
+      {!embedded && <h1>设置与导出</h1>}
       <Feedback error={profile.error} loading={profile.loading} />
       {profile.data && (
         <SettingsForm
@@ -20,6 +20,7 @@ export function Settings() {
     </>
   );
 }
+
 function SettingsForm({
   profile,
   reload,

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { today, workingSets, type Session } from "@/lib/domain";
 import type { CheckinDashboard } from "@/lib/checkins";
 import { nextStrengthPlan } from "@/lib/dashboard";
@@ -16,32 +17,25 @@ import type { DashboardData } from "./useDashboardData";
 import styles from "./Dashboard.module.css";
 
 export function DashboardWorkspace({ data }: { data: DashboardData }) {
-  const { date, profile, sessions, meals, setPicked } = data;
+  const { date, profile, sessions, meals, setPicked, setMealsEnabled } = data;
   const [checkin, setCheckin] = useState<CheckinDashboard | null>(null);
   const mealsDialog = useRef<HTMLDialogElement>(null);
   const currentDay = today(profile.data?.timezone);
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (searchParams.get("openMeals") !== "1") return;
+    setMealsEnabled(true);
+    if (!mealsDialog.current?.open) mealsDialog.current?.showModal();
+    router.replace(pathname, { scroll: false });
+  }, [pathname, router, searchParams, setMealsEnabled]);
+
   return (
     <div className={styles.workspace}>
       <h1 className={styles.srOnly}>kuizFit 训练控制台</h1>
-      <div className={styles.toolbar}>
-        <div className={styles.dateContext}>
-          <span>查看日期</span>
-          <time dateTime={date}>{date}</time>
-        </div>
-        <div className={styles.quickActions}>
-          <Checkins toolbar onData={setCheckin} />
-          <span className={styles.toolbarDivider} aria-hidden="true" />
-          <button
-            onClick={() => {
-              data.setMealsEnabled(true);
-              mealsDialog.current?.showModal();
-            }}
-          >
-            三餐记录
-          </button>
-          <Link href="/leaderboard">排行榜</Link>
-        </div>
-      </div>
+      <Checkins dataOnly onData={setCheckin} />
       <div className={styles.grid}>
         <TrainingConsole data={data} />
         <PlanCard currentDay={currentDay} enabled={Boolean(profile.data)} />

@@ -3,7 +3,13 @@
   background: #191919;
   color-scheme: dark;
 }
+:global(html[data-theme="light"] body):has(.shell) {
+  background: #f4f5f6;
+  color-scheme: light;
+}
 .shell {
+  --shell-bg: #191919;
+  --header-bg: #191919;
   --ink: #f4f4f5;
   --muted: #a1a1aa;
   --line: #303030;
@@ -21,7 +27,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  background: #191919;
+  background: var(--shell-bg);
   color: var(--ink);
   font-family:
     "PingFang SC", "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei",
@@ -31,14 +37,27 @@
   color-scheme: dark;
   scrollbar-color: #414141 #191919;
 }
+:global(html[data-theme="light"]) .shell {
+  --shell-bg: #f4f5f6;
+  --header-bg: #ffffff;
+  --ink: #172027;
+  --muted: #52606a;
+  --line: #d9e0e4;
+  --accent: #176b4c;
+  --focus: #176b4c;
+  --surface: #ffffff;
+  --field: #f4f5f6;
+  color-scheme: light;
+  scrollbar-color: #c4cbd0 #f4f5f6;
+}
 .shell :global(.app-header) {
   min-height: 72px;
   flex: none;
   padding: 14px 24px;
   grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
   gap: 12px;
-  background: #191919;
-  border-bottom: 1px solid #292929;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--line);
 }
 .shell:has(> :global(main[data-area="dashboard"])) :global(.app-header) {
   min-width: 1024px;
@@ -50,15 +69,15 @@
   grid-column: 1;
   grid-row: 1;
   justify-self: start;
-  color: #f4f4f5;
+  color: var(--ink);
   font-size: 19px;
   font-weight: 650;
   text-decoration: none;
 }
 .shell :global(.app-header .app-nav) {
-  --ink: #f4f4f5;
-  --muted: #a1a1aa;
-  --focus: #91b9ef;
+  --ink: inherit;
+  --muted: inherit;
+  --focus: inherit;
   grid-column: 2;
   grid-row: 1;
   justify-self: center;
@@ -70,52 +89,42 @@
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  color-scheme: dark;
+  color-scheme: inherit;
 }
 .shell :global(.app-header .app-nav) > a {
   min-height: 38px;
   padding: 8px 16px;
   border-radius: 8px;
   font-size: 14px;
-  color: #a1a1aa;
+  color: var(--muted);
 }
 .shell :global(.app-header .app-nav) > a:hover,
 .shell :global(.app-header .app-nav) > a[aria-current="page"] {
-  background: #292929;
-  color: #f4f4f5;
+  background: color-mix(in srgb, currentColor 9%, transparent);
+  color: var(--ink);
   box-shadow: none;
 }
 .shell :global(.header-actions) {
   grid-column: 3;
   grid-row: 1;
 }
-.shell :global(.account-menu) > summary,
-.shell :global(.system-settings) {
-  height: 38px;
+.shell :global(.header-actions .header-icon-button) {
   width: 38px;
-  border: 1px solid #303030;
+  height: 38px;
+  min-height: 38px;
+  padding: 0;
   border-radius: 10px;
+  border-color: var(--line);
   background: transparent;
-  color: #c7c7cb;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  color: var(--muted);
 }
-.shell :global(.account-menu) > summary:hover,
-.shell :global(.account-menu[open]) > summary,
-.shell :global(.system-settings):hover {
-  background: #292929;
-  color: #f4f4f5;
+.shell :global(.header-actions .header-icon-button:hover),
+.shell :global(.header-actions .header-icon-button[data-state="open"]) {
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
+  color: var(--ink);
 }
-.shell :global(.account-panel) {
-  --ink: #f4f4f5;
-  --muted: #a1a1aa;
-  background: #202020;
-  border: 1px solid #383838;
-  border-radius: 12px;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+.shell :global(.header-actions .account-trigger) {
+  color: var(--ink);
 }
 .main {
   flex: 1;
@@ -163,24 +172,24 @@
   font-weight: 600;
 }
 .shell :global(.module) {
-  --module-ink: #f4f4f5;
-  --module-bg: #111111;
-  --ink: #f4f4f5;
-  --muted: #a1a1aa;
-  --line: #303030;
-  --focus: #91b9ef;
-  border: 1px solid #242424;
+  --module-ink: var(--ink);
+  --module-bg: var(--surface);
+  --ink: inherit;
+  --muted: inherit;
+  --line: inherit;
+  --focus: inherit;
+  border: 1px solid var(--line);
   border-radius: 18px;
 }
 .shell :global(.module) :is(small, :global(.muted)) {
   color: var(--muted);
 }
 .shell :is(button, :global(.button), input, select, textarea) {
-  --ink: #f4f4f5;
-  --muted: #a1a1aa;
-  --line: #383838;
-  --accent: #a8c5ef;
-  --focus: #91b9ef;
+  --ink: inherit;
+  --muted: inherit;
+  --line: inherit;
+  --accent: inherit;
+  --focus: inherit;
   font-family: inherit;
   font-size: 14px;
 }
@@ -188,45 +197,43 @@
   min-height: 40px;
   padding: 8px 12px;
   border-radius: 8px;
-  background: #242424;
+  background: color-mix(in srgb, var(--ink) 9%, transparent);
   line-height: 1.5;
 }
 .shell :is(button, :global(.button)):hover:not(:disabled) {
-  background: #303030;
-  color: #f4f4f5;
+  background: color-mix(in srgb, var(--ink) 14%, transparent);
+  color: var(--ink);
 }
 .shell :is(button, :global(.button)):global(.primary) {
-  background: #a8c5ef;
-  border-color: #a8c5ef;
-  color: #131923;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--surface);
 }
 .shell :is(button, :global(.button)):global(.primary):hover:not(:disabled) {
-  background: #c0d6f5;
-  border-color: #c0d6f5;
-  color: #131923;
+  filter: brightness(1.08);
 }
 .shell :is(input:not([type="checkbox"]), select, textarea) {
-  background: #202020;
-  border-color: #383838;
+  background: var(--field);
+  border-color: var(--line);
   border-radius: 8px;
 }
 .shell :is(input, textarea)::placeholder {
-  color: #a1a1aa;
+  color: var(--muted);
   opacity: 1;
 }
 .shell input[type="checkbox"] {
-  accent-color: #a8c5ef;
+  accent-color: var(--accent);
 }
 .shell :focus-visible {
-  outline: 2px solid #91b9ef;
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 .shell ::selection {
-  background: #334965;
-  color: #f4f4f5;
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  color: var(--ink);
 }
 .shell :global(.page-loading-skeleton) {
-  background: #202020;
+  background: var(--field);
   border-radius: 18px;
 }
 
@@ -244,7 +251,7 @@
   .shell:has(> :global(main[data-area="dashboard"])) :global(.app-nav) {
     grid-column: 1 / -1;
     grid-row: 2;
-    justify-self: start;
+    justify-self: center;
   }
   .main[data-area="dashboard"] {
     padding-inline: 16px;
