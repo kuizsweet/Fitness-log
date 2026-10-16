@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { api } from "@/lib/client";
 import { today } from "@/lib/domain";
-import type { CheckinDashboard } from "@/lib/checkins";
+import { leaderboardPage, type CheckinDashboard } from "@/lib/checkins";
+import styles from "./Leaderboard.module.css";
 import { useResource } from "./resource";
 import { Feedback } from "./Feedback";
 
@@ -15,6 +15,7 @@ export function Checkins({
   onData?: (data: CheckinDashboard | null) => void;
 }) {
   const source = useResource<CheckinDashboard>("checkins", true);
+  const [page, setPage] = useState(1);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
@@ -79,107 +80,139 @@ export function Checkins({
       </div>
     );
 
+  const ranking = leaderboardPage(data?.leaderboard ?? [], page);
   return (
-    <div className="leaderboard-page">
-      <div className="page-heading">
-        <h1>排行榜</h1>
-        <Link href="/dashboard">返回控制台</Link>
-      </div>
-      <section className="module module-checkin" aria-label="我的签到">
-        <div className="checkin-action">
-          <div>
-            <p className="checkin-count">
-              {data ? (
-                <>
-                  连续 <strong>{data.streak}</strong> 天
-                </>
-              ) : source.error ? (
-                "签到暂时不可用"
-              ) : (
-                "读取签到记录…"
-              )}
-            </p>
-            {data && (
-              <small>
-                <>
-                  <span className="checkin-date">{data.date}</span>
-                  <span className="checkin-status">
-                    {data.checked_in ? "今天已签到" : "今天还未签到"}
+    <div className={styles.layout}>
+      <h1 className={styles.srOnly}>排行榜</h1>
+      <section
+        className={styles.ranking}
+        aria-label="连续签到排行榜"
+        aria-busy={source.loading}
+      >
+        <div className={styles.rankingBar}>
+          <span>
+            {data
+              ? `${ranking.total} 人`
+              : source.error
+                ? "暂不可用"
+                : "读取中…"}
+          </span>
+          <button
+            onClick={reload}
+            disabled={source.loading}
+            aria-label="刷新排行榜"
+            title="刷新排行榜"
+          >
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.7"
+              aria-hidden="true"
+            >
+              <path d="M20 7v5h-5M4 17v-5h5" />
+              <path d="M6.1 6a8 8 0 0 1 13 2M4.9 16a8 8 0 0 0 13 2" />
+            </svg>
+          </button>
+        </div>
+        <Feedback error={source.error} />
+        <table className={styles.table}>
+          <caption className={styles.srOnly}>按连续签到天数排名</caption>
+          <thead>
+            <tr>
+              <th scope="col">排名</th>
+              <th scope="col">用户</th>
+              <th scope="col">连续签到</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ranking.rows.map((row, i) => (
+              <tr
+                key={`${ranking.page}:${i}`}
+                data-self={row.is_self || undefined}
+              >
+                <td>
+                  <span
+                    className={styles.rank}
+                    data-top={row.rank <= 3 || undefined}
+                  >
+                    {row.rank}
                   </span>
-                </>
-              </small>
+                </td>
+                <td>
+                  <div className={styles.person}>
+                    <span className={styles.avatar} aria-hidden="true">
+                      {row.display_name.slice(0, 1)}
+                    </span>
+                    <span>{row.display_name}</span>
+                    {row.is_self && <small>我</small>}
+                  </div>
+                </td>
+                <td>
+                  <strong>{row.streak}</strong>
+                  <span className={styles.unit}>天</span>
+                </td>
+              </tr>
+            ))}
+            {!ranking.rows.length && (
+              <tr>
+                <td colSpan={3} className={styles.empty}>
+                  {source.error
+                    ? "榜单暂不可用"
+                    : source.loading && !data
+                      ? "读取中…"
+                      : "暂无上榜用户"}
+                </td>
+              </tr>
             )}
-          </div>
+          </tbody>
+        </table>
+        <nav className={styles.pagination} aria-label="排行榜分页">
+          <button
+            disabled={ranking.page <= 1}
+            onClick={() => setPage(ranking.page - 1)}
+            aria-label="上一页"
+          >
+            上一页
+          </button>
+          <span role="status" aria-live="polite">
+            {ranking.page} / {ranking.pages}
+          </span>
+          <button
+            disabled={ranking.page >= ranking.pages}
+            onClick={() => setPage(ranking.page + 1)}
+            aria-label="下一页"
+          >
+            下一页
+          </button>
+        </nav>
+      </section>
+      <aside className={styles.side} aria-label="签到与上榜设置">
+        <section className={styles.panel} aria-labelledby="checkin-heading">
+          <h2 id="checkin-heading">签到</h2>
+          <p className={styles.streak}>
+            <strong>{data?.streak ?? "—"}</strong>
+            <span>连续天数</span>
+          </p>
           <button
             className="primary"
             disabled={!data || busy || data.checked_in || source.loading}
             onClick={() => void signin()}
           >
-            {data?.checked_in ? "今日已签到" : "今日签到"}
+            {busy ? "签到中…" : data?.checked_in ? "今日已签到" : "今日签到"}
           </button>
-        </div>
+          <Feedback error={error} message={message} />
+        </section>
         {data && (
-          <p className="checkin-rule">
-            按 {data.timezone}{" "}
-            每日签到一次。昨天的连续记录保留至今日结束，漏签一天重新计算，不支持补签。
-          </p>
-        )}
-      </section>
-      <Feedback
-        error={source.error || error}
-        message={message}
-        loading={source.loading || busy}
-      />
-      {source.error && <button onClick={source.reload}>重新加载签到</button>}
-      {data && (
-        <div className="leaderboard-layout">
-          <section
-            className="module module-checkin"
-            aria-labelledby="ranking-title"
-          >
-            <div className="module-heading">
-              <h2 id="ranking-title">连续签到排名</h2>
-              <button onClick={source.reload} disabled={source.loading || busy}>
-                刷新榜单
-              </button>
-            </div>
-            <p className="muted">
-              仅展示主动上榜且连续签到至少 1 天的用户，最多 50
-              位；天数相同并列排名。
-            </p>
-            {data.leaderboard.length ? (
-              <ol className="ranking-list">
-                {data.leaderboard.map((row, i) => (
-                  <li key={i} className={row.is_self ? "ranking-self" : ""}>
-                    <span
-                      className="ranking-position"
-                      aria-label={`第 ${row.rank} 名`}
-                    >
-                      {row.rank}
-                    </span>
-                    <span className="ranking-name">
-                      {row.display_name}
-                      {row.is_self && <small>你</small>}
-                    </span>
-                    <span className="ranking-days">
-                      <strong>{row.streak}</strong> 天
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p className="empty-state">
-                暂时没有上榜用户。完成签到后，可以自主选择参与。
-              </p>
-            )}
-          </section>
           <CheckinPreferences
             key={`${data.listed}:${data.display_name}`}
             data={data}
-            reload={source.reload}
+            reload={reload}
           />
-        </div>
-      )}
+        )}
+      </aside>
     </div>
   );
 }
@@ -195,20 +228,18 @@ function CheckinPreferences({
   const [name, setName] = useState(data.display_name);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const changed = listed !== data.listed || name.trim() !== data.display_name;
   return (
     <section
-      className="module module-neutral"
+      className={styles.panel}
       id="visibility"
       aria-labelledby="visibility-title"
     >
-      <h2 id="visibility-title">我的上榜设置</h2>
-      <p>
-        默认不上榜。开启后，其他已登录用户可看到你的榜单昵称、连续天数和排名。
-      </p>
+      <h2 id="visibility-title">上榜设置</h2>
       <form
-        className="stack"
-        onSubmit={async (event) => {
-          event.preventDefault();
+        className={styles.preferences}
+        onSubmit={async (e) => {
+          e.preventDefault();
           setBusy(true);
           setError("");
           try {
@@ -219,20 +250,21 @@ function CheckinPreferences({
             });
             reload();
           } catch (e) {
-            setError(e instanceof Error ? e.message : "设置保存失败");
+            setError(e instanceof Error ? e.message : "保存失败");
           } finally {
             setBusy(false);
           }
         }}
       >
-        <label className="checkin-consent">
+        <label className={styles.toggle}>
+          <span>参与上榜</span>
           <input
             type="checkbox"
+            role="switch"
             checked={listed}
             disabled={busy}
             onChange={(e) => setListed(e.target.checked)}
           />
-          参与连续签到榜
         </label>
         <label>
           榜单昵称
@@ -244,13 +276,11 @@ function CheckinPreferences({
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <button disabled={busy}>保存上榜设置</button>
+        <button disabled={busy || !changed}>
+          {busy ? "保存中…" : "保存设置"}
+        </button>
       </form>
-      <p className="muted">
-        当前：{data.listed ? "已开启上榜" : "未参与榜单"}
-        。关闭并保存后退出榜单，自己的签到记录仍保留。
-      </p>
-      <Feedback error={error} loading={busy} />
+      <Feedback error={error} />
     </section>
   );
 }

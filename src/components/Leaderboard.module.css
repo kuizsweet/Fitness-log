@@ -1,0 +1,202 @@
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.ranking {
+  min-width: 0;
+  border: 1px solid #292929;
+  border-radius: 16px;
+  background: #111111;
+  overflow: hidden;
+}
+.rankingBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  color: #a1a1aa;
+  font-size: 13px;
+}
+.rankingBar button {
+  display: grid;
+  place-items: center;
+}
+.table {
+  width: 100%;
+  table-layout: fixed;
+}
+.table th {
+  font-size: 12px;
+  font-weight: 500;
+  color: #a1a1aa;
+  padding: 12px 20px;
+  background: #191919;
+}
+.table :is(td, th):first-child {
+  width: 86px;
+  text-align: center;
+}
+.table :is(td, th):last-child {
+  width: 125px;
+  text-align: right;
+}
+.table td {
+  height: 72px;
+  padding: 12px 20px;
+  border-color: #292929;
+  vertical-align: middle;
+}
+.table tr[data-self] {
+  background: #1c2633;
+}
+.rank {
+  color: #a1a1aa;
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+}
+.rank[data-top] {
+  font-weight: 650;
+  color: #c9dcf7;
+}
+.person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.person > span:nth-child(2) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.person small {
+  font-size: 11px;
+  color: #a8c5ef;
+}
+.avatar {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  background: #282828;
+  color: #c5c5cc;
+  border-radius: 50%;
+}
+.unit {
+  margin-left: 5px;
+  color: #a1a1aa;
+  font-size: 12px;
+}
+.table td.empty {
+  height: 360px;
+  text-align: center;
+  color: #a1a1aa;
+  font-size: 14px;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 16px 20px;
+  gap: 14px;
+}
+.pagination span {
+  font-size: 12px;
+  color: #a1a1aa;
+  font-variant-numeric: tabular-nums;
+}
+.side {
+  display: grid;
+  gap: 20px;
+}
+.panel {
+  background: #111111;
+  border: 1px solid #292929;
+  border-radius: 16px;
+  padding: 22px;
+}
+.panel h2 {
+  margin: 0 0 20px;
+  font-size: 16px;
+}
+.panel > button,
+.preferences > button {
+  width: 100%;
+}
+.streak {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 20px;
+}
+.streak strong {
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.streak span {
+  color: #a1a1aa;
+  font-size: 12px;
+}
+.preferences {
+  display: grid;
+  gap: 18px;
+}
+.preferences label > input:not([type="checkbox"]) {
+  margin-top: 6px;
+}
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #ededf0;
+}
+.toggle input {
+  appearance: none;
+  width: 36px !important;
+  height: 22px !important;
+  border: 1px solid #555;
+  border-radius: 12px;
+  background: #303030;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+}
+.toggle input::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #b5b5bd;
+  top: 3px;
+  left: 3px;
+}
+.toggle input:checked {
+  background: #a8c5ef;
+  border-color: #a8c5ef;
+}
+.toggle input:checked::after {
+  left: 17px;
+  background: #182231;
+}
+.panel :global([role="alert"]),
+.panel :global([role="status"]) {
+  font-size: 12px;
+  margin-bottom: 0;
+}

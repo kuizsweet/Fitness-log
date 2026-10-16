@@ -31,8 +31,7 @@ export function AppBrand() {
 
 const links = [
   ["/dashboard", "控制台", "dashboard"],
-  ["/train", "训练", "training"],
-  ["/catalog", "动作与器材", "catalog"],
+  ["/train", "配置", "configuration"],
   ["/leaderboard", "排行榜", "checkin"],
 ];
 
@@ -45,7 +44,11 @@ export function AppNavigation() {
           key={href}
           href={href}
           data-area={area}
-          aria-current={path === href ? "page" : undefined}
+          aria-current={
+            path === href || (href === "/train" && path.startsWith("/session/"))
+              ? "page"
+              : undefined
+          }
         >
           {label}
           <NavigationPending />
@@ -116,7 +119,7 @@ export function AppMain({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const area =
     links.find(([href]) => href === path)?.[2] ??
-    (path.startsWith("/session") ? "training" : "neutral");
+    (path.startsWith("/session") ? "configuration" : "neutral");
   return (
     <main
       className={appStyles.main}

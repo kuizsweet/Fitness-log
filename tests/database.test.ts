@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { PGlite } from "@electric-sql/pglite";
 import { pgcrypto } from "@electric-sql/pglite/contrib/pgcrypto";
 import { newSession, newSet, type Session } from "../src/lib/domain";
+import { repeatSession, trainingSummary } from "../src/lib/training";
 
 test("实际 PostgreSQL 引擎执行迁移、RLS、事务与撤销规则", async (t) => {
   const db = new PGlite({ extensions: { pgcrypto } });
@@ -330,5 +331,68 @@ test("实际 PostgreSQL 引擎执行迁移、RLS、事务与撤销规则", async
       );
     },
   );
+  await t.test(
+    "保存计划、复制开练、完成再保存，原计划与历史记录互不覆盖",
+    async () => {
+      await asUser(a);
+      const plan: Session = {
+        ...newSession("2026-10-16"),
+        status: "planned",
+        exercises: [
+          {
+            ...s.exercises[0],
+            id: crypto.randomUUID(),
+            sets: [{ ...newSet(), reps: 8 }],
+          },
+        ],
+      };
+      plan.revision = (await save(plan)).revision;
+      const workout = repeatSession(plan, "2026-10-17", "2026-10-17T01:00:00Z");
+      workout.revision = (await save(workout)).revision;
+      const firstWorkoutRevision = workout.revision;
+      workout.exercises[0].sets[0].completed = true;
+      workout.exercises[0].sets[0].completed_at = "2026-10-17T01:01:00Z";
+      workout.status = "completed";
+      workout.ended_at = "2026-10-17T01:02:00Z";
+      workout.revision = (await save(workout)).revision;
+      const roots = await db.query<{
+        id: string;
+        status: string;
+        revision: number;
+      }>(
+        "select id,status,revision from public.workout_sessions where id in ($1,$2)",
+        [plan.id, workout.id],
+      );
+      assert.equal(roots.rows.find((r) => r.id === plan.id)?.status, "planned");
+      assert.equal(
+        roots.rows.find((r) => r.id === plan.id)?.revision,
+        plan.revision,
+      );
+      assert.equal(
+        roots.rows.find((r) => r.id === workout.id)?.status,
+        "completed",
+      );
+      assert.equal(
+        roots.rows.find((r) => r.id === workout.id)?.revision,
+        workout.revision,
+      );
+      assert.ok(workout.revision > firstWorkoutRevision);
+      const sets = await db.query<{ id: string; completed: boolean }>(
+        "select id,completed from public.workout_sets where id in ($1,$2)",
+        [plan.exercises[0].sets[0].id, workout.exercises[0].sets[0].id],
+      );
+      assert.equal(
+        sets.rows.find((r) => r.id === plan.exercises[0].sets[0].id)?.completed,
+        false,
+      );
+      assert.equal(
+        sets.rows.find((r) => r.id === workout.exercises[0].sets[0].id)
+          ?.completed,
+        true,
+      );
+      assert.equal(trainingSummary(workout).workSets, 1);
+    },
+  );
+
   await db.close();
 });

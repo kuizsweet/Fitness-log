@@ -6,16 +6,19 @@ import {
   type Weight,
   type Equipment,
 } from "@/lib/domain";
+import styles from "./Training.module.css";
 export function WeightInput({
   value: w,
   onChange,
   equipment,
   label = "实际重量",
+  compact = false,
 }: {
   value: Weight;
   onChange: (w: Weight) => void;
   equipment?: Equipment | null;
   label?: string;
+  compact?: boolean;
 }) {
   const number = (key: "value" | "left" | "right" | "base", title: string) => (
     <label>
@@ -36,6 +39,48 @@ export function WeightInput({
       />
     </label>
   );
+  const values = (
+    <div className={compact ? styles.weight : "row"}>
+      {w.mode === "bodyweight" && compact ? (
+        <span>自重</span>
+      ) : w.mode === "per_side" ? (
+        <>
+          {number("left", "左侧")}
+          {number("right", "右侧")}
+          {number("base", "杆重")}
+        </>
+      ) : w.mode === "display" && equipment?.increments.length ? (
+        <label>
+          显示档位
+          <select
+            aria-label={label + "显示档位"}
+            value={w.value ?? ""}
+            onChange={(e) =>
+              onChange({
+                ...w,
+                value: e.target.value === "" ? null : Number(e.target.value),
+              })
+            }
+          >
+            <option value="">—</option>
+            {[
+              ...new Set([
+                ...equipment.increments,
+                ...(w.value !== null ? [w.value] : []),
+              ]),
+            ]
+              .sort((a, b) => a - b)
+              .map((n) => (
+                <option key={n}>{n}</option>
+              ))}
+          </select>
+        </label>
+      ) : (
+        number("value", compact ? w.unit : "重量（未知留空）")
+      )}
+    </div>
+  );
+  if (compact) return values;
   return (
     <fieldset>
       <legend>{label}</legend>
@@ -74,44 +119,7 @@ export function WeightInput({
           </select>
         </label>
       </div>
-      <div className="row">
-        {w.mode === "per_side" ? (
-          <>
-            {number("left", "左侧挂片")}
-            {number("right", "右侧挂片")}
-            {number("base", "杆重 / 初始质量（未知留空）")}
-          </>
-        ) : w.mode === "display" && equipment?.increments.length ? (
-          <label>
-            显示档位
-            <select
-              value={w.value ?? ""}
-              onChange={(e) =>
-                onChange({
-                  ...w,
-                  value: e.target.value === "" ? null : Number(e.target.value),
-                })
-              }
-            >
-              <option value="">未填写</option>
-              {[
-                ...new Set([
-                  ...equipment.increments,
-                  ...(w.value !== null ? [w.value] : []),
-                ]),
-              ]
-                .sort((a, b) => a - b)
-                .map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-            </select>
-          </label>
-        ) : (
-          number("value", "重量（未知留空）")
-        )}
-      </div>
+      {values}
       {w.mode === "per_side" && (
         <p>
           装载总质量：{totalWeight(w) ?? "未知（初始质量或侧重未填写）"}{" "}

@@ -13,6 +13,10 @@ export async function GET(request: Request) {
           "paused",
         ]),
       );
+    if (p.get("planned") === "1")
+      return json(
+        await sessionsQuery(db, "0001-01-01", "9999-12-31", false, ["planned"]),
+      );
     if (p.has("id")) {
       const id = z.uuid().parse(p.get("id"));
       const root = await db

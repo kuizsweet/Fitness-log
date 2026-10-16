@@ -149,7 +149,11 @@ function TrainingConsole({ data }: { data: DashboardData }) {
         <div className={styles.consoleActions}>
           <Link
             className={styles.primaryAction}
-            href={active ? `/session/${active.id}` : `/train?date=${date}`}
+            href={
+              active
+                ? `/session/${active.id}`
+                : `/session/new?active=1&date=${date}`
+            }
           >
             {active ? "继续训练" : "开始训练"}
           </Link>
@@ -202,14 +206,14 @@ function TrainingConsole({ data }: { data: DashboardData }) {
           ))}
         </div>
       </div>
-      <div className={styles.reservedTools} aria-label="后续训练工具">
+      <div className={styles.reservedTools} aria-label="训练工具">
         <div>
           <span>训练计时</span>
-          <small>暂未开放</small>
+          <small>训练中查看</small>
         </div>
         <div>
           <span>组间休息</span>
-          <small>暂未开放</small>
+          <small>完成组后正计时</small>
         </div>
         <div>
           <span>力竭分析</span>
@@ -315,6 +319,11 @@ function PlanCard({ currentDay }: { currentDay: string }) {
                 </ol>
                 {!next.exercises.length && <p>尚未添加动作</p>}
                 <Link href={`/session/${next.id}`}>查看与调整计划</Link>
+                <Link
+                  href={`/session/new?template=${next.id}&date=${currentDay}`}
+                >
+                  开始计划
+                </Link>
               </div>
             ) : (
               <div className={styles.planEmpty}>

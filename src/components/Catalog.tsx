@@ -22,6 +22,8 @@ export function Catalog() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [search, setSearch] = useState("");
+  const [muscle, setMuscle] = useState("");
   async function save(
     kind: "exercises" | "equipment",
     item: Exercise | Equipment,
@@ -43,14 +45,38 @@ export function Catalog() {
   }
   return (
     <>
-      <h1>动作与器材</h1>
-      <p>动作和器材分别管理。预设需主动添加，不会生成训练历史。</p>
+      <h2>动作与器材</h2>
       <Feedback
         error={catalog.error || error}
         loading={catalog.loading || busy}
         message={message}
       />
-      <h2>动作</h2>
+      <h3>动作</h3>
+      <div className="row">
+        <label>
+          搜索动作
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </label>
+        <label>
+          肌群
+          <select value={muscle} onChange={(e) => setMuscle(e.target.value)}>
+            <option value="">全部肌群</option>
+            {[
+              ...new Set(
+                catalog.data?.exercises
+                  .map((e) => e.muscle_group)
+                  .filter(Boolean),
+              ),
+            ].map((m) => (
+              <option key={m}>{m}</option>
+            ))}
+          </select>
+        </label>
+      </div>
       <div className="row">
         <button
           onClick={() =>
@@ -145,40 +171,48 @@ export function Catalog() {
           </div>
         </form>
       )}
-      {catalog.data?.exercises.map((item) => (
-        <div className="entry" key={item.id}>
-          <p>
-            {item.name} · {item.muscle_group || "未指定肌群"}{" "}
-            {item.hidden && "· 已隐藏"} {item.deleted_at && "· 已删除"}
-          </p>
-          <div className="row">
-            <button
-              disabled={busy || Boolean(item.deleted_at)}
-              onClick={() => setExercise(item)}
-            >
-              编辑
-            </button>
-            <button
-              disabled={busy}
-              onClick={() => {
-                if (
-                  item.deleted_at ||
-                  confirm("删除此动作配置？历史训练仍保留，可以恢复。")
-                )
-                  void save("exercises", {
-                    ...item,
-                    deleted_at: item.deleted_at
-                      ? null
-                      : new Date().toISOString(),
-                  });
-              }}
-            >
-              {item.deleted_at ? "恢复" : "删除"}
-            </button>
+      {catalog.data?.exercises
+        .filter(
+          (item) =>
+            item.name
+              .toLocaleLowerCase()
+              .includes(search.trim().toLocaleLowerCase()) &&
+            (!muscle || item.muscle_group === muscle),
+        )
+        .map((item) => (
+          <div className="entry" key={item.id}>
+            <p>
+              {item.name} · {item.muscle_group || "未指定肌群"}{" "}
+              {item.hidden && "· 已隐藏"} {item.deleted_at && "· 已删除"}
+            </p>
+            <div className="row">
+              <button
+                disabled={busy || Boolean(item.deleted_at)}
+                onClick={() => setExercise(item)}
+              >
+                编辑
+              </button>
+              <button
+                disabled={busy}
+                onClick={() => {
+                  if (
+                    item.deleted_at ||
+                    confirm("删除此动作配置？历史训练仍保留，可以恢复。")
+                  )
+                    void save("exercises", {
+                      ...item,
+                      deleted_at: item.deleted_at
+                        ? null
+                        : new Date().toISOString(),
+                    });
+                }}
+              >
+                {item.deleted_at ? "恢复" : "删除"}
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
-      <h2>器材</h2>
+        ))}
+      <h3>器材</h3>
       <label>
         添加器材（选择基础类型）
         <select

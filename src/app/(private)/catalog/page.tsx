@@ -1,4 +1,4 @@
-import { Catalog } from "@/components/Catalog";
+import { redirect } from "next/navigation";
 export default function Page() {
-  return <Catalog />;
+  redirect("/train#catalog");
 }

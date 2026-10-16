@@ -1,7 +1,11 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 import { api } from "@/lib/client";
-export function useResource<T>(path: string, retainOnReload = false) {
+export function useResource<T>(
+  path: string,
+  retainOnReload = false,
+  enabled = true,
+) {
   const [version, setVersion] = useState(0);
   const [result, setResult] = useState<{
     path: string;
@@ -10,6 +14,7 @@ export function useResource<T>(path: string, retainOnReload = false) {
     error: string;
   } | null>(null);
   useEffect(() => {
+    if (!enabled) return;
     let cancelled = false;
     api<T>(path)
       .then((d) => {
@@ -31,7 +36,7 @@ export function useResource<T>(path: string, retainOnReload = false) {
     return () => {
       cancelled = true;
     };
-  }, [path, version, retainOnReload]);
+  }, [path, version, retainOnReload, enabled]);
   const reload = useCallback(() => {
     setVersion((v) => v + 1);
   }, []);
@@ -42,7 +47,7 @@ export function useResource<T>(path: string, retainOnReload = false) {
       current?.data ??
       (retainOnReload && result?.path === path ? result.data : null),
     error: current?.error ?? "",
-    loading: current === null,
+    loading: enabled && current === null,
     reload,
   };
 }
