@@ -15,7 +15,13 @@ export async function GET(request: Request) {
       );
     if (p.get("planned") === "1")
       return json(
-        await sessionsQuery(db, "0001-01-01", "9999-12-31", false, ["planned"]),
+        await sessionsQuery(
+          db,
+          p.has("from") ? dateSchema.parse(p.get("from")) : "0001-01-01",
+          "9999-12-31",
+          false,
+          ["planned"],
+        ),
       );
     if (p.has("id")) {
       const id = z.uuid().parse(p.get("id"));

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { PGlite } from "@electric-sql/pglite";
 import { pgcrypto } from "@electric-sql/pglite/contrib/pgcrypto";
 import { migrationBundle } from "../scripts/prepare-supabase.mjs";
+import { readdir } from "node:fs/promises";
 test("部署包事务安装、重复执行保留数据、权限移除 TRUNCATE", async () => {
   const db = new PGlite({ extensions: { pgcrypto } });
   await db.exec(`create role anon;create role authenticated;create schema auth;create schema storage;
@@ -27,7 +28,9 @@ alter default privileges in schema public grant all on tables to authenticated,a
   assert.equal(
     (await db.query("select * from fitness_journal_meta.migrations")).rows
       .length,
-    5,
+    (await readdir("supabase/migrations")).filter((file) =>
+      /^\d+_[a-z_]+\.sql$/.test(file),
+    ).length,
   );
   assert.equal(
     (

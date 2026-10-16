@@ -10,18 +10,19 @@ import {
   AppBrand,
 } from "@/components/AppNavigation";
 import styles from "@/components/AppShell.module.css";
+import { DevPerformance } from "@/components/DevPerformance";
+import { ResourceProvider } from "@/components/ResourceProvider";
+import { Suspense } from "react";
+import Loading from "./loading";
 export const dynamic = "force-dynamic";
-export default async function PrivateLayout({
+export default function PrivateLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  if (!configured()) redirect("/");
-  const db = await serverClient();
-  const { data, error } = await verifiedClaims(db);
-  if (error || !data?.claims.sub) redirect("/auth");
   return (
     <div className={styles.shell}>
+      <DevPerformance />
       <header className="app-header">
         <AppBrand />
         <AppNavigation />
@@ -48,7 +49,22 @@ export default async function PrivateLayout({
           </Link>
         </div>
       </header>
-      <AppMain>{children}</AppMain>
+      <AppMain>
+        <Suspense fallback={<Loading />}>
+          <AuthorizedContent>{children}</AuthorizedContent>
+        </Suspense>
+      </AppMain>
     </div>
+  );
+}
+async function AuthorizedContent({ children }: { children: React.ReactNode }) {
+  if (!configured()) redirect("/");
+  const db = await serverClient();
+  const { data, error } = await verifiedClaims(db);
+  if (error || !data?.claims.sub) redirect("/auth");
+  return (
+    <ResourceProvider user={data.claims.sub} key={data.claims.sub}>
+      {children}
+    </ResourceProvider>
   );
 }

@@ -1,0 +1,27 @@
+.positioner {
+  isolation: isolate;
+  z-index: 50;
+}
+.popup {
+  background: var(--field, #202020);
+  color: var(--ink, #ededed);
+  border: 1px solid var(--line, #303030);
+  border-radius: 8px;
+  padding: 10px;
+  outline: none;
+  overflow: auto;
+  transform-origin: var(--transform-origin);
+  transition:
+    opacity 150ms,
+    transform 150ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.popup[data-starting-style],
+.popup[data-ending-style] {
+  opacity: 0;
+  transform: translateY(3px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .popup {
+    transition: none;
+  }
+}

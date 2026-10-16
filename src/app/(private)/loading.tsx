@@ -1,8 +1,11 @@
+"use client";
+import { usePathname } from "next/navigation";
+import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
 export default function Loading() {
-  return (
-    <div className="page-loading" role="status" aria-live="polite">
-      正在打开页面…
-      <div className="page-loading-skeleton" aria-hidden="true" />
-    </div>
+  const path = usePathname();
+  return path === "/dashboard" ? (
+    <DashboardSkeleton />
+  ) : (
+    <div className="page-loading-skeleton" aria-busy="true" />
   );
 }

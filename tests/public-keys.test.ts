@@ -41,13 +41,19 @@ test("公开公钥合并并发读取、严格过期且失败不使用旧缓存",
     assert.equal(calls, 1);
     await preloadPublicKeys();
     assert.equal(calls, 1);
-    now += 300_001;
+    now += 240_000;
+    fail = true;
+    await assert.rejects(preloadPublicKeys(true));
+    assert.equal(calls, 2);
+    await preloadPublicKeys();
+    assert.equal(calls, 2, "预刷新失败不能使仍在有效期内的公钥失效");
+    now += 60_001;
     fail = true;
     await assert.rejects(preloadPublicKeys());
-    assert.equal(calls, 2);
+    assert.equal(calls, 3, "预刷新失败不延长旧公钥有效期");
     fail = false;
     await preloadPublicKeys();
-    assert.equal(calls, 3);
+    assert.equal(calls, 4);
   } finally {
     globalThis.fetch = originalFetch;
     Date.now = originalNow;

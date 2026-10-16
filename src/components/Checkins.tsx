@@ -59,7 +59,7 @@ export function Checkins({
             ? `连续签到 ${data.streak} 天`
             : source.error
               ? "签到暂不可用"
-              : "读取签到…"}
+              : "—"}
         </span>
         <button
           disabled={!data || busy || data.checked_in || source.loading}

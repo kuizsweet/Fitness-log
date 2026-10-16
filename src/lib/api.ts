@@ -3,6 +3,7 @@ import { ZodError } from "zod";
 import { serverClient } from "./supabase/server";
 import { configured } from "./supabase/config";
 import { verifiedClaims } from "./supabase/claims";
+import { trustedRequestOrigin } from "./request-origin";
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -15,11 +16,12 @@ export async function context(request?: Request) {
   if (!configured())
     throw new ApiError("Supabase 尚未配置，请设置环境变量并运行迁移。", 503);
   if (request && !["GET", "HEAD"].includes(request.method)) {
-    const origin = request.headers.get("origin");
-    const allowed = process.env.NEXT_PUBLIC_SITE_URL;
     if (
-      !origin ||
-      (origin !== new URL(request.url).origin && origin !== allowed)
+      !trustedRequestOrigin(
+        request,
+        process.env.NEXT_PUBLIC_SITE_URL,
+        process.env.NODE_ENV === "development",
+      )
     )
       throw new ApiError("请求来源无效", 403);
   }

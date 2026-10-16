@@ -1,7 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { config as serviceConfig, configured } from "./lib/supabase/config";
-import { verifiedClaims } from "./lib/supabase/claims";
 import { supabaseFetch } from "./lib/supabase/transport";
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -20,8 +19,10 @@ export async function proxy(request: NextRequest) {
       },
     },
   });
-  // Verify/refresh the signed token here; each page also checks its identity.
-  await verifiedClaims(client);
+  // Refresh cookie storage only. This result never authorizes a request.
+  // The private layout verifies signed claims before mounting data consumers;
+  // every API independently verifies claims/getUser and applies RLS.
+  await client.auth.getSession();
   response.headers.set("Cache-Control", "private, no-store");
   return response;
 }

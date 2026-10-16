@@ -11,9 +11,9 @@ export const supabaseFetch: typeof fetch = (input, init) => {
   if (process.env.VERCEL || process.env.NODE_USE_ENV_PROXY !== "1" || !local)
     return fetch(input, init);
   shared.fitnessProxyDispatcher ??= new EnvHttpProxyAgent({
-    // ponytail: one pooled local connection avoids concurrent slow handshakes;
+    // A bounded pool lets independent Dashboard reads proceed concurrently;
     // Vercel uses its normal transport for multi-user throughput.
-    connections: 1,
+    connections: 4,
     allowH2: true,
     requestTls: { allowH2: true },
     pingInterval: 0,

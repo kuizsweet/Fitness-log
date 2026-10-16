@@ -14,19 +14,22 @@ const shared = globalThis as typeof globalThis & {
 };
 
 // Only public verification keys are shared; never sessions or user data.
-export async function preloadPublicKeys() {
+export async function preloadPublicKeys(refresh = false) {
   const { url } = config();
   if (shared.fitnessPublicKeys?.url !== url)
     shared.fitnessPublicKeys = { url, expires: 0 };
   const cache = shared.fitnessPublicKeys;
-  if (cache.keys && Date.now() < cache.expires) return cache.keys;
+  if (!refresh && cache.keys && Date.now() < cache.expires) return cache.keys;
   if (cache.pending) return cache.pending;
   const started = Date.now();
   cache.pending = (async () => {
-    const response = await supabaseFetch(`${url}/auth/v1/.well-known/jwks.json`, {
-      cache: "no-store",
-      signal: AbortSignal.timeout(8000),
-    });
+    const response = await supabaseFetch(
+      `${url}/auth/v1/.well-known/jwks.json`,
+      {
+        cache: "no-store",
+        signal: AbortSignal.timeout(8000),
+      },
+    );
     if (!response.ok) throw new Error("公开验证公钥加载失败");
     const data = await response.json();
     if (!Array.isArray(data.keys)) throw new Error("公开验证公钥格式无效");

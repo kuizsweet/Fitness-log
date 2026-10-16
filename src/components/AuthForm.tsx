@@ -5,6 +5,7 @@ import { authCallbackUrl } from "@/lib/auth-links";
 import { passwordResetError } from "@/lib/password-reset";
 import { useRouter, useSearchParams } from "next/navigation";
 import { browserClient } from "@/lib/supabase/browser";
+import { prefetchDashboard } from "@/lib/query-cache";
 import {
   Button,
   Card,
@@ -131,7 +132,8 @@ export function AuthForm({ configured }: { configured: boolean }) {
         });
         if (r.error) throw r.error;
         if (r.data.session) {
-          window.location.assign("/dashboard");
+          prefetchDashboard(r.data.session.user.id);
+          router.replace("/dashboard");
           return;
         }
       }
@@ -163,13 +165,21 @@ export function AuthForm({ configured }: { configured: boolean }) {
         throw new Error("请先完成安全验证。");
       const auth = browserClient().auth;
       if (mode === "login") {
+        if (process.env.NODE_ENV === "development") {
+          try {
+            sessionStorage.setItem("kuiz-login-start", String(Date.now()));
+          } catch {
+            /* Optional local diagnostics must not prevent authentication. */
+          }
+        }
         const r = await auth.signInWithPassword({
           email,
           password,
           options: { captchaToken },
         });
         if (r.error) throw r.error;
-        window.location.assign("/dashboard");
+        prefetchDashboard(r.data.user.id);
+        router.replace("/dashboard");
       }
       if (mode === "reset") {
         const r = await auth.resetPasswordForEmail(email, {
@@ -199,7 +209,8 @@ export function AuthForm({ configured }: { configured: boolean }) {
           throw r.error;
         }
         if (!r.data.session) throw new Error("未能建立登录会话，请重试。");
-        window.location.assign("/dashboard");
+        prefetchDashboard(r.data.session.user.id);
+        router.replace("/dashboard");
       }
       if (mode === "update") {
         const validationError = passwordResetError(password, confirmPassword);

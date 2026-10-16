@@ -8,3 +8,5 @@ supabase-ca.crt
 test-results/
 playwright-report/
 .impeccable/review/
+.local/browser-profile/
+.local/browser-auth/

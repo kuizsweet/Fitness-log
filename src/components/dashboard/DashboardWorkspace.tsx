@@ -11,6 +11,7 @@ import { Checkins } from "../Checkins";
 import { Feedback } from "../Feedback";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { DeletedRecords } from "./DeletedRecords";
+import { BodyGoalCard } from "./BodyGoalCard";
 import type { DashboardData } from "./useDashboardData";
 import styles from "./Dashboard.module.css";
 
@@ -30,7 +31,12 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
         <div className={styles.quickActions}>
           <Checkins toolbar onData={setCheckin} />
           <span className={styles.toolbarDivider} aria-hidden="true" />
-          <button onClick={() => mealsDialog.current?.showModal()}>
+          <button
+            onClick={() => {
+              data.setMealsEnabled(true);
+              mealsDialog.current?.showModal();
+            }}
+          >
             三餐记录
           </button>
           <Link href="/leaderboard">排行榜</Link>
@@ -38,13 +44,13 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
       </div>
       <div className={styles.grid}>
         <TrainingConsole data={data} />
-        <PlanCard currentDay={currentDay} />
+        <PlanCard currentDay={currentDay} enabled={Boolean(profile.data)} />
         <div className={styles.calendarSlot}>
           <TrainingMonthCalendar
             date={date}
             timezone={profile.data?.timezone ?? "Asia/Shanghai"}
             sessions={sessions.data ?? []}
-            loading={sessions.loading}
+            loading={!sessions.data}
             error={sessions.error || profile.error}
             onSelect={setPicked}
             checkedDate={checkin?.checked_in ? checkin.date : undefined}
@@ -57,13 +63,7 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
         >
           后续按动作和时间范围查看进步，当前训练记录可在左侧打开。
         </EmptyCard>
-        <EmptyCard
-          className={styles.bodyGoals}
-          title="身体目标"
-          headline="身体目标尚未接入"
-        >
-          体重、体脂率与目标记录将在这里展示。
-        </EmptyCard>
+        <BodyGoalCard />
         <EmptyCard
           className={styles.muscles}
           title="肌群分析"
@@ -118,7 +118,7 @@ function TrainingConsole({ data }: { data: DashboardData }) {
   const active = records.find((s) =>
     ["in_progress", "paused"].includes(s.status),
   );
-  const ready = !sessions.loading && !sessions.error && !profile.error;
+  const ready = Boolean(sessions.data);
   const state = active
     ? active.status === "paused"
       ? "训练已暂停"
@@ -136,12 +136,17 @@ function TrainingConsole({ data }: { data: DashboardData }) {
         <time dateTime={date}>{date}</time>
       </div>
       <div className={styles.consoleIntro}>
-        <p className={styles.consoleState}>
-          {ready
-            ? state
-            : sessions.error || profile.error
-              ? "训练记录暂不可用"
-              : "读取当天训练…"}
+        <p
+          className={`${styles.consoleState} ${!ready && !sessions.error && !profile.error ? styles.placeholder : ""}`}
+          aria-busy={!ready}
+        >
+          {ready ? (
+            state
+          ) : sessions.error || profile.error ? (
+            "训练记录暂不可用"
+          ) : (
+            <span aria-hidden="true">&nbsp;</span>
+          )}
         </p>
         <p className={styles.secondary}>
           动作、重量、次数与 RIR，沿用已有训练记录。
@@ -194,6 +199,19 @@ function TrainingConsole({ data }: { data: DashboardData }) {
           <span>{date}</span>
         </div>
         <Feedback error={sessions.error || profile.error} />
+        {(sessions.error || profile.error) && (
+          <button
+            onClick={() => {
+              sessions.reload();
+              profile.reload();
+            }}
+          >
+            重试
+          </button>
+        )}
+        {!sessions.data && !sessions.error && (
+          <div className={styles.recordSkeleton} aria-hidden="true" />
+        )}
         {ready && !records.length && (
           <div className={styles.sessionEmpty}>
             <p>这一天还没有训练记录</p>
@@ -262,12 +280,19 @@ function SessionRow({ session: s }: { session: Session }) {
   );
 }
 
-function PlanCard({ currentDay }: { currentDay: string }) {
+function PlanCard({
+  currentDay,
+  enabled,
+}: {
+  currentDay: string;
+  enabled: boolean;
+}) {
   // Use saved planned strength sessions, never infer a tomorrow schedule or
   // advance a non-existent rotation queue after cardio/check-ins.
   const source = useResource<Session[]>(
-    `sessions?from=${currentDay}&to=2100-12-31`,
+    `sessions?planned=1&from=${currentDay}`,
     true,
+    enabled,
   );
   const reload = source.reload;
   useEffect(() => {
@@ -303,12 +328,14 @@ function PlanCard({ currentDay }: { currentDay: string }) {
         </TabsList>
         <TabsContent value="plan">
           <p className={styles.planLabel}>下一次力量训练</p>
-          <Feedback error={source.error} loading={source.loading} />
+          <Feedback error={source.error} />
+          {!source.data && !source.error && (
+            <div className={styles.recordSkeleton} aria-hidden="true" />
+          )}
           {source.error && (
             <button onClick={source.reload}>重新加载计划</button>
           )}
-          {!source.loading &&
-            !source.error &&
+          {source.data &&
             (next ? (
               <div className={styles.nextPlan}>
                 <time dateTime={next.training_date}>{next.training_date}</time>

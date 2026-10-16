@@ -10,7 +10,7 @@ do $fj_apply$ begin
 if exists(select 1 from fitness_journal_meta.migrations where version='202610130001') then
  if not exists(select 1 from fitness_journal_meta.migrations where version='202610130001' and checksum='112e18c8fd50e8a77fac55cf26d1c53e400cef5e2bd110a5b81a6824a0d6643d') then raise exception '迁移 202610130001 校验和不匹配，已停止'; end if;
 else
- if exists(select 1 from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname in ('profiles','exercises','equipment','workout_sessions','workout_exercises','workout_sets','meal_entries','meal_photos','import_batches','import_previews','daily_checkins','checkin_preferences')) then raise exception '已有业务表但没有迁移记录：为保留数据已停止，请先运行 supabase/inspect.sql 核对，不要重建表'; end if;
+ if exists(select 1 from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname in ('profiles','exercises','equipment','workout_sessions','workout_exercises','workout_sets','meal_entries','meal_photos','import_batches','import_previews','daily_checkins','checkin_preferences','body_goals','body_measurements')) then raise exception '已有业务表但没有迁移记录：为保留数据已停止，请先运行 supabase/inspect.sql 核对，不要重建表'; end if;
  execute $fj_migration_202610130001$
 -- Apply through Supabase migrations / SQL editor, never through the browser.
 create extension if not exists pgcrypto;
@@ -388,6 +388,151 @@ GRANT EXECUTE ON FUNCTION public.save_workout(jsonb) TO authenticated;
 
 $fj_migration_202610140002$;
  insert into fitness_journal_meta.migrations(version,checksum) values('202610140002','df7e4885154cd1295d067e8ab8acd2043ee85437889974d00c29679d78eec322');
+end if; end $fj_apply$;
+
+do $fj_apply$ begin
+if exists(select 1 from fitness_journal_meta.migrations where version='202610160001') then
+ if not exists(select 1 from fitness_journal_meta.migrations where version='202610160001' and checksum='e902270b3bacb5b2610c53c639361ed017b8241201fc697bdc94155840b07cc4') then raise exception '迁移 202610160001 校验和不匹配，已停止'; end if;
+else
+
+ execute $fj_migration_202610160001$
+-- Additive only. Goals and measured facts deliberately live in separate tables.
+create table public.body_goals (
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  metric text not null check (metric in ('weight','body_fat')),
+  start_value numeric,
+  target_value numeric,
+  revision integer not null default 0,
+  mutation_id uuid,
+  updated_at timestamptz not null default now(),
+  primary key (user_id,metric),
+  check (start_value is null or (start_value>0 and start_value<=case when metric='weight' then 500 else 100 end)),
+  check (target_value is null or (target_value>0 and target_value<=case when metric='weight' then 500 else 100 end))
+);
+create table public.body_measurements (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  metric text not null check(metric in ('weight','body_fat')),
+  value numeric not null,
+  measured_at timestamptz not null,
+  source text not null default 'manual' check(length(source) between 1 and 80),
+  source_record_id text,
+  created_at timestamptz not null default now(),
+  check (value>0 and value<=case when metric='weight' then 500 else 100 end),
+  unique(user_id,source,source_record_id,metric)
+);
+create index body_measurement_latest on public.body_measurements(user_id,metric,measured_at desc,id desc);
+alter table public.body_goals enable row level security;
+alter table public.body_measurements enable row level security;
+create policy body_goal_owner on public.body_goals for all to authenticated using ((select auth.uid())=user_id) with check ((select auth.uid())=user_id);
+create policy body_measurement_owner on public.body_measurements for all to authenticated using ((select auth.uid())=user_id) with check ((select auth.uid())=user_id);
+revoke all on public.body_goals,public.body_measurements from public,anon,authenticated;
+grant select,insert,update,delete on public.body_goals,public.body_measurements to authenticated;
+
+-- Per-field compare-and-swap permits disjoint edits, rejects conflicting edits.
+-- Row locks serialize concurrent callers; mutation ID makes an uncertain retry safe.
+create function public.save_body_goal(payload jsonb) returns jsonb
+language plpgsql security invoker set search_path=public,pg_temp as $$
+declare g public.body_goals; m text:=payload->>'metric'; changes jsonb:=payload->'changes';
+begin
+  if auth.uid() is null then raise exception '请先登录'; end if;
+  if m not in ('weight','body_fat') or changes is null or jsonb_typeof(changes)<>'object'
+    or changes='{}'::jsonb or changes- 'start_value' - 'target_value'<>'{}'::jsonb
+    or payload->>'mutation_id' is null then raise exception '身体目标参数无效'; end if;
+  insert into public.body_goals(user_id,metric) values(auth.uid(),m) on conflict do nothing;
+  select * into strict g from public.body_goals where user_id=auth.uid() and metric=m for update;
+  if g.mutation_id=(payload->>'mutation_id')::uuid then return to_jsonb(g); end if;
+  if (changes?'start_value' and g.start_value is distinct from (payload->>'expected_start')::numeric)
+    or (changes?'target_value' and g.target_value is distinct from (payload->>'expected_target')::numeric)
+    then raise exception '版本冲突：目标已在其他窗口修改，输入已保留'; end if;
+  update public.body_goals set
+    start_value=case when changes?'start_value' then (changes->>'start_value')::numeric else start_value end,
+    target_value=case when changes?'target_value' then (changes->>'target_value')::numeric else target_value end,
+    revision=revision+1,mutation_id=(payload->>'mutation_id')::uuid,updated_at=now()
+    where user_id=auth.uid() and metric=m returning * into g;
+  return to_jsonb(g);
+end $$;
+revoke all on function public.save_body_goal(jsonb) from public,anon;
+grant execute on function public.save_body_goal(jsonb) to authenticated;
+
+$fj_migration_202610160001$;
+ insert into fitness_journal_meta.migrations(version,checksum) values('202610160001','e902270b3bacb5b2610c53c639361ed017b8241201fc697bdc94155840b07cc4');
+end if; end $fj_apply$;
+
+do $fj_apply$ begin
+if exists(select 1 from fitness_journal_meta.migrations where version='202610160002') then
+ if not exists(select 1 from fitness_journal_meta.migrations where version='202610160002' and checksum='20ac6984a910673b21cf9c2d1f0b0a092eca58fbedfbd539d0f75a53878155c6') then raise exception '迁移 202610160002 校验和不匹配，已停止'; end if;
+else
+
+ execute $fj_migration_202610160002$
+-- One network round trip. Two bounded index lookups retrieve actual latest facts.
+create function public.body_overview() returns jsonb
+language sql stable security invoker set search_path=public,pg_temp as $$
+  select jsonb_build_object(
+    'goals', (select coalesce(jsonb_agg(to_jsonb(g)), '[]'::jsonb) from (
+      select metric,start_value,target_value,revision,mutation_id
+      from public.body_goals where user_id=(select auth.uid()) order by metric
+    ) g),
+    'measurements', (select coalesce(jsonb_agg(to_jsonb(m)), '[]'::jsonb) from
+      unnest(array['weight','body_fat']) as requested(metric)
+      cross join lateral (
+        select id,metric,value,measured_at,source,source_record_id
+        from public.body_measurements
+        where user_id=(select auth.uid()) and metric=requested.metric and measured_at<=now()
+        order by measured_at desc,id desc limit 1
+      ) m)
+  );
+$$;
+revoke all on function public.body_overview() from public,anon;
+grant execute on function public.body_overview() to authenticated;
+
+$fj_migration_202610160002$;
+ insert into fitness_journal_meta.migrations(version,checksum) values('202610160002','20ac6984a910673b21cf9c2d1f0b0a092eca58fbedfbd539d0f75a53878155c6');
+end if; end $fj_apply$;
+
+do $fj_apply$ begin
+if exists(select 1 from fitness_journal_meta.migrations where version='202610160003') then
+ if not exists(select 1 from fitness_journal_meta.migrations where version='202610160003' and checksum='610029ccf7b9d595beac51358c8adebef212c05cf8f3c6bf88c33de781891c53') then raise exception '迁移 202610160003 校验和不匹配，已停止'; end if;
+else
+
+ execute $fj_migration_202610160003$
+-- Manual readings are append-only facts, separate from editable goal endpoints.
+create function public.save_body_measurement(payload jsonb) returns jsonb
+language plpgsql security invoker set search_path=public,pg_temp as $$
+declare
+  m public.body_measurements;
+  latest_value numeric;
+  requested_metric text:=payload->>'metric';
+begin
+  if auth.uid() is null then raise exception '请先登录'; end if;
+  if requested_metric is null or requested_metric not in ('weight','body_fat')
+    or jsonb_typeof(payload->'value') is distinct from 'number'
+    or not payload?'expected_value' or payload->>'id' is null
+    then raise exception '身体测量参数无效'; end if;
+  -- Reuse the per-user/metric lock already used by goal edits. No goal values change.
+  insert into public.body_goals(user_id,metric) values(auth.uid(),requested_metric) on conflict do nothing;
+  perform 1 from public.body_goals where user_id=auth.uid() and metric=requested_metric for update;
+  select * into m from public.body_measurements where user_id=auth.uid() and id=(payload->>'id')::uuid;
+  if found then
+    if m.metric<>requested_metric or m.value is distinct from (payload->>'value')::numeric
+      then raise exception '测量请求标识重复'; end if;
+    return to_jsonb(m);
+  end if;
+  select value into latest_value from public.body_measurements
+    where user_id=auth.uid() and metric=requested_metric and measured_at<=clock_timestamp()
+    order by measured_at desc,id desc limit 1;
+  if latest_value is distinct from (payload->>'expected_value')::numeric
+    then raise exception '版本冲突：目前数值已在其他窗口修改，输入已保留'; end if;
+  insert into public.body_measurements(id,user_id,metric,value,measured_at,source,source_record_id)
+    values((payload->>'id')::uuid,auth.uid(),requested_metric,(payload->>'value')::numeric,
+      clock_timestamp(),'manual',payload->>'id') returning * into m;
+  return to_jsonb(m);
+end $$;
+revoke all on function public.save_body_measurement(jsonb) from public,anon;
+grant execute on function public.save_body_measurement(jsonb) to authenticated;
+
+$fj_migration_202610160003$;
+ insert into fitness_journal_meta.migrations(version,checksum) values('202610160003','610029ccf7b9d595beac51358c8adebef212c05cf8f3c6bf88c33de781891c53');
 end if; end $fj_apply$;
 
 commit;

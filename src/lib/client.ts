@@ -1,7 +1,16 @@
+export class ApiResponseError extends Error {
+  constructor(
+    message: string,
+    public status: number,
+  ) {
+    super(message);
+  }
+}
 export async function api<T>(
   path: string,
   data?: unknown,
   method = data === undefined ? "GET" : "POST",
+  options: { signal?: AbortSignal } = {},
 ): Promise<T> {
   const response = await fetch(`/api/${path}`, {
     method,
@@ -16,9 +25,11 @@ export async function api<T>(
           ? data
           : JSON.stringify(data),
     cache: "no-store",
+    signal: options.signal,
   });
   const result = await response.json();
-  if (!response.ok) throw new Error(result.error ?? "操作失败");
+  if (!response.ok)
+    throw new ApiResponseError(result.error ?? "操作失败", response.status);
   if (method !== "GET" && method !== "HEAD")
     window.dispatchEvent(
       new CustomEvent("fitness-data-change", {

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { browserClient } from "@/lib/supabase/browser";
+import { clearUserCache } from "@/lib/query-cache";
 export function SignOut() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -14,7 +15,10 @@ export function SignOut() {
           if (result.error) {
             setError(result.error.message);
             setBusy(false);
-          } else window.location.assign("/auth");
+          } else {
+            clearUserCache();
+            window.location.assign("/auth");
+          }
         }}
       >
         退出

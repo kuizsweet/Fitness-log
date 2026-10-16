@@ -149,11 +149,6 @@ export function TrainingMonthCalendar({
           );
         })}
       </div>
-      {loading && (
-        <span className={styles.srOnly} role="status">
-          正在加载训练月历…
-        </span>
-      )}
       <Feedback error={error} />
     </section>
   );
