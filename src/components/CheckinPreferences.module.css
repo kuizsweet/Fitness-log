@@ -1,0 +1,60 @@
+.panel {
+  background: #111;
+  border: 1px solid #292929;
+  border-radius: 16px;
+  padding: 22px;
+}
+.panel h2 {
+  margin: 0 0 20px;
+  font-size: 16px;
+}
+.preferences {
+  display: grid;
+  gap: 18px;
+}
+.preferences > button {
+  width: 100%;
+}
+.preferences label > input:not([type="checkbox"]) {
+  margin-top: 6px;
+}
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #ededf0;
+}
+.toggle input {
+  appearance: none;
+  width: 36px;
+  height: 22px;
+  border: 1px solid #555;
+  border-radius: 12px;
+  background: #303030;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+}
+.toggle input::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #b5b5bd;
+  top: 3px;
+  left: 3px;
+}
+.toggle input:checked {
+  background: #a8c5ef;
+  border-color: #a8c5ef;
+}
+.toggle input:checked::after {
+  left: 17px;
+  background: #182231;
+}
+.panel :global([role="alert"]) {
+  font-size: 12px;
+  margin-bottom: 0;
+}

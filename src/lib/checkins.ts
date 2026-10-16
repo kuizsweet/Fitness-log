@@ -13,10 +13,7 @@ export type CheckinDashboard = {
   }[];
 };
 
-export function leaderboardPage(
-  rows: CheckinDashboard["leaderboard"],
-  requested: number,
-) {
+export function leaderboardPage<T>(rows: T[], requested: number) {
   const pages = Math.max(1, Math.ceil(rows.length / 10));
   const page = Math.min(
     pages,
@@ -27,5 +24,20 @@ export function leaderboardPage(
     pages,
     total: rows.length,
     rows: rows.slice((page - 1) * 10, page * 10),
+  };
+}
+
+export function checkinRankings(rows: CheckinDashboard["leaderboard"]) {
+  // Only keys for the UI component, never account IDs or API parameters.
+  const rankings = rows.map((row, index) => ({
+    userId: `entry-${index}`,
+    userName: row.display_name,
+    rank: row.rank,
+    value: row.streak,
+  }));
+  const self = rows.findIndex((row) => row.is_self);
+  return {
+    rankings,
+    currentUserId: self >= 0 ? rankings[self].userId : undefined,
   };
 }

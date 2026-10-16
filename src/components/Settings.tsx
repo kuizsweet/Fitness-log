@@ -4,7 +4,6 @@ import { useResource } from "./resource";
 import { api } from "@/lib/client";
 import type { Profile } from "@/lib/domain";
 import { Feedback } from "./Feedback";
-import Link from "next/link";
 export function Settings() {
   const profile = useResource<Profile>("profile");
   return (
@@ -125,10 +124,6 @@ function SettingsForm({
           保存设置
         </button>
       </form>
-      <h2>签到排行榜</h2>
-      <p>
-        <Link href="/leaderboard#visibility">设置是否上榜及榜单昵称</Link>
-      </p>
       <h2>数据导出</h2>
       <div className="row">
         <button disabled={busy} onClick={() => void download("csv")}>

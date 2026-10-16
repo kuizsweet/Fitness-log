@@ -33,7 +33,7 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
           <button onClick={() => mealsDialog.current?.showModal()}>
             三餐记录
           </button>
-          <Link href="/leaderboard">排行榜与上榜设置</Link>
+          <Link href="/leaderboard">排行榜</Link>
         </div>
       </div>
       <div className={styles.grid}>
