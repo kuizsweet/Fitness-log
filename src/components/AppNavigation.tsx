@@ -3,13 +3,13 @@ import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { SignOut } from "./SignOut";
-import dashboardStyles from "./dashboard/Dashboard.module.css";
+import appStyles from "./AppShell.module.css";
 
-export function DashboardBrand() {
-  return usePathname() === "/dashboard" ? (
+export function AppBrand() {
+  return (
     <Link
       href="/dashboard"
-      className={dashboardStyles.brand}
+      className={appStyles.brand}
       aria-label="kuizFit 控制台"
     >
       <svg
@@ -26,7 +26,7 @@ export function DashboardBrand() {
       </svg>
       kuizFit
     </Link>
-  ) : null;
+  );
 }
 
 const links = [
@@ -119,6 +119,7 @@ export function AppMain({ children }: { children: React.ReactNode }) {
     (path.startsWith("/session") ? "training" : "neutral");
   return (
     <main
+      className={appStyles.main}
       data-area={area}
       aria-label={area === "dashboard" ? "控制台" : undefined}
     >

@@ -7,8 +7,9 @@ import {
   AppNavigation,
   AccountMenu,
   AppMain,
-  DashboardBrand,
+  AppBrand,
 } from "@/components/AppNavigation";
+import styles from "@/components/AppShell.module.css";
 export const dynamic = "force-dynamic";
 export default async function PrivateLayout({
   children,
@@ -20,9 +21,9 @@ export default async function PrivateLayout({
   const { data, error } = await verifiedClaims(db);
   if (error || !data?.claims.sub) redirect("/auth");
   return (
-    <>
+    <div className={styles.shell}>
       <header className="app-header">
-        <DashboardBrand />
+        <AppBrand />
         <AppNavigation />
         <div className="header-actions">
           <AccountMenu />
@@ -48,6 +49,6 @@ export default async function PrivateLayout({
         </div>
       </header>
       <AppMain>{children}</AppMain>
-    </>
+    </div>
   );
 }
