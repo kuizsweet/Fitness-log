@@ -13,7 +13,7 @@ test("日历跨年、闰年与月末日期保持有效", () => {
   assert.equal(changeCalendarMonth("2026-01-31", 2026, 2), "2026-02-28");
   assert.equal(changeCalendarMonth("2026-12-31", 2027, 1), "2027-01-31");
 });
-test("日历按真实分类显示双标记，未分类、计划和删除不冒充训练日", () => {
+test("日历显示训练分类与真实计划，未分类及删除记录不冒充分类", () => {
   const date = "2026-10-14";
   const strength = { ...newSession(date), training_type: "strength" as const };
   const cardio = { ...newSession(date), training_type: "cardio" as const };
@@ -31,7 +31,7 @@ test("日历按真实分类显示双标记，未分类、计划和删除不冒�
       ],
       date,
     ),
-    ["idle"],
+    ["strength"],
   );
   assert.deepEqual(trainingMarkers([strength], "2026-10-15"), ["idle"]);
 });

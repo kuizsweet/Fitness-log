@@ -72,7 +72,7 @@ async function main() {
       ids.push(signed.data.user!.id);
     }
     assert.notEqual(ids[0], ids[1]);
-    const date = "2000-02-29";
+    const date = "2024-02-29";
     const strength: Session = {
       ...newSession(date),
       training_type: "strength",

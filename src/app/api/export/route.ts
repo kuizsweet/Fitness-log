@@ -1,6 +1,7 @@
 import { context, check, failure, ApiError } from "@/lib/api";
 import { exportCsv } from "@/lib/export";
-import { sessionsQuery } from "@/lib/repository";
+import { hydrateSessions } from "@/lib/session-hydration";
+import { BRAND_NAME } from "@/lib/brand";
 export async function GET(request: Request) {
   try {
     const { db } = await context();
@@ -42,23 +43,18 @@ export async function GET(request: Request) {
     }
     if (format === "csv") {
       // Hydrate from the complete exported rows; no default query limit.
-      const sessions = result.workout_sessions as {
-        id: string;
-        training_date: string;
-        deleted_at: string | null;
-      }[];
-      const dates = [
-        ...new Set(
-          sessions.filter((s) => !s.deleted_at).map((s) => s.training_date),
-        ),
-      ];
-      const hydrated = (
-        await Promise.all(dates.map((d) => sessionsQuery(db, d, d)))
-      ).flat();
+      const sessions = result.workout_sessions as Parameters<
+        typeof hydrateSessions
+      >[0];
+      const hydrated = hydrateSessions(
+        sessions.filter((s) => !s.deleted_at),
+        result.workout_exercises as Parameters<typeof hydrateSessions>[1],
+        result.workout_sets as Parameters<typeof hydrateSessions>[2],
+      );
       return new Response(exportCsv(hydrated), {
         headers: {
           "Content-Type": "text/csv; charset=utf-8",
-          "Content-Disposition": 'attachment; filename="fitness-journal.csv"',
+          "Content-Disposition": `attachment; filename="${BRAND_NAME}.csv"`,
           "Cache-Control": "private, no-store",
         },
       });
@@ -91,7 +87,7 @@ export async function GET(request: Request) {
       {
         headers: {
           "Content-Type": "application/json",
-          "Content-Disposition": 'attachment; filename="fitness-journal.json"',
+          "Content-Disposition": `attachment; filename="${BRAND_NAME}.json"`,
           "Cache-Control": "private, no-store",
         },
       },

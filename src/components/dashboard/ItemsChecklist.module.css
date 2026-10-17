@@ -1,0 +1,171 @@
+.checklist {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  margin-bottom: 6px;
+}
+.header > form {
+  flex: 1;
+  min-width: 0;
+}
+.header > [data-slot="tabs-list"] {
+  flex: none;
+}
+.row {
+  height: 22px;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 5px;
+  color: var(--ink, #f4f4f5);
+}
+.row:hover {
+  background: var(--field, #202020);
+}
+.row[data-dragging] {
+  opacity: 0.3;
+  background: var(--field, #202020);
+}
+.checklist .handle,
+.checklist .remove,
+.checklist .addButton {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 22px;
+  min-height: 22px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--muted, #a1a1aa);
+}
+.checklist .handle {
+  touch-action: none;
+  cursor: grab;
+}
+.checklist .handle[data-dragging] {
+  cursor: grabbing;
+}
+.row svg,
+.add svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+.checklist .checkbox,
+.previewCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 15px;
+  height: 15px;
+  min-height: 15px !important;
+  padding: 0 !important;
+  border: 1px solid var(--muted, #a1a1aa) !important;
+  border-radius: 3px;
+  background: transparent !important;
+}
+.checklist .checkbox[data-checked] {
+  color: var(--surface, #111);
+  background: var(--accent, #a8c5ef) !important;
+  border-color: var(--accent, #a8c5ef) !important;
+}
+.checkbox svg {
+  width: 12px;
+  height: 12px;
+}
+.name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.name[data-completed] {
+  color: var(--muted, #a1a1aa);
+  text-decoration: line-through;
+}
+.checklist .remove:hover,
+.checklist .handle:hover {
+  color: var(--ink, #f4f4f5);
+}
+.add {
+  display: flex;
+  gap: 4px;
+  height: 29px;
+  align-items: center;
+  border: 1px solid var(--line, #303030);
+  border-radius: 6px;
+  padding: 0 3px 0 8px;
+}
+.checklist .add input {
+  width: 0;
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+}
+.add:focus-within {
+  outline: 2px solid var(--focus, #91b9ef);
+  outline-offset: 2px;
+}
+.error {
+  font-size: 11px;
+  color: var(--muted, #a1a1aa);
+  line-height: 1.4;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 22px;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.checklist .pagination button {
+  min-height: 22px;
+  height: 22px;
+  padding: 0 6px;
+  line-height: 1;
+}
+.overlay {
+  padding: 0 6px;
+  background: var(--field, #242424);
+  border: 1px solid var(--line, #404040);
+  box-shadow: 0 4px 12px #0003;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none !important;
+  }
+}

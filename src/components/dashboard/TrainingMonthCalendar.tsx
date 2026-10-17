@@ -2,10 +2,26 @@
 import {
   calendarMonth,
   changeCalendarMonth,
-  trainingMarkers,
+  calendarDayState,
+  type CalendarDayState,
 } from "@/lib/calendar";
-import { today, type Session } from "@/lib/domain";
+import { today } from "@/lib/domain";
+import {
+  TRAINING_FROM,
+  TRAINING_TO,
+  trainingPaths,
+  type CalendarTraining,
+} from "@/lib/training-queries";
+import { useMemo, useSyncExternalStore } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { CalendarWriter } from "@/lib/calendar-writer";
+import { api } from "@/lib/client";
+import { resourceKey } from "@/lib/resource-keys";
+import { applyResourceChange } from "@/lib/training-cache";
+import { useResourceUser } from "../ResourceProvider";
 import { Feedback } from "../Feedback";
+import { Button } from "../ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Dashboard.module.css";
 
 export function TrainingMonthCalendar({
@@ -19,7 +35,7 @@ export function TrainingMonthCalendar({
 }: {
   date: string;
   timezone: string;
-  sessions: Session[];
+  sessions: CalendarTraining[];
   loading: boolean;
   error: string;
   onSelect: (date: string) => void;
@@ -27,6 +43,55 @@ export function TrainingMonthCalendar({
 }) {
   const info = calendarMonth(date);
   const currentDay = today(timezone);
+  const user = useResourceUser();
+  const client = useQueryClient();
+  const writer = useMemo(
+    () =>
+      new CalendarWriter(async (day, mode) => {
+        try {
+          const result = await api<CalendarDayState>(
+            "calendar",
+            {
+              owner_id: user,
+              date: day.training_date,
+              mode,
+              version: day.version,
+            },
+            "POST",
+            { notify: false, signal: AbortSignal.timeout(15000) },
+          );
+          await applyResourceChange(client, user, {
+            owner: user,
+            resource: "calendar",
+            method: "POST",
+            result,
+          });
+          return result;
+        } catch (error) {
+          const month = calendarMonth(day.training_date);
+          void client.invalidateQueries({
+            queryKey: resourceKey(
+              user,
+              trainingPaths.calendar(month.from, month.to),
+            ),
+            exact: true,
+          });
+          throw error;
+        }
+      }),
+    [client, user],
+  );
+  const edits = useSyncExternalStore(
+    writer.subscribe,
+    writer.getSnapshot,
+    writer.getSnapshot,
+  );
+  const modeNames = {
+    rest: "休息",
+    strength: "力量",
+    cardio: "有氧",
+    mixed: "力量与有氧",
+  };
   function step(amount: number) {
     const next = new Date(Date.UTC(info.year, info.month - 1 + amount, 1));
     onSelect(
@@ -40,7 +105,14 @@ export function TrainingMonthCalendar({
       aria-busy={loading}
     >
       <div className={styles.calendarHeading}>
-        <h2>训练月历</h2>
+        <Button
+          className={styles.calendarMonthArrow}
+          aria-label="上一月"
+          disabled={info.from <= TRAINING_FROM}
+          onClick={() => step(-1)}
+        >
+          <ChevronLeft size={16} aria-hidden="true" />
+        </Button>
         <div className={styles.calendarPeriod}>
           <select
             aria-label="年份"
@@ -51,7 +123,7 @@ export function TrainingMonthCalendar({
               )
             }
           >
-            {Array.from({ length: 201 }, (_, i) => 1900 + i).map((year) => (
+            {Array.from({ length: 11 }, (_, i) => 2020 + i).map((year) => (
               <option key={year} value={year}>
                 {year} 年
               </option>
@@ -73,23 +145,14 @@ export function TrainingMonthCalendar({
             ))}
           </select>
         </div>
-        <div className={styles.calendarActions}>
-          <button
-            aria-label="上一月"
-            disabled={info.year === 1900 && info.month === 1}
-            onClick={() => step(-1)}
-          >
-            ‹
-          </button>
-          <button
-            aria-label="下一月"
-            disabled={info.year === 2100 && info.month === 12}
-            onClick={() => step(1)}
-          >
-            ›
-          </button>
-          <button onClick={() => onSelect(currentDay)}>今天</button>
-        </div>
+        <Button
+          className={styles.calendarMonthArrow}
+          aria-label="下一月"
+          disabled={info.to >= TRAINING_TO}
+          onClick={() => step(1)}
+        >
+          <ChevronRight size={16} aria-hidden="true" />
+        </Button>
       </div>
       <div className={styles.calendarGrid}>
         {["一", "二", "三", "四", "五", "六", "日"].map((day) => (
@@ -108,18 +171,17 @@ export function TrainingMonthCalendar({
               />
             );
           const day = `${date.slice(0, 7)}-${String(number).padStart(2, "0")}`;
-          const markers = trainingMarkers(sessions, day);
+          const state = calendarDayState(sessions, day);
+          const edit = edits[day];
+          const mode = edit
+            ? edit.error
+              ? state.mode
+              : edit.desired
+            : state.mode;
           const description =
             loading || error
               ? "记录未载入"
-              : markers.includes("strength") || markers.includes("cardio")
-                ? markers
-                    .map((m) =>
-                      m === "strength" ? "力量" : m === "cardio" ? "有氧" : "",
-                    )
-                    .filter(Boolean)
-                    .join("、")
-                : "无分类标记";
+              : `${modeNames[mode]}${state.locked ? "，已有训练内容" : ""}`;
           return (
             <button
               className={styles.calendarDay}
@@ -129,16 +191,16 @@ export function TrainingMonthCalendar({
               data-checked-in={day === checkedDate || undefined}
               aria-pressed={date === day}
               aria-current={day === currentDay ? "date" : undefined}
-              onClick={() => onSelect(day)}
+              onClick={() => {
+                onSelect(day);
+                if (!loading && !error && !state.locked) writer.cycle(state);
+              }}
             >
               <span>{number}</span>
               <span className={styles.calendarDots} aria-hidden="true">
-                {markers.map((type) => (
-                  <i
-                    key={type}
-                    className={`${styles.dayDot} ${styles[`dot-${type}`]}`}
-                  />
-                ))}
+                <i
+                  className={`${styles.dayDot} ${styles[`dot-${mode === "rest" ? "idle" : mode}`]}`}
+                />
               </span>
               {day === checkedDate && (
                 <span className={styles.calendarCheck} aria-hidden="true">
@@ -149,7 +211,63 @@ export function TrainingMonthCalendar({
           );
         })}
       </div>
+      <div className={styles.calendarFooter}>
+        <div className={styles.calendarLegend} aria-label="训练类型图例">
+          <span>
+            <i
+              className={`${styles.dayDot} ${styles["dot-strength"]}`}
+              aria-hidden="true"
+            />
+            力量
+          </span>
+          <span>
+            <i
+              className={`${styles.dayDot} ${styles["dot-cardio"]}`}
+              aria-hidden="true"
+            />
+            有氧
+          </span>
+          <span title="力量与有氧">
+            <i
+              className={`${styles.dayDot} ${styles["dot-mixed"]}`}
+              aria-hidden="true"
+            />
+            混合
+          </span>
+          <span>
+            <i
+              className={`${styles.dayDot} ${styles["dot-idle"]}`}
+              aria-hidden="true"
+            />
+            休息
+          </span>
+        </div>
+        <Button onClick={() => onSelect(currentDay)}>今天</Button>
+      </div>
       <Feedback error={error} />
+      {Object.entries(edits)
+        .filter(([, edit]) => edit.error)
+        .map(([day, edit]) => (
+          <div key={day} className={styles.calendarError}>
+            <span role="alert">
+              {day}：{edit.error}
+            </span>
+            <Button
+              onClick={async () => {
+                try {
+                  const fresh = await api<CalendarDayState>(
+                    `calendar?date=${day}`,
+                  );
+                  writer.retry(fresh);
+                } catch {
+                  /* Keep the failed edit and its retry control available. */
+                }
+              }}
+            >
+              重试
+            </Button>
+          </div>
+        ))}
     </section>
   );
 }

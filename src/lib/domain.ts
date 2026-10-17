@@ -119,6 +119,7 @@ export type Exercise = z.infer<typeof exerciseSchema>;
 export type WorkoutSet = z.infer<typeof setSchema>;
 export type WorkoutExercise = z.infer<typeof workoutExerciseSchema>;
 export type Session = z.infer<typeof sessionSchema> & {
+  created_at?: string;
   deleted_at?: string | null;
   import_batch_id?: string | null;
 };

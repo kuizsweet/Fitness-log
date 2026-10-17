@@ -2,10 +2,10 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { today, workingSets, type Session } from "@/lib/domain";
+import { workingSets, type Session } from "@/lib/domain";
 import type { CheckinDashboard } from "@/lib/checkins";
-import { nextStrengthPlan } from "@/lib/dashboard";
-import { useResource } from "../resource";
+import { ItemsChecklist } from "./ItemsChecklist";
+
 import { TrainingMonthCalendar } from "./TrainingMonthCalendar";
 import { MealsCard } from "../MealsCard";
 import { Checkins } from "../Checkins";
@@ -15,12 +15,13 @@ import { DeletedRecords } from "./DeletedRecords";
 import { BodyGoalCard } from "./BodyGoalCard";
 import type { DashboardData } from "./useDashboardData";
 import styles from "./Dashboard.module.css";
+import { BRAND_NAME } from "@/lib/brand";
 
 export function DashboardWorkspace({ data }: { data: DashboardData }) {
-  const { date, profile, sessions, meals, setPicked, setMealsEnabled } = data;
+  const { date, profile, calendar, meals, setPicked, setMealsEnabled } = data;
   const [checkin, setCheckin] = useState<CheckinDashboard | null>(null);
   const mealsDialog = useRef<HTMLDialogElement>(null);
-  const currentDay = today(profile.data?.timezone);
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -34,18 +35,18 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
 
   return (
     <div className={styles.workspace}>
-      <h1 className={styles.srOnly}>kuizFit 训练控制台</h1>
+      <h1 className={styles.srOnly}>{BRAND_NAME} 训练控制台</h1>
       <Checkins dataOnly onData={setCheckin} />
       <div className={styles.grid}>
         <TrainingConsole data={data} />
-        <PlanCard currentDay={currentDay} enabled={Boolean(profile.data)} />
+        <PlanCard />
         <div className={styles.calendarSlot}>
           <TrainingMonthCalendar
             date={date}
             timezone={profile.data?.timezone ?? "Asia/Shanghai"}
-            sessions={sessions.data ?? []}
-            loading={!sessions.data}
-            error={sessions.error || profile.error}
+            sessions={calendar.data ?? []}
+            loading={!calendar.data}
+            error={calendar.error || profile.error}
             onSelect={setPicked}
             checkedDate={checkin?.checked_in ? checkin.date : undefined}
           />
@@ -166,7 +167,7 @@ function TrainingConsole({ data }: { data: DashboardData }) {
       </div>
       <dl className={styles.summary}>
         <div>
-          <dt>当天记录</dt>
+          <dt>{data.hasMore || data.dayPage ? "本页记录" : "当天记录"}</dt>
           <dd>
             {ready ? records.length : "—"}
             <span>次</span>
@@ -217,6 +218,23 @@ function TrainingConsole({ data }: { data: DashboardData }) {
             <SessionRow key={s.id} session={s} />
           ))}
         </div>
+        {(data.hasMore || data.dayPage > 0) && (
+          <div className={styles.consoleActions}>
+            <button
+              disabled={data.dayPage === 0}
+              onClick={() => data.setDayPage(data.dayPage - 1)}
+            >
+              上一页
+            </button>
+            <span>第 {data.dayPage + 1} 页</span>
+            <button
+              disabled={!data.hasMore}
+              onClick={() => data.setDayPage(data.dayPage + 1)}
+            >
+              下一页
+            </button>
+          </div>
+        )}
       </div>
       <div className={styles.reservedTools} aria-label="训练工具">
         <div>
@@ -237,9 +255,7 @@ function TrainingConsole({ data }: { data: DashboardData }) {
         onToggle={(event) => setShowDeleted(event.currentTarget.open)}
       >
         <summary>已删除记录</summary>
-        {showDeleted && (
-          <DeletedRecords key={date} date={date} reload={sessions.reload} />
-        )}
+        {showDeleted && <DeletedRecords key={date} date={date} />}
       </details>
     </section>
   );
@@ -262,7 +278,12 @@ function SessionRow({ session: s }: { session: Session }) {
           {label}
         </span>
         <strong>
-          {s.exercises.map((e) => e.exercise_name).join("、") || "未添加动作"}
+          {s.exercises.map((e) => e.exercise_name).join("、") ||
+            (s.training_type === "strength"
+              ? "力量训练"
+              : s.training_type === "cardio"
+                ? "有氧训练"
+                : "未添加动作")}
         </strong>
         <span className={styles.sessionMeta}>
           {s.exercises.length} 个动作 · {workingSets(s)} 个正式组
@@ -274,99 +295,28 @@ function SessionRow({ session: s }: { session: Session }) {
   );
 }
 
-function PlanCard({
-  currentDay,
-  enabled,
-}: {
-  currentDay: string;
-  enabled: boolean;
-}) {
-  // Use saved planned strength sessions, never infer a tomorrow schedule or
-  // advance a non-existent rotation queue after cardio/check-ins.
-  const source = useResource<Session[]>(
-    `sessions?planned=1&from=${currentDay}`,
-    true,
-    enabled,
-  );
-  const reload = source.reload;
-  useEffect(() => {
-    const refresh = () => reload();
-    const changed = (event: Event) => {
-      if (
-        ["sessions", "imports"].includes(
-          (event as CustomEvent<{ resource: string }>).detail.resource,
-        )
-      )
-        reload();
-    };
-    window.addEventListener("focus", refresh);
-    window.addEventListener("fitness-data-change", changed);
-    return () => {
-      window.removeEventListener("focus", refresh);
-      window.removeEventListener("fitness-data-change", changed);
-    };
-  }, [reload]);
-  const next = nextStrengthPlan(source.data ?? [], currentDay);
+function PlanCard() {
+  const [tab, setTab] = useState("items");
   return (
     <section
       className={`${styles.card} ${styles.plan}`}
-      aria-labelledby="plan-title"
+      aria-label="训练计划与物品清单"
     >
-      <div className={styles.cardHeading}>
-        <h2 id="plan-title">训练清单</h2>
-      </div>
-      <Tabs defaultValue="plan" className={styles.tabs}>
-        <TabsList aria-label="训练计划与物品清单">
-          <TabsTrigger value="plan">训练计划</TabsTrigger>
-          <TabsTrigger value="items">物品清单</TabsTrigger>
-        </TabsList>
-        <TabsContent value="plan">
-          <p className={styles.planLabel}>下一次力量训练</p>
-          <Feedback error={source.error} />
-          {!source.data && !source.error && (
-            <div className={styles.recordSkeleton} aria-hidden="true" />
-          )}
-          {source.error && (
-            <button onClick={source.reload}>重新加载计划</button>
-          )}
-          {source.data &&
-            (next ? (
-              <div className={styles.nextPlan}>
-                <time dateTime={next.training_date}>{next.training_date}</time>
-                <ol>
-                  {next.exercises.map((exercise) => (
-                    <li key={exercise.id}>{exercise.exercise_name}</li>
-                  ))}
-                </ol>
-                {!next.exercises.length && <p>尚未添加动作</p>}
-                <Link href={`/session/${next.id}`}>查看与调整计划</Link>
-                <Link
-                  href={`/session/new?template=${next.id}&date=${currentDay}`}
-                >
-                  开始计划
-                </Link>
-              </div>
-            ) : (
-              <div className={styles.planEmpty}>
-                <strong>暂无已保存的力量训练计划</strong>
-                <p>可在训练记录中选择“计划”和“力量”。自定义轮换尚未接入。</p>
-                <Link href={`/session/new?date=${currentDay}`}>
-                  打开训练记录
-                </Link>
-              </div>
-            ))}
-        </TabsContent>
-        <TabsContent value="items">
-          <div className={styles.planEmpty}>
-            <strong>物品清单尚未接入</strong>
-            <p>这里将保留物品配置，并单独记录每天的准备状态。</p>
-          </div>
-        </TabsContent>
+      <Tabs value={tab} onValueChange={setTab} className={styles.tabs}>
+        <ItemsChecklist
+          active={tab === "items"}
+          controls={
+            <TabsList aria-label="训练计划与物品清单">
+              <TabsTrigger value="plan">Plan</TabsTrigger>
+              <TabsTrigger value="items">List</TabsTrigger>
+            </TabsList>
+          }
+        />
+        <TabsContent value="plan" />
       </Tabs>
     </section>
   );
 }
-
 function EmptyCard({
   className,
   title,

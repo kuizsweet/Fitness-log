@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { serverClient } from "@/lib/supabase/server";
 import { authLinkFailureUrl } from "@/lib/auth-links";
+import { BRAND_NAME } from "@/lib/brand";
 
 const headers = {
   "Cache-Control": "private, no-store",
@@ -51,7 +52,7 @@ export async function GET(request: Request) {
     // Email safety scanners may fetch GET links. Only an explicit user submission consumes a token hash.
     if (hash && hash.length <= 512 && validTypes.includes(type ?? "")) {
       return new Response(
-        `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>kuizfit · 邮件验证</title><style>body{font:16px system-ui;color:#172027;background:white;margin:0;padding:32px}main{max-width:440px;margin:10vh auto}button{font:inherit;background:#176b4c;color:white;border:0;border-radius:12px;padding:14px 24px;cursor:pointer}a{color:#176b4c}</style></head><body><main><h1>${type === "recovery" ? "确认重置密码" : "确认邮箱"}</h1><p>点击下方按钮完成验证。</p><form method="post" action="/auth/callback"><input type="hidden" name="token_hash" value="${escape(hash)}"><input type="hidden" name="type" value="${escape(type!)}"><input type="hidden" name="next" value="${escape(next)}"><button type="submit">继续验证</button></form><p><a href="/auth">返回登录</a></p></main></body></html>`,
+        `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${BRAND_NAME} · 邮件验证</title><style>body{font:16px system-ui;color:#172027;background:white;margin:0;padding:32px}main{max-width:440px;margin:10vh auto}button{font:inherit;background:#176b4c;color:white;border:0;border-radius:12px;padding:14px 24px;cursor:pointer}a{color:#176b4c}</style></head><body><main><h1>${type === "recovery" ? "确认重置密码" : "确认邮箱"}</h1><p>点击下方按钮完成验证。</p><form method="post" action="/auth/callback"><input type="hidden" name="token_hash" value="${escape(hash)}"><input type="hidden" name="type" value="${escape(type!)}"><input type="hidden" name="next" value="${escape(next)}"><button type="submit">继续验证</button></form><p><a href="/auth">返回登录</a></p></main></body></html>`,
         {
           headers: {
             ...headers,

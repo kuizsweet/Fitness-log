@@ -8,6 +8,7 @@ import {
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/client";
+import { resourceKey } from "@/lib/resource-keys";
 import {
   bodyProgress,
   emptyGoal,
@@ -76,20 +77,23 @@ export function BodyGoalCard() {
             { signal: AbortSignal.timeout(15000) },
           ),
         (goal) => {
-          client.setQueryData<BodyOverview>(["body"], (old) => ({
-            ...old,
-            goals: [
-              ...(old?.goals ?? []).filter((g) => g.metric !== goal.metric),
-              goal,
-            ],
-            measurements: old?.measurements ?? [],
-            confirmedGoals: [
-              ...(old?.confirmedGoals ?? old?.goals ?? []).filter(
-                (g) => g.metric !== goal.metric,
-              ),
-              goal,
-            ],
-          }));
+          client.setQueryData<BodyOverview>(
+            resourceKey(user, "body"),
+            (old) => ({
+              ...old,
+              goals: [
+                ...(old?.goals ?? []).filter((g) => g.metric !== goal.metric),
+                goal,
+              ],
+              measurements: old?.measurements ?? [],
+              confirmedGoals: [
+                ...(old?.confirmedGoals ?? old?.goals ?? []).filter(
+                  (g) => g.metric !== goal.metric,
+                ),
+                goal,
+              ],
+            }),
+          );
         },
         () => crypto.randomUUID(),
       );
@@ -113,20 +117,27 @@ export function BodyGoalCard() {
             { signal: AbortSignal.timeout(15000) },
           ),
         (m) =>
-          client.setQueryData<BodyOverview>(["body"], (old) => ({
-            ...old,
-            goals: old?.goals ?? [],
-            measurements: [
-              ...(old?.measurements ?? []).filter((x) => x.metric !== m.metric),
-              m,
-            ],
-            confirmedMeasurements: [
-              ...(old?.confirmedMeasurements ?? old?.measurements ?? []).filter(
-                (x) => x.metric !== m.metric,
-              ),
-              m,
-            ],
-          })),
+          client.setQueryData<BodyOverview>(
+            resourceKey(user, "body"),
+            (old) => ({
+              ...old,
+              goals: old?.goals ?? [],
+              measurements: [
+                ...(old?.measurements ?? []).filter(
+                  (x) => x.metric !== m.metric,
+                ),
+                m,
+              ],
+              confirmedMeasurements: [
+                ...(
+                  old?.confirmedMeasurements ??
+                  old?.measurements ??
+                  []
+                ).filter((x) => x.metric !== m.metric),
+                m,
+              ],
+            }),
+          ),
         () => crypto.randomUUID(),
       );
       measurementEditors.set(user, readings);
@@ -135,17 +146,28 @@ export function BodyGoalCard() {
     setEditor(instance);
     void instance.flush();
     void readings.flush();
+    const revalidate = () => {
+      void client
+        .fetchQuery({
+          queryKey: resourceKey(user, "body"),
+          queryFn: ({ signal }) =>
+            api<BodyOverview>("body", undefined, "GET", { signal }),
+        })
+        .catch(() => {
+          /* The mounted reader exposes a recoverable error. */
+        });
+    };
     const resume = () => {
       if (document.visibilityState === "visible") {
         void instance.flush();
         void readings.flush();
-        reload();
+        revalidate();
       }
     };
     const online = () => {
       void instance.flush();
       void readings.flush();
-      reload();
+      revalidate();
     };
     const storage = (event: StorageEvent) => {
       if (event.key?.startsWith(`kuiz-body-draft:measurements:${user}:`))
@@ -181,7 +203,10 @@ export function BodyGoalCard() {
         );
         try {
           const loginStart = Number(sessionStorage.getItem("kuiz-login-start"));
-          if (loginStart && Date.now() - loginStart < 30 * 60_000)
+          if (
+            loginStart >= performance.timeOrigin &&
+            Date.now() - loginStart < 30 * 60_000
+          )
             document.documentElement.dataset.kuizLoginBodyMs = String(
               Date.now() - loginStart,
             );
@@ -310,44 +335,48 @@ function GoalView({
               if (kind === "current") {
                 measurementEditor?.edit(m, next);
                 if (value == null) return;
-                cache.setQueryData<BodyOverview>(["body"], (old) =>
-                  old
-                    ? {
-                        ...old,
-                        confirmedMeasurements:
-                          old.confirmedMeasurements ?? old.measurements,
-                        measurements: [
-                          ...old.measurements.filter((x) => x.metric !== m),
-                          {
-                            id: `pending-${m}`,
-                            metric: m,
-                            value,
-                            measured_at: new Date().toISOString(),
-                            source: "manual",
-                            source_record_id: null,
-                          },
-                        ],
-                      }
-                    : old,
+                cache.setQueryData<BodyOverview>(
+                  resourceKey(user, "body"),
+                  (old) =>
+                    old
+                      ? {
+                          ...old,
+                          confirmedMeasurements:
+                            old.confirmedMeasurements ?? old.measurements,
+                          measurements: [
+                            ...old.measurements.filter((x) => x.metric !== m),
+                            {
+                              id: `pending-${m}`,
+                              metric: m,
+                              value,
+                              measured_at: new Date().toISOString(),
+                              source: "manual",
+                              source_record_id: null,
+                            },
+                          ],
+                        }
+                      : old,
                 );
               } else {
                 editor?.edit(m, kind, next);
                 if (value === undefined) return;
-                cache.setQueryData<BodyOverview>(["body"], (old) =>
-                  old
-                    ? {
-                        ...old,
-                        confirmedGoals: old.confirmedGoals ?? old.goals,
-                        goals: [
-                          ...old.goals.filter((g) => g.metric !== m),
-                          {
-                            ...(old.goals.find((g) => g.metric === m) ??
-                              emptyGoal(m)),
-                            [kind]: value,
-                          },
-                        ],
-                      }
-                    : old,
+                cache.setQueryData<BodyOverview>(
+                  resourceKey(user, "body"),
+                  (old) =>
+                    old
+                      ? {
+                          ...old,
+                          confirmedGoals: old.confirmedGoals ?? old.goals,
+                          goals: [
+                            ...old.goals.filter((g) => g.metric !== m),
+                            {
+                              ...(old.goals.find((g) => g.metric === m) ??
+                                emptyGoal(m)),
+                              [kind]: value,
+                            },
+                          ],
+                        }
+                      : old,
                 );
               }
             }}

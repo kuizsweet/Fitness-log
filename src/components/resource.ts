@@ -1,7 +1,9 @@
 "use client";
 import { useCallback, useSyncExternalStore } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { api } from "@/lib/client";
+import { resourceKey } from "@/lib/resource-keys";
+import { resourceQuery } from "@/lib/query-cache";
+import { useResourceUser } from "./ResourceProvider";
 const subscribeHydration = () => () => {};
 const clientSnapshot = () => true;
 const serverSnapshot = () => false;
@@ -12,27 +14,25 @@ export function useResource<T>(
 ) {
   void retainOnReload; // Legacy call contract; cached content now survives revalidation.
   const client = useQueryClient();
+  const user = useResourceUser();
   const hydrated = useSyncExternalStore(
     subscribeHydration,
     clientSnapshot,
     serverSnapshot,
   );
   const query = useQuery<T>({
-    queryKey: [path],
-    queryFn: () => api<T>(path),
-    enabled: enabled && hydrated,
-    // Existing editors must not be refetched/unmounted on window focus.
-    // Dashboard readers opt in through their existing explicit listeners.
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    ...(path.startsWith("sessions?id=") ? { gcTime: 0, staleTime: 0 } : {}),
+    ...resourceQuery<T>(client, user, path),
+    enabled: enabled && hydrated && Boolean(user),
+    // Readers revalidate only when stale; session editors keep their draft intact.
+    refetchOnWindowFocus: !path.startsWith("sessions?id="),
+    refetchOnReconnect: !path.startsWith("sessions?id="),
   });
   const reload = useCallback(() => {
     void client.invalidateQueries(
-      { queryKey: [path], exact: true },
+      { queryKey: resourceKey(user, path), exact: true },
       { cancelRefetch: false },
     );
-  }, [client, path]);
+  }, [client, user, path]);
   return {
     data: hydrated ? (query.data ?? null) : null,
     error: hydrated ? (query.error?.message ?? "") : "",

@@ -59,9 +59,6 @@
   background: var(--header-bg);
   border-bottom: 1px solid var(--line);
 }
-.shell:has(> :global(main[data-area="dashboard"])) :global(.app-header) {
-  min-width: 1024px;
-}
 .brand {
   display: inline-flex;
   align-items: center;
@@ -238,17 +235,17 @@
 }
 
 @media (max-width: 1023px) {
-  .shell:has(> :global(main[data-area="dashboard"])) :global(.app-header) {
+  .shell :global(.app-header) {
     min-width: 0;
     grid-template-columns: 1fr auto;
     padding: 12px 16px;
     gap: 10px;
   }
-  .shell:has(> :global(main[data-area="dashboard"])) :global(.header-actions) {
+  .shell :global(.header-actions) {
     grid-column: 2;
     grid-row: 1;
   }
-  .shell:has(> :global(main[data-area="dashboard"])) :global(.app-nav) {
+  .shell :global(.app-header .app-nav) {
     grid-column: 1 / -1;
     grid-row: 2;
     justify-self: center;

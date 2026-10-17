@@ -4,6 +4,7 @@ import { useResource } from "./resource";
 import { api } from "@/lib/client";
 import type { Profile } from "@/lib/domain";
 import { Feedback } from "./Feedback";
+import { BRAND_NAME } from "@/lib/brand";
 export function Settings({ embedded = false }: { embedded?: boolean }) {
   const profile = useResource<Profile>("profile");
   return (
@@ -46,7 +47,7 @@ function SettingsForm({
       const url = URL.createObjectURL(await r.blob());
       const link = document.createElement("a");
       link.href = url;
-      link.download = `fitness-journal.${format}`;
+      link.download = `${BRAND_NAME}.${format}`;
       link.click();
       URL.revokeObjectURL(url);
       setMessage("已生成导出文件");

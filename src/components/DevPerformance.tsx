@@ -12,9 +12,10 @@ export function DevPerformance() {
         .getEntriesByType("resource")
         .filter((e) => new URL(e.name).pathname.startsWith("/api/"))
         .map((e) => ({
-          path: new URL(e.name).pathname,
+          path: new URL(e.name).pathname + new URL(e.name).search,
           start: Math.round(e.startTime),
           ms: Math.round(e.duration),
+          status: (e as PerformanceResourceTiming).responseStatus,
         }));
       document.documentElement.dataset.kuizPerformance = JSON.stringify({
         ttfb: Math.round(navigation?.responseStart ?? 0),

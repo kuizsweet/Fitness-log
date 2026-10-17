@@ -1,4 +1,40 @@
 import type { Session } from "./domain";
+import type { CalendarTraining } from "./training-queries";
+export type CalendarMode = "rest" | "strength" | "cardio" | "mixed";
+export const EMPTY_DAY_VERSION = "d41d8cd98f00b204e9800998ecf8427e";
+export type CalendarDayState = {
+  training_date: string;
+  mode: CalendarMode;
+  locked: boolean;
+  version: string;
+  rows: CalendarTraining[];
+  affected_ids?: string[];
+};
+export function nextCalendarMode(mode: CalendarMode): CalendarMode {
+  const modes: CalendarMode[] = ["rest", "strength", "cardio", "mixed"];
+  return modes[(modes.indexOf(mode) + 1) % modes.length];
+}
+export function calendarDayState(
+  rows: CalendarTraining[],
+  date: string,
+): CalendarDayState {
+  const day = rows.filter((r) => r.training_date === date && !r.deleted_at);
+  const types = new Set(day.map((r) => r.training_type));
+  return {
+    training_date: date,
+    mode:
+      types.has("strength") && types.has("cardio")
+        ? "mixed"
+        : types.has("strength")
+          ? "strength"
+          : types.has("cardio")
+            ? "cardio"
+            : "rest",
+    locked: day.some((r) => r.locked),
+    version: day[0]?.day_revision ?? EMPTY_DAY_VERSION,
+    rows: day,
+  };
+}
 export function calendarMonth(date: string) {
   const year = Number(date.slice(0, 4)),
     month = Number(date.slice(5, 7));
@@ -21,15 +57,15 @@ export function changeCalendarMonth(date: string, year: number, month: number) {
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 }
 export function trainingMarkers(
-  sessions: Session[],
+  sessions: Pick<
+    Session,
+    "training_date" | "status" | "training_type" | "deleted_at"
+  >[],
   day: string,
 ): ("strength" | "cardio" | "idle")[] {
   const types = new Set(
     sessions
-      .filter(
-        (s) =>
-          s.training_date === day && s.status !== "planned" && !s.deleted_at,
-      )
+      .filter((s) => s.training_date === day && !s.deleted_at)
       .map((s) => s.training_type),
   );
   const active = (["strength", "cardio"] as const).filter((type) =>

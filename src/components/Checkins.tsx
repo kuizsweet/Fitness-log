@@ -26,14 +26,11 @@ export function Checkins({
     onData?.(data);
   }, [data, onData]);
   useEffect(() => {
-    const refresh = () => reload();
-    window.addEventListener("focus", refresh);
     // Refresh after midnight without adding a recurring database poll.
     const timer = window.setInterval(() => {
       if (data && data.date !== today(data.timezone)) reload();
     }, 60000);
     return () => {
-      window.removeEventListener("focus", refresh);
       window.clearInterval(timer);
     };
   }, [reload, data]);

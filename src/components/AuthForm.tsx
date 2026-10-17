@@ -20,6 +20,7 @@ import {
   Input,
 } from "./auth/controls";
 import styles from "./auth/AuthForm.module.css";
+import { BRAND_NAME } from "@/lib/brand";
 import "@fontsource-variable/noto-sans-sc";
 const authModes = [
   "login",
@@ -90,11 +91,11 @@ export function AuthForm({ configured }: { configured: boolean }) {
   }[mode];
   const descriptions = {
     login: "",
-    signup: "使用邮箱创建你的 kuizfit 账号。",
+    signup: `使用邮箱创建你的 ${BRAND_NAME} 账号。`,
     reset: "输入账号邮箱，接收密码重置邮件。",
-    update: "输入并确认新密码，完成 kuizfit 账号的密码重置。",
-    resend: "使用邮箱创建你的 kuizfit 账号。",
-    verify: "使用邮箱创建你的 kuizfit 账号。",
+    update: `输入并确认新密码，完成 ${BRAND_NAME} 账号的密码重置。`,
+    resend: `使用邮箱创建你的 ${BRAND_NAME} 账号。`,
+    verify: `使用邮箱创建你的 ${BRAND_NAME} 账号。`,
   };
   async function sendRegistrationCode() {
     if (busy || !emailInput.current?.reportValidity()) return;
@@ -249,7 +250,7 @@ export function AuthForm({ configured }: { configured: boolean }) {
     );
   return (
     <main className={styles.page}>
-      {(isSignup || isRecovery) && <p className={styles.brand}>kuizfit</p>}
+      {(isSignup || isRecovery) && <p className={styles.brand}>{BRAND_NAME}</p>}
       <Card
         aria-labelledby="auth-title"
         data-template={isSignup || isRecovery ? "signup-03" : "login-01"}
@@ -271,13 +272,13 @@ export function AuthForm({ configured }: { configured: boolean }) {
               : isSignup
                 ? "创建你的账号"
                 : mode === "login"
-                  ? "欢迎使用 kuizFit"
+                  ? `欢迎使用 ${BRAND_NAME}`
                   : title}
           </CardTitle>
           {!(mode === "login" && !descriptions.login) && (
             <CardDescription>
               {mode === "update" && passwordUpdated
-                ? "新密码已保存，你可以继续使用 kuizfit。"
+                ? `新密码已保存，你可以继续使用 ${BRAND_NAME}。`
                 : descriptions[mode]}
             </CardDescription>
           )}

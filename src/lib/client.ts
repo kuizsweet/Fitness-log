@@ -1,3 +1,4 @@
+import { resourceOwner } from "./resource-keys";
 export class ApiResponseError extends Error {
   constructor(
     message: string,
@@ -10,8 +11,9 @@ export async function api<T>(
   path: string,
   data?: unknown,
   method = data === undefined ? "GET" : "POST",
-  options: { signal?: AbortSignal } = {},
+  options: { signal?: AbortSignal; notify?: boolean } = {},
 ): Promise<T> {
+  const owner = resourceOwner();
   const response = await fetch(`/api/${path}`, {
     method,
     headers:
@@ -30,10 +32,16 @@ export async function api<T>(
   const result = await response.json();
   if (!response.ok)
     throw new ApiResponseError(result.error ?? "操作失败", response.status);
-  if (method !== "GET" && method !== "HEAD")
+  if (options.notify !== false && method !== "GET" && method !== "HEAD")
     window.dispatchEvent(
       new CustomEvent("fitness-data-change", {
-        detail: { resource: path.split(/[/?]/)[0] },
+        detail: {
+          owner,
+          resource: path.split(/[/?]/)[0],
+          method,
+          data,
+          result,
+        },
       }),
     );
   return result as T;

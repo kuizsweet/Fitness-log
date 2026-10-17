@@ -2,7 +2,7 @@
 
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { Languages, Moon, Settings2, Sun, UserRound } from "lucide-react";
 import { SignOut, useSignOut } from "./SignOut";
 import appStyles from "./AppShell.module.css";
@@ -17,13 +17,14 @@ import {
 } from "./ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Settings } from "./Settings";
+import { BRAND_NAME } from "@/lib/brand";
 
 export function AppBrand() {
   return (
     <Link
       href="/dashboard"
       className={appStyles.brand}
-      aria-label="kuizFit 控制台"
+      aria-label={`${BRAND_NAME} 控制台`}
     >
       <svg
         width="20"
@@ -37,7 +38,7 @@ export function AppBrand() {
         <rect x="3" y="3" width="18" height="18" rx="5" />
         <path d="m5 13 4-4 4 6 3-5h3" />
       </svg>
-      kuizFit
+      {BRAND_NAME}
     </Link>
   );
 }
@@ -112,7 +113,15 @@ function ThemeMenu() {
 }
 
 type Language = "zh-CN" | "en";
+const subscribeHydration = () => () => {};
+const hydratedSnapshot = () => true;
+const serverHydrationSnapshot = () => false;
 function LanguageMenu() {
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    hydratedSnapshot,
+    serverHydrationSnapshot,
+  );
   const [language, setLanguage] = useState<Language>(() => {
     if (typeof window === "undefined") return "zh-CN";
     try {
@@ -130,7 +139,7 @@ function LanguageMenu() {
       // The selected state remains available until this page is closed.
     }
   }
-  const nextLabel = language === "zh-CN" ? "English" : "简体中文";
+  const nextLabel = !hydrated || language === "zh-CN" ? "English" : "简体中文";
   return (
     <button
       className="header-icon-button"

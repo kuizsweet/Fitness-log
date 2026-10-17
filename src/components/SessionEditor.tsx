@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { useUnsaved } from "./useUnsaved";
 import { useResource } from "./resource";
 import { useTrainingClock } from "./useTrainingClock";
@@ -49,20 +50,38 @@ export function SessionLoader({
   );
   if (profile.loading || (sourceId && query.loading))
     return <Feedback loading />;
-  if (profile.error || (sourceId && query.error))
-    return <Feedback error={profile.error || query.error} />;
+  if (
+    (!profile.data && profile.error) ||
+    (sourceId && !query.data && query.error)
+  )
+    return (
+      <>
+        <Feedback error={profile.error || query.error} />
+        <button
+          onClick={() => {
+            profile.reload();
+            if (sourceId) query.reload();
+          }}
+        >
+          重试
+        </button>
+      </>
+    );
   if (sourceId && !query.data?.[0]) return <p>训练不存在或已删除。</p>;
   return (
-    <SessionEditor
-      key={`${id ?? "new"}-${template ?? ""}-${date}-${active}-${planned}`}
-      initial={id ? query.data?.[0] : undefined}
-      source={template ? query.data?.[0] : undefined}
-      date={date ?? today(profile.data?.timezone)}
-      active={active}
-      planned={planned}
-      userId={profile.data?.user_id}
-      defaultUnit={profile.data?.unit}
-    />
+    <>
+      <Feedback error={profile.error || (sourceId ? query.error : "")} />
+      <SessionEditor
+        key={`${id ?? "new"}-${template ?? ""}-${date}-${active}-${planned}`}
+        initial={id ? query.data?.[0] : undefined}
+        source={template ? query.data?.[0] : undefined}
+        date={date ?? today(profile.data?.timezone)}
+        active={active}
+        planned={planned}
+        userId={profile.data?.user_id}
+        defaultUnit={profile.data?.unit}
+      />
+    </>
   );
 }
 
@@ -213,19 +232,19 @@ export function SessionEditor({
           </p>
         ))}
         <div className="row">
-          <a
+          <Link
             className="button primary"
             href={`/dashboard?date=${session.training_date}`}
           >
             完成
-          </a>
+          </Link>
           <button onClick={() => setSummarized(false)}>查看记录</button>
-          <a
+          <Link
             className="button"
             href={`/session/new?template=${session.id}&planned=1&date=${session.training_date}`}
           >
             存为计划
-          </a>
+          </Link>
         </div>
       </section>
     );
@@ -239,7 +258,7 @@ export function SessionEditor({
               ? "训练记录"
               : "编辑训练记录"}
         </h1>
-        <a href="/train">配置</a>
+        <Link href="/train">配置</Link>
       </div>
       <Feedback error={catalog.error} loading={catalog.loading} />
       {catalog.error && (
@@ -307,12 +326,12 @@ export function SessionEditor({
             </div>
           )}
           {session.status === "planned" && session.revision > 0 && (
-            <a
+            <Link
               className="button primary"
               href={`/session/new?template=${session.id}&date=${today()}`}
             >
               开始计划
-            </a>
+            </Link>
           )}
           {session.status === "completed" && !dirty && session.revision > 0 && (
             <button onClick={() => setSummarized(true)}>查看总结</button>
@@ -459,7 +478,9 @@ export function SessionEditor({
             保存并查看总结
           </button>
         )}
-        <a href={`/dashboard?date=${session.training_date}`}>返回控制台</a>
+        <Link href={`/dashboard?date=${session.training_date}`}>
+          返回控制台
+        </Link>
         {session.revision > 0 && (
           <button
             disabled={busy}

@@ -100,7 +100,6 @@
   flex: none;
 }
 .card h2,
-.calendarSlot .calendarHeading h2,
 .dialogHeading h2 {
   font-size: 16px;
   font-weight: 600;
@@ -309,15 +308,19 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 18px;
+  padding: 16px;
+}
+.plan {
+  overflow: hidden;
 }
 .tabs {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
 }
 .tabs [data-slot="tabs-list"] {
+  align-self: flex-end;
   display: flex;
   gap: 4px;
   padding: 3px;
@@ -327,6 +330,8 @@
   flex: none;
 }
 .workspace .tabs [data-slot="tabs-trigger"] {
+  min-height: 26px;
+  height: 26px;
   flex: 1;
   min-width: 0;
   padding: 5px 3px;
@@ -348,39 +353,6 @@
   outline-offset: 3px;
   border-radius: 4px;
 }
-.planLabel {
-  color: #a1a1aa;
-  font-size: 12px;
-  margin-bottom: 12px !important;
-}
-.planEmpty {
-  display: grid;
-  gap: 8px;
-  padding-top: 3px;
-}
-.planEmpty strong {
-  font-size: 14px;
-  font-weight: 550;
-}
-.planEmpty p,
-.planEmpty a {
-  font-size: 12px;
-}
-.planEmpty p {
-  color: #92929b;
-}
-.nextPlan {
-  display: grid;
-  gap: 8px;
-  font-size: 13px;
-}
-.nextPlan time {
-  color: #a1a1aa;
-  font-size: 12px;
-}
-.nextPlan ol {
-  padding-left: 18px;
-}
 .calendarSlot {
   grid-column: 10 / 13;
   grid-row: 1;
@@ -395,47 +367,48 @@
   gap: 8px;
 }
 .calendarSlot .calendarHeading {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 28px;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   margin: 0;
 }
-.calendarSlot .calendarHeading h2 {
-  width: 100%;
-}
-.calendarSlot .calendarPeriod,
-.calendarSlot .calendarActions {
-  display: flex;
-  gap: 3px;
-  align-items: center;
-}
 .calendarSlot .calendarPeriod {
-  flex: 1;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
   min-width: 0;
 }
 .workspace.workspace .calendarSlot select {
   width: auto;
   min-width: 0;
   min-height: 28px;
-  padding: 2px;
+  padding: 2px 4px;
   margin: 0;
-  font-size: 11px;
-  border: 1px solid #303030;
-  background: #202020;
-  color: #d4d4d8;
+  font-size: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  color-scheme: dark;
   border-radius: 5px;
 }
+.workspace.workspace .calendarSlot select option {
+  background: #191919;
+  color: #f4f4f5;
+}
 .workspace.workspace .calendarSlot select:first-child {
-  width: 56px;
+  width: 70px;
 }
 .workspace.workspace .calendarSlot select:last-child {
-  width: 44px;
+  width: 54px;
 }
-.workspace .calendarSlot .calendarActions button {
-  min-width: 24px;
-  min-height: 28px;
+.workspace .calendarSlot .calendarMonthArrow {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-color: transparent;
+  background: transparent;
 }
 .workspace .calendarSlot button {
   min-width: 0;
@@ -463,13 +436,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   align-items: center;
   justify-content: center;
   min-height: 20px;
   min-width: 0;
   margin: 0;
-  padding: 1px 0;
+  padding: 0;
   border: 1px solid transparent;
   background: transparent;
   color: #d4d4d8;
@@ -490,15 +463,36 @@
 .calendarSlot .calendarDots {
   display: flex;
   justify-content: center;
-  height: 4px;
+  height: 6px;
   gap: 2px;
 }
 .calendarSlot .dayDot {
   display: inline-block;
   flex-shrink: 0;
   border-radius: 50%;
-  width: 3px;
-  height: 3px;
+  width: 6px;
+  height: 6px;
+}
+.calendarSlot .calendarFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 28px;
+  flex: none;
+}
+.calendarSlot .calendarLegend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.calendarSlot .calendarLegend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }
 .calendarSlot .dot-strength {
   background: #80aef2;
@@ -508,6 +502,16 @@
 }
 .calendarSlot .dot-idle {
   background: #4e4e57;
+}
+.calendarSlot .dot-mixed {
+  background: #b39aee;
+}
+.calendarSlot .calendarError {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--ink);
 }
 .calendarSlot .calendarCheck {
   position: absolute;

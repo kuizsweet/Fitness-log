@@ -1,49 +1,53 @@
 import { z } from "zod";
 import { context, check, failure, json, ApiError } from "@/lib/api";
 import { dateSchema, sessionSchema } from "@/lib/domain";
-import { sessionsQuery } from "@/lib/repository";
+import {
+  readTraining,
+  readTrainingCalendar,
+  type SessionRead,
+} from "@/lib/training-read";
+import { TRAINING_FROM, TRAINING_TO } from "@/lib/training-queries";
 export async function GET(request: Request) {
   try {
-    const { db } = await context();
+    const { db, user } = await context();
     const p = new URL(request.url).searchParams;
-    if (p.get("active") === "1")
-      return json(
-        await sessionsQuery(db, "0001-01-01", "9999-12-31", false, [
-          "in_progress",
-          "paused",
-        ]),
-      );
-    if (p.get("planned") === "1")
-      return json(
-        await sessionsQuery(
-          db,
-          p.has("from") ? dateSchema.parse(p.get("from")) : "0001-01-01",
-          "9999-12-31",
-          false,
-          ["planned"],
-        ),
-      );
     if (p.has("id")) {
       const id = z.uuid().parse(p.get("id"));
-      const root = await db
-        .from("workout_sessions")
-        .select("training_date")
-        .eq("id", id)
-        .is("deleted_at", null)
-        .maybeSingle();
-      check(root.error);
-      if (!root.data) return json([]);
-      const all = await sessionsQuery(
-        db,
-        root.data.training_date,
-        root.data.training_date,
-      );
-      return json(all.filter((s) => s.id === id));
+      return json(await readTraining(db, { user: user.id, id, limit: 1 }));
     }
-    const from = dateSchema.parse(p.get("from"));
-    const to = dateSchema.parse(p.get("to"));
+    const from = dateSchema.parse(p.get("from") ?? TRAINING_FROM);
+    const to = dateSchema.parse(p.get("to") ?? TRAINING_TO);
     if (from > to) throw new ApiError("日期范围无效");
-    return json(await sessionsQuery(db, from, to, p.get("deleted") === "1"));
+    if (p.get("view") === "calendar") {
+      if (from.slice(0, 7) !== to.slice(0, 7))
+        throw new ApiError("月历仅查询一个月");
+      return json(await readTrainingCalendar(db, from, to));
+    }
+    const options: SessionRead = {
+      user: user.id,
+      from,
+      to,
+      deleted: p.get("deleted") === "1",
+      limit: z.coerce
+        .number()
+        .int()
+        .min(1)
+        .max(101)
+        .parse(p.get("limit") ?? 50),
+      offset: z.coerce
+        .number()
+        .int()
+        .min(0)
+        .max(100000)
+        .parse(p.get("offset") ?? 0),
+      ascending: p.get("order") === "asc",
+      ...(p.has("type")
+        ? { type: z.enum(["strength", "cardio"]).parse(p.get("type")) }
+        : {}),
+    };
+    if (p.get("active") === "1") options.states = ["in_progress", "paused"];
+    if (p.get("planned") === "1") options.states = ["planned"];
+    return json(await readTraining(db, options));
   } catch (e) {
     return failure(e);
   }

@@ -3,10 +3,6 @@ import styles from "./Dashboard.module.css";
 export function DashboardSkeleton() {
   return (
     <div className={styles.workspace} aria-label="控制台" aria-busy="true">
-      <div
-        className={`${styles.toolbar} ${styles.placeholder}`}
-        aria-hidden="true"
-      />
       <div className={styles.grid} aria-hidden="true">
         <section className={`${styles.card} ${styles.console}`}>
           <h2>训练控制台</h2>

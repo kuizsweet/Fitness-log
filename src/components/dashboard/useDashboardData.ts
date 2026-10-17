@@ -3,20 +3,34 @@ import { useEffect, useState } from "react";
 import { useResource } from "../resource";
 import { today, type Profile, type Session, type Meal } from "@/lib/domain";
 import { calendarMonth } from "@/lib/calendar";
+import {
+  DAY_PAGE_SIZE,
+  trainingDate,
+  trainingPaths,
+  type CalendarTraining,
+} from "@/lib/training-queries";
 
 export function useDashboardData(initialDate?: string) {
   const profile = useResource<Profile>("profile");
   const [picked, setPicked] = useState(initialDate ?? "");
+  const [page, setPage] = useState({ date: "", index: 0 });
   const [mealsEnabled, setMealsEnabled] = useState(false);
-  const date = picked || today(profile.data?.timezone);
+  const date = trainingDate(picked || today(profile.data?.timezone));
+  const dayPage = page.date === date ? page.index : 0;
   const month = calendarMonth(date);
   const sessions = useResource<Session[]>(
-    `sessions?from=${month.from}&to=${month.to}`,
+    trainingPaths.day(date, dayPage),
     true,
-    Boolean(profile.data),
+    Boolean(picked || profile.data),
+  );
+  const calendar = useResource<CalendarTraining[]>(
+    trainingPaths.calendar(month.from, month.to),
+    true,
+    Boolean(picked || profile.data),
   );
   const meals = useResource<Meal[]>(`meals?date=${date}`, true, mealsEnabled);
-  const records = sessions.data?.filter((s) => s.training_date === date) ?? [];
+  const records = sessions.data?.slice(0, DAY_PAGE_SIZE) ?? [];
+  const hasMore = (sessions.data?.length ?? 0) > DAY_PAGE_SIZE;
   useEffect(() => {
     if (
       process.env.NODE_ENV === "development" &&
@@ -29,7 +43,10 @@ export function useDashboardData(initialDate?: string) {
       );
       try {
         const loginStart = Number(sessionStorage.getItem("kuiz-login-start"));
-        if (loginStart && Date.now() - loginStart < 30 * 60_000)
+        if (
+          loginStart >= performance.timeOrigin &&
+          Date.now() - loginStart < 30 * 60_000
+        )
           document.documentElement.dataset.kuizLoginMs = String(
             Date.now() - loginStart,
           );
@@ -38,34 +55,28 @@ export function useDashboardData(initialDate?: string) {
       }
     }
   }, [profile.data, sessions.data]);
-  const refreshSessions = sessions.reload;
   const refreshMeals = meals.reload;
   useEffect(() => {
-    const refresh = () => {
-      refreshSessions();
-      refreshMeals();
-    };
     const changed = (event: Event) => {
       const resource = (event as CustomEvent<{ resource: string }>).detail
         .resource;
-      if (["sessions", "imports"].includes(resource)) refreshSessions();
       if (["meals", "photos"].includes(resource)) refreshMeals();
     };
-    window.addEventListener("focus", refresh);
-    window.addEventListener("online", refresh);
     window.addEventListener("fitness-data-change", changed);
     return () => {
-      window.removeEventListener("focus", refresh);
-      window.removeEventListener("online", refresh);
       window.removeEventListener("fitness-data-change", changed);
     };
-  }, [refreshSessions, refreshMeals]);
+  }, [refreshMeals]);
   return {
     profile,
     date,
     sessions,
+    calendar,
     meals,
     records,
+    dayPage,
+    hasMore,
+    setDayPage: (index: number) => setPage({ date, index }),
     setPicked,
     setMealsEnabled,
   };

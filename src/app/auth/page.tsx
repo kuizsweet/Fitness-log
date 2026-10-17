@@ -2,7 +2,8 @@ import { Suspense } from "react";
 import { AuthForm } from "@/components/AuthForm";
 import { configured } from "@/lib/supabase/config";
 import styles from "@/components/auth/AuthForm.module.css";
-export const metadata = { title: "kuizfit · 账号" };
+import { BRAND_NAME } from "@/lib/brand";
+export const metadata = { title: `${BRAND_NAME} · 账号` };
 export default function AuthPage() {
   return (
     <Suspense

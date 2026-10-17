@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import { configured } from "@/lib/supabase/config";
+import { BRAND_NAME } from "@/lib/brand";
 export default function Home() {
   if (configured()) redirect("/dashboard");
   return (
     <main className="narrow">
-      <h1>Fitness Journal</h1>
+      <h1>{BRAND_NAME}</h1>
       <p>尚未连接 Supabase。</p>
       <p>
         请配置 .env.local 中的 Supabase URL、Publishable Key
