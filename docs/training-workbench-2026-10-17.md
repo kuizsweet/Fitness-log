@@ -156,3 +156,8 @@
 - 去掉canvas[data-over]的整圈outline，拖起便签不再高亮整个画布；保留垃圾桶与实际落点提示。
 - 工作台主列间距统一16px，左右面板内边距16px，仓库条目间距8px；主面板16px、便签14px、预览12px圆角。浏览器支持corner-shape:squircle时启用连续圆角，其他浏览器沿用border-radius，未引入额外库。
 - 浏览器CSS.supports返回true，主面板计算corner-shape为superellipse(2)，列间距16px，页面无横向溢出；原计划保留。拖动截图continuous-corners-drag.png。
+
+## 间距范围纠正与全站圆角
+- 根据用户后续澄清，恢复工作台主区域12px间距、原面板内边距，不再以主画布间隔作为本次调整对象。一级肌群、二级细分及器材标签的间距统一8px。
+- 连续圆角在全局渐进启用，沿用每个组件原有尺寸对应的半径，覆盖按钮、输入框、卡片、弹层及伪元素；50%圆角的状态圆点、头像、肌群饼图显式corner-shape:round，保留圆形含义。
+- 浏览器实测工作台列间距12px、分类间距8px；控制台卡片、账号菜单及器材菜单均superellipse(2)，日期圆点和饼图保留superellipse(1)，无横向溢出。截图filter-spacing-corrected.png。

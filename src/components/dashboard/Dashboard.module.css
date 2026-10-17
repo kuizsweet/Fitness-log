@@ -477,6 +477,7 @@
   display: inline-block;
   flex-shrink: 0;
   border-radius: 50%;
+  corner-shape: round;
   width: 6px;
   height: 6px;
 }

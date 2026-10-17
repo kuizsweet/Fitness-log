@@ -823,3 +823,13 @@ textarea {
     gap: 6px 16px;
   }
 }
+
+/* One continuous-corner language across pages and portaled controls.
+   Existing radii stay size-specific; circular indicators opt out locally. */
+@supports (corner-shape: squircle) {
+  *,
+  *::before,
+  *::after {
+    corner-shape: squircle;
+  }
+}

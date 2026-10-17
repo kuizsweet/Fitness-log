@@ -17,6 +17,7 @@
   background: transparent;
   border: 0;
   border-radius: 50%;
+  corner-shape: round;
   padding: 0;
   box-sizing: border-box;
   cursor: pointer;
@@ -74,6 +75,7 @@
   position: absolute;
   inset: 5px;
   border-radius: 50%;
+  corner-shape: round;
   background: var(--line);
   opacity: 0;
   transition: opacity 200ms;

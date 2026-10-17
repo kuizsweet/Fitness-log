@@ -10,7 +10,7 @@
   min-width: 920px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   color: var(--ink);
 }
 .workbench.workbench :is(h1, h2, p) {
@@ -80,7 +80,7 @@
   flex: 1;
   display: grid;
   grid-template-columns: 220px minmax(340px, 1fr) 250px;
-  gap: 16px;
+  gap: 12px;
 }
 .workbench .left {
   min-height: 0;
@@ -92,7 +92,7 @@
   overflow: hidden;
 }
 .workbench .calendar {
-  padding: 16px;
+  padding: 12px;
   border-bottom: 1px solid var(--line);
 }
 .workbench .monthHeading {
@@ -156,6 +156,7 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
+  corner-shape: round;
   background: transparent;
 }
 .workbench .days i[data-filled="true"] {
@@ -237,7 +238,7 @@
   padding: 3px 0;
 }
 .workbench .warehouse {
-  padding: 16px;
+  padding: 12px;
   min-height: 0;
   overflow: auto;
 }
@@ -331,7 +332,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   color: var(--muted);
 }
 .workbench .canvasEmpty > svg {
@@ -479,8 +480,8 @@
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--surface);
-  padding: 16px;
-  gap: 16px;
+  padding: 14px;
+  gap: 12px;
 }
 .workbench .library .sectionHeading {
   margin: 0;
@@ -502,7 +503,7 @@
 .workbench .families {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 4px;
+  gap: 8px;
 }
 .workbench .families button {
   padding: 4px 0;
@@ -516,9 +517,9 @@
 .workbench .details {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 8px;
   border-bottom: 1px solid var(--line);
-  padding-bottom: 10px;
+  padding-bottom: 12px;
 }
 .workbench .details button {
   font-size: 10px;
@@ -833,7 +834,7 @@
 .equipmentTags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 .equipmentTags button {
   font-size: 11px;
@@ -1002,4 +1003,9 @@
 }
 .workbench .sectionHeading {
   margin-bottom: 16px;
+}
+
+.workbench .families button,
+.equipmentTags button {
+  border-radius: 8px;
 }

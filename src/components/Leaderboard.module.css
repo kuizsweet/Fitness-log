@@ -88,6 +88,7 @@
   width: clamp(24px, 5.5cqh, 40px);
   height: clamp(24px, 5.5cqh, 40px);
   border-radius: 50%;
+  corner-shape: round;
   flex: none;
   object-fit: cover;
   background: #292929;
