@@ -258,7 +258,7 @@ export function SessionEditor({
               ? "训练记录"
               : "编辑训练记录"}
         </h1>
-        <Link href="/train">配置</Link>
+        <Link href="/config">配置</Link>
       </div>
       <Feedback error={catalog.error} loading={catalog.loading} />
       {catalog.error && (

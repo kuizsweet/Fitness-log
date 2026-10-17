@@ -2,11 +2,37 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   checklistDay,
+  addChecklistExamples,
   orderItems,
   readChecklist,
   toggleItem,
   type ChecklistItem,
 } from "../src/lib/items-checklist";
+test("新旧账号只初始化一次可删除示例，不重复添加或挤掉已有物品", () => {
+  assert.equal(readChecklist(null).needsExamples, true);
+  const defaults = addChecklistExamples([]);
+  assert.deepEqual(
+    defaults.map((item) => item.text),
+    ["水杯", "耳机"],
+  );
+  assert.ok(defaults.every((item) => !item.completed));
+  assert.equal(new Set(defaults.map((item) => item.id)).size, 2);
+  assert.equal(addChecklistExamples(defaults).length, 2);
+  const deleted = JSON.stringify({
+    day: "2026-10-17",
+    examplesInitialized: true,
+    items: [],
+  });
+  assert.equal(readChecklist(deleted, "2026-10-18").needsExamples, false);
+  assert.deepEqual(readChecklist(deleted, "2026-10-18").items, []);
+  const full = Array.from({ length: 10 }, (_, order) => ({
+    id: String(order),
+    text: `物品${order}`,
+    completed: false,
+    order,
+  }));
+  assert.deepEqual(addChecklistExamples(full), full);
+});
 const items: ChecklistItem[] = [
   { id: "a", text: "a", completed: false, order: 0 },
   { id: "b", text: "b", completed: false, order: 1 },

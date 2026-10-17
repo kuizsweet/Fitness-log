@@ -60,6 +60,33 @@ export function closeWorkbenchNote(
     ),
   };
 }
+export function copyWarehouseNote(
+  state: WorkbenchState,
+  id: string,
+): WorkbenchState {
+  const index = state.notes.findIndex(
+    (note) => note.id === id && note.inWarehouse,
+  );
+  if (index < 0 || state.notes.length >= 30) return state;
+  const source = state.notes[index];
+  const copy = {
+    ...source,
+    id: crypto.randomUUID(),
+    savedToWarehouse: true,
+    exercises: source.exercises.map((exercise) => ({
+      ...exercise,
+      id: crypto.randomUUID(),
+    })),
+  };
+  return {
+    ...state,
+    notes: [
+      ...state.notes.slice(0, index + 1),
+      copy,
+      ...state.notes.slice(index + 1),
+    ],
+  };
+}
 export function muscleFamily(label: string) {
   if (/胸/.test(label)) return "胸";
   if (/背|背阔|斜方/.test(label)) return "背";

@@ -1,13 +1,11 @@
 "use client";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { workingSets, type Session } from "@/lib/domain";
 import type { CheckinDashboard } from "@/lib/checkins";
 import { ItemsChecklist } from "./ItemsChecklist";
 
 import { TrainingMonthCalendar } from "./TrainingMonthCalendar";
-import { MealsCard } from "../MealsCard";
 import { Checkins } from "../Checkins";
 import { Feedback } from "../Feedback";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
@@ -18,20 +16,8 @@ import styles from "./Dashboard.module.css";
 import { BRAND_NAME } from "@/lib/brand";
 
 export function DashboardWorkspace({ data }: { data: DashboardData }) {
-  const { date, profile, calendar, meals, setPicked, setMealsEnabled } = data;
+  const { date, profile, calendar, setPicked } = data;
   const [checkin, setCheckin] = useState<CheckinDashboard | null>(null);
-  const mealsDialog = useRef<HTMLDialogElement>(null);
-
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (searchParams.get("openMeals") !== "1") return;
-    setMealsEnabled(true);
-    if (!mealsDialog.current?.open) mealsDialog.current?.showModal();
-    router.replace(pathname, { scroll: false });
-  }, [pathname, router, searchParams, setMealsEnabled]);
 
   return (
     <div className={styles.workspace}>
@@ -74,35 +60,6 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
           力量有效组数和有氧时长将分别展示。
         </EmptyCard>
       </div>
-      {/* Native dialog keeps meal editors mounted while closed, retaining unsaved
-          notes and the selected meal tab without creating another save flow. */}
-      <dialog
-        ref={mealsDialog}
-        className={styles.mealsDialog}
-        aria-labelledby="dashboard-meals-title"
-      >
-        <div className={styles.dialogHeading}>
-          <div>
-            <h2 id="dashboard-meals-title">三餐记录</h2>
-            <time dateTime={date}>{date}</time>
-          </div>
-          <button
-            onClick={() => mealsDialog.current?.close()}
-            aria-label="关闭三餐记录"
-          >
-            关闭
-          </button>
-        </div>
-        <MealsCard
-          key={date}
-          date={date}
-          meals={meals.data ?? []}
-          ready={Boolean(meals.data)}
-          loading={meals.loading}
-          error={meals.error}
-          reload={meals.reload}
-        />
-      </dialog>
     </div>
   );
 }

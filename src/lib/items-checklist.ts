@@ -14,6 +14,20 @@ export function orderItems(items: ChecklistItem[]): ChecklistItem[] {
 export function checklistDay(now = new Date()) {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 }
+export function addChecklistExamples(items: ChecklistItem[]): ChecklistItem[] {
+  const next = [...items];
+  for (const text of ["水杯", "耳机"]) {
+    if (next.length >= ITEM_LIMIT) break;
+    if (!next.some((item) => item.text.trim() === text))
+      next.push({
+        id: crypto.randomUUID(),
+        text,
+        completed: false,
+        order: next.length,
+      });
+  }
+  return orderItems(next);
+}
 export function toggleItem(
   items: ChecklistItem[],
   id: string,
@@ -34,7 +48,7 @@ export function toggleItem(
   );
 }
 export function readChecklist(value: string | null, day = checklistDay()) {
-  if (!value) return { items: [], needsReset: false };
+  if (!value) return { items: [], needsReset: false, needsExamples: true };
   const parsed = JSON.parse(value);
   const legacy = Array.isArray(parsed);
   const items = readItems(JSON.stringify(legacy ? parsed : parsed.items));
@@ -44,6 +58,7 @@ export function readChecklist(value: string | null, day = checklistDay()) {
       ? items.map((item) => ({ ...item, completed: false }))
       : items,
     needsReset: needsReset || legacy,
+    needsExamples: legacy || parsed.examplesInitialized !== true,
   };
 }
 export function readItems(value: string | null): ChecklistItem[] {

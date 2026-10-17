@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { BRAND_ASSET } from "@/lib/brand-assets";
 import Link, { useLinkStatus } from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useSyncExternalStore } from "react";
@@ -26,18 +28,15 @@ export function AppBrand() {
       className={appStyles.brand}
       aria-label={`${BRAND_NAME} 控制台`}
     >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        aria-hidden="true"
-      >
-        <rect x="3" y="3" width="18" height="18" rx="5" />
-        <path d="m5 13 4-4 4 6 3-5h3" />
-      </svg>
+      <Image
+        src={`${BRAND_ASSET}-logo.webp`}
+        width={40}
+        height={40}
+        alt=""
+        unoptimized
+        priority
+        className={appStyles.brandLogo}
+      />
       {BRAND_NAME}
     </Link>
   );
@@ -45,8 +44,8 @@ export function AppBrand() {
 
 const links = [
   ["/dashboard", "控制台", "dashboard"],
-  ["/train", "配置", "configuration"],
-  ["/dashboard?openMeals=1", "三餐", "meals"],
+  ["/config", "配置", "configuration"],
+  ["/meals", "三餐", "meals"],
   ["/leaderboard", "排行榜", "checkin"],
 ];
 
@@ -60,7 +59,8 @@ export function AppNavigation() {
           href={href}
           data-area={area}
           aria-current={
-            path === href || (href === "/train" && path.startsWith("/session/"))
+            path === href ||
+            (href === "/config" && path.startsWith("/session/"))
               ? "page"
               : undefined
           }

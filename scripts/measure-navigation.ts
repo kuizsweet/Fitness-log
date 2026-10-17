@@ -44,7 +44,7 @@ async function main() {
   }[] = [];
   const date = today("Asia/Shanghai");
   const month = calendarMonth(date);
-  const paths = ["/dashboard", "/catalog", "/train", "/api/profile"];
+  const paths = ["/dashboard", "/catalog", "/config", "/api/profile"];
   if (process.argv.includes("--full"))
     paths.push(
       `/api/sessions?from=${month.from}&to=${month.to}`,

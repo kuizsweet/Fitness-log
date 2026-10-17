@@ -188,10 +188,9 @@ function Sortable<T>(props: SortableProps<T>) {
           (item) => getItemValue(item) === over.id,
         );
 
-        if (onMove) {
-          onMove({ ...event, activeIndex, overIndex });
-        } else {
-          onValueChange?.(arrayMove(value, activeIndex, overIndex));
+        if (activeIndex >= 0 && overIndex >= 0) {
+          if (onMove) onMove({ ...event, activeIndex, overIndex });
+          else onValueChange?.(arrayMove(value, activeIndex, overIndex));
         }
       }
       setActiveId(null);

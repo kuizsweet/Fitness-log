@@ -1,0 +1,32 @@
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.heading h1 {
+  margin: 0 auto 0 0;
+  font-size: 20px;
+}
+.heading input {
+  width: auto;
+  color-scheme: dark;
+}
+:global([data-theme="light"]) .heading input {
+  color-scheme: light;
+}
+.meals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .meals {
+    grid-template-columns: 1fr;
+  }
+}

@@ -125,10 +125,11 @@ export function TrainingMonthCalendar({
           >
             {Array.from({ length: 11 }, (_, i) => 2020 + i).map((year) => (
               <option key={year} value={year}>
-                {year} 年
+                {year}
               </option>
             ))}
           </select>
+          <Button onClick={() => onSelect(currentDay)}>今天</Button>
           <select
             aria-label="月份"
             value={info.month}
@@ -140,7 +141,7 @@ export function TrainingMonthCalendar({
           >
             {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
               <option key={month} value={month}>
-                {month} 月
+                {month}
               </option>
             ))}
           </select>
@@ -242,7 +243,6 @@ export function TrainingMonthCalendar({
             休息
           </span>
         </div>
-        <Button onClick={() => onSelect(currentDay)}>今天</Button>
       </div>
       <Feedback error={error} />
       {Object.entries(edits)

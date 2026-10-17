@@ -24,6 +24,7 @@ import {
   readChecklist,
   checklistDay,
   toggleItem,
+  addChecklistExamples,
   type ChecklistItem,
 } from "@/lib/items-checklist";
 import styles from "./ItemsChecklist.module.css";
@@ -120,16 +121,24 @@ function Checklist({
     let timer: ReturnType<typeof setTimeout>;
     function refreshDay() {
       clearTimeout(timer);
+      if (!user) return;
       try {
         const stored = localStorage.getItem(key);
         const snapshot = readChecklist(stored);
-        if (stored && snapshot.needsReset) {
+        const next = snapshot.needsExamples
+          ? addChecklistExamples(snapshot.items)
+          : snapshot.items;
+        if (snapshot.needsExamples || snapshot.needsReset) {
           localStorage.setItem(
             key,
-            JSON.stringify({ day: checklistDay(), items: snapshot.items }),
+            JSON.stringify({
+              day: checklistDay(),
+              items: next,
+              examplesInitialized: true,
+            }),
           );
         }
-        setItems(snapshot.items);
+        setItems(next);
         setReady(Boolean(user));
         setError("");
       } catch {
@@ -166,7 +175,11 @@ function Checklist({
       // and the input intact; no asynchronous response can overwrite newer edits.
       localStorage.setItem(
         key,
-        JSON.stringify({ day: checklistDay(), items: ordered }),
+        JSON.stringify({
+          day: checklistDay(),
+          items: ordered,
+          examplesInitialized: true,
+        }),
       );
       setItems(ordered);
       setError("");

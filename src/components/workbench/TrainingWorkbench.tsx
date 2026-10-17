@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode,
   type PointerEvent,
+  type RefObject,
 } from "react";
 import {
   DndContext,
@@ -14,12 +15,17 @@ import {
   PointerSensor,
   pointerWithin,
   rectIntersection,
+  closestCenter,
+  useDndContext,
   useDraggable,
   useDroppable,
   useSensor,
   useSensors,
   type DragEndEvent,
+  type Modifier,
 } from "@dnd-kit/core";
+import { createPortal } from "react-dom";
+import { snapCenterToCursor } from "@dnd-kit/modifiers";
 import {
   ChevronLeft,
   ChevronRight,
@@ -30,6 +36,8 @@ import {
   Funnel,
   X,
   Archive,
+  Copy,
+  Trash2,
 } from "lucide-react";
 import { useResource } from "../resource";
 import { useResourceUser } from "../ResourceProvider";
@@ -58,7 +66,7 @@ import {
 
 import {
   createNote,
-  closeWorkbenchNote,
+  copyWarehouseNote,
   deleteWorkbenchNote,
   isNamedNote,
   persistedWorkbench,
@@ -79,6 +87,7 @@ import {
   SortableContent,
   SortableItem,
   SortableItemHandle,
+  SortableOverlay,
 } from "../ui/sortable";
 
 type Move =
@@ -87,6 +96,10 @@ type Move =
       exercise: { id?: string; name: string; muscle_group: string };
     }
   | { kind: "note" | "warehouse"; id: string };
+const followNotePointer: Modifier = (args) =>
+  args.active?.data.current?.kind === "exercise"
+    ? args.transform
+    : snapCenterToCursor(args);
 const families = ["胸", "背", "肩", "手臂", "下肢", "核心", "其他", "有氧"];
 
 export function TrainingWorkbench({ initialDate }: { initialDate?: string }) {
@@ -115,6 +128,7 @@ function Workbench({
   const [dragging, setDragging] = useState<Move | null>(null);
   const [previewSize, setPreviewSize] = useState({ width: 194, minHeight: 50 });
   const canvas = useRef<HTMLDivElement>(null);
+  const libraryRef = useRef<HTMLElement>(null);
   const overlayHost = useRef<HTMLDivElement>(null);
   const searchRow = useRef<HTMLDivElement>(null);
   const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
@@ -137,9 +151,7 @@ function Workbench({
   const [customName, setCustomName] = useState("");
   const [customMuscle, setCustomMuscle] = useState("其他");
   const [customBusy, setCustomBusy] = useState(false);
-  const warehouse = state.notes.filter(
-    (note) => !note.temporary || note.savedToWarehouse === true,
-  );
+  const warehouse = state.notes.filter((note) => note.inWarehouse);
   const key = `kuizfit:workbench:v1:${user}`;
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -261,6 +273,11 @@ function Workbench({
     const move = event.active.data.current as Move | undefined;
     setDragging(null);
     if (!move || !event.over) return;
+    if (event.over.id === "note-trash" && move.kind !== "exercise") {
+      update(deleteWorkbenchNote(state, move.id));
+      if (selected === move.id) setSelected("");
+      return;
+    }
     const over = event.over.data.current;
     if (move.kind === "exercise") {
       if (over?.noteId) addExercise(over.noteId, move.exercise);
@@ -391,9 +408,25 @@ function Workbench({
     <DndContext
       id={dragContextId}
       sensors={sensors}
+      modifiers={[followNotePointer]}
       collisionDetection={(args) => {
-        const hits = pointerWithin(args);
-        return hits.length ? hits : rectIntersection(args);
+        const trash = rectIntersection({
+          ...args,
+          droppableContainers: args.droppableContainers.filter(
+            (container) =>
+              container.id === "note-trash" &&
+              args.active.data.current?.kind !== "exercise",
+          ),
+        });
+        if (trash.length) return trash;
+        const targets = {
+          ...args,
+          droppableContainers: args.droppableContainers.filter(
+            (container) => container.id !== "note-trash",
+          ),
+        };
+        const hits = pointerWithin(targets);
+        return hits.length ? hits : rectIntersection(targets);
       }}
       onDragStart={(e) => {
         const move = e.active.data.current as Move;
@@ -452,10 +485,19 @@ function Workbench({
                 >
                   {Array.from({ length: 11 }, (_, i) => (
                     <option key={i} value={2020 + i}>
-                      {2020 + i} 年
+                      {2020 + i}
                     </option>
                   ))}
                 </select>
+                <button
+                  onClick={() => {
+                    const day = today(profile.data?.timezone);
+                    setDate(day);
+                    setMonthDate(day);
+                  }}
+                >
+                  今天
+                </button>
                 <select
                   aria-label="计划月份"
                   value={month.month}
@@ -471,7 +513,7 @@ function Workbench({
                 >
                   {Array.from({ length: 12 }, (_, i) => (
                     <option key={i + 1} value={i + 1}>
-                      {i + 1} 月
+                      {i + 1}
                     </option>
                   ))}
                 </select>
@@ -511,17 +553,7 @@ function Workbench({
                   );
                 })}
               </div>
-              <div className={styles.dateHeading}>
-                <button
-                  onClick={() => {
-                    const day = today(profile.data?.timezone);
-                    setDate(day);
-                    setMonthDate(day);
-                  }}
-                >
-                  今天
-                </button>
-              </div>
+
               <div className={styles.schedule}>
                 {(state.assignments[date] ?? []).map((id) => (
                   <div key={id}>
@@ -571,10 +603,8 @@ function Workbench({
                     )}
                     selected={selected === note.id}
                     onSelect={() => focusNote(note.id)}
-                    onDelete={() => {
-                      update(deleteWorkbenchNote(state, note.id));
-                      if (selected === note.id) setSelected("");
-                    }}
+                    canCopy={state.notes.length < 30}
+                    onCopy={() => update(copyWarehouseNote(state, note.id))}
                   />
                 ))}
               </div>
@@ -602,19 +632,15 @@ function Workbench({
                       )}
                       selected={selected === note.id}
                       onSelect={() => focusNote(note.id)}
+                      libraryRef={libraryRef}
                       onChange={(changes) => changeNote(note.id, changes)}
-                      onDelete={() => {
-                        update(closeWorkbenchNote(state, note.id));
-                        if (selected === note.id)
-                          setSelected(
-                            state.notes.find(
-                              (n) => n.id !== note.id && !n.inWarehouse,
-                            )?.id ?? "",
-                          );
-                      }}
                     />
                   ))}
               </Canvas>
+              <NoteTrash
+                key="trash-drop"
+                active={Boolean(dragging && dragging.kind !== "exercise")}
+              />
               <MuscleComposition
                 exercises={chosen?.exercises}
                 preferredFamily={family}
@@ -622,7 +648,11 @@ function Workbench({
               />
             </div>
           </section>
-          <aside className={styles.library} aria-label="动作搜索库">
+          <aside
+            ref={libraryRef}
+            className={styles.library}
+            aria-label="动作搜索库"
+          >
             <div ref={searchRow} className={styles.searchRow}>
               <label className={styles.search}>
                 <Search />
@@ -795,14 +825,16 @@ function Workbench({
           </aside>
         </div>
       </div>
-      <DragOverlay>
+      {/* A warehouse row stays saved at its source; the dropped note opens on
+          the canvas. Returning the overlay to that row falsely suggests failure. */}
+      <DragOverlay dropAnimation={null}>
         {dragging ? (
           <div
             className={styles.dragPreview}
             data-kind={dragging.kind}
             style={dragging.kind !== "exercise" ? previewSize : undefined}
           >
-            <GripVertical aria-hidden />
+            {dragging.kind === "exercise" && <GripVertical aria-hidden />}
             <span>
               <strong>
                 {dragging.kind === "exercise"
@@ -823,6 +855,21 @@ function Workbench({
         ) : null}
       </DragOverlay>
     </DndContext>
+  );
+}
+function NoteTrash({ active }: { active: boolean }) {
+  const { setNodeRef, isOver } = useDroppable({ id: "note-trash" });
+  return (
+    <div
+      ref={setNodeRef}
+      className={styles.noteTrash}
+      data-active={active || undefined}
+      data-over={(active && isOver) || undefined}
+      role="status"
+      aria-label={active && isOver ? "松手删除便签" : "拖入删除便签"}
+    >
+      <Trash2 aria-hidden />
+    </div>
   );
 }
 function Warehouse({ children }: { children: ReactNode }) {
@@ -891,12 +938,14 @@ function WarehouseNote({
   note,
   selected,
   onSelect,
-  onDelete,
+  onCopy,
+  canCopy,
 }: {
   note: PlanNote;
   selected: boolean;
   onSelect: () => void;
-  onDelete: () => void;
+  onCopy: () => void;
+  canCopy: boolean;
 }) {
   const { setNodeRef, attributes, listeners, isDragging } = useDraggable({
     id: `warehouse:${note.id}`,
@@ -924,11 +973,12 @@ function WarehouseNote({
         </span>
       </button>
       <button
-        onClick={onDelete}
-        aria-label={`删除仓库便签：${note.title || "未命名计划"}`}
-        title="删除仓库便签"
+        onClick={onCopy}
+        disabled={!canCopy}
+        aria-label={`复制仓库便签：${note.title || "未命名计划"}`}
+        title="复制仓库便签"
       >
-        <X />
+        <Copy />
       </button>
     </div>
   );
@@ -965,18 +1015,40 @@ function LibraryExercise({
     </div>
   );
 }
+function ExerciseReturnTarget({
+  libraryRef,
+}: {
+  libraryRef: RefObject<HTMLElement | null>;
+}) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: "exercise-return-library",
+  });
+  const { active } = useDndContext();
+  return libraryRef.current
+    ? createPortal(
+        <div
+          ref={setNodeRef}
+          className={styles.libraryReturnTarget}
+          data-active={Boolean(active) || undefined}
+          data-over={isOver || undefined}
+          aria-label="拖回动作库移除动作"
+        />,
+        libraryRef.current,
+      )
+    : null;
+}
 function Note({
   note,
   selected,
   onSelect,
   onChange,
-  onDelete,
+  libraryRef,
 }: {
   note: PlanNote;
   selected: boolean;
   onSelect: () => void;
   onChange: (value: Partial<PlanNote>) => void;
-  onDelete: () => void;
+  libraryRef: RefObject<HTMLElement | null>;
 }) {
   const { setNodeRef, isOver } = useDroppable({
     id: `note-drop:${note.id}`,
@@ -1077,7 +1149,6 @@ function Note({
             drag.listeners?.onKeyDown?.(event);
         }}
       >
-        <GripVertical className={styles.noteDragHint} aria-hidden />
         <input
           aria-label="便签名称"
           value={note.title === "未命名计划" ? "" : note.title}
@@ -1092,11 +1163,19 @@ function Note({
         >
           <Pin />
         </button>
-        <button aria-label="关闭便签" onClick={onDelete}>
-          <X />
-        </button>
       </header>
-      <div className={styles.noteBody}>
+      <div
+        className={styles.noteBody}
+        onPointerDown={(event) => {
+          if (
+            (event.target as HTMLElement).closest(
+              'input,button,a,select,textarea,[role="listitem"]',
+            )
+          )
+            return;
+          drag.listeners?.onPointerDown?.(event);
+        }}
+      >
         {!note.exercises.length ? (
           <div className={styles.noteEmpty}>
             <Plus />
@@ -1110,15 +1189,48 @@ function Note({
               <span>组</span>
               <span>次</span>
               <span>kg</span>
-              <span />
             </div>
             <Sortable
               value={note.exercises}
               getItemValue={(exercise) => exercise.id}
               onValueChange={(exercises) => onChange({ exercises })}
               orientation="vertical"
+              modifiers={[]}
+              collisionDetection={(args) => {
+                const target = pointerWithin(args).filter(
+                  (hit) => hit.id === "exercise-return-library",
+                );
+                if (target.length) return target;
+                return closestCenter({
+                  ...args,
+                  droppableContainers: args.droppableContainers.filter(
+                    (item) => item.id !== "exercise-return-library",
+                  ),
+                });
+              }}
+              onDragEnd={({ active, over }) => {
+                if (over?.id === "exercise-return-library")
+                  onChange({
+                    exercises: note.exercises.filter(
+                      (exercise) => exercise.id !== active.id,
+                    ),
+                  });
+              }}
               autoScroll={false}
             >
+              <ExerciseReturnTarget libraryRef={libraryRef} />
+              <SortableOverlay dropAnimation={null} zIndex={300000}>
+                {({ value }) => (
+                  <div className={styles.dragPreview} data-kind="exercise">
+                    <strong>
+                      {
+                        note.exercises.find((exercise) => exercise.id === value)
+                          ?.name
+                      }
+                    </strong>
+                  </div>
+                )}
+              </SortableOverlay>
               <SortableContent role="list" aria-label="便签动作排序">
                 {note.exercises.map((exercise) => (
                   <SortableItem
@@ -1165,18 +1277,6 @@ function Note({
                         }}
                       />
                     ))}
-                    <button
-                      aria-label={`移除动作：${exercise.name}`}
-                      onClick={() =>
-                        onChange({
-                          exercises: note.exercises.filter(
-                            (v) => v.id !== exercise.id,
-                          ),
-                        })
-                      }
-                    >
-                      <X />
-                    </button>
                   </SortableItem>
                 ))}
               </SortableContent>

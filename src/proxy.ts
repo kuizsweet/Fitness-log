@@ -28,5 +28,7 @@ export async function proxy(request: NextRequest) {
 }
 export const config = {
   // Route handlers refresh their own cookies and authenticate in context().
-  matcher: ["/((?!api(?:/|$)|_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    "/((?!api(?:/|$)|brand(?:/|$)|_next/static|_next/image|favicon.ico).*)",
+  ],
 };

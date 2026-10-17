@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   createNote,
   closeWorkbenchNote,
+  copyWarehouseNote,
   deleteWorkbenchNote,
   emptyWorkbench,
   muscleFamily,
@@ -11,6 +12,40 @@ import {
   readWorkbench,
   persistedWorkbench,
 } from "../src/lib/training-workbench";
+test("仓库复制插入原项后并生成独立便签和动作ID，不复制日期安排", () => {
+  const source = {
+    ...createNote(0),
+    inWarehouse: true,
+    savedToWarehouse: true,
+    exercises: [
+      {
+        id: "original",
+        name: "卧推",
+        muscle: "胸",
+        sets: 3,
+        reps: 8,
+        weight: 30,
+      },
+    ],
+  };
+  const other = createNote(1);
+  const state = {
+    notes: [source, other],
+    assignments: { "2026-10-17": [source.id] },
+  };
+  const copied = copyWarehouseNote(state, source.id);
+  assert.equal(copied.notes.length, 3);
+  assert.equal(copied.notes[0], source);
+  assert.equal(copied.notes[2], other);
+  assert.notEqual(copied.notes[1].id, source.id);
+  assert.notEqual(copied.notes[1].exercises[0].id, "original");
+  assert.equal(copied.notes[1].exercises[0].sets, 3);
+  assert.equal(copied.notes[1].inWarehouse, true);
+  assert.deepEqual(copied.assignments, state.assignments);
+  assert.equal(copyWarehouseNote(state, other.id), state);
+  const full = { ...state, notes: Array.from({ length: 30 }, () => source) };
+  assert.equal(copyWarehouseNote(full, source.id), full);
+});
 test("关闭已入库便签保留仓库与日期引用，仓库删除才移除两者", () => {
   const stored = {
     ...createNote(0),
