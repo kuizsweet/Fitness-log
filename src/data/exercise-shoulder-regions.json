@@ -1,0 +1,522 @@
+{
+  "Alternating_Cable_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Alternating_Deltoid_Raise": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Alternating_Kettlebell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Anti-Gravity_Press": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Arm_Circles": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Arnold_Dumbbell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Back_Flyes_-_With_Bands": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Backward_Medicine_Ball_Throw": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Band_Pull_Apart": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Barbell_Incline_Shoulder_Raise": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Barbell_Rear_Delt_Row": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Barbell_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Battling_Ropes": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Bent_Over_Low-Pulley_Side_Lateral": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Bradford_Rocky_Presses": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Cable_Internal_Rotation": {
+    "region": "肩袖",
+    "reason": "原始动作为肩关节内外旋，不能等同三角肌后束。"
+  },
+  "Cable_Rear_Delt_Fly": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Cable_Rope_Rear-Delt_Rows": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Cable_Seated_Lateral_Raise": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Cable_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Car_Drivers": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Chair_Upper_Body_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Circus_Bell": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Clean_and_Jerk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Clean_and_Press": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Crucifix": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Cuban_Press": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Double_Kettlebell_Jerk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Double_Kettlebell_Push_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Double_Kettlebell_Snatch": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Dumbbell_Incline_Shoulder_Raise": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise": {
+    "region": "后束",
+    "reason": "原始说明为卧姿后束侧平举。"
+  },
+  "Dumbbell_Lying_Rear_Lateral_Raise": {
+    "region": "后束",
+    "reason": "原始说明为卧姿后束侧平举。"
+  },
+  "Dumbbell_One-Arm_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Dumbbell_One-Arm_Upright_Row": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Dumbbell_Raise": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Dumbbell_Scaption": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Dumbbell_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Elbow_Circles": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "External_Rotation": {
+    "region": "肩袖",
+    "reason": "原始动作为肩关节内外旋，不能等同三角肌后束。"
+  },
+  "External_Rotation_with_Band": {
+    "region": "肩袖",
+    "reason": "原始动作为肩关节内外旋，不能等同三角肌后束。"
+  },
+  "External_Rotation_with_Cable": {
+    "region": "肩袖",
+    "reason": "原始动作为肩关节内外旋，不能等同三角肌后束。"
+  },
+  "Face_Pull": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Front_Cable_Raise": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Front_Dumbbell_Raise": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Front_Incline_Dumbbell_Raise": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Front_Plate_Raise": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Front_Two-Dumbbell_Raise": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Handstand_Push-Ups": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Internal_Rotation_with_Band": {
+    "region": "肩袖",
+    "reason": "原始动作为肩关节内外旋，不能等同三角肌后束。"
+  },
+  "Iron_Cross": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Jerk_Balance": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Kettlebell_Arnold_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Kettlebell_Halo": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Kettlebell_Halo_With_Overhead_Extension": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Kettlebell_Pirate_Ships": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Kettlebell_Seated_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Kettlebell_Seesaw_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Kettlebell_Thruster": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Kettlebell_Turkish_Get-Up_Lunge_style": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Kettlebell_Turkish_Get-Up_Squat_style": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Kneeling_Arm_Drill": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Landmine_Linear_Jammer": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Lateral_Raise_-_With_Bands": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Leverage_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Log_Lift": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Low_Pulley_Row_To_Neck": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Lying_One-Arm_Lateral_Raise": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Lying_Rear_Delt_Raise": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Machine_Shoulder_Military_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Medicine_Ball_Scoop_Throw": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "One-Arm_Incline_Lateral_Raise": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "One-Arm_Kettlebell_Clean_and_Jerk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "One-Arm_Kettlebell_Jerk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "One-Arm_Kettlebell_Military_Press_To_The_Side": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "One-Arm_Kettlebell_Para_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "One-Arm_Kettlebell_Push_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "One-Arm_Kettlebell_Snatch": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "One-Arm_Kettlebell_Split_Jerk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "One-Arm_Kettlebell_Split_Snatch": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "One-Arm_Side_Laterals": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Power_Partials": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Push_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Push_Press_-_Behind_the_Neck": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Rack_Delivery": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Return_Push_from_Stance": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Reverse_Flyes": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Reverse_Flyes_With_External_Rotation": {
+    "region": "综合",
+    "reason": "后束飞鸟与肩外旋组合，不当作单纯肩袖或单束孤立动作。"
+  },
+  "Reverse_Machine_Flyes": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Round_The_World_Shoulder_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Seated_Barbell_Military_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Seated_Bent-Over_Rear_Delt_Raise": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Seated_Cable_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Seated_Dumbbell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Seated_Front_Deltoid": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Seated_Side_Lateral_Raise": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "See-Saw_Press_Alternating_Side_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Shoulder_Circles": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Shoulder_Press_-_With_Bands": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Shoulder_Raise": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Shoulder_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Side_Lateral_Raise": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Side_Laterals_to_Front_Raise": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Side_Wrist_Pull": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Single-Arm_Linear_Jammer": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Single_Dumbbell_Raise": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Sled_Overhead_Backward_Walk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Sled_Reverse_Flye": {
+    "region": "后束",
+    "reason": "原始说明为俯身或俯卧肩水平外展/后束划船。"
+  },
+  "Smith_Incline_Shoulder_Raise": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Smith_Machine_One-Arm_Upright_Row": {
+    "region": "中束",
+    "reason": "原始说明以肩侧方外展或直立划船为主。"
+  },
+  "Smith_Machine_Overhead_Shoulder_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Standing_Alternating_Dumbbell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Standing_Barbell_Press_Behind_Neck": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Standing_Bradford_Press": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Standing_Dumbbell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Standing_Front_Barbell_Raise_Over_Head": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Standing_Low-Pulley_Deltoid_Raise": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Standing_Military_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Standing_Palm-In_One-Arm_Dumbbell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Standing_Palms-In_Dumbbell_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Standing_Two-Arm_Overhead_Throw": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Straight_Raises_on_Incline_Bench": {
+    "region": "前束",
+    "reason": "原始说明以向前抬臂、前方斜向推举为主。"
+  },
+  "Two-Arm_Kettlebell_Clean": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Two-Arm_Kettlebell_Jerk": {
+    "region": "综合",
+    "reason": "多方向、借力或举重动作，未将整组重复分配给多束。"
+  },
+  "Two-Arm_Kettlebell_Military_Press": {
+    "region": "前束",
+    "reason": "常规肩上推举按前束训练侧重归类，非孤立激活结论。"
+  },
+  "Upright_Barbell_Row": {
+    "region": "综合",
+    "reason": "复合或肩胛稳定动作，不指定单束优势。"
+  },
+  "Upward_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸。"
+  },
+  "Standing_Low_Pulley_Deltoid_Raise": {
+    "region": "中束",
+    "reason": "原始说明为站姿跨体向侧方抬臂至肩高。"
+  }
+}

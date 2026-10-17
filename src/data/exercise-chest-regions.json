@@ -1,0 +1,338 @@
+{
+  "Alternating_Floor_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Around_The_Worlds": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Barbell_Bench_Press_-_Medium_Grip": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Barbell_Guillotine_Bench_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Barbell_Incline_Bench_Press_-_Medium_Grip": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Behind_Head_Chest_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸，不作为力量训练部位组数。"
+  },
+  "Bench_Press_-_With_Bands": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Bent-Arm_Dumbbell_Pullover": {
+    "region": "综合",
+    "reason": "原始说明为肩关节大幅度上拉，未提供可靠的上中下束侧重。"
+  },
+  "Bodyweight_Flyes": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Butterfly": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Cable_Chest_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Cable_Crossover": {
+    "region": "下胸",
+    "reason": "原始说明为高位滑轮向下收拢。"
+  },
+  "Cable_Iron_Cross": {
+    "region": "下胸",
+    "reason": "原始说明为高位滑轮向下收拢。"
+  },
+  "Chain_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Chest_And_Front_Of_Shoulder_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸，不作为力量训练部位组数。"
+  },
+  "Chest_Push_from_3_point_stance": {
+    "region": "综合",
+    "reason": "原始说明为爆发胸前推掷，包含躯干和全身协同，不推断单束优势。"
+  },
+  "Chest_Push_multiple_response": {
+    "region": "综合",
+    "reason": "原始说明为爆发胸前推掷，包含躯干和全身协同，不推断单束优势。"
+  },
+  "Chest_Push_single_response": {
+    "region": "综合",
+    "reason": "原始说明为爆发胸前推掷，包含躯干和全身协同，不推断单束优势。"
+  },
+  "Chest_Push_with_Run_Release": {
+    "region": "综合",
+    "reason": "原始说明为爆发胸前推掷，包含躯干和全身协同，不推断单束优势。"
+  },
+  "Chest_Stretch_on_Stability_Ball": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸，不作为力量训练部位组数。"
+  },
+  "Clock_Push-Up": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Cross_Over_-_With_Bands": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Decline_Barbell_Bench_Press": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Decline_Dumbbell_Bench_Press": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Decline_Dumbbell_Flyes": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Decline_Push-Up": {
+    "region": "上胸",
+    "reason": "原始说明为双脚抬高俯卧撑，按身体相对推举方向归入上胸侧重。"
+  },
+  "Decline_Smith_Press": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Dips_-_Chest_Version": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Drop_Push": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Dumbbell_Bench_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Dumbbell_Bench_Press_with_Neutral_Grip": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Dumbbell_Flyes": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Dynamic_Chest_Stretch": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸，不作为力量训练部位组数。"
+  },
+  "Elbows_Back": {
+    "region": "拉伸",
+    "reason": "原始类别为拉伸，不作为力量训练部位组数。"
+  },
+  "Extended_Range_One-Arm_Kettlebell_Floor_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Flat_Bench_Cable_Flyes": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Forward_Drag_with_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Front_Raise_And_Pullover": {
+    "region": "综合",
+    "reason": "原始说明为肩关节大幅度上拉，未提供可靠的上中下束侧重。"
+  },
+  "Hammer_Grip_Incline_DB_Bench_Press": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Heavy_Bag_Thrust": {
+    "region": "综合",
+    "reason": "原始说明为爆发胸前推掷，包含躯干和全身协同，不推断单束优势。"
+  },
+  "Incline_Cable_Chest_Press": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Incline_Cable_Flye": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Incline_Dumbbell_Bench_With_Palms_Facing_In": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Incline_Dumbbell_Flyes": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Incline_Dumbbell_Flyes_-_With_A_Twist": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Incline_Dumbbell_Press": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Incline_Push-Up": {
+    "region": "下胸",
+    "reason": "原始说明为双手支撑抬高的俯卧撑，按相对推举方向归入下胸侧重。"
+  },
+  "Incline_Push-Up_Depth_Jump": {
+    "region": "下胸",
+    "reason": "原始说明为双手支撑抬高的俯卧撑，按相对推举方向归入下胸侧重。"
+  },
+  "Incline_Push-Up_Medium": {
+    "region": "下胸",
+    "reason": "原始说明为双手支撑抬高的俯卧撑，按相对推举方向归入下胸侧重。"
+  },
+  "Incline_Push-Up_Reverse_Grip": {
+    "region": "下胸",
+    "reason": "原始说明为双手支撑抬高的俯卧撑，按相对推举方向归入下胸侧重。"
+  },
+  "Incline_Push-Up_Wide": {
+    "region": "下胸",
+    "reason": "原始说明为双手支撑抬高的俯卧撑，按相对推举方向归入下胸侧重。"
+  },
+  "Isometric_Chest_Squeezes": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Isometric_Wipers": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Leg-Over_Floor_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Leverage_Chest_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Leverage_Decline_Chest_Press": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Leverage_Incline_Chest_Press": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Low_Cable_Crossover": {
+    "region": "上胸",
+    "reason": "原始说明为低位滑轮向上、向中线收拢。"
+  },
+  "Machine_Bench_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Medicine_Ball_Chest_Pass": {
+    "region": "综合",
+    "reason": "原始说明为爆发胸前推掷，包含躯干和全身协同，不推断单束优势。"
+  },
+  "Neck_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "One-Arm_Flat_Bench_Dumbbell_Flye": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "One-Arm_Kettlebell_Floor_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "One_Arm_Dumbbell_Bench_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Plyo_Kettlebell_Pushups": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Plyo_Push-up": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Push-Up_Wide": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Push-Ups_With_Feet_Elevated": {
+    "region": "上胸",
+    "reason": "原始说明为双脚抬高俯卧撑，按身体相对推举方向归入上胸侧重。"
+  },
+  "Push-Ups_With_Feet_On_An_Exercise_Ball": {
+    "region": "上胸",
+    "reason": "原始说明为双脚抬高俯卧撑，按身体相对推举方向归入上胸侧重。"
+  },
+  "Push_Up_to_Side_Plank": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Pushups": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Pushups_Close_and_Wide_Hand_Positions": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Single-Arm_Cable_Crossover": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Single-Arm_Push-Up": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Smith_Machine_Bench_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Smith_Machine_Decline_Press": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Smith_Machine_Incline_Bench_Press": {
+    "region": "上胸",
+    "reason": "原始说明为上斜凳推举或飞鸟。"
+  },
+  "Standing_Cable_Chest_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Straight-Arm_Dumbbell_Pullover": {
+    "region": "综合",
+    "reason": "原始说明为肩关节大幅度上拉，未提供可靠的上中下束侧重。"
+  },
+  "Suspended_Push-Up": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Svend_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Wide-Grip_Barbell_Bench_Press": {
+    "region": "中胸",
+    "reason": "原始说明为水平推举、水平内收或标准俯卧撑，归入水平胸部训练。"
+  },
+  "Wide-Grip_Decline_Barbell_Bench_Press": {
+    "region": "下胸",
+    "reason": "原始说明为下斜推举或前倾胸部式双杠臂屈伸。"
+  },
+  "Wide-Grip_Decline_Barbell_Pullover": {
+    "region": "综合",
+    "reason": "原始说明为肩关节大幅度上拉，未提供可靠的上中下束侧重。"
+  }
+}

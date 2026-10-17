@@ -63,3 +63,70 @@
 - 工作台移除额外旧预设合并，基础库与个人动作保留。已有基础动作便签按来源 ID 显示中文。
 - 胸部二级顺序为上胸、中胸、下胸、未细分；俯卧撑与斜板卧推方向分别处理。标签表示训练侧重，未明确方向的动作不强行归类。
 - 77 项测试、Lint、类型检查、webpack 生产构建通过；浏览器已检查中文列表及胸部二级筛选。
+
+## 胸部分类审查与画布内占比卡
+- 核对固定版本原始 exercises.json 中全部84个胸部动作的 instructions/category，逐ID保存分类及判定理由：src/data/exercise-chest-regions.json。14上胸、40中胸、15下胸、10综合、5拉伸。分类为按动作方向推断的训练侧重，不是逐动作肌电实测结论。
+- 对上拉和爆发推掷保留“综合”，拉伸单列；不为了消除“未细分”捏造单束激活优势。原始数据来源：https://github.com/yuhonas/free-exercise-db/tree/f00c92c7dcf1216a928a52c3706c7ce8e2f71ed5 。
+- 参考方向性证据：https://pubmed.ncbi.nlm.nih.gov/34644424/ 及 https://pmc.ncbi.nlm.nih.gov/articles/PMC7579505/ 。研究说明角度影响侧重，不支持把计划组数当成肌肉激活百分比。
+- 底部横条移除；178×178方卡进入画布左下角，左右栏延伸到底。画布下部保留控件区域，便签拖动/滚动区不盖住占比卡。
+- 当前便签按来源ID重新归类，胸部组数为分母，非胸和拉伸不计入；综合及个人未细分仍单列，不丢失组数。没有数据时保持空环。
+- 浏览器实测临时未命名便签：中胸6组、上胸3组 -> 中胸67%、上胸33%。临时测试便签随刷新移除，不写数据库。
+
+## 浮动肌群实心饼图与滚动边界修正
+- 删除旧圆环及 canvasSurface 底部预留空间。图表为同一张完整画布的 absolute 浮层，不另建画布或占用布局行。
+- 新增 MuscleComposition.tsx/.module.css。默认126×142，展开320×270；宽高300ms ease-in-out，标签延迟淡入/先行淡出。展开寻找不与便签相交的空位，便签始终在上层；拖动便签时收起。没有足够空位时保持便签优先，不遮挡编辑内容。
+- 使用官方 shadcn/ui Chart 源码和 Recharts 实心 Pie，固定内径0、克制蓝色、原生300ms数据动画。Chart/Pie不因展开或数据修改设置新key、不重新挂载；固定细分槽位保留归零扇区过渡。减少动画设置通过 matchMedia 实时响应。
+- 现有项目没有Recharts，新增该依赖及官方 chart.tsx；官方来源 https://ui.shadcn.com/r/styles/new-york-v4/chart.json ，许可原文 docs/shadcn-chart-LICENSE.md。
+- planMuscleDistribution复用当前便签 exercises，由useMemo按数组引用缓存；每个动作仅计一次，肌群各自分母，胸部沿用明确源分类，其他肌群沿用已有标签；只有整肌群时归未细分，不捏造区域权重。无组数不计入，胸部拉伸排除。没有修改动作库结构或Supabase。
+- 原滚动根因：底部预留缩短画布，拖动只限制顶部。fitNoteToCanvas限制完整便签，ResizeObserver处理窗口变化；拖动restrictToParentElement，鼠标/键盘缩放限制边界。画布overflow hidden无滚动，动作库等必要列表4px按hover显示，无箭头。
+- 实测：原520×726画布与scrollWidth/scrollHeight完全相同；右下角拖动、键盘缩放后完整便签仍在边界内。滚动条伪元素width4px/button display none。
+- 实测：上胸3/中胸6显示33%/67%；加入背部5组后独立100%；删除上胸后中胸100%；切换新空便签为空；返回编辑原便签即时恢复；展开避让后与便签矩形无相交。展开/收起始终仅一个Chart。
+- 81项测试、Lint、类型检查、webpack生产构建通过。临时未命名验收便签已通过刷新清除；未写入数据库。截图 test-results/training-workbench/pie-expanded.png 与 pie-compact.png 含临时验收值。
+
+## 去除饼图容器与扇区内标注
+- 去掉黑色底板、边框、标题、加减号、外部说明及列表，仅保留圆形点击区（pointer，键盘Enter/Space，读屏说明）。肌群跟随动作库选择或当前计划首个有效肌群。
+- 修复先放大后变小：旧展开布局把图表占比改成46%，ResponsiveContainer随之二次缩窄。新图表固定300×300，整体从1/3缩放到1，几何尺寸不随展开重新计算；同一Chart/Pie保持挂载。
+- 展开后名称/组数/百分比三行直接标注在各扇区内，收起先淡出所有标签；中性空状态无可见文字。
+- 实际浏览器测到过渡中约192px，结束后外框与图表均稳定300px；收起100px，无外部标题、背景透明、cursor pointer。81项测试通过，临时未命名便签刷新清除。
+
+## 便签动作排序与八方向缩放
+- 便签内复用已安装Dice UI Sortable组件，稳定动作ID，仅左侧GripVertical手柄启动，鼠标/触控传感器和键盘排序复用现有实现。顺序通过原onChange写入同一便签数组，组数次数重量随动作保留，不另设数据源。
+- 删除便签底部动作数/来源提示与右下角斜线按钮；四边四角用透明边缘热区缩放，鼠标对应ns/ew/nwse/nesw光标，支持键盘箭头。resizeNoteFromEdge保持对边固定，最小尺寸/最大尺寸/画布边界约束保持。
+- 饼图展开尺寸由300缩为220px，收起100px；仍是同一300px逻辑画布整体缩放，扇区标签保留。
+- 浏览器实测鼠标排序、键盘Space/方向键/Space排序、无图标右下角缩放；临时已命名便签刷新后动作顺序和384×330尺寸保持。8边热区均具有对应缩放光标，饼图展开实际220px；临时便签已删除并刷新确认0张。
+- 新增八方向几何/最小值/边界与对边固定测试，82项测试及Lint/类型检查通过。截图test-results/training-workbench/note-sort-resize.png含明确标注临时验收便签。
+
+## 肩部细分、取消选择即全部与便签仓库往返
+- 肩部129条基础动作按源说明/动作方向设置前束、中束、后束；复合、肩袖旋转、拉伸分别保留综合/肩袖/拉伸，不编造孤立优势。新本地映射src/data/exercise-shoulder-regions.json，沿用来源ID、中文和英文搜索，旧源便签展示及饼图同步归类。
+- 侧重参考ACE肩部研究：https://www.acefitness.org/continuing-education/prosource/research-special-issue-2015/5320/dynamite-delts-ace-research-identifies-top-shoulder-exercises/ 。这些分类为训练方向标签，不是激活比例。
+- 一级二级均移除全部按钮；已选项再次点击取消，无选中即该层全部。切换一级清除二级，避免隐藏筛选残留。肩部二级排序前/中/后。
+- 移除画布右上便签数量、仓库标题右侧数量。新建便签按当前画布中心放置。
+- PlanNote增加本地可选inWarehouse；仓库成为真实drop目标。便签拖出画布收起进仓库，拖回画布/点击可继续编辑；同一ID/动作数组/顺序和日期安排保留。命名便签持久化该状态；新未命名仍只在内存。增加“可拖回画布继续编辑”提示。
+- 取消原父区域拖动约束，改为DragOverlay显示有背景和边框的预览，原件拖动时隐藏；结束后仍限制落在画布的便签几何边界。动作预览包含手柄、名称、肌群/来源。原悬空文字根因是DragOverlay位于.workbench之外，原祖先限定CSS不匹配；现改独立CSS模块类。
+- 实测前束筛选43条，再点前束取消后显示肩部全列表。新便签在520×726画布位置90/218居中。命名临时便签拖入仓库→刷新→拖回画布，动作保留；预览背景rgb(17,17,17)且有边框。测试便签已删除并刷新清理。
+- 84项测试、Lint、类型检查通过。验收截图test-results/training-workbench/shoulder-warehouse-final.png与shoulder-warehouse-preview.png含临时验收便签。
+
+## 仓库按钮、器材筛选与显式入库保存
+- 移除画布顶部新建栏及分隔；唯一新建便签按钮置于仓库标题右侧，保留边框。便签标题左侧恢复六点提示，整个标题栏原拖动规则不变。
+- 搜索框缩短，focus-within由外框统一显示焦点，内部input不再独立outline；右侧Lucide Funnel官方图标，肌群/器材过滤生效时填充。来源 https://lucide.dev/icons/funnel ，复用现有依赖，无新增素材包。
+- 复用Base Popover原地弹出器材标签，多选OR、再次点击取消。通过基础库equipment原始值匹配哑铃/杠铃/绳索器械/壶铃/弹力带/固定器械/自重/曲杆杠铃/药球/健身球/泡沫轴/其他/未标注。自定义未记录器材不猜测，归未标注。器材与肌群/细分/搜索AND组合。
+- Popover挂载工作台内，继承蓝色设计变量，避免全局绿色变量；选中态覆盖普通hover。没有改数据库结构或其他页面。
+- savedToWarehouse为显式本地保存标记，新草稿默认false；命名只更新画布内存，不同步仓库、不持久化。首次拖入仓库设置true后才保存；取回编辑仍保留true并保存同一记录。旧持久数据缺标记时兼容保留。日期持久化引用过滤仍有效。
+- 仓库条目及便签拖动预览从源条目测量尺寸，实测宽197.33px/高48.125px完全一致，去掉大尺寸空仓库创建按钮及重复新建入口。
+- 实测：哑铃+卧推只显示对应哑铃动作；漏斗fill currentColor，选中标签RGB168/197/239。搜索外框32px/输入内容30.67px，焦点只在外框；新命名便签仓库0条→刷新0张，首次拖入后仓库1条且刷新保留；已清除测试便签。截图test-results/training-workbench/equipment-filter-save.png。
+- 86项测试、Lint、类型检查和webpack生产构建通过。
+
+## 筛选弹层对齐、有氧与仓库关闭语义
+- 根因：Popover Portal的普通流包装节点成为workbench的第二个flex子项，触发12px gap，导致工作区开关时缩放。改用绝对定位portal宿主，保留主题继承，Positioner以整条搜索行作为固定定位锚点；弹层宽度使用--anchor-width、圆角6px，与胸/手臂外侧边缘及顶部对齐。
+- 浏览器实测弹层开关前后workspace均767.333px高；弹层左右820.667/1041.333px，和肌群按钮组边界一致，顶部146.667px一致。
+- 原自定义一级改为有氧；其他顶部显示自定义创建表单，其他列表包含个人动作。保留再次点击取消选择即全部的规则。
+- 有氧读取源库category=cardio的14条真实记录，以稳定来源ID细分跑步机、椭圆机、爬楼机、固定/卧式单车、划船机等；保留原始equipment及muscle字段，无数据库迁移。二级椭圆机实测仅显示椭圆机训练。坡度走沿用跑步机记录，不编造独立坡度机或专用动感单车数据。器材名称参考 https://www.lifefitness.com/en-us/cardio 和 https://www.lifefitness.com/en-us/catalog/cardio/bikes-indoor-cycles 。
+- closeWorkbenchNote仅关闭已保存便签并收回仓库，保留ID、参数和日期引用；未保存草稿关闭才丢弃。deleteWorkbenchNote供仓库×使用，明确删除便签及其日期引用。仓库原安排+改为删除×，日历拖入安排保留。
+- 浏览器实测临时便签：入库→拖回画布→关闭→刷新，仓库仍存在；仓库×仅清理测试项，用户原有未命名便签保留。截图test-results/training-workbench/cardio-warehouse-fix.png与equipment-aligned.png。
+- 新增关闭/删除语义及真实有氧映射测试，88项测试、Lint与类型检查通过。
+
+## 仓库整行拖动与日历选择
+- 仓库名称、动作统计与六点整合为同一个拖动按钮，删除×保持独立。移除仓库提示文字及动作库所有添加+入口，保留鼠标/触屏/键盘拖动。
+- 年份与新增月份原生选择框指定dark color-scheme及option深色背景，避免系统白底。实测选择11月后首日为2026-11-01，再恢复10月。
+- 漏斗填充仅依据equipment筛选，一级/二级肌群不再触发填充。浏览器验证核心选中时fill=none，动作添加+为0、提示文字不存在。
+- 从仓库文字中部拖到画布实测可用，验收后已收回，保留原有仓库便签与用户画布草稿。Lint和类型检查通过，截图test-results/training-workbench/whole-row-month-filter.png。

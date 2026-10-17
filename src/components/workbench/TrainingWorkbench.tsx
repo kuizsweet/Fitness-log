@@ -27,17 +27,30 @@ import {
   Pin,
   Plus,
   Search,
+  Funnel,
   X,
   Archive,
 } from "lucide-react";
 import { useResource } from "../resource";
 import { useResourceUser } from "../ResourceProvider";
 import { Button } from "../ui/button";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  PopoverTitle,
+} from "../ui/popover";
 import { calendarMonth, changeCalendarMonth } from "@/lib/calendar";
 import { today, type Exercise, type Profile } from "@/lib/domain";
 import { api } from "@/lib/client";
 import {
   adaptBaseExercise,
+  cardioDetail,
+  matchesLibraryFamily,
+  baseChestRegion,
+  baseShoulderRegion,
+  equipmentFilters,
+  matchesEquipment,
   exerciseDetail,
   localizedExerciseName,
   type BaseExercise,
@@ -45,16 +58,28 @@ import {
 
 import {
   createNote,
+  closeWorkbenchNote,
+  deleteWorkbenchNote,
   isNamedNote,
   persistedWorkbench,
   emptyWorkbench,
   muscleFamily,
-  muscleTotals,
+  fitNoteToCanvas,
+  centerNoteInCanvas,
+  resizeNoteFromEdge,
+  type ResizeEdge,
   readWorkbench,
   type PlanNote,
   type WorkbenchState,
 } from "@/lib/training-workbench";
 import styles from "./TrainingWorkbench.module.css";
+import { MuscleComposition } from "./MuscleComposition";
+import {
+  Sortable,
+  SortableContent,
+  SortableItem,
+  SortableItemHandle,
+} from "../ui/sortable";
 
 type Move =
   | {
@@ -62,26 +87,7 @@ type Move =
       exercise: { id?: string; name: string; muscle_group: string };
     }
   | { kind: "note" | "warehouse"; id: string };
-const families = [
-  "全部",
-  "胸",
-  "背",
-  "肩",
-  "手臂",
-  "下肢",
-  "核心",
-  "其他",
-  "自定义",
-];
-const colors = [
-  "#a8c5ef",
-  "#a6cbb3",
-  "#c3b0dc",
-  "#dbc19a",
-  "#dcaeb9",
-  "#8fbfc6",
-  "#a1a1aa",
-];
+const families = ["胸", "背", "肩", "手臂", "下肢", "核心", "其他", "有氧"];
 
 export function TrainingWorkbench({ initialDate }: { initialDate?: string }) {
   const user = useResourceUser();
@@ -103,10 +109,28 @@ function Workbench({
   const [error, setError] = useState("");
   const [selected, setSelected] = useState("");
   const [search, setSearch] = useState("");
+  const [equipment, setEquipment] = useState<string[]>([]);
   const [family, setFamily] = useState("全部");
   const [detail, setDetail] = useState("全部");
   const [dragging, setDragging] = useState<Move | null>(null);
+  const [previewSize, setPreviewSize] = useState({ width: 194, minHeight: 50 });
   const canvas = useRef<HTMLDivElement>(null);
+  const overlayHost = useRef<HTMLDivElement>(null);
+  const searchRow = useRef<HTMLDivElement>(null);
+  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+  const [editing, setEditing] = useState(0);
+  useEffect(() => {
+    const node = canvas.current;
+    if (!node) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      setCanvasSize((old) =>
+        old.width === width && old.height === height ? old : { width, height },
+      );
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
   const catalog = useResource<{ exercises: Exercise[] }>("catalog");
   const base = useResource<BaseExercise[]>("exercise-base");
   const [visibleCount, setVisibleCount] = useState(60);
@@ -114,7 +138,7 @@ function Workbench({
   const [customMuscle, setCustomMuscle] = useState("其他");
   const [customBusy, setCustomBusy] = useState(false);
   const warehouse = state.notes.filter(
-    (note) => !note.temporary || isNamedNote(note.title),
+    (note) => !note.temporary || note.savedToWarehouse === true,
   );
   const key = `kuizfit:workbench:v1:${user}`;
   const sensors = useSensors(
@@ -130,13 +154,21 @@ function Workbench({
           ...note,
           exercises: note.exercises.map((exercise) => ({
             ...exercise,
+            muscle:
+              exercise.sourceId?.startsWith("free-db:") &&
+              baseChestRegion(exercise.sourceId)
+                ? `胸 / ${baseChestRegion(exercise.sourceId)}`
+                : exercise.sourceId?.startsWith("free-db:") &&
+                    baseShoulderRegion(exercise.sourceId)
+                  ? `肩 / ${baseShoulderRegion(exercise.sourceId)}`
+                  : exercise.muscle,
             name: exercise.sourceId?.startsWith("free-db:")
               ? localizedExerciseName(exercise.sourceId, exercise.name)
               : exercise.name,
           })),
         })),
       });
-      setSelected(restored.notes[0]?.id ?? "");
+      setSelected(restored.notes.find((note) => !note.inWarehouse)?.id ?? "");
       setReady(true);
     } catch {
       setError("无法读取本地工作台，请检查浏览器存储。");
@@ -155,12 +187,27 @@ function Workbench({
   function changeNote(id: string, changes: Partial<PlanNote>) {
     update({
       ...state,
-      notes: state.notes.map((n) => (n.id === id ? { ...n, ...changes } : n)),
+      notes: state.notes.map((n) =>
+        n.id === id
+          ? fitNoteToCanvas(
+              { ...n, ...changes },
+              canvasSize.width,
+              canvasSize.height,
+            )
+          : n,
+      ),
     });
   }
   function focusNote(id: string) {
     setSelected(id);
     const note = state.notes.find((n) => n.id === id);
+    if (note?.inWarehouse) {
+      changeNote(id, {
+        ...centerNoteInCanvas(note, canvasSize.width, canvasSize.height),
+        inWarehouse: false,
+      });
+      return;
+    }
     const highest = Math.max(0, ...state.notes.map((n) => n.z));
     if (note && note.z < highest) changeNote(id, { z: highest + 1 });
   }
@@ -169,6 +216,7 @@ function Workbench({
       setError("最多保留 30 张便签。");
       return;
     }
+    note = centerNoteInCanvas(note, canvasSize.width, canvasSize.height);
     update({ ...state, notes: [...state.notes, note] });
     setSelected(note.id);
   }
@@ -229,11 +277,26 @@ function Workbench({
         });
         addNote(note);
       }
+    } else if (event.over.id === "warehouse") {
+      changeNote(move.id, { inWarehouse: true, savedToWarehouse: true });
+      if (selected === move.id)
+        setSelected(
+          state.notes.find((note) => note.id !== move.id && !note.inWarehouse)
+            ?.id ?? "",
+        );
     } else if (over?.date) assign(move.id, over.date);
     else if (event.over.id === "canvas" || over?.noteId) {
       const note = state.notes.find((n) => n.id === move.id);
       if (!note) return;
       const box = canvas.current?.getBoundingClientRect();
+      if (move.kind === "warehouse") {
+        changeNote(note.id, {
+          ...centerNoteInCanvas(note, canvasSize.width, canvasSize.height),
+          inWarehouse: false,
+        });
+        setSelected(note.id);
+        return;
+      }
       changeNote(note.id, {
         x: Math.max(
           0,
@@ -255,51 +318,75 @@ function Workbench({
     (e) => !e.hidden && !e.deleted_at,
   );
   const exercises = [
-    ...saved.map((e) => ({ ...e, source: "custom" })),
+    ...saved.map((e) => ({
+      ...e,
+      source: "custom",
+      equipment: null as string | null,
+      category: undefined as string | undefined,
+    })),
     ...(base.data ?? []).map(adaptBaseExercise),
   ];
   const details = [
     ...new Set(
       exercises
-        .filter(
-          (e) =>
-            family === "全部" ||
-            (family === "自定义"
-              ? e.source === "custom"
-              : muscleFamily(e.muscle_group) === family),
+        .filter((e) =>
+          matchesLibraryFamily(e, family, muscleFamily(e.muscle_group)),
         )
         .map((e) =>
-          e.muscle_group === muscleFamily(e.muscle_group)
-            ? "未细分"
-            : exerciseDetail(e.muscle_group),
+          family === "有氧"
+            ? (cardioDetail(e.id) ?? "其他有氧")
+            : e.muscle_group === muscleFamily(e.muscle_group)
+              ? "未细分"
+              : exerciseDetail(e.muscle_group),
         ),
     ),
   ];
+  if (family === "有氧") {
+    const order = [
+      "跑步机",
+      "椭圆机",
+      "爬楼机",
+      "固定单车",
+      "卧式单车",
+      "划船机",
+      "跳绳",
+      "雪橇",
+      "户外骑行",
+      "户外跑走",
+      "滑行",
+      "其他有氧",
+    ];
+    details.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  }
+  if (family === "肩")
+    details.sort(
+      (a, b) =>
+        ["前束", "中束", "后束", "综合", "肩袖", "拉伸", "未细分"].indexOf(a) -
+        ["前束", "中束", "后束", "综合", "肩袖", "拉伸", "未细分"].indexOf(b),
+    );
   if (family === "胸")
     details.sort(
       (a, b) =>
-        ["上胸", "中胸", "下胸", "未细分"].indexOf(a) -
-        ["上胸", "中胸", "下胸", "未细分"].indexOf(b),
+        ["上胸", "中胸", "下胸", "综合", "拉伸", "未细分"].indexOf(a) -
+        ["上胸", "中胸", "下胸", "综合", "拉伸", "未细分"].indexOf(b),
     );
   const filtered = exercises.filter(
     (e) =>
-      (family === "全部" ||
-        (family === "自定义"
-          ? e.source === "custom"
-          : muscleFamily(e.muscle_group) === family)) &&
+      matchesEquipment(e.equipment, equipment) &&
+      matchesLibraryFamily(e, family, muscleFamily(e.muscle_group)) &&
       (detail === "全部" ||
-        (e.muscle_group === muscleFamily(e.muscle_group)
-          ? "未细分"
-          : exerciseDetail(e.muscle_group)) === detail) &&
+        (family === "有氧"
+          ? (cardioDetail(e.id) ?? "其他有氧")
+          : e.muscle_group === muscleFamily(e.muscle_group)
+            ? "未细分"
+            : exerciseDetail(e.muscle_group)) === detail) &&
       `${e.name} ${"originalName" in e ? e.originalName : ""} ${e.muscle_group}`
         .toLowerCase()
         .includes(search.toLowerCase()),
   );
   const chosen = state.notes.find((n) => n.id === selected);
   const month = calendarMonth(monthDate);
-  const totals = muscleTotals(chosen);
-  const sum = totals.reduce((n, [, count]) => n + count, 0);
-  let offset = 0;
+
   return (
     <DndContext
       id={dragContextId}
@@ -308,11 +395,24 @@ function Workbench({
         const hits = pointerWithin(args);
         return hits.length ? hits : rectIntersection(args);
       }}
-      onDragStart={(e) => setDragging(e.active.data.current as Move)}
+      onDragStart={(e) => {
+        const move = e.active.data.current as Move;
+        if (move.kind !== "exercise") {
+          const row = canvas.current
+            ?.closest("main")
+            ?.querySelector("[data-warehouse-note]");
+          const rect = row?.getBoundingClientRect();
+          if (rect)
+            setPreviewSize({ width: rect.width, minHeight: rect.height });
+        }
+        setDragging(move);
+        if (move.kind === "note") setEditing((value) => value + 1);
+      }}
       onDragCancel={() => setDragging(null)}
       onDragEnd={endDrag}
     >
       <div className={styles.workbench}>
+        <div ref={overlayHost} className={styles.overlayHost} />
         {error && (
           <p className={styles.error} role="alert">
             {error}
@@ -356,7 +456,25 @@ function Workbench({
                     </option>
                   ))}
                 </select>
-                <span>{month.month} 月</span>
+                <select
+                  aria-label="计划月份"
+                  value={month.month}
+                  onChange={(e) =>
+                    setMonthDate(
+                      changeCalendarMonth(
+                        monthDate,
+                        month.year,
+                        +e.target.value,
+                      ),
+                    )
+                  }
+                >
+                  {Array.from({ length: 12 }, (_, i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {i + 1} 月
+                    </option>
+                  ))}
+                </select>
                 <button
                   aria-label="下一月"
                   disabled={month.to >= "2030-12-31"}
@@ -407,7 +525,7 @@ function Workbench({
               <div className={styles.schedule}>
                 {(state.assignments[date] ?? []).map((id) => (
                   <div key={id}>
-                    <button onClick={() => setSelected(id)}>
+                    <button onClick={() => focusNote(id)}>
                       {state.notes.find((n) => n.id === id)?.title}
                     </button>
                     <button
@@ -430,101 +548,147 @@ function Workbench({
                 ))}
               </div>
             </section>
-            <section className={styles.warehouse} aria-label="便签仓库">
+            <Warehouse>
               <div className={styles.sectionHeading}>
                 <h2>便签仓库</h2>
-                <span>{warehouse.length}</span>
+                <Button
+                  className={styles.newNoteButton}
+                  onClick={() => addNote()}
+                  disabled={!ready || state.notes.length >= 30}
+                >
+                  <Plus />
+                  新建便签
+                </Button>
               </div>
               <div className={styles.warehouseList}>
                 {warehouse.map((note) => (
                   <WarehouseNote
                     key={note.id}
-                    note={note}
+                    note={fitNoteToCanvas(
+                      note,
+                      canvasSize.width,
+                      canvasSize.height,
+                    )}
                     selected={selected === note.id}
                     onSelect={() => focusNote(note.id)}
-                    onAssign={() => assign(note.id, date)}
+                    onDelete={() => {
+                      update(deleteWorkbenchNote(state, note.id));
+                      if (selected === note.id) setSelected("");
+                    }}
                   />
                 ))}
-                {!warehouse.length && (
-                  <button
-                    className={styles.emptyAdd}
-                    onClick={() => addNote()}
-                    disabled={!ready}
-                  >
-                    <Plus />
-                    创建第一张便签
-                  </button>
-                )}
               </div>
-            </section>
+            </Warehouse>
           </aside>
           <section className={styles.center} aria-label="训练便签编辑区">
-            <div className={styles.canvasHeading}>
-              <Button
-                onClick={() => addNote()}
-                disabled={!ready || state.notes.length >= 30}
-              >
-                <Plus />
-                新建便签
-              </Button>
-              <span>{state.notes.length} 张便签</span>
+            <div className={styles.canvasSurface}>
+              <Canvas canvasRef={canvas}>
+                {!state.notes.some((note) => !note.inWarehouse) && (
+                  <div className={styles.canvasEmpty}>
+                    <Archive />
+                    <h2>从一张训练便签开始</h2>
+                    <p>新建便签，或将右侧动作拖入画布</p>
+                  </div>
+                )}
+                {state.notes
+                  .filter((note) => !note.inWarehouse)
+                  .map((note) => (
+                    <Note
+                      key={note.id}
+                      note={fitNoteToCanvas(
+                        note,
+                        canvasSize.width,
+                        canvasSize.height,
+                      )}
+                      selected={selected === note.id}
+                      onSelect={() => focusNote(note.id)}
+                      onChange={(changes) => changeNote(note.id, changes)}
+                      onDelete={() => {
+                        update(closeWorkbenchNote(state, note.id));
+                        if (selected === note.id)
+                          setSelected(
+                            state.notes.find(
+                              (n) => n.id !== note.id && !n.inWarehouse,
+                            )?.id ?? "",
+                          );
+                      }}
+                    />
+                  ))}
+              </Canvas>
+              <MuscleComposition
+                exercises={chosen?.exercises}
+                preferredFamily={family}
+                editing={editing}
+              />
             </div>
-            <Canvas canvasRef={canvas}>
-              {!state.notes.length && (
-                <div className={styles.canvasEmpty}>
-                  <Archive />
-                  <h2>从一张训练便签开始</h2>
-                  <p>新建便签，或将右侧动作拖入画布</p>
-                  <Button onClick={() => addNote()} disabled={!ready}>
-                    <Plus />
-                    新建便签
-                  </Button>
-                </div>
-              )}
-              {state.notes.map((note) => (
-                <Note
-                  key={note.id}
-                  note={note}
-                  selected={selected === note.id}
-                  onSelect={() => focusNote(note.id)}
-                  onChange={(changes) => changeNote(note.id, changes)}
-                  onDelete={() => {
-                    const assignments = Object.fromEntries(
-                      Object.entries(state.assignments).map(([day, ids]) => [
-                        day,
-                        ids.filter((id) => id !== note.id),
-                      ]),
-                    );
-                    update({
-                      notes: state.notes.filter((n) => n.id !== note.id),
-                      assignments,
-                    });
-                  }}
-                />
-              ))}
-            </Canvas>
           </section>
           <aside className={styles.library} aria-label="动作搜索库">
-            <label className={styles.search}>
-              <Search />
-              <input
-                type="search"
-                placeholder="搜索动作"
-                aria-label="搜索动作"
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                  setVisibleCount(60);
-                }}
-              />
-            </label>
+            <div ref={searchRow} className={styles.searchRow}>
+              <label className={styles.search}>
+                <Search />
+                <input
+                  type="search"
+                  placeholder="搜索动作"
+                  aria-label="搜索动作"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value);
+                    setVisibleCount(60);
+                  }}
+                />
+              </label>
+              <Popover>
+                <PopoverTrigger
+                  className={styles.filterButton}
+                  aria-label="器材筛选"
+                  data-active={equipment.length > 0 || undefined}
+                >
+                  <Funnel
+                    fill={equipment.length > 0 ? "currentColor" : "none"}
+                  />
+                </PopoverTrigger>
+                <PopoverContent
+                  container={overlayHost}
+                  anchor={searchRow}
+                  positionMethod="fixed"
+                  sideOffset={12}
+                  align="start"
+                  className={styles.equipmentPopup}
+                >
+                  <PopoverTitle className={styles.srOnly}>
+                    器材筛选
+                  </PopoverTitle>
+                  <div className={styles.equipmentTags}>
+                    {Object.entries(equipmentFilters).map(([value, label]) => (
+                      <button
+                        type="button"
+                        key={value}
+                        aria-pressed={equipment.includes(value)}
+                        onClick={() => {
+                          setEquipment((previous) =>
+                            previous.includes(value)
+                              ? previous.filter((item) => item !== value)
+                              : [...previous, value],
+                          );
+                          setVisibleCount(60);
+                        }}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            </div>
             <div className={styles.families} aria-label="一级肌群">
               {families.map((value) => (
                 <button
                   key={value}
                   aria-pressed={family === value}
                   onClick={() => {
-                    setFamily(value);
+                    setFamily((previous) =>
+                      previous === value ? "全部" : value,
+                    );
                     setVisibleCount(60);
                     setDetail("全部");
                   }}
@@ -533,23 +697,7 @@ function Workbench({
                 </button>
               ))}
             </div>
-            {family !== "全部" && (
-              <div className={styles.details} aria-label="二级细分">
-                {["全部", ...details].map((value) => (
-                  <button
-                    key={value}
-                    aria-pressed={detail === value}
-                    onClick={() => {
-                      setDetail(value);
-                      setVisibleCount(60);
-                    }}
-                  >
-                    {value}
-                  </button>
-                ))}
-              </div>
-            )}
-            {family === "自定义" && (
+            {family === "其他" && (
               <form
                 className={styles.customForm}
                 onSubmit={async (event) => {
@@ -604,6 +752,25 @@ function Workbench({
                 </Button>
               </form>
             )}
+            {family !== "全部" && (
+              <div className={styles.details} aria-label="二级细分">
+                {details.map((value) => (
+                  <button
+                    key={value}
+                    aria-pressed={detail === value}
+                    onClick={() => {
+                      setDetail((previous) =>
+                        previous === value ? "全部" : value,
+                      );
+                      setVisibleCount(60);
+                    }}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {base.error && (
               <p role="alert">
                 基础动作库读取失败，<button onClick={base.reload}>重试</button>
@@ -616,12 +783,7 @@ function Workbench({
             )}
             <div className={styles.exerciseList}>
               {filtered.slice(0, visibleCount).map((exercise) => (
-                <LibraryExercise
-                  key={exercise.id}
-                  exercise={exercise}
-                  canAdd={Boolean(chosen)}
-                  onAdd={() => chosen && addExercise(chosen.id, exercise)}
-                />
+                <LibraryExercise key={exercise.id} exercise={exercise} />
               ))}
               {filtered.length > visibleCount && (
                 <Button onClick={() => setVisibleCount(visibleCount + 60)}>
@@ -632,72 +794,48 @@ function Workbench({
             </div>
           </aside>
         </div>
-        <footer className={styles.analysis} aria-label="肌群组数占比">
-          <div>
-            <h2>肌群占比</h2>
-            <span>{chosen ? chosen.title : "选择便签"}</span>
-          </div>
-          <svg
-            viewBox="0 0 72 72"
-            role="img"
-            aria-label={sum ? `已填写 ${sum} 组` : "暂无组数"}
-          >
-            <circle
-              cx="36"
-              cy="36"
-              r="28"
-              fill="none"
-              stroke="var(--line)"
-              strokeWidth="7"
-            />
-            {totals.map(([label, count], index) => {
-              const length = (count / sum) * 100;
-              const start = offset;
-              offset += length;
-              return (
-                <circle
-                  key={label}
-                  cx="36"
-                  cy="36"
-                  r="28"
-                  fill="none"
-                  stroke={colors[index % colors.length]}
-                  strokeWidth="7"
-                  pathLength="100"
-                  strokeDasharray={`${length} ${100 - length}`}
-                  strokeDashoffset={-start}
-                  transform="rotate(-90 36 36)"
-                />
-              );
-            })}
-            <text x="36" y="40" textAnchor="middle">
-              {sum || "—"}
-            </text>
-          </svg>
-          <div className={styles.legend}>
-            {totals.map(([label, count], i) => (
-              <span key={label}>
-                <i style={{ background: colors[i % colors.length] }} />
-                {label}
-                <strong>{Math.round((count / sum) * 100)}%</strong>
-                <small>{count} 组</small>
-              </span>
-            ))}
-            {!sum && <p>填写动作组数后显示</p>}
-          </div>
-          <small className={styles.analysisHint}>按便签组数统计</small>
-        </footer>
       </div>
       <DragOverlay>
-        {dragging && dragging.kind !== "note" ? (
-          <div className={styles.dragPreview}>
-            {dragging.kind === "exercise"
-              ? dragging.exercise.name
-              : state.notes.find((n) => n.id === dragging.id)?.title}
+        {dragging ? (
+          <div
+            className={styles.dragPreview}
+            data-kind={dragging.kind}
+            style={dragging.kind !== "exercise" ? previewSize : undefined}
+          >
+            <GripVertical aria-hidden />
+            <span>
+              <strong>
+                {dragging.kind === "exercise"
+                  ? dragging.exercise.name
+                  : state.notes.find((n) => n.id === dragging.id)?.title ||
+                    "未命名计划"}
+              </strong>
+              {dragging.kind === "exercise" && (
+                <small>
+                  {dragging.exercise.muscle_group}
+                  {dragging.exercise.id?.startsWith("free-db:")
+                    ? " · 基础库"
+                    : ""}
+                </small>
+              )}
+            </span>
           </div>
         ) : null}
       </DragOverlay>
     </DndContext>
+  );
+}
+function Warehouse({ children }: { children: ReactNode }) {
+  const { setNodeRef, isOver } = useDroppable({ id: "warehouse" });
+  return (
+    <section
+      ref={setNodeRef}
+      className={styles.warehouse}
+      data-over={isOver || undefined}
+      aria-label="便签仓库"
+    >
+      {children}
+    </section>
   );
 }
 function Canvas({
@@ -753,12 +891,12 @@ function WarehouseNote({
   note,
   selected,
   onSelect,
-  onAssign,
+  onDelete,
 }: {
   note: PlanNote;
   selected: boolean;
   onSelect: () => void;
-  onAssign: () => void;
+  onDelete: () => void;
 }) {
   const { setNodeRef, attributes, listeners, isDragging } = useDraggable({
     id: `warehouse:${note.id}`,
@@ -766,6 +904,7 @@ function WarehouseNote({
   });
   return (
     <div
+      data-warehouse-note
       className={styles.storedNote}
       data-selected={selected}
       style={{ opacity: isDragging ? 0.4 : 1 }}
@@ -775,32 +914,29 @@ function WarehouseNote({
         {...attributes}
         {...listeners}
         className={styles.warehouseHandle}
-        aria-label={`拖动便签：${note.title}`}
+        aria-label={`拖动便签：${note.title || "未命名计划"}`}
+        onClick={onSelect}
       >
         <GripVertical />
-      </button>
-      <button onClick={onSelect}>
-        <strong>{note.title}</strong>
-        <small>{note.exercises.length} 个动作</small>
+        <span>
+          <strong>{note.title || "未命名计划"}</strong>
+          <small>{note.exercises.length} 个动作</small>
+        </span>
       </button>
       <button
-        onClick={onAssign}
-        aria-label={`安排到所选日期：${note.title}`}
-        title="安排到所选日期"
+        onClick={onDelete}
+        aria-label={`删除仓库便签：${note.title || "未命名计划"}`}
+        title="删除仓库便签"
       >
-        <Plus />
+        <X />
       </button>
     </div>
   );
 }
 function LibraryExercise({
   exercise,
-  canAdd,
-  onAdd,
 }: {
   exercise: { id: string; name: string; muscle_group: string };
-  canAdd: boolean;
-  onAdd: () => void;
 }) {
   const { setNodeRef, attributes, listeners, isDragging } = useDraggable({
     id: `exercise:${exercise.id}`,
@@ -826,13 +962,6 @@ function LibraryExercise({
           </small>
         </span>
       </button>
-      <button
-        aria-label={`添加动作：${exercise.name}`}
-        disabled={!canAdd}
-        onClick={onAdd}
-      >
-        <Plus />
-      </button>
     </div>
   );
 }
@@ -857,29 +986,37 @@ function Note({
     id: `note:${note.id}`,
     data: { kind: "note", id: note.id } satisfies Move,
   });
-  const [size, setSize] = useState<{ width: number; height: number } | null>(
-    null,
-  );
-  function resize(event: PointerEvent<HTMLButtonElement>) {
+  const [size, setSize] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  function resize(event: PointerEvent<HTMLButtonElement>, edge: ResizeEdge) {
+    onSelect();
     event.preventDefault();
     event.stopPropagation();
     const target = event.currentTarget;
     target.setPointerCapture(event.pointerId);
+    const bounds = target
+      .closest("article")
+      ?.parentElement?.getBoundingClientRect();
     const start = {
       x: event.clientX,
       y: event.clientY,
       width: note.width,
       height: note.height,
     };
-    let next = { width: note.width, height: note.height };
+    let next = { x: note.x, y: note.y, width: note.width, height: note.height };
     const move = (e: globalThis.PointerEvent) => {
-      next = {
-        width: Math.max(300, Math.min(720, start.width + e.clientX - start.x)),
-        height: Math.max(
-          220,
-          Math.min(700, start.height + e.clientY - start.y),
-        ),
-      };
+      next = resizeNoteFromEdge(
+        note,
+        edge,
+        e.clientX - start.x,
+        e.clientY - start.y,
+        bounds?.width ?? 720,
+        bounds?.height ?? 700,
+      );
       setSize(next);
     };
     const finish = () => {
@@ -911,14 +1048,12 @@ function Note({
       onPointerDown={onSelect}
       onFocus={onSelect}
       style={{
-        left: note.x,
-        top: note.y,
+        left: size?.x ?? note.x,
+        top: size?.y ?? note.y,
         width: size?.width ?? note.width,
         height: size?.height ?? note.height,
-        zIndex: note.z + (note.pinned ? 100000 : 0),
-        transform: drag.transform
-          ? `translate(${drag.transform.x}px, ${drag.transform.y}px)`
-          : undefined,
+        zIndex: note.z + 2 + (note.pinned ? 100000 : 0),
+        opacity: drag.isDragging ? 0 : 1,
       }}
       aria-label={`训练便签：${note.title || "未命名计划"}`}
     >
@@ -942,6 +1077,7 @@ function Note({
             drag.listeners?.onKeyDown?.(event);
         }}
       >
+        <GripVertical className={styles.noteDragHint} aria-hidden />
         <input
           aria-label="便签名称"
           value={note.title === "未命名计划" ? "" : note.title}
@@ -956,7 +1092,7 @@ function Note({
         >
           <Pin />
         </button>
-        <button aria-label="移除本地便签" onClick={onDelete}>
+        <button aria-label="关闭便签" onClick={onDelete}>
           <X />
         </button>
       </header>
@@ -969,109 +1105,139 @@ function Note({
         ) : (
           <>
             <div className={styles.columnLabels}>
+              <span />
               <span>动作</span>
               <span>组</span>
               <span>次</span>
               <span>kg</span>
               <span />
             </div>
-            {note.exercises.map((exercise) => (
-              <div className={styles.exercise} key={exercise.id}>
-                <span title={exercise.name}>{exercise.name}</span>
-                {(["sets", "reps", "weight"] as const).map((field) => (
-                  <input
-                    key={field}
-                    type="number"
-                    min="0"
-                    max={field === "weight" ? 10000 : 1000}
-                    step={field === "weight" ? 0.5 : 1}
-                    aria-label={`${exercise.name}${field === "sets" ? "组数" : field === "reps" ? "次数" : "重量"}`}
-                    placeholder="—"
-                    value={exercise[field] ?? ""}
-                    onChange={(e) => {
-                      const value =
-                        e.target.value === "" ? null : +e.target.value;
-                      if (
-                        value !== null &&
-                        (!Number.isFinite(value) ||
-                          value < 0 ||
-                          value > (field === "weight" ? 10000 : 1000) ||
-                          (field !== "weight" && !Number.isInteger(value)))
-                      )
-                        return;
-                      onChange({
-                        exercises: note.exercises.map((v) =>
-                          v.id === exercise.id ? { ...v, [field]: value } : v,
-                        ),
-                      });
-                    }}
-                  />
+            <Sortable
+              value={note.exercises}
+              getItemValue={(exercise) => exercise.id}
+              onValueChange={(exercises) => onChange({ exercises })}
+              orientation="vertical"
+              autoScroll={false}
+            >
+              <SortableContent role="list" aria-label="便签动作排序">
+                {note.exercises.map((exercise) => (
+                  <SortableItem
+                    className={styles.exercise}
+                    key={exercise.id}
+                    value={exercise.id}
+                    role="listitem"
+                  >
+                    <SortableItemHandle
+                      className={styles.exerciseHandle}
+                      aria-label={`排序动作：${exercise.name}`}
+                    >
+                      <GripVertical aria-hidden />
+                    </SortableItemHandle>
+                    <span title={exercise.name}>{exercise.name}</span>
+                    {(["sets", "reps", "weight"] as const).map((field) => (
+                      <input
+                        key={field}
+                        type="number"
+                        min="0"
+                        max={field === "weight" ? 10000 : 1000}
+                        step={field === "weight" ? 0.5 : 1}
+                        aria-label={`${exercise.name}${field === "sets" ? "组数" : field === "reps" ? "次数" : "重量"}`}
+                        placeholder="—"
+                        value={exercise[field] ?? ""}
+                        onChange={(e) => {
+                          const value =
+                            e.target.value === "" ? null : +e.target.value;
+                          if (
+                            value !== null &&
+                            (!Number.isFinite(value) ||
+                              value < 0 ||
+                              value > (field === "weight" ? 10000 : 1000) ||
+                              (field !== "weight" && !Number.isInteger(value)))
+                          )
+                            return;
+                          onChange({
+                            exercises: note.exercises.map((v) =>
+                              v.id === exercise.id
+                                ? { ...v, [field]: value }
+                                : v,
+                            ),
+                          });
+                        }}
+                      />
+                    ))}
+                    <button
+                      aria-label={`移除动作：${exercise.name}`}
+                      onClick={() =>
+                        onChange({
+                          exercises: note.exercises.filter(
+                            (v) => v.id !== exercise.id,
+                          ),
+                        })
+                      }
+                    >
+                      <X />
+                    </button>
+                  </SortableItem>
                 ))}
-                <button
-                  aria-label={`移除动作：${exercise.name}`}
-                  onClick={() =>
-                    onChange({
-                      exercises: note.exercises.filter(
-                        (v) => v.id !== exercise.id,
-                      ),
-                    })
-                  }
-                >
-                  <X />
-                </button>
-              </div>
-            ))}
+              </SortableContent>
+            </Sortable>
           </>
         )}
       </div>
-      <footer>
-        <span>
-          {note.exercises.length} 个动作
-          {note.sourceId ? " · 已有计划的本地副本" : ""}
-        </span>
-        <button
-          className={styles.resize}
-          aria-label="调整便签大小"
-          onPointerDown={resize}
-          onKeyDown={(e) => {
-            if (
-              ["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(
-                e.key,
-              )
-            ) {
-              e.preventDefault();
-              onChange({
-                width: Math.max(
-                  300,
-                  Math.min(
-                    720,
-                    note.width +
-                      (e.key === "ArrowRight"
-                        ? 20
-                        : e.key === "ArrowLeft"
-                          ? -20
-                          : 0),
-                  ),
-                ),
-                height: Math.max(
-                  220,
-                  Math.min(
-                    700,
-                    note.height +
-                      (e.key === "ArrowDown"
-                        ? 20
-                        : e.key === "ArrowUp"
-                          ? -20
-                          : 0),
-                  ),
-                ),
-              });
+      {(["n", "s", "e", "w", "ne", "nw", "se", "sw"] as ResizeEdge[]).map(
+        (edge) => (
+          <button
+            key={edge}
+            className={styles.resizeEdge}
+            data-edge={edge}
+            aria-label={
+              "调整便签大小：" +
+              {
+                n: "上边",
+                s: "下边",
+                e: "右边",
+                w: "左边",
+                ne: "右上角",
+                nw: "左上角",
+                se: "右下角",
+                sw: "左下角",
+              }[edge]
             }
-          }}
-        >
-          <span className={styles.resizeGrip} aria-hidden="true" />
-        </button>
-      </footer>
+            onPointerDown={(event) => resize(event, edge)}
+            onKeyDown={(event) => {
+              if (
+                !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(
+                  event.key,
+                )
+              )
+                return;
+              event.preventDefault();
+              event.stopPropagation();
+              const bounds = event.currentTarget
+                .closest("article")
+                ?.parentElement?.getBoundingClientRect();
+              onChange(
+                resizeNoteFromEdge(
+                  note,
+                  edge,
+                  event.key === "ArrowLeft"
+                    ? -20
+                    : event.key === "ArrowRight"
+                      ? 20
+                      : 0,
+                  event.key === "ArrowUp"
+                    ? -20
+                    : event.key === "ArrowDown"
+                      ? 20
+                      : 0,
+                  bounds?.width ?? 720,
+                  bounds?.height ?? 700,
+                ),
+              );
+            }}
+          />
+        ),
+      )}
     </article>
   );
 }

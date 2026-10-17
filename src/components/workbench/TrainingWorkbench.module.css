@@ -4,6 +4,7 @@
   overflow: hidden;
 }
 .workbench.workbench {
+  position: relative;
   height: 100%;
   min-height: 580px;
   min-width: 920px;
@@ -108,6 +109,7 @@
   border: 0;
 }
 .workbench .monthHeading select {
+  color-scheme: dark;
   width: auto;
   min-height: 24px;
   font-size: 12px;
@@ -115,6 +117,10 @@
   border: 0;
   background: transparent;
   color: inherit;
+}
+.workbench .monthHeading option {
+  background: var(--surface);
+  color: var(--ink);
 }
 .workbench .monthHeading span {
   font-size: 12px;
@@ -248,7 +254,10 @@
   gap: 4px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  padding: 4px;
+  padding: 0;
+}
+.workbench .storedNote > button:last-child {
+  margin-right: 4px;
 }
 .workbench .storedNote[data-selected="true"] {
   border-color: var(--accent);
@@ -259,8 +268,14 @@
   min-width: 0;
   flex: none;
 }
-.workbench .storedNote button:nth-child(2) {
+.workbench .storedNote button:first-child {
   flex: 1;
+  align-self: stretch;
+  justify-content: flex-start;
+  padding: 7px;
+}
+.workbench .storedNote button:first-child span {
+  min-width: 0;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -284,12 +299,6 @@
   touch-action: none;
   cursor: grab !important;
 }
-.workbench .emptyAdd {
-  width: 100%;
-  min-height: 64px !important;
-  border-style: dashed !important;
-  color: var(--muted) !important;
-}
 .workbench .center {
   display: flex;
   flex-direction: column;
@@ -299,16 +308,6 @@
   border-radius: 10px;
   overflow: hidden;
   background: var(--shell-bg);
-}
-.workbench .canvasHeading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 38px;
-  padding: 0 14px;
-  border-bottom: 1px solid var(--line);
-  font-size: 11px;
-  color: var(--muted);
 }
 .workbench .canvas {
   min-height: 0;
@@ -403,13 +402,6 @@
   cursor: pointer;
   touch-action: auto;
 }
-.workbench .canvasHeading {
-  min-height: 40px;
-}
-.workbench .canvasHeading > button {
-  border: 0;
-  padding-left: 0;
-}
 .workbench .noteBody {
   flex: 1;
   min-height: 0;
@@ -431,7 +423,7 @@
 .workbench .exercise,
 .workbench .columnLabels {
   display: grid;
-  grid-template-columns: minmax(90px, 1fr) 36px 36px 46px 20px;
+  grid-template-columns: 16px minmax(70px, 1fr) 36px 36px 46px 20px;
   gap: 4px;
   align-items: center;
 }
@@ -468,35 +460,6 @@
   padding: 0;
   border: 0;
   min-height: 24px;
-}
-.workbench .note > footer {
-  min-height: 28px;
-  padding: 0 6px 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 10px;
-}
-.workbench .note .resize {
-  border: 0;
-  padding: 2px;
-  min-height: 24px;
-  touch-action: none;
-  cursor: nwse-resize;
-  width: 18px;
-  opacity: 0.55;
-}
-.resizeGrip {
-  width: 11px;
-  height: 11px;
-  display: block;
-  background: repeating-linear-gradient(
-    135deg,
-    transparent 0 3px,
-    currentColor 3px 4px
-  );
-  clip-path: polygon(100% 0, 100% 100%, 0 100%);
 }
 .workbench .library {
   display: flex;
@@ -600,68 +563,17 @@
   font-size: 10px;
   color: var(--muted);
 }
-.workbench .analysis {
+.workbench .canvasSurface {
+  position: relative;
+  flex: 1;
+  min-height: 0;
   display: flex;
-  align-items: center;
-  gap: 22px;
-  min-height: 92px;
-  flex: none;
-  padding: 10px 18px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
+  flex-direction: column;
+  background-image: radial-gradient(var(--line) 0.7px, transparent 0.7px);
+  background-size: 20px 20px;
 }
-.workbench .analysis > div:first-child {
-  width: 150px;
-  flex: none;
-}
-.workbench .analysis > div:first-child > span {
-  display: block;
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: var(--muted);
-  font-size: 11px;
-}
-.workbench .analysis > svg {
-  width: 64px;
-  height: 64px;
-}
-.workbench .analysis text {
-  fill: var(--ink);
-  font-size: 13px;
-}
-.workbench .legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-.workbench .legend > span {
-  display: grid;
-  grid-template-columns: 7px auto auto;
-  gap: 1px 5px;
-  font-size: 11px;
-  align-items: center;
-}
-.workbench .legend i {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-.workbench .legend small {
-  grid-column: 2/4;
-  font-size: 10px;
-  color: var(--muted);
-}
-.workbench .legend p {
-  font-size: 12px;
-  color: var(--muted);
-}
-.workbench .analysisHint {
-  margin-left: auto;
-  color: var(--muted);
-  font-size: 10px;
+.workbench .canvas {
+  background: none;
 }
 .workbench .error {
   padding: 6px 10px;
@@ -670,7 +582,7 @@
   border-radius: 5px;
   color: var(--ink);
 }
-.workbench .dragPreview {
+.dragPreview.dragPreview {
   padding: 10px 16px;
   border: 1px solid var(--accent);
   border-radius: 6px;
@@ -683,4 +595,300 @@
   .workbench.workbench * {
     transition: none !important;
   }
+}
+
+.workbench .canvas {
+  overflow: hidden;
+  isolation: auto;
+}
+.workbench .canvasSurface {
+  isolation: isolate;
+}
+.workbench
+  :is(.exerciseList, .warehouse, .warehouseList, .noteBody, .schedule) {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.workbench
+  :is(.exerciseList, .warehouse, .warehouseList, .noteBody, .schedule):hover {
+  scrollbar-color: var(--line) transparent;
+}
+.workbench
+  :is(
+    .exerciseList,
+    .warehouse,
+    .warehouseList,
+    .noteBody,
+    .schedule
+  )::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.workbench
+  :is(
+    .exerciseList,
+    .warehouseList,
+    .noteBody,
+    .schedule
+  )::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+.workbench
+  :is(
+    .exerciseList,
+    .warehouseList,
+    .noteBody,
+    .schedule
+  ):hover::-webkit-scrollbar-thumb {
+  background: var(--line);
+}
+.workbench
+  :is(
+    .exerciseList,
+    .warehouseList,
+    .noteBody,
+    .schedule
+  )::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+@supports selector(::-webkit-scrollbar) {
+  .workbench
+    :is(.exerciseList, .warehouse, .warehouseList, .noteBody, .schedule),
+  .workbench
+    :is(.exerciseList, .warehouse, .warehouseList, .noteBody, .schedule):hover {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+}
+
+.workbench .exerciseHandle {
+  cursor: grab;
+  touch-action: none;
+  color: var(--muted);
+}
+.workbench .exercise[data-dragging] {
+  background: var(--field);
+  z-index: 2;
+}
+.workbench .note .resizeEdge {
+  position: absolute;
+  z-index: 4;
+  padding: 0;
+  min-height: 0;
+  min-width: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  touch-action: none;
+}
+.workbench.workbench .note button.resizeEdge:hover:not(:disabled) {
+  background: transparent;
+}
+.workbench .resizeEdge[data-edge="n"],
+.workbench .resizeEdge[data-edge="s"] {
+  left: 10px;
+  right: 10px;
+  height: 7px;
+  cursor: ns-resize;
+}
+.workbench .resizeEdge[data-edge="n"] {
+  top: -3px;
+}
+.workbench .resizeEdge[data-edge="s"] {
+  bottom: -3px;
+}
+.workbench .resizeEdge[data-edge="e"],
+.workbench .resizeEdge[data-edge="w"] {
+  top: 10px;
+  bottom: 10px;
+  width: 7px;
+  cursor: ew-resize;
+}
+.workbench .resizeEdge[data-edge="e"] {
+  right: -3px;
+}
+.workbench .resizeEdge[data-edge="w"] {
+  left: -3px;
+}
+.workbench .resizeEdge[data-edge="ne"],
+.workbench .resizeEdge[data-edge="nw"],
+.workbench .resizeEdge[data-edge="se"],
+.workbench .resizeEdge[data-edge="sw"] {
+  width: 12px;
+  height: 12px;
+}
+.workbench .resizeEdge[data-edge="ne"] {
+  right: -3px;
+  top: -3px;
+  cursor: nesw-resize;
+}
+.workbench .resizeEdge[data-edge="nw"] {
+  left: -3px;
+  top: -3px;
+  cursor: nwse-resize;
+}
+.workbench .resizeEdge[data-edge="se"] {
+  right: -3px;
+  bottom: -3px;
+  cursor: nwse-resize;
+}
+.workbench .resizeEdge[data-edge="sw"] {
+  left: -3px;
+  bottom: -3px;
+  cursor: nesw-resize;
+}
+.workbench .warehouseHint {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.workbench .warehouse[data-over] {
+  outline: 1px solid var(--accent);
+  outline-offset: -2px;
+  background: var(--field);
+}
+.dragPreview.dragPreview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+  max-width: 300px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: 0 8px 24px #0003;
+}
+.dragPreview.dragPreview strong {
+  display: block;
+  font-size: 13px;
+}
+.dragPreview.dragPreview small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 3px;
+}
+.dragPreview.dragPreview svg {
+  width: 14px;
+  height: 14px;
+  flex: none;
+}
+.workbench .searchRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.workbench .search {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  box-sizing: border-box;
+}
+.workbench .search:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.workbench.workbench .search input {
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  outline: none;
+  border-radius: 0;
+}
+.workbench .filterButton {
+  height: 32px;
+  width: 32px;
+  flex: none;
+  padding: 0;
+}
+.workbench .filterButton[data-active] {
+  color: var(--accent);
+}
+.equipmentPopup.equipmentPopup {
+  width: var(--anchor-width);
+  border-radius: 6px;
+  max-width: calc(100vw - 24px);
+  padding: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.equipmentTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.equipmentTags button {
+  font-size: 11px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 5px 7px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.equipmentTags button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--accent-ink, #152332);
+  border-color: var(--accent);
+}
+.equipmentTags button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.workbench .noteDragHint {
+  color: var(--muted);
+  cursor: grab;
+  flex: none;
+}
+.workbench .newNoteButton {
+  font-size: 10px;
+  min-height: 28px;
+  padding: 3px 6px;
+  white-space: nowrap;
+}
+.dragPreview.dragPreview[data-kind="warehouse"],
+.dragPreview.dragPreview[data-kind="note"] {
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  gap: 6px;
+}
+.dragPreview.dragPreview[data-kind="warehouse"] strong,
+.dragPreview.dragPreview[data-kind="note"] strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.workbench.workbench .equipmentTags button[aria-pressed="true"],
+.workbench.workbench .equipmentTags button[aria-pressed="true"]:hover {
+  background: var(--accent);
+  color: var(--accent-ink, #152332);
+  border-color: var(--accent);
+}
+
+/* The portal wrapper must never participate in the workspace flex layout. */
+.workbench > .overlayHost {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.overlayHost > * {
+  pointer-events: auto;
 }

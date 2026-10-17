@@ -1,0 +1,89 @@
+.panel {
+  --muscle-blue-1: #b8d5ee;
+  --muscle-blue-2: #86b5dd;
+  --muscle-blue-3: #5d92bd;
+  --muscle-blue-4: #3f739d;
+  --muscle-blue-5: #305471;
+  --muscle-blue-6: #a1bbd0;
+  --muscle-blue-7: #607f98;
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 1;
+  width: 100px;
+  height: 100px;
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition:
+    width 300ms ease-in-out 80ms,
+    height 300ms ease-in-out 80ms,
+    left 300ms ease-in-out,
+    bottom 300ms ease-in-out;
+}
+.panel[data-expanded] {
+  width: 220px;
+  height: 220px;
+  transition-delay: 0ms;
+}
+.panel:focus-visible {
+  outline: 2px solid var(--focus);
+}
+.chartFrame {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 300px;
+  height: 300px;
+  transform: scale(0.333333);
+  transform-origin: bottom left;
+  transition: transform 300ms ease-in-out 80ms;
+  pointer-events: none;
+}
+.panel[data-expanded] .chartFrame {
+  transform: scale(0.733333);
+  transition-delay: 0ms;
+}
+.chart.chart {
+  width: 300px;
+  height: 300px;
+  aspect-ratio: 1;
+  min-height: 0;
+}
+.chart.chart :global(svg.recharts-surface) {
+  width: 300px;
+  height: 300px;
+}
+.sectorLabel {
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 80ms ease-out;
+  pointer-events: none;
+}
+.panel[data-expanded] .sectorLabel {
+  opacity: 1;
+  transition: opacity 140ms ease-out 220ms;
+}
+.empty {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--line);
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.empty[data-visible] {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panel * {
+    transition: none !important;
+  }
+}

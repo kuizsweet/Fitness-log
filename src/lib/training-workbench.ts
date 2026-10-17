@@ -1,3 +1,4 @@
+import { baseChestRegion, baseShoulderRegion } from "./exercise-base";
 import { dateSchema, type Session } from "./domain";
 export type PlanExercise = {
   id: string;
@@ -20,6 +21,8 @@ export type PlanNote = {
   exercises: PlanExercise[];
   sourceId?: string;
   temporary?: boolean;
+  inWarehouse?: boolean;
+  savedToWarehouse?: boolean;
 };
 export type WorkbenchState = {
   notes: PlanNote[];
@@ -29,6 +32,34 @@ export const emptyWorkbench = (): WorkbenchState => ({
   notes: [],
   assignments: {},
 });
+export function deleteWorkbenchNote(
+  state: WorkbenchState,
+  id: string,
+): WorkbenchState {
+  return {
+    notes: state.notes.filter((note) => note.id !== id),
+    assignments: Object.fromEntries(
+      Object.entries(state.assignments).map(([day, ids]) => [
+        day,
+        ids.filter((value) => value !== id),
+      ]),
+    ),
+  };
+}
+export function closeWorkbenchNote(
+  state: WorkbenchState,
+  id: string,
+): WorkbenchState {
+  const note = state.notes.find((value) => value.id === id);
+  if (!note || (note.temporary && !note.savedToWarehouse))
+    return deleteWorkbenchNote(state, id);
+  return {
+    ...state,
+    notes: state.notes.map((value) =>
+      value.id === id ? { ...value, inWarehouse: true } : value,
+    ),
+  };
+}
 export function muscleFamily(label: string) {
   if (/胸/.test(label)) return "胸";
   if (/背|背阔|斜方/.test(label)) return "背";
@@ -43,6 +74,7 @@ export function createNote(index: number): PlanNote {
     id: crypto.randomUUID(),
     title: "",
     temporary: true,
+    savedToWarehouse: false,
     x: 24 + (index % 4) * 28,
     y: 24 + (index % 4) * 28,
     width: 340,
@@ -57,7 +89,7 @@ export function isNamedNote(title: string) {
 }
 export function persistedWorkbench(state: WorkbenchState): WorkbenchState {
   const notes = state.notes.filter(
-    (note) => !note.temporary || isNamedNote(note.title),
+    (note) => !note.temporary || note.savedToWarehouse === true,
   );
   const ids = new Set(notes.map((note) => note.id));
   return {
@@ -121,6 +153,10 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       typeof note.title !== "string" ||
       note.title.length > 60 ||
       typeof note.pinned !== "boolean" ||
+      (note.inWarehouse !== undefined &&
+        typeof note.inWarehouse !== "boolean") ||
+      (note.savedToWarehouse !== undefined &&
+        typeof note.savedToWarehouse !== "boolean") ||
       ![note.x, note.y, note.width, note.height, note.z].every(
         Number.isFinite,
       ) ||
@@ -155,5 +191,121 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       !values.every((id) => ids.has(id))
     )
       throw Error("无效的日期安排");
+  // A pre-existing persisted note predates explicit warehouse saves; retain it.
+  for (const note of data.notes)
+    if (note.savedToWarehouse === undefined) note.savedToWarehouse = true;
   return data;
+}
+
+export function chestTotals(note?: PlanNote): [string, number][] {
+  const totals: Record<string, number> = {};
+  for (const exercise of note?.exercises ?? []) {
+    if (!exercise.sets || exercise.sets <= 0) continue;
+    const region = exercise.sourceId?.startsWith("free-db:")
+      ? baseChestRegion(exercise.sourceId)
+      : exercise.muscle.startsWith("胸 / ")
+        ? exercise.muscle.slice(4)
+        : muscleFamily(exercise.muscle) === "胸"
+          ? "未细分"
+          : undefined;
+    if (!region || region === "拉伸") continue;
+    totals[region] = (totals[region] ?? 0) + exercise.sets;
+  }
+  return ["上胸", "中胸", "下胸", "综合", "未细分"]
+    .filter((r) => totals[r])
+    .map((r) => [r, totals[r]]);
+}
+
+export function fitNoteToCanvas(
+  note: PlanNote,
+  width: number,
+  height: number,
+): PlanNote {
+  if (width <= 0 || height <= 0) return note;
+  const w = Math.min(note.width, width),
+    h = Math.min(note.height, height);
+  return {
+    ...note,
+    width: w,
+    height: h,
+    x: Math.max(0, Math.min(note.x, width - w)),
+    y: Math.max(0, Math.min(note.y, height - h)),
+  };
+}
+export function planMuscleDistribution(exercises: PlanExercise[]) {
+  const result: Record<string, Record<string, number>> = {};
+  for (const exercise of exercises) {
+    if (!Number.isFinite(exercise.sets) || !exercise.sets || exercise.sets <= 0)
+      continue;
+    const family = muscleFamily(exercise.muscle);
+    const sourceRegion = exercise.sourceId?.startsWith("free-db:")
+      ? (baseChestRegion(exercise.sourceId) ??
+        baseShoulderRegion(exercise.sourceId))
+      : undefined;
+    const region = sourceRegion
+      ? sourceRegion
+      : exercise.muscle.startsWith(family + " / ")
+        ? exercise.muscle.slice(family.length + 3)
+        : exercise.muscle === family ||
+            /^(胸部|胸大肌|背部|肩部|手臂|下肢|核心)$/.test(exercise.muscle) ||
+            !exercise.muscle
+          ? "未细分"
+          : exercise.muscle.split(" / ")[0];
+    if (region === "拉伸") continue;
+    result[family] ??= {};
+    result[family][region] = (result[family][region] ?? 0) + exercise.sets;
+  }
+  return result;
+}
+
+export type ResizeEdge = "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw";
+export function resizeNoteFromEdge(
+  note: PlanNote,
+  edge: ResizeEdge,
+  dx: number,
+  dy: number,
+  width: number,
+  height: number,
+) {
+  const rect = { x: note.x, y: note.y, width: note.width, height: note.height };
+  const minWidth = Math.min(300, width),
+    minHeight = Math.min(220, height);
+  if (edge.includes("e"))
+    rect.width = Math.max(
+      minWidth,
+      Math.min(720, width - note.x, note.width + dx),
+    );
+  if (edge.includes("s"))
+    rect.height = Math.max(
+      minHeight,
+      Math.min(700, height - note.y, note.height + dy),
+    );
+  if (edge.includes("w")) {
+    const right = note.x + note.width;
+    rect.x = Math.max(0, right - 720, Math.min(right - minWidth, note.x + dx));
+    rect.width = right - rect.x;
+  }
+  if (edge.includes("n")) {
+    const bottom = note.y + note.height;
+    rect.y = Math.max(
+      0,
+      bottom - 700,
+      Math.min(bottom - minHeight, note.y + dy),
+    );
+    rect.height = bottom - rect.y;
+  }
+  return rect;
+}
+
+export function centerNoteInCanvas(
+  note: PlanNote,
+  width: number,
+  height: number,
+) {
+  const fitted = fitNoteToCanvas(note, width, height);
+  return {
+    ...fitted,
+    x: Math.max(0, (width - fitted.width) / 2),
+    y: Math.max(0, (height - fitted.height) / 2),
+  };
 }

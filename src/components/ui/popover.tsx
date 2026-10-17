@@ -7,18 +7,25 @@ export const PopoverTrigger = Primitive.Trigger;
 export const PopoverTitle = Primitive.Title;
 export function PopoverContent({
   container,
+  anchor,
+  positionMethod,
   align = "start",
   side = "bottom",
   sideOffset = 4,
   className,
   ...props
 }: Primitive.Popup.Props &
-  Pick<Primitive.Positioner.Props, "align" | "side" | "sideOffset"> &
+  Pick<
+    Primitive.Positioner.Props,
+    "align" | "side" | "sideOffset" | "anchor" | "positionMethod"
+  > &
   Pick<Primitive.Portal.Props, "container">) {
   return (
     <Primitive.Portal container={container}>
       <Primitive.Positioner
         className={styles.positioner}
+        anchor={anchor}
+        positionMethod={positionMethod}
         align={align}
         side={side}
         sideOffset={sideOffset}
