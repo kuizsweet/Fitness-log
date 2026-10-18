@@ -135,6 +135,7 @@ export type MealPhoto = {
   meal_id: string;
   storage_path: string;
   original_name: string;
+  notes?: string;
   deleted_at: string | null;
   url?: string;
 };
@@ -142,7 +143,8 @@ export type Meal = {
   id: string;
   user_id: string;
   meal_date: string;
-  meal_type: "breakfast" | "lunch" | "dinner";
+  meal_type: "breakfast" | "lunch" | "dinner" | "snack";
+  calories?: number | null;
   notes: string;
   photos: MealPhoto[];
 };

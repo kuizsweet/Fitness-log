@@ -7,10 +7,12 @@ export function trustedRequestOrigin(
   if (!origin) return false;
   const destination = new URL(request.url);
   if (origin === destination.origin || origin === canonical) return true;
-  if (!development) return false;
+  // Both next dev and a local next start reconstruct the URL as 0.0.0.0.
+  // Runtime mode must not reject the same exact loopback origin and Host.
+  void development;
   try {
     const source = new URL(origin);
-    // Next dev bound to 0.0.0.0 reconstructs Request.url with that hostname.
+    // Next bound to 0.0.0.0 reconstructs Request.url with that hostname.
     // Accept only the exact incoming loopback host and the same protocol/port.
     return (
       destination.hostname === "0.0.0.0" &&

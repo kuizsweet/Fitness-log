@@ -863,6 +863,7 @@ function NoteTrash({ active }: { active: boolean }) {
     <div
       ref={setNodeRef}
       className={styles.noteTrash}
+      aria-hidden={!active}
       data-active={active || undefined}
       data-over={(active && isOver) || undefined}
       role="status"

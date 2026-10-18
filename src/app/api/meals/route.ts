@@ -18,7 +18,8 @@ export async function POST(request: Request) {
     const meal = z
       .object({
         meal_date: dateSchema,
-        meal_type: z.enum(["breakfast", "lunch", "dinner"]),
+        meal_type: z.enum(["breakfast", "lunch", "dinner", "snack"]),
+        calories: z.number().int().min(0).max(20000).nullable().optional(),
         notes: z.string().max(4000),
       })
       .parse(await request.json());

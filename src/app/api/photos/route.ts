@@ -59,11 +59,24 @@ export async function PATCH(request: Request) {
   try {
     const { db } = await context(request);
     const input = z
-      .object({ id: z.uuid(), restore: z.boolean() })
+      .object({
+        id: z.uuid(),
+        restore: z.boolean().optional(),
+        notes: z.string().max(4000).optional(),
+      })
+      .refine(
+        (value) => value.restore !== undefined || value.notes !== undefined,
+        "请选择要修改的照片信息",
+      )
       .parse(await request.json());
     const result = await db
       .from("meal_photos")
-      .update({ deleted_at: input.restore ? null : new Date().toISOString() })
+      .update({
+        ...(input.restore !== undefined
+          ? { deleted_at: input.restore ? null : new Date().toISOString() }
+          : {}),
+        ...(input.notes !== undefined ? { notes: input.notes } : {}),
+      })
       .eq("id", input.id)
       .select()
       .single();

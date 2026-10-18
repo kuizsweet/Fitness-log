@@ -916,7 +916,8 @@
   border: 1px solid transparent;
   border-radius: 12px;
   color: var(--muted);
-  opacity: 0.25;
+  opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   z-index: 200000;
   transition:
@@ -926,6 +927,7 @@
     opacity 180ms ease;
 }
 .noteTrash[data-active] {
+  visibility: visible;
   opacity: 1;
   border-color: var(--line);
   background: var(--surface);
