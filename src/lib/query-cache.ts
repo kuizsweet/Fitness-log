@@ -1,10 +1,17 @@
 "use client";
 import { QueryClient } from "@tanstack/react-query";
-import { api } from "./client";
+import { ApiResponseError, api } from "./client";
 import { today, type Profile, type Session } from "./domain";
 import { calendarMonth } from "./calendar";
 import { resourceKey, setResourceOwner } from "./resource-keys";
 import { trainingDate, trainingPaths } from "./training-queries";
+export function retryResourceRead(count: number, error: Error) {
+  return (
+    count < 2 &&
+    (error instanceof TypeError ||
+      (error instanceof ApiResponseError && error.status >= 500))
+  );
+}
 let current: { user: string; client: QueryClient } | undefined;
 export function userQueryClient(user: string) {
   if (typeof window === "undefined") return new QueryClient();
@@ -18,7 +25,8 @@ export function userQueryClient(user: string) {
           queries: {
             staleTime: 60_000,
             gcTime: 15 * 60_000,
-            retry: false,
+            retry: retryResourceRead,
+            retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 3000),
             refetchOnWindowFocus: true,
             refetchOnReconnect: true,
           },

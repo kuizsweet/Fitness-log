@@ -301,7 +301,7 @@ function GoalView({
   const progress = bodyProgress(start ?? null, target ?? null, current ?? null);
   const unit = metric === "weight" ? "kg" : "%";
   const name = metric === "weight" ? "体重" : "体脂率";
-  const error = state.error || readingState.error || source.error;
+  const error = state.error || readingState.error;
   function field(m: BodyMetric, kind: GoalField | "current", label: string) {
     const draft =
       kind === "current" ? readingState.drafts[m] : state.drafts[m]?.[kind];

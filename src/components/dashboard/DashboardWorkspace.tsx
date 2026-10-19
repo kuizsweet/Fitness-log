@@ -7,7 +7,6 @@ import { ItemsChecklist } from "./ItemsChecklist";
 
 import { TrainingMonthCalendar } from "./TrainingMonthCalendar";
 import { Checkins } from "../Checkins";
-import { Feedback } from "../Feedback";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { DeletedRecords } from "./DeletedRecords";
 import { BodyGoalCard } from "./BodyGoalCard";
@@ -65,7 +64,7 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
 }
 
 function TrainingConsole({ data }: { data: DashboardData }) {
-  const { date, records, sessions, profile } = data;
+  const { date, records, sessions } = data;
   const [showDeleted, setShowDeleted] = useState(false);
   const active = records.find((s) =>
     ["in_progress", "paused"].includes(s.status),
@@ -89,16 +88,10 @@ function TrainingConsole({ data }: { data: DashboardData }) {
       </div>
       <div className={styles.consoleIntro}>
         <p
-          className={`${styles.consoleState} ${!ready && !sessions.error && !profile.error ? styles.placeholder : ""}`}
+          className={`${styles.consoleState} ${!ready ? styles.placeholder : ""}`}
           aria-busy={!ready}
         >
-          {ready ? (
-            state
-          ) : sessions.error || profile.error ? (
-            "训练记录暂不可用"
-          ) : (
-            <span aria-hidden="true">&nbsp;</span>
-          )}
+          {ready ? state : <span aria-hidden="true">&nbsp;</span>}
         </p>
         <p className={styles.secondary}>
           动作、重量、次数与 RIR，沿用已有训练记录。
@@ -150,17 +143,6 @@ function TrainingConsole({ data }: { data: DashboardData }) {
           <h3>当天训练记录</h3>
           <span>{date}</span>
         </div>
-        <Feedback error={sessions.error || profile.error} />
-        {(sessions.error || profile.error) && (
-          <button
-            onClick={() => {
-              sessions.reload();
-              profile.reload();
-            }}
-          >
-            重试
-          </button>
-        )}
         {!sessions.data && !sessions.error && (
           <div className={styles.recordSkeleton} aria-hidden="true" />
         )}

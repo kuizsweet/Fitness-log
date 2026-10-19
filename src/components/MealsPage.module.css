@@ -628,3 +628,13 @@
     transition: none;
   }
 }
+
+/* The recovery edge belongs to the viewport edge, outside the centered content width. */
+:global(main):has(.page[data-record-hidden]) {
+  max-width: none;
+  padding-right: 0;
+}
+.page[data-record-hidden] {
+  max-width: none;
+  width: 100%;
+}

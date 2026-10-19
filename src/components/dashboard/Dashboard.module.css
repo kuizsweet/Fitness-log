@@ -46,24 +46,24 @@
   min-height: 32px;
   margin: 0;
   padding: 5px 10px;
-  border: 1px solid #363636;
+  border: 1px solid var(--line, #363636);
   border-radius: 7px;
-  background: #242424;
-  color: #ededf0;
+  background: var(--field, #242424);
+  color: var(--ink, #ededf0);
   font: inherit;
   line-height: 1.4;
   cursor: pointer;
   box-shadow: none;
 }
 .workspace.workspace button:hover:not(:disabled) {
-  background: #303030;
+  background: var(--line, #303030);
 }
 .workspace.workspace button:disabled {
   opacity: 0.5;
   cursor: default;
 }
 .workspace a {
-  color: #b7cdee;
+  color: var(--accent, #b7cdee);
   text-underline-offset: 4px;
 }
 .grid {
@@ -83,13 +83,13 @@
   min-width: 0;
   min-height: 0;
   margin: 0;
-  border: 1px solid #242424;
+  border: 1px solid var(--field, #242424);
   border-radius: 18px;
-  background: #111111;
-  color: #f4f4f5;
+  background: var(--surface, #111111);
+  color: var(--ink, #f4f4f5);
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: #414141 transparent;
+  scrollbar-color: var(--line, #414141) transparent;
   overscroll-behavior: contain;
 }
 .cardHeading {
@@ -105,11 +105,11 @@
   font-weight: 600;
   line-height: 1.4;
   margin: 0;
-  color: #f4f4f5;
+  color: var(--ink, #f4f4f5);
 }
 .cardHeading time,
 .sectionHeading > span {
-  color: #92929b;
+  color: var(--muted, #92929b);
   font-size: 12px;
   font-variant-numeric: tabular-nums;
 }
@@ -132,7 +132,7 @@
   letter-spacing: -0.025em;
 }
 .secondary {
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 13px;
 }
 .consoleActions {
@@ -151,33 +151,33 @@
   font-weight: 550;
 }
 .consoleActions .primaryAction {
-  background: #a8c5ef;
+  background: var(--accent, #a8c5ef);
   color: #131923;
 }
 .consoleActions .primaryAction:hover {
   background: #c0d6f5;
 }
 .consoleActions .secondaryAction {
-  background: #262626;
-  color: #ededf0;
-  border: 1px solid #363636;
+  background: var(--field, #262626);
+  color: var(--ink, #ededf0);
+  border: 1px solid var(--line, #363636);
 }
 .summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  border-block: 1px solid #292929;
+  border-block: 1px solid var(--line, #292929);
   padding-block: 6px;
 }
 .summary > div {
   padding-left: 20px;
-  border-left: 1px solid #292929;
+  border-left: 1px solid var(--line, #292929);
 }
 .summary > div:first-child {
   padding-left: 0;
   border-left: 0;
 }
 .summary dt {
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 12px;
 }
 .summary dd {
@@ -189,7 +189,7 @@
 .summary dd > span {
   font-size: 12px;
   font-weight: 400;
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   margin-left: 6px;
 }
 .sessionArea {
@@ -218,10 +218,10 @@
 }
 .sessionEmpty > p {
   font-size: 14px;
-  color: #c7c7cd;
+  color: var(--muted, #c7c7cd);
 }
 .sessionEmpty > span {
-  color: #85858f;
+  color: var(--muted, #85858f);
   font-size: 12px;
 }
 .sessionList {
@@ -232,7 +232,7 @@
   display: none;
 }
 .sessionRow {
-  border-bottom: 1px solid #282828;
+  border-bottom: 1px solid var(--line, #282828);
   padding: 10px 0;
 }
 .sessionRow > a {
@@ -240,7 +240,7 @@
   grid-template-columns: auto 1fr;
   gap: 5px 10px;
   text-decoration: none;
-  color: #e2e2e7;
+  color: var(--ink, #e2e2e7);
 }
 .sessionRow > a:hover strong {
   text-decoration: underline;
@@ -251,24 +251,24 @@
 }
 .sessionStatus {
   align-self: start;
-  color: #a1a1aa;
-  border: 1px solid #353535;
+  color: var(--muted, #a1a1aa);
+  border: 1px solid var(--line, #353535);
   border-radius: 5px;
   padding: 1px 5px;
   font-size: 11px;
 }
 .sessionStatus[data-active] {
-  color: #a8c5ef;
+  color: var(--accent, #a8c5ef);
   border-color: #486181;
 }
 .sessionMeta {
   grid-column: 2;
-  color: #92929b;
+  color: var(--muted, #92929b);
   font-size: 12px;
 }
 .sessionRow > p {
   margin-top: 5px;
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 12px;
   white-space: pre-wrap;
 }
@@ -276,7 +276,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
-  border-top: 1px solid #282828;
+  border-top: 1px solid var(--line, #282828);
   padding-top: 6px;
   flex: none;
 }
@@ -286,14 +286,14 @@
 }
 .reservedTools span {
   font-size: 12px;
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
 }
 .reservedTools small {
   font-size: 11px;
-  color: #85858f;
+  color: var(--muted, #85858f);
 }
 .deleted {
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 12px;
 }
 .deleted summary {
@@ -324,9 +324,9 @@
   display: flex;
   gap: 4px;
   padding: 3px;
-  border: 1px solid #292929;
+  border: 1px solid var(--line, #292929);
   border-radius: 8px;
-  background: #1a1a1a;
+  background: var(--field, #1a1a1a);
   flex: none;
 }
 .workspace .tabs [data-slot="tabs-trigger"] {
@@ -338,18 +338,18 @@
   border: 0;
   font-size: 12px;
   background: transparent;
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
 }
 .workspace .tabs [data-slot="tabs-trigger"][data-state="active"] {
-  color: #f4f4f5;
-  background: #323232;
+  color: var(--ink, #f4f4f5);
+  background: var(--field, #323232);
 }
 .tabs [data-slot="tabs-content"] {
   min-height: 0;
   outline: none;
 }
 .tabs [data-slot="tabs-content"]:focus-visible {
-  outline: 2px solid #91b9ef;
+  outline: 2px solid var(--focus, #91b9ef);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -397,8 +397,8 @@
   border-radius: 5px;
 }
 .workspace.workspace .calendarSlot select option {
-  background: #191919;
-  color: #f4f4f5;
+  background: var(--surface, #191919);
+  color: var(--ink, #f4f4f5);
 }
 .workspace.workspace .calendarSlot select:first-child {
   width: 70px;
@@ -435,7 +435,7 @@
 .calendarSlot .calendarWeekday {
   padding: 0;
   text-align: center;
-  color: #85858f;
+  color: var(--muted, #85858f);
   font-size: 10px;
   line-height: 16px;
 }
@@ -452,19 +452,19 @@
   padding: 0;
   border: 1px solid transparent;
   background: transparent;
-  color: #d4d4d8;
+  color: var(--ink, #d4d4d8);
   font-size: 11px;
   line-height: 1;
 }
 .workspace .calendarSlot .calendarDay:hover {
-  background: #292929;
+  background: var(--line, #292929);
 }
 .workspace .calendarSlot .calendarDay[aria-current="date"] {
-  border-color: #52525b;
+  border-color: var(--line, #52525b);
 }
 .workspace .calendarSlot .calendarDay[aria-pressed="true"] {
-  background: #334965;
-  color: #eaf3ff;
+  background: transparent;
+  color: var(--ink);
   border-color: #7596be;
 }
 .calendarSlot .calendarDots {
@@ -563,11 +563,11 @@
 .statisticEmpty strong {
   font-size: 13px;
   font-weight: 500;
-  color: #b8b8c0;
+  color: var(--muted, #b8b8c0);
 }
 .statisticEmpty p {
   max-width: 48ch;
-  color: #85858f;
+  color: var(--muted, #85858f);
   font-size: 12px;
   line-height: 1.6;
 }
@@ -581,10 +581,10 @@
   width: min(680px, calc(100vw - 80px));
   max-height: calc(100dvh - 100px);
   padding: 24px;
-  border: 1px solid #383838;
+  border: 1px solid var(--line, #383838);
   border-radius: 18px;
-  background: #181818;
-  color: #f4f4f5;
+  background: var(--surface, #181818);
+  color: var(--ink, #f4f4f5);
   overflow-y: auto;
   overscroll-behavior: contain;
   color-scheme: dark;
@@ -603,7 +603,7 @@
   margin-bottom: 20px;
 }
 .dialogHeading time {
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 12px;
 }
 .mealsDialog :global(.module) {
@@ -611,7 +611,7 @@
   padding: 0;
   border: 0;
   background: transparent;
-  color: #e7e7eb;
+  color: var(--ink, #e7e7eb);
   --module-ink: #d4d4d8;
   --module-bg: transparent;
 }
@@ -619,7 +619,7 @@
   display: none;
 }
 .mealsDialog :global(.meal-tabs) {
-  background: #252525;
+  background: var(--field, #252525);
   margin-bottom: 20px;
   padding: 4px;
   border-radius: 9px;
@@ -627,22 +627,22 @@
 .workspace .mealsDialog :global(.meal-tabs) button {
   border: 0;
   background: transparent;
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
 }
 .workspace .mealsDialog :global(.meal-tabs) button[aria-selected="true"] {
-  color: #f4f4f5;
-  background: #414141;
+  color: var(--ink, #f4f4f5);
+  background: var(--line, #414141);
 }
 .mealsDialog :global(.meal-photo-picker) {
   min-height: 120px;
   font-size: 14px;
-  background: #202020;
-  border-color: #484848;
+  background: var(--field, #202020);
+  border-color: var(--line, #484848);
   border-radius: 10px;
 }
 .mealsDialog :global(.meal-notes),
 .mealsDialog :global(.meal-camera) {
-  color: #d4d4d8;
+  color: var(--ink, #d4d4d8);
   font-size: 13px;
 }
 .workspace :global(.error) {
@@ -655,13 +655,13 @@
 }
 
 .placeholder {
-  background: #252525;
+  background: var(--field, #252525);
   border-radius: 5px;
 }
 .recordSkeleton {
   height: 64px;
   border-radius: 6px;
-  background: #202020;
+  background: var(--field, #202020);
   flex: none;
 }
 @keyframes dashboard-enter {
@@ -708,4 +708,70 @@
   .consoleState {
     font-size: 26px;
   }
+}
+
+:global(html[data-theme="light"]) .workspace,
+:global(html[data-theme="light"]) .mealsDialog {
+  --ink: #172027;
+  --muted: #52606a;
+  --line: #d9e0e4;
+  --accent: #176b4c;
+  --focus: #176b4c;
+  --field: #f4f5f6;
+  --surface: #ffffff;
+  color-scheme: light;
+}
+:global(html[data-theme="light"]) .workspace .calendarSlot select {
+  color-scheme: light;
+}
+
+:global(html[data-theme="light"]) .consoleActions .primaryAction {
+  color: #ffffff;
+}
+:global(html[data-theme="light"]) .consoleActions .primaryAction:hover {
+  background: #12583e;
+}
+
+:global(html[data-theme="light"]) .workspace,
+:global(html[data-theme="light"]) .mealsDialog {
+  --surface: #ffffff;
+  --field: #f7f8fa;
+}
+.workspace .calendarSlot .calendarDay {
+  min-height: 24px;
+  border-radius: 6px;
+}
+.workspace .calendarSlot .calendarDay[data-mode="strength"] {
+  background: #80aef233;
+  color: var(--ink);
+}
+.workspace .calendarSlot .calendarDay[data-mode="cardio"] {
+  background: #7bc49c33;
+  color: var(--ink);
+}
+.workspace .calendarSlot .calendarDay[data-mode="mixed"] {
+  background: #b39aee33;
+  color: var(--ink);
+}
+.workspace .calendarSlot .calendarDay[data-mode="rest"] {
+  background: color-mix(in srgb, var(--muted) 10%, transparent);
+}
+.workspace .calendarSlot .calendarDay[aria-pressed="true"] {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+  border-color: transparent;
+}
+.calendarSlot .calendarLegend .dayDot {
+  border-radius: 3px;
+  width: 9px;
+  height: 9px;
+}
+
+:global(html[data-theme="light"]) .card,
+:global(html[data-theme="light"]) .calendarSlot > .monthCalendar {
+  background: #ffffff;
+  border-color: transparent;
+  box-shadow:
+    0 2px 5px rgb(23 32 39 / 3%),
+    0 8px 28px rgb(23 32 39 / 7%);
 }

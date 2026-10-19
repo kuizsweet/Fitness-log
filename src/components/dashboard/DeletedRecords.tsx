@@ -12,10 +12,7 @@ export function DeletedRecords({ date }: { date: string }) {
   const [error, setError] = useState("");
   return (
     <>
-      <Feedback
-        error={source.error || error}
-        loading={source.loading || busy}
-      />
+      <Feedback error={error} loading={source.loading || busy} />
       {!source.loading && !source.error && !source.data?.length && (
         <p>这一天没有已删除的训练。</p>
       )}

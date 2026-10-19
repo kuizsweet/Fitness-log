@@ -19,7 +19,6 @@ import { api } from "@/lib/client";
 import { resourceKey } from "@/lib/resource-keys";
 import { applyResourceChange } from "@/lib/training-cache";
 import { useResourceUser } from "../ResourceProvider";
-import { Feedback } from "../Feedback";
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import styles from "./Dashboard.module.css";
@@ -189,6 +188,9 @@ export function TrainingMonthCalendar({
               key={i}
               aria-label={`${day}，${description}${day === checkedDate ? "，已签到" : ""}`}
               title={`${day}，${description}${day === checkedDate ? "，已签到" : ""}`}
+              data-mode={
+                loading || (error && !sessions.length) ? undefined : mode
+              }
               data-checked-in={day === checkedDate || undefined}
               aria-pressed={date === day}
               aria-current={day === currentDay ? "date" : undefined}
@@ -198,11 +200,6 @@ export function TrainingMonthCalendar({
               }}
             >
               <span>{number}</span>
-              <span className={styles.calendarDots} aria-hidden="true">
-                <i
-                  className={`${styles.dayDot} ${styles[`dot-${mode === "rest" ? "idle" : mode}`]}`}
-                />
-              </span>
               {day === checkedDate && (
                 <span className={styles.calendarCheck} aria-hidden="true">
                   ✓
@@ -244,7 +241,6 @@ export function TrainingMonthCalendar({
           </span>
         </div>
       </div>
-      <Feedback error={error} />
       {Object.entries(edits)
         .filter(([, edit]) => edit.error)
         .map(([day, edit]) => (

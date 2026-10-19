@@ -57,7 +57,7 @@
   grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
   gap: 12px;
   background: var(--header-bg);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
 }
 .brand {
   display: inline-flex;
@@ -86,10 +86,10 @@
   grid-row: 1;
   justify-self: center;
   gap: 2px;
-  padding: 0;
+  padding: 4px;
   border: 0;
-  border-radius: 0;
-  background: transparent;
+  border-radius: 10px;
+  background: var(--field);
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -260,4 +260,62 @@
   .main[data-area="dashboard"] {
     padding-inline: 16px;
   }
+}
+
+.shell :global(.app-header .app-nav) {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  gap: 2px;
+  isolation: isolate;
+}
+.shell :global(.app-header .navigation-thumb) {
+  position: absolute;
+  inset: 4px auto 4px 4px;
+  width: 80px;
+  border-radius: 6px;
+  background: var(--surface);
+  box-shadow: 0 1px 3px #00000012;
+  transform: translateX(calc(var(--nav-index) * 82px));
+  transition: transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+  z-index: -1;
+}
+.shell :global(.app-header .app-nav) > a {
+  padding-inline: 10px;
+  background: transparent;
+  box-shadow: none;
+  outline-offset: -3px;
+}
+.shell :global(.app-header .app-nav) > a:hover,
+.shell :global(.app-header .app-nav) > a[aria-current="page"] {
+  background: transparent;
+  box-shadow: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell :global(.app-header .navigation-thumb) {
+    transition: none;
+  }
+}
+
+:global(html[data-theme="light"]) .shell {
+  --shell-bg: #ffffff;
+  --surface: #ffffff;
+  --field: #f7f8fa;
+}
+:global(html[data-theme="light"] body):has(.shell) {
+  background: #ffffff;
+}
+:global(html[data-theme="light"]) .shell :global(.app-header .app-nav) {
+  background: #f4f5f6;
+}
+:global(html[data-theme="light"])
+  .shell
+  :global(.app-header .navigation-thumb) {
+  background: #ffffff;
+}
+
+.shell :global(.app-header .app-nav),
+.shell :global(.app-header .navigation-thumb) {
+  corner-shape: round;
 }

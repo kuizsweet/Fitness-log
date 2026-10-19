@@ -38,6 +38,11 @@ export async function context(request?: Request) {
 }
 export function check(error: { message: string; code?: string } | null) {
   if (error) {
+    if (/fetch failed|failed to fetch|timeout|timed out/i.test(error.message))
+      throw new ApiError(
+        "数据库连接暂时中断，请重试；读取失败不代表记录已删除。",
+        503,
+      );
     if (error.code === "23505")
       throw new ApiError("记录重复：此文件可能已导入，或存在相同记录。", 409);
     throw new ApiError(
@@ -57,7 +62,16 @@ export function failure(error: unknown) {
       { status: 400 },
     );
   return NextResponse.json(
-    { error: error instanceof Error ? error.message : "操作失败，请重试" },
+    {
+      error:
+        error instanceof Error
+          ? /fetch failed|failed to fetch|timeout|timed out/i.test(
+              error.message,
+            )
+            ? "数据库连接暂时中断，请重试；读取失败不代表记录已删除。"
+            : error.message
+          : "操作失败，请重试",
+    },
     { status: error instanceof ApiError ? error.status : 500 },
   );
 }

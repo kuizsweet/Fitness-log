@@ -2,9 +2,14 @@
 
 import Image from "next/image";
 import { BRAND_ASSET } from "@/lib/brand-assets";
-import Link, { useLinkStatus } from "next/link";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useRef, useState, useSyncExternalStore } from "react";
+import {
+  type CSSProperties,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 import { Languages, Moon, Settings2, Sun, UserRound } from "lucide-react";
 import { SignOut, useSignOut } from "./SignOut";
 import appStyles from "./AppShell.module.css";
@@ -51,8 +56,20 @@ const links = [
 
 export function AppNavigation() {
   const path = usePathname();
+  const selected = Math.max(
+    0,
+    links.findIndex(
+      ([href]) =>
+        path === href || (href === "/config" && path.startsWith("/session/")),
+    ),
+  );
   return (
-    <nav className="app-nav" aria-label="主要导航">
+    <nav
+      className="app-nav"
+      aria-label="主要导航"
+      style={{ "--nav-index": selected } as CSSProperties}
+    >
+      <span className="navigation-thumb" aria-hidden="true" />
       {links.map(([href, label, area]) => (
         <Link
           key={href}
@@ -66,20 +83,9 @@ export function AppNavigation() {
           }
         >
           {label}
-          <NavigationPending />
         </Link>
       ))}
     </nav>
-  );
-}
-
-function NavigationPending() {
-  const { pending } = useLinkStatus();
-  return (
-    <span
-      className={`navigation-pending${pending ? " is-pending" : ""}`}
-      aria-hidden="true"
-    />
   );
 }
 
