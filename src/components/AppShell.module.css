@@ -122,7 +122,6 @@
   background: transparent;
   color: var(--muted);
 }
-.shell :global(.header-actions .header-icon-button:hover),
 .shell :global(.header-actions .header-icon-button[data-state="open"]) {
   background: color-mix(in srgb, var(--ink) 9%, transparent);
   color: var(--ink);
@@ -149,9 +148,9 @@
   -webkit-backdrop-filter: blur(20px) saturate(1.3);
   backdrop-filter: blur(20px) saturate(1.3);
   box-shadow:
-    inset 0 1px 0 #ffffffb3,
-    inset 0 -1px 0 #ffffff33,
-    0 8px 32px #1525331a;
+    inset 0 1px 0 var(--glass-highlight-top),
+    inset 0 -1px 0 var(--glass-highlight-bottom),
+    0 8px 32px var(--glass-drop-shadow);
   color: var(--ink);
 }
 .shell :global(.header-actions .header-icon-button) {
@@ -159,21 +158,37 @@
     background 180ms ease,
     box-shadow 180ms ease,
     scale 180ms ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.shell :global(.header-actions .header-icon-button:hover) {
-  box-shadow:
-    inset 0 1px 0 #ffffffdf,
-    inset 0 -1px 0 #ffffff44,
-    0 8px 32px #15253324;
+.shell :global(.header-actions .header-icon-button:focus:not(:focus-visible)) {
+  outline: none;
 }
-.shell :global(.header-actions .header-icon-button:not(.language-morph-button):active) {
+/* The shell's generic button hover fill must not look like a latched toggle. */
+.shell :global(.header-actions button.header-icon-button:hover:not(:disabled)) {
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+}
+@media (hover: hover) and (pointer: fine) {
+  .shell :global(.header-actions .header-icon-button:hover) {
+    box-shadow:
+      inset 0 1px 0 var(--glass-highlight-hover-top),
+      inset 0 -1px 0 var(--glass-highlight-hover-bottom),
+      0 8px 32px var(--glass-hover-shadow);
+  }
+}
+.shell
+  :global(
+    .header-actions .header-icon-button:not(.language-morph-button):active
+  ) {
   scale: 0.96;
 }
 @media (prefers-reduced-motion: reduce) {
   .shell :global(.header-actions .header-icon-button) {
     transition: none;
   }
-  .shell :global(.header-actions .header-icon-button:not(.language-morph-button):active) {
+  .shell
+    :global(
+      .header-actions .header-icon-button:not(.language-morph-button):active
+    ) {
     scale: 1;
   }
 }

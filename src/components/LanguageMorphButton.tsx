@@ -44,7 +44,10 @@ export function LanguageMorphButton() {
       aria-label={label}
       title={label}
       aria-pressed={english}
-      onClick={() => setLanguage(english ? "zh-CN" : "en")}
+      onClick={(event) => {
+        setLanguage(english ? "zh-CN" : "en");
+        if (event.detail > 0) event.currentTarget.blur();
+      }}
       whileTap={reduced ? undefined : { scale: 0.96 }}
       transition={LANGUAGE_MORPH_SPRING}
     >

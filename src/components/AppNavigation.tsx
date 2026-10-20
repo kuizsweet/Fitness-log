@@ -91,7 +91,10 @@ function ThemeMenu() {
       aria-label={dark ? "切换为浅色主题" : "切换为深色主题"}
       title={dark ? "切换为浅色主题" : "切换为深色主题"}
       aria-pressed={dark}
-      onClick={() => setPreference(dark ? "light" : "dark")}
+      onClick={(event) => {
+        setPreference(dark ? "light" : "dark");
+        if (event.detail > 0) event.currentTarget.blur();
+      }}
     >
       <SunMoonIcon state={dark} size={20} />
     </button>

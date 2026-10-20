@@ -1,5 +1,13 @@
 @import "tailwindcss";
 :root {
+  /* Lens-inspired optical edges: light and dark are deliberately independent. */
+  --glass-highlight-top: #ffffffb3;
+  --glass-highlight-bottom: #ffffff33;
+  --glass-highlight-hover-top: #ffffffdf;
+  --glass-highlight-hover-bottom: #ffffff44;
+  --glass-drop-shadow: #1525331a;
+  --glass-hover-shadow: #15253324;
+  --glass-rim: #52697d24;
   color-scheme: light;
   --popover: #ffffff;
   --popover-foreground: #171717;
@@ -26,6 +34,13 @@
   --module-gap: 20px;
 }
 html[data-theme="dark"] {
+  --glass-highlight-top: #ffffff0a;
+  --glass-highlight-bottom: #ffffff03;
+  --glass-highlight-hover-top: #ffffff12;
+  --glass-highlight-hover-bottom: #ffffff05;
+  --glass-drop-shadow: #00000038;
+  --glass-hover-shadow: #00000040;
+  --glass-rim: #ffffff0c;
   color-scheme: dark;
   --popover: #202020;
   --popover-foreground: #f4f4f5;
