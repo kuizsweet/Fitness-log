@@ -131,7 +131,8 @@
 .workbench .days {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: 20px repeat(6, 26px);
+  grid-template-rows: 20px;
+  grid-auto-rows: 26px;
   gap: 2px;
   text-align: center;
 }
@@ -263,9 +264,6 @@
 .workbench .storedNote > button:last-child {
   margin-right: 4px;
 }
-.workbench .storedNote[data-selected="true"] {
-  border-color: var(--accent);
-}
 .workbench .storedNote button {
   border: 0;
   padding: 3px;
@@ -359,7 +357,6 @@
   background: var(--surface);
   box-shadow: 0 3px 12px #0002;
 }
-.workbench .note[data-selected="true"],
 .workbench .note[data-over] {
   border-color: var(--accent);
 }
@@ -583,6 +580,15 @@
   flex-direction: column;
   background-image: radial-gradient(var(--line) 0.7px, transparent 0.7px);
   background-size: 20px 20px;
+}
+.workbench .canvasNewNote {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .workbench .canvas {
   background: none;
@@ -1010,4 +1016,264 @@
 .workbench .families button,
 .equipmentTags button {
   border-radius: 8px;
+}
+
+:is(
+  .note,
+  .storedNote,
+  .dragPreview,
+  .noteColorMenu button
+)[data-note-color="red"] {
+  --note-color: #e76b73;
+}
+:is(
+  .note,
+  .storedNote,
+  .dragPreview,
+  .noteColorMenu button
+)[data-note-color="green"] {
+  --note-color: #58b68b;
+}
+:is(
+  .note,
+  .storedNote,
+  .dragPreview,
+  .noteColorMenu button
+)[data-note-color="yellow"] {
+  --note-color: #e5b94f;
+}
+:is(
+  .note,
+  .storedNote,
+  .dragPreview,
+  .noteColorMenu button
+)[data-note-color="blue"] {
+  --note-color: #659fe5;
+}
+.workbench .note[data-note-color],
+.workbench .storedNote[data-note-color],
+.dragPreview[data-note-color] {
+  background: color-mix(in srgb, var(--note-color) 12%, var(--surface, #111));
+  border-color: color-mix(in srgb, var(--note-color) 50%, var(--line, #303030));
+}
+.workbench .note[data-note-color] > header {
+  background: color-mix(in srgb, var(--note-color) 20%, var(--surface));
+}
+.workbench .note > header .notePin {
+  grid-column: 1;
+  grid-row: 1;
+}
+.workbench .note > header .noteColorTrigger {
+  grid-column: 3;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+.colorWheel {
+  display: block;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  corner-shape: round;
+  background: conic-gradient(
+    #e76b73 0 25%,
+    #e5b94f 25% 50%,
+    #58b68b 50% 75%,
+    #659fe5 75%
+  );
+  box-shadow: inset 0 0 0 1px #0001;
+}
+
+.workbench .note > header .noteColorCorner {
+  position: relative;
+  grid-column: 3;
+  grid-row: 1;
+  width: 28px;
+  height: 28px;
+}
+.workbench .note > header .noteColorTrigger {
+  position: relative;
+  z-index: 3;
+  width: 28px;
+  height: 28px;
+}
+.noteColorMenu {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  z-index: 2;
+  width: 196px;
+  height: 196px;
+  border-radius: 0;
+  corner-shape: round;
+  background: transparent;
+  box-shadow: none;
+  opacity: 1;
+  transform: none;
+  transform-origin: bottom left;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s 260ms;
+}
+.noteColorCorner[data-open] .noteColorMenu {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  pointer-events: none;
+  transition-delay: 0s;
+}
+.workbench .noteColorMenu button {
+  position: absolute;
+  left: 72px;
+  bottom: 80px;
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  corner-shape: round;
+  background: var(--note-color);
+  background-clip: padding-box;
+  cursor: pointer;
+  box-shadow: 0 3px 9px #0002;
+  opacity: 0;
+  transform: translate(0, 0) scale(0.85);
+  transition:
+    transform 260ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 150ms;
+}
+.workbench .noteColorCorner[data-open] .noteColorMenu button {
+  pointer-events: auto;
+  transform: translate(var(--color-x), calc(-1 * var(--color-y))) scale(1);
+  opacity: 1;
+  transition-delay: calc(var(--color-index) * 22ms);
+}
+.workbench .noteColorMenu button:focus-visible {
+  outline: 2px solid var(--note-color);
+  outline-offset: 1px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .noteColorMenu,
+  .workbench .noteColorMenu button {
+    transition: none;
+  }
+}
+
+.workbench .noteColorCorner .noteColorMenu .noteColorClose {
+  opacity: 1;
+  transform: none;
+  transition: none;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  display: grid;
+  place-items: center;
+}
+
+/* Native popovers start at display:none. Give the first visible frame an origin
+   so the very first hover animates just like subsequent interruptions. */
+@starting-style {
+  .workbench
+    .noteColorCorner[data-open]
+    .noteColorMenu
+    button:not(.noteColorClose) {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.85);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  @starting-style {
+    .workbench
+      .noteColorCorner[data-open]
+      .noteColorMenu
+      button:not(.noteColorClose) {
+      opacity: 1;
+      transform: translate(var(--color-x), calc(-1 * var(--color-y))) scale(1);
+    }
+  }
+}
+
+.workbench.workbench .storedNote > button:hover:not(:disabled) {
+  background: transparent;
+}
+.workbench.workbench
+  .noteColorMenu
+  button[data-note-color]:is(:hover, :active, [aria-pressed="true"]) {
+  background: var(--note-color);
+  background-clip: padding-box;
+}
+.workbench .warehouseList,
+.workbench .storedNote {
+  position: relative;
+}
+.workbench .storedNote[data-insert-before]::before,
+.workbench .warehouseList[data-insert-end]::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 1px;
+  pointer-events: none;
+}
+.workbench .storedNote[data-insert-before]::before {
+  top: -5px;
+}
+.workbench .warehouseList[data-insert-end]::after {
+  bottom: -5px;
+}
+
+.workbench .warehouseGroup {
+  padding: 12px 0;
+  min-height: 82px;
+}
+.workbench .warehouseGroup + .warehouseGroup {
+  border-top: 1px solid var(--line);
+}
+.workbench .warehouseGroup h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.workbench .warehouseGroup time {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+.workbench .warehouseEmpty {
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 11px;
+  text-align: center;
+}
+.workbench .warehouseGroup[data-over] {
+  outline: 1px dashed var(--line);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+.workbench
+  .warehouseGroup:not([data-over])
+  .warehouseList[data-insert-end]::after {
+  display: none;
+}
+.workbench.workbench .days button[data-has-plans],
+.workbench.workbench .days button[data-has-plans]:hover {
+  background: var(
+    --plan-background,
+    color-mix(in srgb, var(--accent) 22%, var(--surface))
+  );
+  color: var(--ink);
+}
+.workbench.workbench .days button[data-has-plans][aria-pressed="true"] {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
 }

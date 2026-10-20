@@ -69,7 +69,7 @@
 
 .overlay {
   position: fixed;
-  z-index: 110;
+  z-index: 1600;
   inset: 0;
   background: rgb(0 0 0 / 48%);
   backdrop-filter: blur(5px);
@@ -79,7 +79,7 @@
 
 .dialog {
   position: fixed;
-  z-index: 111;
+  z-index: 1601;
   top: 50%;
   left: 50%;
   width: min(640px, calc(100vw - 32px));

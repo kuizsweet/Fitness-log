@@ -15,7 +15,7 @@ import { ImportMapping, type SheetConfig } from "./ImportMapping";
 import { ImportPreview } from "./ImportPreview";
 import { Feedback } from "./Feedback";
 type Preview = { id: string; filename: string; workbook: Workbook };
-export function Import() {
+export function Import({ embedded = false }: { embedded?: boolean }) {
   const [preview, setPreview] = useState<Preview | null>(null);
   const [configs, setConfigs] = useState<SheetConfig[]>([]);
   const [rows, setRows] = useState<Candidate[]>([]);
@@ -151,7 +151,7 @@ export function Import() {
   }
   return (
     <>
-      <h1>Excel 导入</h1>
+      {!embedded && <h1>Excel 导入</h1>}
       <p>先解析、映射、核对，再确认保存。原文件不会被修改。</p>
       <label>
         .xlsx 文件（≤ 3 MB）

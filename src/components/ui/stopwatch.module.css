@@ -1,0 +1,93 @@
+.watch {
+  width: 100%;
+  max-width: 384px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  --color-muted-foreground: var(--muted);
+  --color-muted: var(--field);
+  --color-primary: var(--accent);
+  --color-ring: var(--focus);
+}
+.watch.watch .button {
+  height: 36px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.watch.watch .button[data-watch-variant="default"] {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: transparent;
+}
+.watch.watch .button[data-watch-variant="default"]:hover {
+  background: var(--ink);
+  color: var(--surface);
+  filter: brightness(.9);
+}
+.watch.watch .button:hover {
+  filter: brightness(0.96);
+}
+.watch.watch .button[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.watch svg {
+  width: 16px;
+  height: 16px;
+}
+.watch ol {
+  margin: 0;
+  padding: 0;
+}
+.watch p {
+  margin: 0;
+}
+.watch [class~="text-muted-foreground"] {
+  color: var(--muted);
+}
+.watch [class~="size-2"] {
+  background: var(--muted);
+  opacity: 0.4;
+}
+.watch [class~="size-2"][class~="bg-muted-foreground"] {
+  opacity: 1;
+}
+.watch [class~="size-2"][class~="bg-primary"] {
+  background: var(--accent);
+  opacity: 1;
+}
+.watch li:nth-child(odd) {
+  background: color-mix(in srgb, var(--field) 50%, transparent);
+}
+.watch kbd {
+  background: var(--field);
+  border-color: var(--line);
+}
+.badge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+.badge[data-variant="destructive"] {
+  background: var(--destructive);
+  color: var(--destructive-foreground, white);
+  border-color: transparent;
+}

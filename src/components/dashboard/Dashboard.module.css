@@ -427,7 +427,7 @@
 .calendarSlot .calendarGrid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  grid-template-rows: 16px repeat(6, minmax(20px, 1fr));
+  grid-template-rows: 16px repeat(5, minmax(20px, 1fr));
   gap: 2px;
   flex: 1;
   min-height: 148px;
@@ -774,4 +774,9 @@
   box-shadow:
     0 2px 5px rgb(23 32 39 / 3%),
     0 8px 28px rgb(23 32 39 / 7%);
+}
+
+.workspace .stopwatchConsole {
+  align-items: center;
+  justify-content: center;
 }

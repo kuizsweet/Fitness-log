@@ -12,6 +12,7 @@ export type PlanExercise = {
 export type PlanNote = {
   id: string;
   title: string;
+  color?: "red" | "green" | "yellow" | "blue";
   x: number;
   y: number;
   width: number;
@@ -58,6 +59,92 @@ export function closeWorkbenchNote(
     notes: state.notes.map((value) =>
       value.id === id ? { ...value, inWarehouse: true } : value,
     ),
+  };
+}
+export function warehouseInsertBefore(
+  rows: { id: string; top: number; height: number }[],
+  pointerY: number,
+): string | null {
+  return rows.find((row) => pointerY < row.top + row.height / 2)?.id ?? null;
+}
+export function insertWarehouseNote(
+  state: WorkbenchState,
+  id: string,
+  before: string | null,
+): WorkbenchState {
+  const source = state.notes.find((note) => note.id === id);
+  if (!source) return state;
+  const notes = state.notes.filter((note) => note.id !== id);
+  let index = before
+    ? notes.findIndex((note) => note.id === before && note.inWarehouse)
+    : -1;
+  if (index < 0) {
+    const last = notes.findLastIndex((note) => note.inWarehouse);
+    index = last < 0 ? notes.length : last + 1;
+  }
+  notes.splice(index, 0, {
+    ...source,
+    inWarehouse: true,
+    savedToWarehouse: true,
+  });
+  return { ...state, notes };
+}
+export const NOTE_COLORS = {
+  red: "#e76b73",
+  green: "#58b68b",
+  yellow: "#e5b94f",
+  blue: "#659fe5",
+} as const;
+export function warehouseSections(state: WorkbenchState, date: string) {
+  const assigned = new Set(state.assignments[date] ?? []);
+  return {
+    day: state.notes.filter(
+      (note) => note.inWarehouse && assigned.has(note.id),
+    ),
+    backup: state.notes.filter(
+      (note) => note.inWarehouse && !assigned.has(note.id),
+    ),
+  };
+}
+export function calendarNoteColors(state: WorkbenchState, date: string) {
+  return [
+    ...new Set(
+      (state.assignments[date] ?? []).flatMap((id) => {
+        const color = state.notes.find((note) => note.id === id)?.color;
+        return color ? [NOTE_COLORS[color]] : [];
+      }),
+    ),
+  ];
+}
+export function assignWorkbenchNote(
+  state: WorkbenchState,
+  id: string,
+  date: string,
+  before: string | null = null,
+): WorkbenchState {
+  if (!state.notes.some((note) => note.id === id)) return state;
+  const stored = insertWarehouseNote(state, id, before);
+  return {
+    ...stored,
+    assignments: {
+      ...stored.assignments,
+      [date]: [...new Set([...(stored.assignments[date] ?? []), id])],
+    },
+  };
+}
+export function unassignWorkbenchNote(
+  state: WorkbenchState,
+  id: string,
+  date: string,
+  before: string | null = null,
+): WorkbenchState {
+  const stored = insertWarehouseNote(state, id, before);
+  return {
+    ...stored,
+    assignments: {
+      ...stored.assignments,
+      [date]: (stored.assignments[date] ?? []).filter((value) => value !== id),
+    },
   };
 }
 export function copyWarehouseNote(
@@ -180,6 +267,8 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       typeof note.title !== "string" ||
       note.title.length > 60 ||
       typeof note.pinned !== "boolean" ||
+      (note.color !== undefined &&
+        !["red", "green", "yellow", "blue"].includes(note.color)) ||
       (note.inWarehouse !== undefined &&
         typeof note.inWarehouse !== "boolean") ||
       (note.savedToWarehouse !== undefined &&

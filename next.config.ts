@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 const config: NextConfig = {
   turbopack: { root: process.cwd() },
   serverExternalPackages: ["exceljs", "sharp", "undici"],
-  async redirects() {
-    return [{ source: "/train", destination: "/config", permanent: true }];
-  },
   async headers() {
     return [
       {

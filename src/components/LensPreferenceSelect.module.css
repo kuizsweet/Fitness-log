@@ -1,0 +1,94 @@
+.inline {
+  width: 156px;
+  flex-shrink: 0;
+  color: var(--ink);
+}
+@media (max-width: 600px) {
+  .inline {
+    width: 140px;
+  }
+  .selector :global(.lg-drop-caption) {
+    font-size: 11px;
+    white-space: nowrap;
+    gap: 4px;
+  }
+}
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+}
+.selector {
+  color: var(--ink);
+  --lg-optical-color: #52bb83;
+}
+.selector :global(.lg-drop-hint) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.selector :global(.lg-drop-field) {
+  min-height: 106px;
+}
+.selector :global(.lg-drop-wells) {
+  top: 4px;
+}
+.selector :global(.lg-drop-well),
+.selector :global(.lg-drop-selector) {
+  corner-shape: round;
+}
+.selector :global(.lg-drop-option),
+.selector :global(.lg-drop-selector) {
+  margin: 0;
+  border: 0;
+  color: inherit;
+  min-height: 0;
+  font: inherit;
+  cursor: pointer;
+}
+.selector :global(.lg-drop-option) {
+  display: flex;
+  padding: 0 0 8px;
+}
+.selector :global(.lg-drop-selector) {
+  padding: 0;
+}
+.selector :global(.lg-drop-selector):focus-visible,
+.selector :global(.lg-drop-option):focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 4px;
+}
+.selector :global(.lg-icon) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+  flex-shrink: 0;
+}
+.selector :global(.lg-drop-status) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+:global(html[data-theme="dark"]) .selector :global(.lg-drop-well) {
+  color: var(--ink);
+  background: #ffffff08;
+  box-shadow:
+    inset 0 5px 9px #0005,
+    inset 0 -2px 2px #ffffff18;
+}
+:global(html[data-theme="dark"])
+  .selector
+  :global(.lg-drop-well[data-selected="true"]) {
+  color: #b4edd2;
+  background: #77d3a626;
+  box-shadow:
+    inset 0 1px 2px #daffe970,
+    0 5px 12px -5px #0008;
+}

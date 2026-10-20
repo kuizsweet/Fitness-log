@@ -4,12 +4,11 @@ import { useResource } from "./resource";
 import { api } from "@/lib/client";
 import type { Profile } from "@/lib/domain";
 import { Feedback } from "./Feedback";
-import { BRAND_NAME } from "@/lib/brand";
 export function Settings({ embedded = false }: { embedded?: boolean }) {
   const profile = useResource<Profile>("profile");
   return (
     <>
-      {!embedded && <h1>设置与导出</h1>}
+      {!embedded && <h1>设置</h1>}
       <Feedback error={profile.error} loading={profile.loading} />
       {profile.data && (
         <SettingsForm
@@ -33,30 +32,6 @@ function SettingsForm({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  async function download(format: string) {
-    setBusy(true);
-    setError("");
-    try {
-      const r = await fetch(`/api/export?format=${format}`, {
-        cache: "no-store",
-      });
-      if (!r.ok) {
-        const data = await r.json();
-        throw new Error(data.error);
-      }
-      const url = URL.createObjectURL(await r.blob());
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${BRAND_NAME}.${format}`;
-      link.click();
-      URL.revokeObjectURL(url);
-      setMessage("已生成导出文件");
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setBusy(false);
-    }
-  }
   return (
     <>
       <form
@@ -126,20 +101,6 @@ function SettingsForm({
           保存设置
         </button>
       </form>
-      <h2>数据导出</h2>
-      <div className="row">
-        <button disabled={busy} onClick={() => void download("csv")}>
-          导出训练 CSV
-        </button>
-        <button disabled={busy} onClick={() => void download("json")}>
-          导出完整 JSON 与照片下载链接
-        </button>
-      </div>
-      <p>
-        JSON
-        包含所有业务表、已删除记录和照片路径。照片链接一小时后过期；请及时下载保管。图片备份步骤见
-        README。
-      </p>
       <a href="/auth?mode=reset">重置密码</a>
       <Feedback error={error} loading={busy} message={message} />
     </>

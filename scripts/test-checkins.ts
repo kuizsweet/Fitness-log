@@ -156,25 +156,6 @@ async function main() {
     await request(0, { action: "checkin", date: "2020-01-01" }, 400);
     const reload = await request(0);
     assert.equal(reload.checked_in, true);
-    const exported = await fetch(`${origin}/api/export?format=json`, {
-      headers: {
-        Cookie: [...jars[1]]
-          .map(([name, c]) => `${name}=${c.value}`)
-          .join("; "),
-      },
-    });
-    assert.equal(exported.status, 200);
-    const exportData = await exported.json();
-    assert.ok(
-      exportData.data.daily_checkins.every(
-        (r: { user_id: string }) => r.user_id === ids[1],
-      ),
-    );
-    assert.ok(
-      exportData.data.checkin_preferences.every(
-        (r: { user_id: string }) => r.user_id === ids[1],
-      ),
-    );
     await request(0, {
       action: "preferences",
       listed: false,

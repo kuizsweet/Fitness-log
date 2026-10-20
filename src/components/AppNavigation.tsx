@@ -4,27 +4,14 @@ import Image from "next/image";
 import { BRAND_ASSET } from "@/lib/brand-assets";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  type CSSProperties,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react";
-import { Languages, Moon, Settings2, Sun, UserRound } from "lucide-react";
-import { SignOut, useSignOut } from "./SignOut";
+import { type CSSProperties } from "react";
 import appStyles from "./AppShell.module.css";
 import { useThemePreference } from "./ThemeProvider";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
-import { Settings } from "./Settings";
 import { BRAND_NAME } from "@/lib/brand";
+import { MobileDock } from "./MobileDock";
+import { LanguageMorphButton } from "./LanguageMorphButton";
+import { AccountMenu } from "./MyMenu";
+import { SunMoonIcon } from "./ui/SunMoonIcon";
 
 export function AppBrand() {
   return (
@@ -58,34 +45,29 @@ export function AppNavigation() {
   const path = usePathname();
   const selected = Math.max(
     0,
-    links.findIndex(
-      ([href]) =>
-        path === href || (href === "/config" && path.startsWith("/session/")),
-    ),
+    links.findIndex(([href]) => path === href),
   );
   return (
-    <nav
-      className="app-nav"
-      aria-label="主要导航"
-      style={{ "--nav-index": selected } as CSSProperties}
-    >
-      <span className="navigation-thumb" aria-hidden="true" />
-      {links.map(([href, label, area]) => (
-        <Link
-          key={href}
-          href={href}
-          data-area={area}
-          aria-current={
-            path === href ||
-            (href === "/config" && path.startsWith("/session/"))
-              ? "page"
-              : undefined
-          }
-        >
-          {label}
-        </Link>
-      ))}
-    </nav>
+    <>
+      <nav
+        className="app-nav"
+        aria-label="主要导航"
+        style={{ "--nav-index": selected } as CSSProperties}
+      >
+        <span className="navigation-thumb" aria-hidden="true" />
+        {links.map(([href, label, area]) => (
+          <Link
+            key={href}
+            href={href}
+            data-area={area}
+            aria-current={path === href ? "page" : undefined}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+      <MobileDock />
+    </>
   );
 }
 
@@ -93,7 +75,7 @@ export function HeaderActions() {
   return (
     <div className="header-actions">
       <ThemeMenu />
-      <LanguageMenu />
+      <LanguageMorphButton />
       <AccountMenu />
     </div>
   );
@@ -101,139 +83,24 @@ export function HeaderActions() {
 
 function ThemeMenu() {
   const { preference, setPreference } = useThemePreference();
-  const nextTheme = preference === "dark" ? "light" : "dark";
+  const dark = preference === "dark";
   return (
     <button
-      className="header-icon-button"
       type="button"
-      aria-label={`切换为${nextTheme === "light" ? "浅色" : "深色"}主题`}
-      title={`切换为${nextTheme === "light" ? "浅色" : "深色"}主题`}
-      onClick={() => setPreference(nextTheme)}
+      className="header-icon-button theme-morph-button"
+      aria-label={dark ? "切换为浅色主题" : "切换为深色主题"}
+      title={dark ? "切换为浅色主题" : "切换为深色主题"}
+      aria-pressed={dark}
+      onClick={() => setPreference(dark ? "light" : "dark")}
     >
-      <span className="header-theme-icons" aria-hidden="true">
-        <Sun className="theme-icon-sun" size={18} strokeWidth={1.8} />
-        <Moon className="theme-icon-moon" size={18} strokeWidth={1.8} />
-      </span>
+      <SunMoonIcon state={dark} size={20} />
     </button>
-  );
-}
-
-type Language = "zh-CN" | "en";
-const subscribeHydration = () => () => {};
-const hydratedSnapshot = () => true;
-const serverHydrationSnapshot = () => false;
-function LanguageMenu() {
-  const hydrated = useSyncExternalStore(
-    subscribeHydration,
-    hydratedSnapshot,
-    serverHydrationSnapshot,
-  );
-  const [language, setLanguage] = useState<Language>(() => {
-    if (typeof window === "undefined") return "zh-CN";
-    try {
-      return localStorage.getItem("kuizfit-language") === "en" ? "en" : "zh-CN";
-    } catch {
-      return "zh-CN";
-    }
-  });
-  function toggleLanguage() {
-    const next = language === "zh-CN" ? "en" : "zh-CN";
-    setLanguage(next);
-    try {
-      localStorage.setItem("kuizfit-language", next);
-    } catch {
-      // The selected state remains available until this page is closed.
-    }
-  }
-  const nextLabel = !hydrated || language === "zh-CN" ? "English" : "简体中文";
-  return (
-    <button
-      className="header-icon-button"
-      type="button"
-      aria-label={`切换语言为${nextLabel}`}
-      title={`切换语言为${nextLabel}`}
-      onClick={toggleLanguage}
-    >
-      <Languages size={18} strokeWidth={1.8} aria-hidden="true" />
-    </button>
-  );
-}
-
-export function AccountMenu() {
-  const path = usePathname();
-  const [open, setOpen] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const accountTrigger = useRef<HTMLButtonElement>(null);
-  const { signOut, error, busy } = useSignOut();
-  return (
-    <>
-      <DropdownMenu open={open} onOpenChange={setOpen}>
-        <DropdownMenuTrigger asChild>
-          <button
-            ref={accountTrigger}
-            className="header-icon-button account-trigger"
-            type="button"
-            aria-label="个人账号"
-            title="个人账号"
-          >
-            <UserRound size={20} strokeWidth={1.8} aria-hidden="true" />
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent key={path} aria-label="个人账号菜单" align="end">
-          <DropdownMenuLabel>个人账号</DropdownMenuLabel>
-          <DropdownMenuItem asChild>
-            <Link href="/import">Excel 导入</Link>
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onSelect={(event) => {
-              event.preventDefault();
-              setOpen(false);
-              setSettingsOpen(true);
-            }}
-          >
-            <Settings2 size={16} aria-hidden="true" />
-            设置与导出
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            disabled={busy}
-            onSelect={(event) => {
-              event.preventDefault();
-              void signOut();
-            }}
-          >
-            <SignOut />
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      {error && (
-        <span className="sr-only" role="alert">
-          {error}
-        </span>
-      )}
-      <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
-        <DialogContent
-          aria-describedby={undefined}
-          onCloseAutoFocus={(event) => {
-            event.preventDefault();
-            accountTrigger.current?.focus();
-          }}
-        >
-          <DialogHeader>
-            <DialogTitle>设置与导出</DialogTitle>
-          </DialogHeader>
-          <Settings embedded />
-        </DialogContent>
-      </Dialog>
-    </>
   );
 }
 
 export function AppMain({ children }: { children: React.ReactNode }) {
   const path = usePathname();
-  const area =
-    links.find(([href]) => href === path)?.[2] ??
-    (path.startsWith("/session") ? "configuration" : "neutral");
+  const area = links.find(([href]) => href === path)?.[2] ?? "neutral";
   return (
     <main
       className={appStyles.main}

@@ -3,6 +3,12 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   createNote,
+  assignWorkbenchNote,
+  unassignWorkbenchNote,
+  warehouseSections,
+  calendarNoteColors,
+  insertWarehouseNote,
+  warehouseInsertBefore,
   closeWorkbenchNote,
   copyWarehouseNote,
   deleteWorkbenchNote,
@@ -12,6 +18,59 @@ import {
   readWorkbench,
   persistedWorkbench,
 } from "../src/lib/training-workbench";
+test("日期安排保存便签，仓库按当天分层，拖回备选只取消当天", () => {
+  const a = { ...createNote(0), id: "a", color: "red" as const };
+  const b = {
+    ...createNote(1),
+    id: "b",
+    inWarehouse: true,
+    savedToWarehouse: true,
+  };
+  const initial = { notes: [a, b], assignments: { "2026-10-20": ["a"] } };
+  const assigned = assignWorkbenchNote(initial, "a", "2026-10-19", "b");
+  const saved = readWorkbench(JSON.stringify(persistedWorkbench(assigned)));
+  assert.deepEqual(
+    warehouseSections(saved, "2026-10-19").day.map((n) => n.id),
+    ["a"],
+  );
+  assert.deepEqual(
+    warehouseSections(saved, "2026-10-19").backup.map((n) => n.id),
+    ["b"],
+  );
+  assert.deepEqual(
+    assignWorkbenchNote(saved, "a", "2026-10-19").assignments["2026-10-19"],
+    ["a"],
+  );
+  const backup = unassignWorkbenchNote(saved, "a", "2026-10-19");
+  assert.deepEqual(backup.assignments["2026-10-19"], []);
+  assert.deepEqual(backup.assignments["2026-10-20"], ["a"]);
+  assert.equal(backup.notes.find((n) => n.id === "a")?.color, "red");
+  const editing = {
+    ...saved,
+    notes: saved.notes.map((n) => ({ ...n, inWarehouse: false })),
+  };
+  assert.equal(warehouseSections(editing, "2026-10-19").day.length, 0);
+});
+test("日历颜色跟随便签颜色且合并同色，删除后清除对应色底", () => {
+  const notes = ["red", "green", "red"].map((color, index) => ({
+    ...createNote(index),
+    id: String(index),
+    color: color as "red" | "green",
+  }));
+  const state = {
+    notes,
+    assignments: { "2026-10-19": ["0", "1", "2", "missing"] },
+  };
+  assert.deepEqual(calendarNoteColors(state, "2026-10-19"), [
+    "#e76b73",
+    "#58b68b",
+  ]);
+  assert.deepEqual(
+    calendarNoteColors(deleteWorkbenchNote(state, "1"), "2026-10-19"),
+    ["#e76b73"],
+  );
+  assert.deepEqual(calendarNoteColors(state, "2026-10-20"), []);
+});
 test("仓库复制插入原项后并生成独立便签和动作ID，不复制日期安排", () => {
   const source = {
     ...createNote(0),
@@ -205,5 +264,80 @@ test("旧持久便签保留；新草稿只有入库才保存，取回后继续�
   assert.equal(
     persistedWorkbench({ notes: [draft], assignments: {} }).notes.length,
     1,
+  );
+});
+
+test("便签四种颜色可持久化与复制，旧便签无需颜色字段", () => {
+  for (const color of ["red", "green", "yellow", "blue"] as const) {
+    const note = {
+      ...createNote(0),
+      color,
+      inWarehouse: true,
+      savedToWarehouse: true,
+    };
+    const state = { notes: [note], assignments: {} };
+    const saved = readWorkbench(JSON.stringify(persistedWorkbench(state)));
+    assert.equal(saved.notes[0].color, color);
+    assert.equal(copyWarehouseNote(saved, note.id).notes[1].color, color);
+  }
+  const old = { ...createNote(0), savedToWarehouse: true };
+  assert.equal(
+    readWorkbench(JSON.stringify({ notes: [old], assignments: {} })).notes[0]
+      .color,
+    undefined,
+  );
+});
+
+test("仓库按鼠标所在行的上半部或下半部决定插入位置", () => {
+  const rows = [
+    { id: "a", top: 10, height: 40 },
+    { id: "b", top: 58, height: 40 },
+    { id: "c", top: 106, height: 40 },
+  ];
+  assert.equal(warehouseInsertBefore(rows, 15), "a");
+  assert.equal(warehouseInsertBefore(rows, 40), "b");
+  assert.equal(warehouseInsertBefore(rows, 90), "c");
+  assert.equal(warehouseInsertBefore(rows, 150), null);
+  assert.equal(warehouseInsertBefore([], 0), null);
+});
+test("画布便签可插入仓库任意位置，仓库已有便签可重新排序且保留颜色、动作与日期引用", () => {
+  const a = {
+    ...createNote(0),
+    id: "a",
+    inWarehouse: true,
+    savedToWarehouse: true,
+    color: "red" as const,
+  };
+  const b = { ...createNote(1), id: "b", inWarehouse: true };
+  const c = { ...createNote(2), id: "c", inWarehouse: true };
+  const d = { ...createNote(3), id: "d", color: "green" as const };
+  const state = { notes: [a, b, c, d], assignments: { "2026-10-19": ["a"] } };
+  const order = (value: typeof state) =>
+    value.notes.filter((n) => n.inWarehouse).map((n) => n.id);
+  const middle = insertWarehouseNote(state, "d", "b");
+  assert.deepEqual(order(middle as typeof state), ["a", "d", "b", "c"]);
+  assert.deepEqual(
+    order(insertWarehouseNote(state, "d", "a") as typeof state),
+    ["d", "a", "b", "c"],
+  );
+  assert.deepEqual(
+    order(insertWarehouseNote(state, "d", null) as typeof state),
+    ["a", "b", "c", "d"],
+  );
+  const reordered = insertWarehouseNote(middle, "a", "c");
+  assert.deepEqual(order(reordered as typeof state), ["d", "b", "a", "c"]);
+  assert.equal(reordered.notes.find((n) => n.id === "a")?.color, "red");
+  assert.equal(
+    reordered.notes.find((n) => n.id === "d")?.savedToWarehouse,
+    true,
+  );
+  assert.deepEqual(reordered.assignments, state.assignments);
+  assert.deepEqual(
+    readWorkbench(JSON.stringify(persistedWorkbench(reordered))).notes.map(
+      (n) => n.id,
+    ),
+    reordered.notes
+      .filter((n) => !n.temporary || n.savedToWarehouse)
+      .map((n) => n.id),
   );
 });

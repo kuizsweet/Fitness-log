@@ -49,6 +49,15 @@ export function calendarMonth(date: string) {
     to: `${date.slice(0, 7)}-${days}`,
   };
 }
+/** Keep weekday columns stable; overflow dates wrap into unused first-row cells. */
+export function fiveRowCalendarDays(date: string): (number | null)[] {
+  const { offset, days } = calendarMonth(date);
+  const cells: (number | null)[] = Array(35).fill(null);
+  for (let day = 1; day <= days; day++) {
+    cells[(offset + day - 1) % 35] = day;
+  }
+  return cells;
+}
 export function changeCalendarMonth(date: string, year: number, month: number) {
   const day = Math.min(
     Number(date.slice(8)),

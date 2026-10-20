@@ -1,6 +1,7 @@
 "use client";
 import {
   calendarMonth,
+  fiveRowCalendarDays,
   changeCalendarMonth,
   calendarDayState,
   type CalendarDayState,
@@ -160,9 +161,8 @@ export function TrainingMonthCalendar({
             {day}
           </span>
         ))}
-        {Array.from({ length: 42 }, (_, i) => {
-          const number = i - info.offset + 1;
-          if (number < 1 || number > info.days)
+        {fiveRowCalendarDays(date).map((number, i) => {
+          if (number === null)
             return (
               <span
                 className={styles.calendarBlank}

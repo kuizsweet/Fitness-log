@@ -24,9 +24,9 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid #303030;
+  border: 1px solid var(--line, #303030);
   border-radius: 12px;
-  background: #171717;
+  background: var(--surface, #171717);
 }
 .list {
   flex: 1;
@@ -42,7 +42,7 @@
   min-height: 0;
   min-width: 0;
   padding: 0 20px;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid var(--line, #2a2a2a);
 }
 .row:last-child {
   border-bottom: 0;
@@ -91,8 +91,8 @@
   corner-shape: round;
   flex: none;
   object-fit: cover;
-  background: #292929;
-  color: #c8c8d0;
+  background: var(--field, #292929);
+  color: var(--muted, #c8c8d0);
   font-size: 13px;
   font-weight: 500;
 }
@@ -102,7 +102,7 @@
 }
 .name {
   margin: 0;
-  color: #f4f4f5;
+  color: var(--ink, #f4f4f5);
   font-size: 14px;
   line-height: 20px;
   font-weight: 550;
@@ -113,7 +113,7 @@
 .byline {
   margin: 0;
   height: clamp(8px, 2.3cqh, 18px);
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 12px;
   line-height: 18px;
   overflow: hidden;
@@ -129,7 +129,7 @@
 .value {
   margin: 0;
   padding-left: 16px;
-  color: #e4e4e7;
+  color: var(--ink, #e4e4e7);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.3;
@@ -148,7 +148,7 @@
   align-items: center;
   justify-content: center;
   min-height: 58px;
-  border-top: 1px solid #303030;
+  border-top: 1px solid var(--line, #303030);
   padding: 8px 60px;
 }
 .pagination {
@@ -159,7 +159,7 @@
   margin: 0;
 }
 .pagination span {
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 13px;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -173,7 +173,7 @@
   height: 36px;
   min-height: 36px;
   padding: 6px;
-  border: 1px solid #303030;
+  border: 1px solid var(--line, #303030);
   border-radius: 8px;
   background: transparent;
 }
@@ -192,7 +192,7 @@
   max-width: 60ch;
   padding: 24px;
   text-align: center;
-  color: #a1a1aa;
+  color: var(--muted, #a1a1aa);
   font-size: 14px;
 }
 .empty > p {
@@ -213,4 +213,49 @@
   color: #f3a3a3;
   font-size: 12px;
   overflow-wrap: anywhere;
+}
+
+:global(html[data-theme="light"]) .ranking {
+  background: #ffffff;
+  color: var(--ink, #172027);
+  box-shadow:
+    0 2px 5px rgb(23 32 39 / 3%),
+    0 8px 28px rgb(23 32 39 / 7%);
+}
+:global(html[data-theme="light"]) .row[data-current] {
+  background: color-mix(in srgb, var(--accent, #176b4c) 7%, #ffffff);
+  outline-color: color-mix(in srgb, var(--accent, #176b4c) 35%, transparent);
+}
+:global(html[data-theme="light"]) .self {
+  color: var(--accent, #176b4c);
+}
+:global(html[data-theme="light"]) .crown[data-rank="1"] {
+  color: #947018;
+}
+:global(html[data-theme="light"]) .crown[data-rank="2"] {
+  color: #697689;
+}
+:global(html[data-theme="light"]) .crown[data-rank="3"] {
+  color: #9b602d;
+}
+
+:global(html[data-theme="light"]) .ranking,
+:global(html[data-theme="light"]) .row,
+:global(html[data-theme="light"]) .footer,
+:global(html[data-theme="light"]) .pagination > button,
+:global(html[data-theme="light"]) .refresh {
+  border-color: #e3e7eb;
+}
+:global(html[data-theme="light"]) :is(.name, .value, .position) {
+  color: #172027;
+}
+:global(html[data-theme="light"]) :is(.byline, .empty, .pagination span) {
+  color: #52606a;
+}
+:global(html[data-theme="light"]) .avatar {
+  background: #f4f5f6;
+  color: #52606a;
+}
+:global(html[data-theme="light"]) :is(.error, .refreshError) {
+  color: #b42318;
 }

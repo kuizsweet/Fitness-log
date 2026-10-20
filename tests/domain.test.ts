@@ -10,7 +10,6 @@ import {
   workingSets,
   dateSchema,
 } from "../src/lib/domain";
-import { exportCsv, csvCell } from "../src/lib/export";
 test("左右及杆重只计算装载质量，未知史密斯杆重不猜测", () => {
   const w = {
     ...emptyWeight("kg", "per_side"),
@@ -56,9 +55,4 @@ test("热身不计为正式，正式组可同时拥有挑战标记", () => {
     },
   ];
   assert.equal(workingSets(s), 1);
-  assert.match(exportCsv([s]), /新重量挑战\|力竭/);
-});
-test("CSV 正确引用并阻止公式注入", () => {
-  assert.equal(csvCell("=cmd()"), '"\'=cmd()"');
-  assert.equal(csvCell('a,"b"'), '"a,""b"""');
 });

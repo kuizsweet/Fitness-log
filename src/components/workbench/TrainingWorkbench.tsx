@@ -1,10 +1,12 @@
 "use client";
 import {
   useEffect,
+  useLayoutEffect,
   useRef,
   useId,
   useState,
   type ReactNode,
+  type CSSProperties,
   type PointerEvent,
   type RefObject,
 } from "react";
@@ -22,6 +24,7 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
+  type DragMoveEvent,
   type Modifier,
 } from "@dnd-kit/core";
 import { createPortal } from "react-dom";
@@ -48,7 +51,11 @@ import {
   PopoverTrigger,
   PopoverTitle,
 } from "../ui/popover";
-import { calendarMonth, changeCalendarMonth } from "@/lib/calendar";
+import {
+  calendarMonth,
+  changeCalendarMonth,
+  fiveRowCalendarDays,
+} from "@/lib/calendar";
 import { today, type Exercise, type Profile } from "@/lib/domain";
 import { api } from "@/lib/client";
 import {
@@ -67,8 +74,12 @@ import {
 import {
   createNote,
   copyWarehouseNote,
+  assignWorkbenchNote,
+  unassignWorkbenchNote,
+  warehouseSections,
+  calendarNoteColors,
+  warehouseInsertBefore,
   deleteWorkbenchNote,
-  isNamedNote,
   persistedWorkbench,
   emptyWorkbench,
   muscleFamily,
@@ -125,9 +136,13 @@ function Workbench({
   const [equipment, setEquipment] = useState<string[]>([]);
   const [family, setFamily] = useState("全部");
   const [detail, setDetail] = useState("全部");
+  const [warehouseBefore, setWarehouseBefore] = useState<
+    string | null | undefined
+  >();
   const [dragging, setDragging] = useState<Move | null>(null);
   const [previewSize, setPreviewSize] = useState({ width: 194, minHeight: 50 });
   const canvas = useRef<HTMLDivElement>(null);
+  const dragPointer = useRef<{ x: number; y: number } | null>(null);
   const libraryRef = useRef<HTMLElement>(null);
   const overlayHost = useRef<HTMLDivElement>(null);
   const searchRow = useRef<HTMLDivElement>(null);
@@ -151,7 +166,7 @@ function Workbench({
   const [customName, setCustomName] = useState("");
   const [customMuscle, setCustomMuscle] = useState("其他");
   const [customBusy, setCustomBusy] = useState(false);
-  const warehouse = state.notes.filter((note) => note.inWarehouse);
+  const warehouse = warehouseSections(state, date);
   const key = `kuizfit:workbench:v1:${user}`;
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -254,24 +269,60 @@ function Workbench({
     });
     setSelected(note.id);
   }
-  function assign(id: string, target: string) {
-    const note = state.notes.find((note) => note.id === id);
-    if (note?.temporary && !isNamedNote(note.title)) {
-      setError("请先为便签命名。");
-      return;
-    }
-    update({
-      ...state,
-      assignments: {
-        ...state.assignments,
-        [target]: [...new Set([...(state.assignments[target] ?? []), id])],
-      },
-    });
+  function assign(id: string, target: string, before: string | null = null) {
+    update(assignWorkbenchNote(state, id, target, before));
+    setError("");
     setDate(target);
+  }
+  function warehouseTarget(event: DragMoveEvent): string | null | undefined {
+    const move = event.active.data.current as Move | undefined;
+    if (!move || move.kind === "exercise") return undefined;
+    const host = canvas.current
+      ?.closest("main")
+      ?.querySelector<HTMLElement>('[aria-label="便签仓库"]');
+    if (!host) return undefined;
+    const pointer = event.activatorEvent as globalThis.PointerEvent;
+    const rect = event.active.rect.current.translated;
+    const x =
+      dragPointer.current?.x ??
+      (typeof pointer.clientX === "number"
+        ? pointer.clientX + event.delta.x
+        : (rect?.left ?? 0) + (rect?.width ?? 0) / 2);
+    const y =
+      dragPointer.current?.y ??
+      (typeof pointer.clientY === "number"
+        ? pointer.clientY + event.delta.y
+        : (rect?.top ?? 0) + (rect?.height ?? 0) / 2);
+    const bounds = host.getBoundingClientRect();
+    if (
+      x < bounds.left ||
+      x > bounds.right ||
+      y < bounds.top ||
+      y > bounds.bottom
+    )
+      return undefined;
+    const group =
+      [...host.querySelectorAll<HTMLElement>("[data-warehouse-group]")].find(
+        (node) => {
+          const box = node.getBoundingClientRect();
+          return y >= box.top && y <= box.bottom;
+        },
+      ) ??
+      host.querySelector<HTMLElement>('[data-warehouse-group="backup"]') ??
+      host;
+    const rows = [...group.querySelectorAll<HTMLElement>("[data-warehouse-id]")]
+      .filter((row) => row.dataset.warehouseId !== move.id)
+      .map((row) => ({
+        id: row.dataset.warehouseId!,
+        top: row.getBoundingClientRect().top,
+        height: row.getBoundingClientRect().height,
+      }));
+    return warehouseInsertBefore(rows, y);
   }
   function endDrag(event: DragEndEvent) {
     const move = event.active.data.current as Move | undefined;
     setDragging(null);
+    setWarehouseBefore(undefined);
     if (!move || !event.over) return;
     if (event.over.id === "note-trash" && move.kind !== "exercise") {
       update(deleteWorkbenchNote(state, move.id));
@@ -294,8 +345,10 @@ function Workbench({
         });
         addNote(note);
       }
-    } else if (event.over.id === "warehouse") {
-      changeNote(move.id, { inWarehouse: true, savedToWarehouse: true });
+    } else if (event.over.id === "warehouse" || over?.warehouseGroup) {
+      const before = warehouseTarget(event) ?? null;
+      if (over?.warehouseGroup === "day") assign(move.id, date, before);
+      else update(unassignWorkbenchNote(state, move.id, date, before));
       if (selected === move.id)
         setSelected(
           state.notes.find((note) => note.id !== move.id && !note.inWarehouse)
@@ -403,6 +456,7 @@ function Workbench({
   );
   const chosen = state.notes.find((n) => n.id === selected);
   const month = calendarMonth(monthDate);
+  const calendarDays = fiveRowCalendarDays(monthDate);
 
   return (
     <DndContext
@@ -410,6 +464,7 @@ function Workbench({
       sensors={sensors}
       modifiers={[followNotePointer]}
       collisionDetection={(args) => {
+        dragPointer.current = args.pointerCoordinates;
         const trash = rectIntersection({
           ...args,
           droppableContainers: args.droppableContainers.filter(
@@ -426,7 +481,14 @@ function Workbench({
           ),
         };
         const hits = pointerWithin(targets);
-        return hits.length ? hits : rectIntersection(targets);
+        const groups = hits.filter((hit) =>
+          String(hit.id).startsWith("warehouse-group:"),
+        );
+        return groups.length
+          ? groups
+          : hits.length
+            ? hits
+            : rectIntersection(targets);
       }}
       onDragStart={(e) => {
         const move = e.active.data.current as Move;
@@ -441,12 +503,16 @@ function Workbench({
         setDragging(move);
         if (move.kind === "note") setEditing((value) => value + 1);
       }}
-      onDragCancel={() => setDragging(null)}
+      onDragCancel={() => {
+        setDragging(null);
+        setWarehouseBefore(undefined);
+      }}
+      onDragMove={(event) => setWarehouseBefore(warehouseTarget(event))}
       onDragEnd={endDrag}
     >
       <div className={styles.workbench}>
         <div ref={overlayHost} className={styles.overlayHost} />
-        {error && (
+        {error && error !== "请先为便签命名。" && (
           <p className={styles.error} role="alert">
             {error}
           </p>
@@ -537,15 +603,15 @@ function Workbench({
                 {[..."一二三四五六日"].map((day) => (
                   <small key={day}>{day}</small>
                 ))}
-                {Array.from({ length: 42 }, (_, i) => {
-                  const day = i - month.offset + 1;
+                {calendarDays.map((day, i) => {
                   const target = `${month.from.slice(0, 8)}${String(day).padStart(2, "0")}`;
-                  return day > 0 && day <= month.days ? (
+                  return day !== null ? (
                     <CalendarDay
                       key={i}
                       date={target}
                       active={date === target}
                       count={state.assignments[target]?.length ?? 0}
+                      colors={calendarNoteColors(state, target)}
                       onClick={() => setDate(target)}
                     />
                   ) : (
@@ -553,65 +619,54 @@ function Workbench({
                   );
                 })}
               </div>
-
-              <div className={styles.schedule}>
-                {(state.assignments[date] ?? []).map((id) => (
-                  <div key={id}>
-                    <button onClick={() => focusNote(id)}>
-                      {state.notes.find((n) => n.id === id)?.title}
-                    </button>
-                    <button
-                      aria-label="移除日期安排"
-                      onClick={() =>
-                        update({
-                          ...state,
-                          assignments: {
-                            ...state.assignments,
-                            [date]: state.assignments[date].filter(
-                              (v) => v !== id,
-                            ),
-                          },
-                        })
-                      }
-                    >
-                      <X />
-                    </button>
-                  </div>
-                ))}
-              </div>
             </section>
             <Warehouse>
-              <div className={styles.sectionHeading}>
-                <h2>便签仓库</h2>
-                <Button
-                  className={styles.newNoteButton}
-                  onClick={() => addNote()}
-                  disabled={!ready || state.notes.length >= 30}
-                >
-                  <Plus />
-                  新建便签
-                </Button>
-              </div>
-              <div className={styles.warehouseList}>
-                {warehouse.map((note) => (
-                  <WarehouseNote
-                    key={note.id}
-                    note={fitNoteToCanvas(
-                      note,
-                      canvasSize.width,
-                      canvasSize.height,
+              {(
+                [
+                  ["day", "当天训练计划", warehouse.day],
+                  ["backup", "备选计划", warehouse.backup],
+                ] as const
+              ).map(([group, title, notes]) => (
+                <WarehouseGroup key={group} group={group} title={title}>
+                  <div
+                    className={styles.warehouseList}
+                    data-insert-end={
+                      warehouseBefore === null && dragging ? true : undefined
+                    }
+                  >
+                    {notes.map((note) => (
+                      <WarehouseNote
+                        key={note.id}
+                        note={fitNoteToCanvas(
+                          note,
+                          canvasSize.width,
+                          canvasSize.height,
+                        )}
+                        selected={selected === note.id}
+                        insertBefore={warehouseBefore === note.id}
+                        onSelect={() => focusNote(note.id)}
+                        canCopy={state.notes.length < 30}
+                        onCopy={() => update(copyWarehouseNote(state, note.id))}
+                      />
+                    ))}
+                    {!notes.length && (
+                      <p className={styles.warehouseEmpty}>拖入便签</p>
                     )}
-                    selected={selected === note.id}
-                    onSelect={() => focusNote(note.id)}
-                    canCopy={state.notes.length < 30}
-                    onCopy={() => update(copyWarehouseNote(state, note.id))}
-                  />
-                ))}
-              </div>
+                  </div>
+                </WarehouseGroup>
+              ))}
             </Warehouse>
           </aside>
           <section className={styles.center} aria-label="训练便签编辑区">
             <div className={styles.canvasSurface}>
+              <Button
+                className={styles.canvasNewNote}
+                onClick={() => addNote()}
+                disabled={!ready || state.notes.length >= 30}
+              >
+                <Plus />
+                新建便签
+              </Button>
               <Canvas canvasRef={canvas}>
                 {!state.notes.some((note) => !note.inWarehouse) && (
                   <div className={styles.canvasEmpty}>
@@ -832,6 +887,11 @@ function Workbench({
           <div
             className={styles.dragPreview}
             data-kind={dragging.kind}
+            data-note-color={
+              dragging.kind !== "exercise"
+                ? state.notes.find((n) => n.id === dragging.id)?.color
+                : undefined
+            }
             style={dragging.kind !== "exercise" ? previewSize : undefined}
           >
             {dragging.kind === "exercise" && <GripVertical aria-hidden />}
@@ -886,6 +946,32 @@ function Warehouse({ children }: { children: ReactNode }) {
     </section>
   );
 }
+function WarehouseGroup({
+  group,
+  title,
+  children,
+}: {
+  group: "day" | "backup";
+  title: string;
+  children: ReactNode;
+}) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: `warehouse-group:${group}`,
+    data: { warehouseGroup: group },
+  });
+  return (
+    <section
+      ref={setNodeRef}
+      className={styles.warehouseGroup}
+      data-warehouse-group={group}
+      data-over={isOver || undefined}
+      aria-label={title}
+    >
+      <h3>{title}</h3>
+      {children}
+    </section>
+  );
+}
 function Canvas({
   canvasRef,
   children,
@@ -911,11 +997,13 @@ function CalendarDay({
   date,
   active,
   count,
+  colors,
   onClick,
 }: {
   date: string;
   active: boolean;
   count: number;
+  colors: string[];
   onClick: () => void;
 }) {
   const { setNodeRef, isOver } = useDroppable({
@@ -927,23 +1015,32 @@ function CalendarDay({
       ref={setNodeRef}
       aria-label={`${date}${count ? `，${count} 项计划` : ""}`}
       aria-pressed={active}
+      data-has-plans={count > 0 || undefined}
+      style={
+        colors.length
+          ? ({
+              "--plan-background": `linear-gradient(135deg, ${colors.flatMap((color, i) => [`${color}44 ${(i * 100) / colors.length}%`, `${color}44 ${((i + 1) * 100) / colors.length}%`]).join(", ")})`,
+            } as CSSProperties)
+          : undefined
+      }
       data-over={isOver || undefined}
       onClick={onClick}
     >
       {Number(date.slice(-2))}
-      <i data-filled={Boolean(count)} />
     </button>
   );
 }
 function WarehouseNote({
   note,
   selected,
+  insertBefore,
   onSelect,
   onCopy,
   canCopy,
 }: {
   note: PlanNote;
   selected: boolean;
+  insertBefore: boolean;
   onSelect: () => void;
   onCopy: () => void;
   canCopy: boolean;
@@ -954,7 +1051,10 @@ function WarehouseNote({
   });
   return (
     <div
+      data-warehouse-id={note.id}
+      data-insert-before={insertBefore || undefined}
       data-warehouse-note
+      data-note-color={note.color}
       className={styles.storedNote}
       data-selected={selected}
       style={{ opacity: isDragging ? 0.4 : 1 }}
@@ -1116,6 +1216,7 @@ function Note({
         drag.setNodeRef(node);
       }}
       className={styles.note}
+      data-note-color={note.color}
       data-selected={selected}
       data-over={isOver || undefined}
       onPointerDown={onSelect}
@@ -1150,6 +1251,14 @@ function Note({
             drag.listeners?.onKeyDown?.(event);
         }}
       >
+        <button
+          className={styles.notePin}
+          aria-label="置顶便签"
+          aria-pressed={note.pinned}
+          onClick={() => onChange({ pinned: !note.pinned })}
+        >
+          <Pin />
+        </button>
         <input
           aria-label="便签名称"
           value={note.title === "未命名计划" ? "" : note.title}
@@ -1157,13 +1266,10 @@ function Note({
           maxLength={60}
           onChange={(e) => onChange({ title: e.target.value })}
         />
-        <button
-          aria-label="置顶便签"
-          aria-pressed={note.pinned}
-          onClick={() => onChange({ pinned: !note.pinned })}
-        >
-          <Pin />
-        </button>
+        <NoteColorPicker
+          color={note.color}
+          onChange={(color) => onChange({ color })}
+        />
       </header>
       <div
         className={styles.noteBody}
@@ -1340,5 +1446,136 @@ function Note({
         ),
       )}
     </article>
+  );
+}
+
+function NoteColorPicker({
+  color,
+  onChange,
+}: {
+  color: PlanNote["color"];
+  onChange: (color: NonNullable<PlanNote["color"]>) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const id = useId();
+  const menu = useRef<HTMLDivElement>(null);
+  const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelLeave = () => {
+    if (leaveTimer.current) clearTimeout(leaveTimer.current);
+  };
+  useEffect(
+    () => () => {
+      if (leaveTimer.current) clearTimeout(leaveTimer.current);
+    },
+    [],
+  );
+  useLayoutEffect(() => {
+    const panel = menu.current;
+    if (!panel) return;
+    if (open && trigger.current) {
+      const bounds = trigger.current.getBoundingClientRect();
+      panel.style.left = `${Math.max(8, Math.min(bounds.left - 72, window.innerWidth - 204))}px`;
+      panel.style.top = `${Math.max(8, bounds.top - 88)}px`;
+      if (!panel.matches(":popover-open")) panel.showPopover();
+    } else {
+      const closing = window.setTimeout(() => {
+        if (panel.matches(":popover-open")) panel.hidePopover();
+      }, 260);
+      return () => window.clearTimeout(closing);
+    }
+  }, [open]);
+  useEffect(() => {
+    if (!open) return;
+    const outside = (event: globalThis.PointerEvent) => {
+      if (!trigger.current?.parentElement?.contains(event.target as Node))
+        setOpen(false);
+    };
+    const close = () => setOpen(false);
+    document.addEventListener("pointerdown", outside);
+    window.addEventListener("resize", close);
+    window.addEventListener("scroll", close, true);
+    return () => {
+      document.removeEventListener("pointerdown", outside);
+      window.removeEventListener("resize", close);
+      window.removeEventListener("scroll", close, true);
+    };
+  }, [open]);
+  return (
+    <div
+      className={styles.noteColorCorner}
+      data-open={open || undefined}
+      onPointerEnter={(event) => {
+        cancelLeave();
+        if (event.pointerType === "mouse") setOpen(true);
+      }}
+      onPointerLeave={(event) => {
+        if (
+          event.pointerType === "mouse" &&
+          !event.currentTarget.contains(document.activeElement)
+        )
+          leaveTimer.current = setTimeout(() => setOpen(false), 150);
+      }}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+          setOpen(false);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          event.stopPropagation();
+          trigger.current?.focus();
+          setOpen(false);
+        }
+      }}
+    >
+      <div
+        ref={menu}
+        id={id}
+        popover="manual"
+        className={styles.noteColorMenu}
+        role="group"
+        aria-label="便签颜色"
+        aria-hidden={!open}
+        inert={!open}
+      >
+        {(
+          [
+            ["red", "红色", -24, 36],
+            ["green", "绿色", 8, 36],
+            ["yellow", "黄色", 36, 8],
+            ["blue", "蓝色", 36, -24],
+          ] as const
+        ).map(([value, label, x, y], index) => (
+          <button
+            key={value}
+            data-note-color={value}
+            aria-label={label}
+            aria-pressed={color === value}
+            style={
+              {
+                "--color-x": `${x}px`,
+                "--color-y": `${y}px`,
+                "--color-index": index,
+              } as CSSProperties
+            }
+            onClick={() => {
+              onChange(value);
+              trigger.current?.focus();
+              setOpen(false);
+            }}
+          />
+        ))}
+      </div>
+      <button
+        ref={trigger}
+        className={styles.noteColorTrigger}
+        aria-label="选择便签颜色"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen(true)}
+      >
+        <span className={styles.colorWheel} aria-hidden="true" />
+      </button>
+    </div>
   );
 }

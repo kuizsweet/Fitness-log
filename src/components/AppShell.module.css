@@ -57,7 +57,7 @@
   grid-template-columns: minmax(120px, 1fr) auto minmax(120px, 1fr);
   gap: 12px;
   background: var(--header-bg);
-  border-bottom: 0;
+  border-bottom: 1px solid var(--line);
 }
 .brand {
   display: inline-flex;
@@ -129,6 +129,53 @@
 }
 .shell :global(.header-actions .account-trigger) {
   color: var(--ink);
+}
+.shell
+  :global(
+    .header-actions
+      :is(
+        .header-icon-button.theme-morph-button,
+        .header-icon-button.language-morph-button,
+        .header-icon-button.account-trigger
+      )
+  ) {
+  width: 38px;
+  height: 38px;
+  border-radius: 15px;
+  corner-shape: round;
+  isolation: isolate;
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  backdrop-filter: blur(20px) saturate(1.3);
+  box-shadow:
+    inset 0 1px 0 #ffffffb3,
+    inset 0 -1px 0 #ffffff33,
+    0 8px 32px #1525331a;
+  color: var(--ink);
+}
+.shell :global(.header-actions .header-icon-button) {
+  transition:
+    background 180ms ease,
+    box-shadow 180ms ease,
+    scale 180ms ease;
+}
+.shell :global(.header-actions .header-icon-button:hover) {
+  box-shadow:
+    inset 0 1px 0 #ffffffdf,
+    inset 0 -1px 0 #ffffff44,
+    0 8px 32px #15253324;
+}
+.shell :global(.header-actions .header-icon-button:not(.language-morph-button):active) {
+  scale: 0.96;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shell :global(.header-actions .header-icon-button) {
+    transition: none;
+  }
+  .shell :global(.header-actions .header-icon-button:not(.language-morph-button):active) {
+    scale: 1;
+  }
 }
 .main {
   flex: 1;
@@ -307,15 +354,38 @@
   background: #ffffff;
 }
 :global(html[data-theme="light"]) .shell :global(.app-header .app-nav) {
-  background: #f4f5f6;
+  background: #ffffff;
 }
 :global(html[data-theme="light"])
   .shell
   :global(.app-header .navigation-thumb) {
-  background: #ffffff;
+  background: #f1f2f3;
+  box-shadow: none;
 }
 
 .shell :global(.app-header .app-nav),
 .shell :global(.app-header .navigation-thumb) {
   corner-shape: round;
+}
+@media (max-width: 1199px), (pointer: coarse) and (max-width: 1366px) {
+  .shell :global(.app-header .app-nav) {
+    display: none;
+  }
+  .shell :global(.app-header) {
+    grid-template-columns: 1fr auto;
+  }
+  .shell :global(.header-actions) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .shell .main[data-area] {
+    padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+  }
+}
+@media (max-width: 600px) {
+  .shell :global(.header-actions) {
+    grid-column: 2;
+    grid-row: 1;
+    gap: 10px;
+  }
 }

@@ -5,13 +5,7 @@ export function DashboardSkeleton() {
     <div className={styles.workspace} aria-label="控制台" aria-busy="true">
       <div className={styles.grid} aria-hidden="true">
         <section className={`${styles.card} ${styles.console}`}>
-          <h2>训练控制台</h2>
           <div className={styles.recordSkeleton} />
-          <div className={styles.summary}>
-            <div className={styles.placeholder} />
-            <div className={styles.placeholder} />
-            <div className={styles.placeholder} />
-          </div>
         </section>
         <section className={`${styles.card} ${styles.plan}`}>
           <h2>训练清单</h2>

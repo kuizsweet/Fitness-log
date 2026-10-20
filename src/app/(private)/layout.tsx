@@ -11,6 +11,7 @@ import {
 import styles from "@/components/AppShell.module.css";
 import { DevPerformance } from "@/components/DevPerformance";
 import { ResourceProvider } from "@/components/ResourceProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const dynamic = "force-dynamic";
@@ -26,18 +27,20 @@ export default async function PrivateLayout({
   if (error || !data?.claims.sub) redirect("/auth");
 
   return (
-    <ThemeProvider>
-      <ResourceProvider user={data.claims.sub} key={data.claims.sub}>
-        <div className={styles.shell}>
-          <DevPerformance />
-          <header className="app-header">
-            <AppBrand />
-            <AppNavigation />
-            <HeaderActions />
-          </header>
-          <AppMain>{children}</AppMain>
-        </div>
-      </ResourceProvider>
-    </ThemeProvider>
+    <LanguageProvider>
+      <ThemeProvider>
+        <ResourceProvider user={data.claims.sub} key={data.claims.sub}>
+          <div className={styles.shell}>
+            <DevPerformance />
+            <header className="app-header">
+              <AppBrand />
+              <AppNavigation />
+              <HeaderActions />
+            </header>
+            <AppMain>{children}</AppMain>
+          </div>
+        </ResourceProvider>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 }
