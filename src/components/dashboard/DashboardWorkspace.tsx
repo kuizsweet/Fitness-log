@@ -11,6 +11,8 @@ import { BodyGoalCard } from "./BodyGoalCard";
 import type { DashboardData } from "./useDashboardData";
 import styles from "./Dashboard.module.css";
 import { BRAND_NAME } from "@/lib/brand";
+import { TrainingLoadCard } from "./TrainingLoadCard";
+import { useDockSegments } from "../useDockSegments";
 
 export function DashboardWorkspace({ data }: { data: DashboardData }) {
   const { date, profile, calendar, setPicked } = data;
@@ -27,6 +29,7 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
           <TrainingMonthCalendar
             date={date}
             timezone={profile.data?.timezone ?? "Asia/Shanghai"}
+            weekStart={profile.data?.week_start ?? 1}
             sessions={calendar.data ?? []}
             loading={!calendar.data}
             error={calendar.error || profile.error}
@@ -49,13 +52,10 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
         >
           后续查看训练分布与计划完成度。
         </EmptyCard>
-        <EmptyCard
-          className={styles.load}
-          title="每周训练负荷"
-          headline="每周负荷尚未接入"
-        >
-          力量有效组数和有氧时长将分别展示。
-        </EmptyCard>
+        <TrainingLoadCard
+          date={date}
+          weekStart={profile.data?.week_start ?? 1}
+        />
       </div>
     </div>
   );
@@ -74,6 +74,7 @@ function TrainingConsole() {
 
 function PlanCard() {
   const [tab, setTab] = useState("items");
+  const dock = useDockSegments(tab, setTab);
   return (
     <section
       className={`${styles.card} ${styles.plan}`}
@@ -83,9 +84,25 @@ function PlanCard() {
         <ItemsChecklist
           active={tab === "items"}
           controls={
-            <TabsList aria-label="训练计划与物品清单">
-              <TabsTrigger value="plan">Plan</TabsTrigger>
-              <TabsTrigger value="items">List</TabsTrigger>
+            <TabsList
+              ref={dock.host}
+              aria-label="训练计划与物品清单"
+              onClickCapture={(event) => {
+                if (event.detail > 0)
+                  (event.target as HTMLElement).closest("button")?.blur();
+              }}
+            >
+              <span
+                ref={dock.indicator}
+                className={styles.segmentLens}
+                aria-hidden="true"
+              />
+              <TabsTrigger value="plan" data-dock-value="plan">
+                Plan
+              </TabsTrigger>
+              <TabsTrigger value="items" data-dock-value="items">
+                List
+              </TabsTrigger>
             </TabsList>
           }
         />

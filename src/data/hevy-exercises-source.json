@@ -1,0 +1,19 @@
+{
+  "source": "https://www.hevyapp.com/exercises/",
+  "retrieved": "2026-10-21",
+  "pages": 13,
+  "count": 119,
+  "coverage": "Public website directory only; not the complete Hevy app catalog",
+  "content": "Names and classification facts only; no images, animations or instruction text",
+  "equipmentOverrides": {
+    "1655": "cable",
+    "1866": "cable",
+    "1990": "cable",
+    "2010": "weight-plate",
+    "2020": null,
+    "4444": "weight-plate",
+    "4639": "suspension-band",
+    "5573": "weight-plate",
+    "7644": "resistance-band"
+  }
+}

@@ -3,6 +3,7 @@ import { context, check, failure, json } from "@/lib/api";
 const profileSchema = z.object({
   display_name: z.string().max(80),
   unit: z.enum(["kg", "lb"]),
+  week_start: z.union([z.literal(0), z.literal(1)]).optional(),
   timezone: z.string().refine((v) => {
     try {
       new Intl.DateTimeFormat("zh-CN", { timeZone: v });
@@ -21,7 +22,13 @@ export async function GET() {
       .eq("user_id", user.id)
       .single();
     check(result.error);
-    return json(result.data);
+    const account = await db.auth.getUser();
+    check(account.error);
+    return json({
+      ...result.data,
+      week_start:
+        account.data.user?.user_metadata.kuizfit_week_start === 0 ? 0 : 1,
+    });
   } catch (e) {
     return failure(e);
   }
@@ -29,7 +36,17 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const { db, user } = await context(request);
-    const p = profileSchema.parse(await request.json());
+    const storedWeekStart =
+      "user_metadata" in user && user.user_metadata.kuizfit_week_start === 0
+        ? 0
+        : 1;
+    const { week_start, ...p } = profileSchema.parse(await request.json());
+    if (week_start !== undefined && week_start !== storedWeekStart) {
+      const preference = await db.auth.updateUser({
+        data: { kuizfit_week_start: week_start },
+      });
+      check(preference.error);
+    }
     const result = await db
       .from("profiles")
       .update(p)
@@ -37,7 +54,7 @@ export async function POST(request: Request) {
       .select()
       .single();
     check(result.error);
-    return json(result.data);
+    return json({ ...result.data, week_start: week_start ?? storedWeekStart });
   } catch (e) {
     return failure(e);
   }

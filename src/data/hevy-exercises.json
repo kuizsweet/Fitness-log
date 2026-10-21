@@ -1,0 +1,1430 @@
+[
+  {
+    "id": "8136",
+    "name": "Bench Press - Close Grip (Barbell)",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/bench-press-close-grip-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "8126",
+    "name": "Arnold Press (Dumbbell)",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/arnold-press-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "8090",
+    "name": "Sumo Deadlift",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/sumo-deadlift/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "8043",
+    "name": "Shrug (Barbell)",
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/shrug-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "8016",
+    "name": "Clean and Jerk",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "olympic",
+    "url": "https://www.hevyapp.com/exercises/clean-and-jerk/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "7969",
+    "name": "Handstand Push Up",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/handstand-push-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "7920",
+    "name": "Front Lever Raise",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/front-lever-raise/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "7861",
+    "name": "Triceps Dip (Weighted)",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/triceps-dip-weighted/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "7856",
+    "name": "One-Arm Push-Up",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/one-arm-push-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "7834",
+    "name": "Sternum Pull up (Gironda)",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/sternum-pull-up-gironda/",
+    "sourcePage": "https://www.hevyapp.com/exercises/"
+  },
+  {
+    "id": "7810",
+    "name": "Behind the Back Bicep Wrist Curl (Barbell)",
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/behind-the-back-bicep-wrist-curl-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7759",
+    "name": "Chest-Supported Incline Row (dumbbell)",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/chest-supported-incline-row-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7726",
+    "name": "One-Arm Tricep Extension (Dumbbell)",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/one-arm-tricep-extension-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7722",
+    "name": "Heel Taps",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/heel-taps/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7644",
+    "name": "Lat Pulldown (band)",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "resistance-band",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/lat-pulldown-band/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7595",
+    "name": "Lateral Leg Raises",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/lateral-leg-raises/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7576",
+    "name": "Sit Ups",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/sit-ups/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7551",
+    "name": "Bench Press (Dumbbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/bench-press-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7544",
+    "name": "Face Pull",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/face-pull/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7515",
+    "name": "Kettlebell Goblet Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "kettlebell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/kettlebell-goblet-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/2/"
+  },
+  {
+    "id": "7460",
+    "name": "Glute Kickback on Floor",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/glute-kickback-on-floor/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7445",
+    "name": "Chest Dip (Weighted)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/chest-dip-weighted/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7398",
+    "name": "Triceps Extension (barbell)",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/triceps-extension-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7332",
+    "name": "Sumo Squat (barbell)",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/sumo-squat-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7326",
+    "name": "Incline Push Ups",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/incline-push-ups/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7292",
+    "name": "Russian Twist (weighted)",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": null,
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/russian-twist-weighted/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7279",
+    "name": "Skullcrusher (barbell)",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/skullcrusher-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7274",
+    "name": "Clean Pull",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "olympic",
+    "url": "https://www.hevyapp.com/exercises/clean-pull/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7251",
+    "name": "Hang Snatch",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "olympic",
+    "url": "https://www.hevyapp.com/exercises/hang-snatch/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7246",
+    "name": "Meadows Row",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/meadows-row/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/3/"
+  },
+  {
+    "id": "7207",
+    "name": "Floor Press (Barbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/floor-press-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7157",
+    "name": "Overhead Squat",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "olympic",
+    "url": "https://www.hevyapp.com/exercises/overhead-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7150",
+    "name": "Concentration Curl",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/concentration-curl/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7142",
+    "name": "Dumbbell Skullcrusher",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/dumbbell-skull-crusher/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7138",
+    "name": "Farmer's Walk",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/farmers-walk/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7126",
+    "name": "Diamond Push Up",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/diamond-push-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7117",
+    "name": "Reverse Lunge",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/reverse-lunge/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "7083",
+    "name": "Pendlay Row",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/pendlay-row/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "5573",
+    "name": "Plate Curls",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "weight-plate",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/plate-curls/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "4916",
+    "name": "Muscle Up",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/muscle-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/4/"
+  },
+  {
+    "id": "4873",
+    "name": "Frog Jumps",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/frog-jumps/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4865",
+    "name": "Pull Up",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/pull-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4862",
+    "name": "Single Leg Glute Bridge",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/single-leg-glute-bridge/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4854",
+    "name": "Split Squat (Dumbbell)",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/dumbbell-split-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4724",
+    "name": "Bench Press - Wide Grip (Barbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/wide-grip-bench-press/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4719",
+    "name": "Lunge (Barbell)",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/barbell-lunges/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4685",
+    "name": "Kipping Pull Up",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/kipping-pull-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4646",
+    "name": "Bent over fly",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/bent-over-fly/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4639",
+    "name": "Ring Dips",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "suspension-band",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/ring-dips/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4629",
+    "name": "Scapular Pull-ups",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/scapular-pull-ups/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/5/"
+  },
+  {
+    "id": "4605",
+    "name": "Reverse Curl",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/reverse-curl/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4577",
+    "name": "Stiff / straight leg deadlift",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/stiff-straight-leg-deadlift/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4570",
+    "name": "Dead Hang",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/dead-hang/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4560",
+    "name": "Hollow Rock Hold",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/hollow-rock-hold/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4552",
+    "name": "Russian Twist (Bodyweight)",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/russian-twists/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4493",
+    "name": "Single Leg Hip Thrust",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/single-leg-hip-thrust/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4489",
+    "name": "Knee Raise Parallel Bars",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/vertical-knee-raise/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4485",
+    "name": "Flutter Kicks",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/flutter-kicks/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4479",
+    "name": "Lying Knee Raise",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/lying-knee-raises/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4444",
+    "name": "Plate Press",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "weight-plate",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/plate-press/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/6/"
+  },
+  {
+    "id": "4438",
+    "name": "Around The World",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/around-the-worlds/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4388",
+    "name": "Seated Calf Raises",
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/seated-calf-raises/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4377",
+    "name": "Sissy Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/sissy-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4367",
+    "name": "Leg Raise Parallel Bars",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/leg-raises/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4357",
+    "name": "Spiderman",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/spiderman-plank/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4300",
+    "name": "Deadlift (Dumbbell)",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/dumbbell-deadlift/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4290",
+    "name": "Hammer Curl (Band)",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "resistance-band",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/hammer-curl-resistance-band/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4283",
+    "name": "Seated Overhead Press (Barbell)",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/seated-overhead-barbell-press/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4273",
+    "name": "Push Up (Weighted)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/weighted-push-ups/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4270",
+    "name": "Triceps Extension (Suspension)",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "suspension-band",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/tricep-extension-suspension/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/7/"
+  },
+  {
+    "id": "4261",
+    "name": "Pullover (Dumbbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/dumbbell-pullover/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "4254",
+    "name": "Kettlebell Turkish Get Up",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "kettlebell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/kettlebell-turkish-get-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "4250",
+    "name": "Oblique Crunch",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "none",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/oblique-crunches/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "4186",
+    "name": "Thruster (Kettlebell)",
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "kettlebell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/kettlebell-thruster/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "2020",
+    "name": "Goblet Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": null,
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-goblet-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "2016",
+    "name": "Push Press",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-push-press/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "2014",
+    "name": "Standing Military Press (Barbell)",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-standing-military-press-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "2012",
+    "name": "Reverse Plank",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "duration",
+    "url": "https://www.hevyapp.com/exercises/how-to-reverse-plank/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "2010",
+    "name": "Plate Front Raise",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "weight-plate",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-plate-front-raise/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "2018",
+    "name": "Hip Thrust",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-hip-thrust/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/8/"
+  },
+  {
+    "id": "1994",
+    "name": "Lunge (Dumbbell)",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-lunge-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "1992",
+    "name": "Decline Bench Press (Dumbbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-decline-bench-press-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "2008",
+    "name": "V Up",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-v-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "1996",
+    "name": "Zottman Curl (Dumbbell)",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-zottman-curl-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "1998",
+    "name": "Jump Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-jump-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "2000",
+    "name": "Renegade Row",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-renegade-row/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "2002",
+    "name": "T Bar Row",
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-t-bar-row/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "2004",
+    "name": "Glute Bridge",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-glute-bridge/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "2006",
+    "name": "Wall Sit",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "other",
+    "category": "duration",
+    "url": "https://www.hevyapp.com/exercises/how-to-wall-sit/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "1990",
+    "name": "Lat Pulldown (Cable)",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "cable",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-lat-pulldown-cable/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/9/"
+  },
+  {
+    "id": "1984",
+    "name": "Single Leg Romanian Deadlift (Dumbbell)",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-single-leg-romanian-deadlift-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1985",
+    "name": "Standing Leg Curls",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-standing-leg-curls/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1986",
+    "name": "Front Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-front-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1988",
+    "name": "Incline Bench Press (Barbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-incline-bench-press-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1896",
+    "name": "Glute Ham Raise",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-glute-ham-raise/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1892",
+    "name": "Single Arm Lat Pulldown",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-single-arm-lat-pulldown/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1890",
+    "name": "Deadlift (Band)",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "resistance-band",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-deadlift-band/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1888",
+    "name": "Superman",
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-superman/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1886",
+    "name": "Calf Press (Machine)",
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-calf-press-machine/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1884",
+    "name": "Lat Pulldown (Machine)",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-lat-pulldown-machine/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/10/"
+  },
+  {
+    "id": "1894",
+    "name": "Zercher Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-zercher-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1864",
+    "name": "Upright Row (Barbell)",
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-upright-row-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1861",
+    "name": "Pinwheel Curl (Dumbbell)",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-pinwheel-curl-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1862",
+    "name": "Hack Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-hack-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1866",
+    "name": "Triceps Rope Pushdown",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "cable",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-triceps-rope-pushdown/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/11/"
+  },
+  {
+    "id": "1874",
+    "name": "Incline Bench Press (Dumbbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-incline-bench-press-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1876",
+    "name": "Lateral Raise (Dumbbell)",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-lateral-raise-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1878",
+    "name": "Shrug (Dumbbell)",
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-shrug-dumbbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1868",
+    "name": "Decline Crunch",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-decline-crunch/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1666",
+    "name": "Jackknife Sit Up",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-jackknife-sit-up/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1659",
+    "name": "Fire Hydrants",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-fire-hydrants/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1660",
+    "name": "Chest Dip",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-chest-dip/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1661",
+    "name": "Triceps Kickback",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-triceps-kickback/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1655",
+    "name": "Cable Crunch",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "cable",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-cable-crunch/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1654",
+    "name": "Rack Pull",
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-rack-pull/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/12/"
+  },
+  {
+    "id": "1653",
+    "name": "Good Morning (Barbell)",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-good-morning-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/13/"
+  },
+  {
+    "id": "1652",
+    "name": "Bicep Curl (Barbell)",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-bicep-curl-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/13/"
+  },
+  {
+    "id": "1651",
+    "name": "Bench Press (Barbell)",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-bench-press-barbell/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/13/"
+  },
+  {
+    "id": "1650",
+    "name": "Lateral Squat",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "bodyweight",
+    "category": "strength",
+    "url": "https://www.hevyapp.com/exercises/how-to-lateral-squat/",
+    "sourcePage": "https://www.hevyapp.com/exercises/page/13/"
+  }
+]

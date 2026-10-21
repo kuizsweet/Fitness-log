@@ -1,0 +1,272 @@
+/* Bencho stacked-bars geometry/motion studied from its public implementation;
+   adapted for note colours and two independently scaled training measures. */
+.card.card {
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  min-height: 0;
+  overflow: hidden;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+.switcher {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  padding: 2px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.switcher > span {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc((100% - 4px) / 2);
+  background: var(--surface);
+  border-radius: 8px;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.switcher[data-period="weeks"] > span {
+  transform: translateX(100%);
+}
+.card.card .switcher button {
+  position: relative;
+  min-height: 28px;
+  height: 28px;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+.card.card .switcher button[aria-pressed="true"] {
+  color: var(--ink);
+}
+.figures {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.figures > span {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+.figures strong {
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.figures small {
+  font-size: 10px;
+  line-height: 12px;
+}
+.digit {
+  display: inline-block;
+  animation: pop 500ms cubic-bezier(0.34, 1.45, 0.64, 1) both;
+  animation-delay: calc(var(--digit) * 70ms);
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(0.18em);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: none;
+  }
+}
+.plot {
+  position: relative;
+  height: auto;
+  flex: 1;
+  min-height: 32px;
+  width: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+.baseline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+.column {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.segment {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: var(--radius);
+  background: var(--color);
+  transition:
+    height 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 14ms),
+    bottom 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 14ms),
+    top 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 14ms),
+    background-color 160ms ease;
+}
+/* New month columns also grow from the baseline; existing columns retarget. */
+@starting-style {
+  .segment {
+    height: 0 !important;
+  }
+}
+.card[data-scrub] .column:not([data-on]) .segment {
+  background-color: color-mix(in srgb, var(--color) 38%, var(--surface));
+}
+.ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 1.5px solid color-mix(in srgb, var(--ink) 52%, transparent);
+  border-radius: 5.5px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 160ms;
+}
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid color-mix(in srgb, var(--ink) 10%, var(--surface));
+  font-size: 11px;
+  line-height: 16px;
+  transition: opacity 160ms;
+}
+.card[data-scrub] .ring,
+.card[data-scrub] .tooltip {
+  opacity: 1;
+}
+.tipHeading,
+.tipRow {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+}
+.tipHeading {
+  color: var(--muted);
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.tooltip b {
+  font-weight: 500;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.tipRow span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tipRow i {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+.axis {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  opacity: 0.65;
+  font-size: 11px;
+  line-height: 14px;
+  flex: none;
+  margin-top: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .digit {
+    animation: none;
+  }
+  .segment,
+  .switcher > span,
+  .ring,
+  .tooltip {
+    transition: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .card.card {
+    height: 190px;
+    min-height: 190px;
+  }
+}
+/* Same material and spring indicator as the compact Dock. */
+.switcher {
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: blur(20px) saturate(1.3);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight-top),
+    inset 0 -1px 0 var(--glass-highlight-bottom),
+    0 3px 12px var(--glass-drop-shadow),
+    0 0 0 1px var(--glass-rim);
+  touch-action: none;
+  isolation: isolate;
+}
+.switcher > span,
+.switcher[data-period="weeks"] > span {
+  left: 0;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  box-shadow:
+    inset 0 1px 1px var(--glass-highlight-top),
+    inset 0 -1px 1px var(--glass-highlight-bottom),
+    0 2px 6px #1c30430d;
+  transform: var(--jelly-matrix, translateX(2px));
+  transition: none;
+  pointer-events: none;
+}
+.card.card .switcher button {
+  border-radius: 10px;
+  z-index: 1;
+  -webkit-tap-highlight-color: transparent;
+}
+.card.card .switcher button:is(:hover, :active) {
+  background: transparent;
+  box-shadow: none;
+}
+.card.card .switcher button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}

@@ -27,7 +27,7 @@ export function DashboardSkeleton() {
           <h2>肌群分析</h2>
         </section>
         <section className={`${styles.card} ${styles.load}`}>
-          <h2>每周训练负荷</h2>
+          <h2>训练负荷</h2>
         </section>
       </div>
     </div>

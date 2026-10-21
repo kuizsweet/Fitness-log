@@ -1,0 +1,596 @@
+[
+  {
+    "sourceId": "1876",
+    "alias": "侧平举（哑铃）",
+    "displayAlias": "侧平举（哑铃）",
+    "seconds": 0
+  },
+  {
+    "sourceId": "1652",
+    "alias": "二头弯举（杠铃）",
+    "displayAlias": "弯举（杠铃）",
+    "seconds": 0
+  },
+  {
+    "sourceId": "1990",
+    "alias": "阔背肌下拉（滑轮机）",
+    "displayAlias": "高位下拉（绳索）",
+    "seconds": 0
+  },
+  {
+    "sourceId": "1866",
+    "alias": "三头肌绳索下压",
+    "displayAlias": "三头肌下压（绳索）",
+    "seconds": 0.4
+  },
+  {
+    "sourceId": "1866",
+    "alias": "三头肌下压",
+    "displayAlias": "三头肌下压",
+    "seconds": 0.8
+  },
+  {
+    "sourceId": "1874",
+    "alias": "上斜推胸（哑铃）",
+    "displayAlias": "上斜卧推（哑铃）",
+    "seconds": 1.2
+  },
+  {
+    "sourceId": "1651",
+    "alias": "卧推（杠铃）",
+    "displayAlias": "卧推（杠铃）",
+    "seconds": 3.2
+  },
+  {
+    "sourceId": "7551",
+    "alias": "卧推（哑铃）",
+    "displayAlias": "卧推（哑铃）",
+    "seconds": 3.6
+  },
+  {
+    "sourceId": "8126",
+    "alias": "阿诺肩推（哑铃）",
+    "displayAlias": "阿诺德推举（哑铃）",
+    "seconds": 8.61
+  },
+  {
+    "sourceId": "8136",
+    "alias": "平板卧推．窄握（杠铃）",
+    "displayAlias": "窄握卧推（杠铃）",
+    "seconds": 13.41
+  },
+  {
+    "sourceId": "4724",
+    "alias": "卧推一宽握（杠铃）",
+    "displayAlias": "宽握卧推（杠铃）",
+    "seconds": 13.61
+  },
+  {
+    "sourceId": "1655",
+    "alias": "滑轮卷腹",
+    "displayAlias": "卷腹（绳索）",
+    "seconds": 20.42
+  },
+  {
+    "sourceId": "1660",
+    "alias": "双杠撑体",
+    "displayAlias": "双杠撑体",
+    "seconds": 22.42
+  },
+  {
+    "sourceId": "7445",
+    "alias": "双杠撑体（加重）",
+    "displayAlias": "双杠撑体（负重）",
+    "seconds": 23.42
+  },
+  {
+    "sourceId": "7759",
+    "alias": "胸部支撑上斜划船（哑铃）",
+    "displayAlias": "上斜凳胸托划船（哑铃）",
+    "seconds": 25.42
+  },
+  {
+    "sourceId": "4865",
+    "alias": "引体向上",
+    "displayAlias": "引体向上",
+    "seconds": 26.22
+  },
+  {
+    "sourceId": "8016",
+    "alias": "挺举",
+    "displayAlias": "挺举",
+    "seconds": 29.02
+  },
+  {
+    "sourceId": "7274",
+    "alias": "速拉",
+    "displayAlias": "高翻拉",
+    "seconds": 29.43
+  },
+  {
+    "sourceId": "1655",
+    "alias": "卷腹",
+    "displayAlias": "卷腹",
+    "seconds": 30.63
+  },
+  {
+    "sourceId": "1890",
+    "alias": "硬拉（阻力带）",
+    "displayAlias": "硬拉（弹力带）",
+    "seconds": 32.63
+  },
+  {
+    "sourceId": "4300",
+    "alias": "硬拉（哑铃）",
+    "displayAlias": "硬拉（哑铃）",
+    "seconds": 32.83
+  },
+  {
+    "sourceId": "1992",
+    "alias": "下斜推胸（哑铃）",
+    "displayAlias": "下斜卧推（哑铃）",
+    "seconds": 34.23
+  },
+  {
+    "sourceId": "1868",
+    "alias": "斜板卷腹",
+    "displayAlias": "斜板卷腹",
+    "seconds": 35.23
+  },
+  {
+    "sourceId": "7126",
+    "alias": "钻石伏地挺身",
+    "displayAlias": "钻石俯卧撑",
+    "seconds": 36.23
+  },
+  {
+    "sourceId": "7138",
+    "alias": "农夫走",
+    "displayAlias": "农夫行走",
+    "seconds": 39.83
+  },
+  {
+    "sourceId": "1659",
+    "alias": "消防栓式抬腿",
+    "displayAlias": "消防栓式抬腿",
+    "seconds": 40.43
+  },
+  {
+    "sourceId": "7207",
+    "alias": "地板卧推（杠铃）",
+    "displayAlias": "地板卧推（杠铃）",
+    "seconds": 40.63
+  },
+  {
+    "sourceId": "4873",
+    "alias": "青蛙跳",
+    "displayAlias": "蛙跳",
+    "seconds": 41.44
+  },
+  {
+    "sourceId": "7920",
+    "alias": "前杆升高",
+    "displayAlias": "前水平抬升",
+    "seconds": 42.44
+  },
+  {
+    "sourceId": "1986",
+    "alias": "颈前深蹲",
+    "displayAlias": "前蹲",
+    "seconds": 44.04
+  },
+  {
+    "sourceId": "2004",
+    "alias": "臀桥",
+    "displayAlias": "臀桥",
+    "seconds": 44.64
+  },
+  {
+    "sourceId": "1896",
+    "alias": "臀部火腿抬高",
+    "displayAlias": "臀腿挺身",
+    "seconds": 45.04
+  },
+  {
+    "sourceId": "1653",
+    "alias": "早安运动（杠铃）",
+    "displayAlias": "早安式（杠铃）",
+    "seconds": 46.04
+  },
+  {
+    "sourceId": "1862",
+    "alias": "哈克深蹲",
+    "displayAlias": "哈克深蹲",
+    "seconds": 46.84
+  },
+  {
+    "sourceId": "4290",
+    "alias": "锤式弯举（阻力带）",
+    "displayAlias": "锤式弯举（弹力带）",
+    "seconds": 47.44
+  },
+  {
+    "sourceId": "7969",
+    "alias": "倒立伏地挺身",
+    "displayAlias": "倒立撑",
+    "seconds": 48.24
+  },
+  {
+    "sourceId": "7722",
+    "alias": "足跟轻叩",
+    "displayAlias": "仰卧交替触踵",
+    "seconds": 49.04
+  },
+  {
+    "sourceId": "2018",
+    "alias": "臀推",
+    "displayAlias": "臀推",
+    "seconds": 50.84
+  },
+  {
+    "sourceId": "4560",
+    "alias": "船式摇摆",
+    "displayAlias": "空心支撑摇摆",
+    "seconds": 52.04
+  },
+  {
+    "sourceId": "1988",
+    "alias": "上斜推胸（杠铃）",
+    "displayAlias": "上斜卧推（杠铃）",
+    "seconds": 52.24
+  },
+  {
+    "sourceId": "7326",
+    "alias": "上斜俯卧撑",
+    "displayAlias": "上斜俯卧撑",
+    "seconds": 53.45
+  },
+  {
+    "sourceId": "1666",
+    "alias": "折刀仰卧起坐",
+    "displayAlias": "折刀仰卧起坐",
+    "seconds": 55.25
+  },
+  {
+    "sourceId": "1998",
+    "alias": "跳蹲",
+    "displayAlias": "深蹲跳",
+    "seconds": 56.25
+  },
+  {
+    "sourceId": "7515",
+    "alias": "高脚杯蹲（壶铃）",
+    "displayAlias": "高脚杯深蹲（壶铃）",
+    "seconds": 58.05
+  },
+  {
+    "sourceId": "4254",
+    "alias": "壶铃土其起立",
+    "displayAlias": "土耳其起立（壶铃）",
+    "seconds": 59.45
+  },
+  {
+    "sourceId": "4685",
+    "alias": "借力引体向上",
+    "displayAlias": "借力引体向上",
+    "seconds": 59.65
+  },
+  {
+    "sourceId": "7644",
+    "alias": "阔背肌下拉（阻力带）",
+    "displayAlias": "高位下拉（弹力带）",
+    "seconds": 63.05
+  },
+  {
+    "sourceId": "1884",
+    "alias": "阔背肌下拉（训练机）",
+    "displayAlias": "高位下拉（器械）",
+    "seconds": 63.45
+  },
+  {
+    "sourceId": "7595",
+    "alias": "侧腿抬高",
+    "displayAlias": "侧腿抬高",
+    "seconds": 64.05
+  },
+  {
+    "sourceId": "1650",
+    "alias": "侧箭步蹲",
+    "displayAlias": "侧弓步蹲",
+    "seconds": 64.66
+  },
+  {
+    "sourceId": "4719",
+    "alias": "箭步蹲（杠铃）",
+    "displayAlias": "弓步蹲（杠铃）",
+    "seconds": 67.66
+  },
+  {
+    "sourceId": "1994",
+    "alias": "箭步蹲（哑铃）",
+    "displayAlias": "弓步蹲（哑铃）",
+    "seconds": 67.86
+  },
+  {
+    "sourceId": "4479",
+    "alias": "躺式抬膝",
+    "displayAlias": "仰卧提膝",
+    "seconds": 68.06
+  },
+  {
+    "sourceId": "4916",
+    "alias": "暴力上杠",
+    "displayAlias": "双力臂",
+    "seconds": 69.86
+  },
+  {
+    "sourceId": "7856",
+    "alias": "单手伏地挺身",
+    "displayAlias": "单臂俯卧撑",
+    "seconds": 71.06
+  },
+  {
+    "sourceId": "7083",
+    "alias": "杠铃划船",
+    "displayAlias": "潘德雷划船（杠铃）",
+    "seconds": 73.46
+  },
+  {
+    "sourceId": "1861",
+    "alias": "风轮弯举（哑铃）",
+    "displayAlias": "交叉锤式弯举（哑铃）",
+    "seconds": 74.46
+  },
+  {
+    "sourceId": "5573",
+    "alias": "铁饼弯举",
+    "displayAlias": "弯举（杠铃片）",
+    "seconds": 75.26
+  },
+  {
+    "sourceId": "2010",
+    "alias": "杠片平举",
+    "displayAlias": "前平举（杠铃片）",
+    "seconds": 75.46
+  },
+  {
+    "sourceId": "4444",
+    "alias": "杠片卧推",
+    "displayAlias": "推胸（杠铃片）",
+    "seconds": 75.66
+  },
+  {
+    "sourceId": "4261",
+    "alias": "仰卧拉举（哑铃）",
+    "displayAlias": "仰卧上拉（哑铃）",
+    "seconds": 78.07
+  },
+  {
+    "sourceId": "2016",
+    "alias": "借力推举",
+    "displayAlias": "借力推举",
+    "seconds": 78.47
+  },
+  {
+    "sourceId": "4273",
+    "alias": "伏地挺身（加重）",
+    "displayAlias": "负重俯卧撑",
+    "seconds": 79.47
+  },
+  {
+    "sourceId": "4646",
+    "alias": "俯身飞鸟（哑铃）",
+    "displayAlias": "俯身飞鸟（哑铃）",
+    "seconds": 80.27
+  },
+  {
+    "sourceId": "4605",
+    "alias": "反向弯举",
+    "displayAlias": "反向弯举",
+    "seconds": 81.87
+  },
+  {
+    "sourceId": "7460",
+    "alias": "直腿后摆",
+    "displayAlias": "直腿后摆",
+    "seconds": 82.07
+  },
+  {
+    "sourceId": "2012",
+    "alias": "反向棒式",
+    "displayAlias": "反向平板支撑",
+    "seconds": 83.07
+  },
+  {
+    "sourceId": "4639",
+    "alias": "吊环体撑",
+    "displayAlias": "吊环臂屈伸（悬挂带）",
+    "seconds": 83.27
+  },
+  {
+    "sourceId": "4552",
+    "alias": "俄罗斯转体（体重）",
+    "displayAlias": "俄罗斯转体（自重）",
+    "seconds": 85.07
+  },
+  {
+    "sourceId": "7292",
+    "alias": "俄式转体（加重）",
+    "displayAlias": "负重俄罗斯转体",
+    "seconds": 85.27
+  },
+  {
+    "sourceId": "4629",
+    "alias": "肩胛引体向上",
+    "displayAlias": "肩胛引体向上",
+    "seconds": 85.47
+  },
+  {
+    "sourceId": "4388",
+    "alias": "坐姿提踵",
+    "displayAlias": "坐姿提踵",
+    "seconds": 86.27
+  },
+  {
+    "sourceId": "1866",
+    "alias": "三头下压训练",
+    "displayAlias": "三头下压训练",
+    "seconds": 86.87
+  },
+  {
+    "sourceId": "4283",
+    "alias": "坐姿肩推（杠铃）",
+    "displayAlias": "坐姿肩推（杠铃）",
+    "seconds": 87.68
+  },
+  {
+    "sourceId": "8043",
+    "alias": "耸肩（杠铃）",
+    "displayAlias": "耸肩（杠铃）",
+    "seconds": 90.08
+  },
+  {
+    "sourceId": "1878",
+    "alias": "耸肩（哑铃）",
+    "displayAlias": "耸肩（哑铃）",
+    "seconds": 90.48
+  },
+  {
+    "sourceId": "1892",
+    "alias": "单臂高位下拉",
+    "displayAlias": "单臂高位下拉",
+    "seconds": 92.68
+  },
+  {
+    "sourceId": "7726",
+    "alias": "哑铃单臂颈后臂屈伸（哑铃）",
+    "displayAlias": "单臂过顶臂屈伸（哑铃）",
+    "seconds": 93.28
+  },
+  {
+    "sourceId": "4862",
+    "alias": "单腿臀桥",
+    "displayAlias": "单腿臀桥",
+    "seconds": 93.88
+  },
+  {
+    "sourceId": "4493",
+    "alias": "单腿臀推",
+    "displayAlias": "单腿臀推",
+    "seconds": 94.08
+  },
+  {
+    "sourceId": "1984",
+    "alias": "单腿罗马尼亚硬拉（哑铃）",
+    "displayAlias": "单腿罗马尼亚硬拉（哑铃）",
+    "seconds": 94.88
+  },
+  {
+    "sourceId": "7576",
+    "alias": "仰卧起坐",
+    "displayAlias": "仰卧起坐",
+    "seconds": 96.48
+  },
+  {
+    "sourceId": "7279",
+    "alias": "碎颅者一仰卧臂屈伸（杠铃）",
+    "displayAlias": "仰卧臂屈伸（杠铃）",
+    "seconds": 97.68
+  },
+  {
+    "sourceId": "7142",
+    "alias": "碎颅者一仰卧臂屈伸（哑铃）",
+    "displayAlias": "仰卧臂屈伸（哑铃）",
+    "seconds": 97.88
+  },
+  {
+    "sourceId": "4854",
+    "alias": "分腿深蹲（哑铃）",
+    "displayAlias": "分腿蹲（哑铃）",
+    "seconds": 100.49
+  },
+  {
+    "sourceId": "1985",
+    "alias": "站立腿弯举",
+    "displayAlias": "站立腿弯举",
+    "seconds": 104.29
+  },
+  {
+    "sourceId": "2014",
+    "alias": "站立军事推举（杠铃）",
+    "displayAlias": "站姿推举（杠铃）",
+    "seconds": 104.49
+  },
+  {
+    "sourceId": "7834",
+    "alias": "胸骨上拉(Gironda)",
+    "displayAlias": "吉龙达胸触杠引体向上",
+    "seconds": 105.09
+  },
+  {
+    "sourceId": "4577",
+    "alias": "直腿硬拉",
+    "displayAlias": "直腿硬拉",
+    "seconds": 105.69
+  },
+  {
+    "sourceId": "8090",
+    "alias": "相扑硬拉",
+    "displayAlias": "相扑硬拉",
+    "seconds": 106.09
+  },
+  {
+    "sourceId": "7332",
+    "alias": "SumoSquat",
+    "displayAlias": "相扑深蹲",
+    "seconds": 106.29
+  },
+  {
+    "sourceId": "7332",
+    "alias": "相扑深蹲（杠铃）",
+    "displayAlias": "相扑深蹲（杠铃）",
+    "seconds": 106.49
+  },
+  {
+    "sourceId": "1888",
+    "alias": "超人式",
+    "displayAlias": "超人式",
+    "seconds": 107.29
+  },
+  {
+    "sourceId": "2002",
+    "alias": "T杠划船",
+    "displayAlias": "T杠划船",
+    "seconds": 107.89
+  },
+  {
+    "sourceId": "4186",
+    "alias": "火箭推（壶铃）",
+    "displayAlias": "深蹲推举（壶铃）",
+    "seconds": 108.49
+  },
+  {
+    "sourceId": "7861",
+    "alias": "三头肌撑体（加重）",
+    "displayAlias": "三头肌撑体（负重）",
+    "seconds": 109.49
+  },
+  {
+    "sourceId": "1864",
+    "alias": "直立划船（杠铃）",
+    "displayAlias": "直立划船（杠铃）",
+    "seconds": 112.1
+  },
+  {
+    "sourceId": "1894",
+    "alias": "泽奇深蹲",
+    "displayAlias": "泽奇深蹲",
+    "seconds": 115.5
+  },
+  {
+    "sourceId": "1996",
+    "alias": "佐特曼弯举（哑铃）",
+    "displayAlias": "佐特曼弯举（哑铃）",
+    "seconds": 115.5
+  }
+]

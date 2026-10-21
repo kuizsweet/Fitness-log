@@ -497,38 +497,6 @@
   border: 0;
   padding: 5px 0;
 }
-.workbench .families {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-}
-.workbench .families button {
-  padding: 4px 0;
-  font-size: 11px;
-}
-.workbench .families button[aria-pressed="true"] {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--surface);
-}
-.workbench .details {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 12px;
-}
-.workbench .details button {
-  font-size: 10px;
-  min-height: 22px;
-  padding: 2px 5px;
-  border: 0;
-  color: var(--muted);
-}
-.workbench .details button[aria-pressed="true"] {
-  background: var(--field);
-  color: var(--ink);
-}
 .workbench .exerciseList {
   flex: 1;
   min-height: 0;
@@ -819,47 +787,6 @@
   outline: none;
   border-radius: 0;
 }
-.workbench .filterButton {
-  height: 32px;
-  width: 32px;
-  flex: none;
-  padding: 0;
-}
-.workbench .filterButton[data-active] {
-  color: var(--accent);
-}
-.equipmentPopup.equipmentPopup {
-  width: var(--anchor-width);
-  border-radius: 6px;
-  max-width: calc(100vw - 24px);
-  padding: 10px;
-  background: var(--surface);
-  color: var(--ink);
-  border: 1px solid var(--line);
-}
-.equipmentTags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.equipmentTags button {
-  font-size: 11px;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  padding: 5px 7px;
-  background: transparent;
-  color: var(--ink);
-  cursor: pointer;
-}
-.equipmentTags button[aria-pressed="true"] {
-  background: var(--accent);
-  color: var(--accent-ink, #152332);
-  border-color: var(--accent);
-}
-.equipmentTags button:focus-visible {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-}
 .srOnly {
   position: absolute;
   width: 1px;
@@ -894,12 +821,6 @@
   font-size: 12px;
   font-weight: 500;
 }
-.workbench.workbench .equipmentTags button[aria-pressed="true"],
-.workbench.workbench .equipmentTags button[aria-pressed="true"]:hover {
-  background: var(--accent);
-  color: var(--accent-ink, #152332);
-  border-color: var(--accent);
-}
 
 /* The portal wrapper must never participate in the workspace flex layout. */
 .workbench > .overlayHost {
@@ -930,7 +851,8 @@
     transform 180ms ease,
     color 180ms ease,
     background 180ms ease,
-    opacity 180ms ease;
+    opacity 180ms ease,
+    box-shadow 180ms ease;
 }
 .noteTrash[data-active] {
   visibility: visible;
@@ -941,8 +863,11 @@
 }
 .noteTrash[data-over] {
   transform: translateX(-50%) scale(1.2);
-  color: #fca5a5;
-  background: #451b23;
+  color: #ef4444;
+  background: color-mix(in srgb, #ef4444 10%, var(--popover));
+  box-shadow:
+    0 0 24px #ef44444d,
+    0 0 8px #ef444433;
   border-color: #f87171;
 }
 .workbench .noteTrash svg {
@@ -992,13 +917,6 @@
 
 /* Continuous corners progressively enhance the existing rounded fallback. */
 @supports (corner-shape: squircle) {
-  .workbench
-    :is(.left, .center, .library, .note, .storedNote, .noteEmpty, .noteTrash),
-  .workbench .note > header,
-  .dragPreview.dragPreview,
-  .equipmentPopup.equipmentPopup {
-    corner-shape: squircle;
-  }
 }
 .workbench .warehouseList {
   gap: 8px;
@@ -1011,11 +929,6 @@
 }
 .workbench .sectionHeading {
   margin-bottom: 16px;
-}
-
-.workbench .families button,
-.equipmentTags button {
-  border-radius: 8px;
 }
 
 :is(
@@ -1276,4 +1189,321 @@
 .workbench.workbench .days button[data-has-plans][aria-pressed="true"] {
   outline: 2px solid var(--focus);
   outline-offset: -2px;
+}
+/* Lens search surface, adapted to the existing 32px toolbar. */
+.workbench.workbench .search,
+.workbench.workbench .canvasNewNote {
+  border-color: transparent;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 68%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  backdrop-filter: blur(20px) saturate(1.3);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight-top),
+    inset 0 -1px 0 var(--glass-highlight-bottom),
+    0 3px 12px var(--glass-drop-shadow),
+    0 0 0 1px var(--glass-rim);
+  transition:
+    transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.workbench.workbench .search {
+  border-radius: 16px;
+}
+.workbench.workbench .search input {
+  background: transparent;
+  box-shadow: none;
+}
+.workbench.workbench .search:focus-within {
+  outline: none;
+}
+.workbench.workbench .search:has(input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.workbench.workbench .canvasNewNote:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--surface) 68%, transparent);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight-hover-top),
+    inset 0 -1px 0 var(--glass-highlight-hover-bottom),
+    0 3px 12px var(--glass-hover-shadow),
+    0 0 0 1px var(--glass-rim);
+}
+.workbench.workbench .canvasNewNote:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.workbench.workbench .canvasNewNote:focus:not(:focus-visible) {
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .workbench.workbench .canvasNewNote {
+    transition: none;
+  }
+}
+/* The library has two compact menu entrances; exercise attributes stay on rows. */
+.workbench .libraryFilters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.workbench.workbench .libraryFilters button,
+.workbench.workbench .libraryFilters button:hover:not(:disabled) {
+  min-height: 32px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.workbench .librarySectionTitle {
+  margin: 0;
+  padding: 10px 4px 6px;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.workbench .exerciseList > section + section .librarySectionTitle {
+  padding-top: 22px;
+}
+.workbench .searchRow .search {
+  width: 100%;
+}
+
+/* Drag previews use the same readable theme surface as the note body. */
+.dragPreview.dragPreview[data-kind="exercise"] {
+  background: var(--popover);
+  color: var(--ink);
+}
+.dragPreview[data-note-color] {
+  background: color-mix(in srgb, var(--note-color) 12%, var(--popover));
+}
+.workbench .exercise[data-insert-before] {
+  box-shadow: inset 0 2px 0 var(--accent);
+}
+.workbench .exercise[data-insert-after] {
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+.dragPreview.dragPreview[data-kind="note"],
+.dragPreview.dragPreview[data-kind="warehouse"] {
+  min-width: 0;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+/* Panels meet the viewport edge; the remaining rim is the drag surface. */
+:global(main):has(.workbench) {
+  padding-inline: 0;
+}
+:global(body):has(.workbench) :global(.app-header) {
+  border-bottom: 0;
+}
+.workbench.workbench {
+  min-width: 0;
+}
+.workbench .workspace {
+  grid-template-columns: var(--left-visible, 220px) minmax(0, 1fr) var(
+      --right-visible,
+      250px
+    );
+  overflow: hidden;
+  transition: grid-template-columns 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.workbench .left,
+.workbench .library {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+}
+.workbench .left {
+  width: 220px;
+  transform: translateX(var(--left-offset, 0));
+  border-left: 0;
+  border-radius: 0 16px 16px 0;
+  box-shadow: 5px 0 16px #00000012;
+  transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.workbench .library {
+  width: 250px;
+  border-right: 0;
+  border-radius: 16px 0 0 16px;
+  box-shadow: -5px 0 16px #00000012;
+}
+.workbench .workspace[data-sliding],
+.workbench .workspace[data-sliding] .left {
+  transition: none;
+}
+.panelEdge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  z-index: 20;
+  cursor: ew-resize;
+  touch-action: none;
+}
+.panelEdge[data-side="left"] {
+  right: 0;
+}
+.panelEdge[data-side="right"] {
+  left: 0;
+}
+.panelEdge:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -3px;
+}
+.workbench .canvasNewNote {
+  z-index: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .workbench .workspace,
+  .workbench .left {
+    transition: none;
+  }
+}
+.workbench :is(.left, .library)[data-collapsed] > :not(.panelEdge) {
+  visibility: hidden;
+}
+
+/* The canvas never resizes when a side panel slides over it. */
+.workbench .workspace {
+  position: relative;
+  display: block;
+  isolation: isolate;
+  transition: none;
+}
+.workbench .center {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border: 0;
+  border-radius: 0;
+}
+.workbench .left,
+.workbench .library {
+  position: absolute;
+  top: 0;
+  bottom: 12px;
+  height: auto;
+  z-index: 2;
+  box-shadow:
+    0 8px 18px #0000001a,
+    0 2px 5px #0000000d;
+}
+.workbench .left {
+  left: 0;
+}
+.workbench .library {
+  right: 0;
+  transform: translateX(var(--right-offset, 0));
+  transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.workbench .workspace[data-sliding] .library {
+  transition: none;
+}
+.workbench .canvasNewNote {
+  left: 232px;
+}
+.workbench .days button[aria-pressed="true"],
+.workbench .days button[aria-current="date"] {
+  background: transparent;
+  color: var(--ink);
+  border: 1px dashed var(--muted);
+  box-shadow: none;
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .workbench .library {
+    transition: none;
+  }
+}
+
+:global(body) :global(main):has(.workbench) {
+  padding-bottom: 0 !important;
+}
+.workbench .workspace::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--line);
+  z-index: 3;
+  pointer-events: none;
+}
+.workbench .left,
+.workbench .library {
+  bottom: 106px;
+}
+.muscleAnchor {
+  position: absolute;
+  inset: 0 262px 94px 232px;
+  z-index: 1;
+  pointer-events: none;
+}
+.muscleAnchor > * {
+  pointer-events: auto;
+}
+
+/* Align the chart with the new-note button; keep the bin above the Dock. */
+.muscleAnchor {
+  left: 220px;
+}
+
+.muscleAnchor {
+  inset: 0 250px auto auto;
+  width: 124px;
+  height: 124px;
+}
+
+.muscleAnchor {
+  inset: 0 250px 94px 220px;
+  width: auto;
+  height: auto;
+}
+.muscleAnchor > * {
+  left: auto !important;
+  right: 12px;
+  top: 12px;
+  bottom: auto !important;
+}
+
+.workbench .noteTrash {
+  bottom: 110px;
+  z-index: 1;
+}
+
+.workbench .left .canvasNewNote {
+  position: absolute;
+  top: auto;
+  left: auto;
+  right: 12px;
+  bottom: 12px;
+  z-index: 1;
+}
+.workbench .left .warehouse {
+  padding-bottom: 52px;
+}
+.workbench.fullNotePreview {
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Raising a grabbed note changes only paint order, never its geometry. */
+.workbench .center {
+  z-index: auto;
+}
+.workbench .canvasSurface {
+  isolation: auto;
+}
+.workbench .left,
+.workbench .library {
+  z-index: 200000;
+}
+.workbench .note > header:focus,
+.workbench .note > header:focus-visible {
+  outline: none;
+  box-shadow: none;
 }

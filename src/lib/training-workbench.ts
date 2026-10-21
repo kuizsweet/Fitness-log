@@ -9,6 +9,23 @@ export type PlanExercise = {
   reps: number | null;
   weight: number | null;
 };
+export function nearTrashEdge(
+  card: { left: number; right: number; top: number; bottom: number },
+  target: { left: number; right: number; top: number; bottom: number },
+  distance = 24,
+) {
+  const dx = Math.max(target.left - card.right, card.left - target.right, 0);
+  const dy = Math.max(target.top - card.bottom, card.top - target.bottom, 0);
+  return Math.hypot(dx, dy) <= distance;
+}
+export function exerciseInsertionIndex(
+  rows: { top: number; height: number }[],
+  y?: number,
+) {
+  if (y === undefined) return rows.length;
+  const index = rows.findIndex((row) => y < row.top + row.height / 2);
+  return index < 0 ? rows.length : index;
+}
 export type PlanNote = {
   id: string;
   title: string;

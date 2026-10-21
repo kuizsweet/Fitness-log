@@ -341,3 +341,54 @@ test("画布便签可插入仓库任意位置，仓库已有便签可重新排�
       .map((n) => n.id),
   );
 });
+
+test("library insertion targets the beginning, row gaps, end and scrolled rows", async () => {
+  const { exerciseInsertionIndex } =
+    await import("../src/lib/training-workbench");
+  const rows = [
+    { top: 100, height: 50 },
+    { top: 150, height: 50 },
+    { top: 200, height: 50 },
+  ];
+  assert.equal(exerciseInsertionIndex(rows, 90), 0);
+  assert.equal(exerciseInsertionIndex(rows, 149), 1);
+  assert.equal(exerciseInsertionIndex(rows, 199), 2);
+  assert.equal(exerciseInsertionIndex(rows, 240), 3);
+  assert.equal(exerciseInsertionIndex([], 100), 0);
+  assert.equal(exerciseInsertionIndex(rows), 3);
+  assert.equal(
+    exerciseInsertionIndex(
+      [
+        { top: -30, height: 50 },
+        { top: 20, height: 50 },
+      ],
+      10,
+    ),
+    1,
+  );
+});
+
+test("trash feedback starts before card edges touch and clears beyond the proximity radius", async () => {
+  const { nearTrashEdge } = await import("../src/lib/training-workbench");
+  const bin = { left: 100, right: 148, top: 100, bottom: 148 };
+  assert.equal(
+    nearTrashEdge({ left: 100, right: 148, top: 40, bottom: 75 }, bin),
+    false,
+  );
+  assert.equal(
+    nearTrashEdge({ left: 100, right: 148, top: 40, bottom: 76 }, bin),
+    true,
+  );
+  assert.equal(
+    nearTrashEdge({ left: 40, right: 76, top: 100, bottom: 148 }, bin),
+    true,
+  );
+  assert.equal(
+    nearTrashEdge({ left: 100, right: 148, top: 60, bottom: 110 }, bin),
+    true,
+  );
+  assert.equal(
+    nearTrashEdge({ left: 40, right: 80, top: 40, bottom: 80 }, bin),
+    false,
+  );
+});

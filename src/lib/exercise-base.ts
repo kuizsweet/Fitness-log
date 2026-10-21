@@ -1,6 +1,6 @@
 import shoulderRegions from "../data/exercise-shoulder-regions.json";
 import chestRegions from "../data/exercise-chest-regions.json";
-import names from "../data/free-exercise-db-zh.json";
+import names from "../data/hevy-exercises-zh.json";
 export type BaseExercise = {
   id: string;
   name: string;
@@ -8,6 +8,8 @@ export type BaseExercise = {
   secondaryMuscles: string[];
   equipment: string | null;
   category: string;
+  localizedName?: string;
+  aliases?: string[];
 };
 const muscles: Record<string, string> = {
   abdominals: "腹肌",
@@ -18,6 +20,10 @@ const muscles: Record<string, string> = {
   shoulders: "三角肌",
   chest: "胸",
   "middle back": "中背",
+  "upper-back": "上背",
+  "lower-back": "下背",
+  "full-body": "全身",
+  olympic: "全身",
   calves: "小腿",
   glutes: "臀肌",
   "lower back": "下背",
@@ -30,21 +36,30 @@ const muscles: Record<string, string> = {
 };
 export function localizedExerciseName(id: string, fallback: string) {
   return (
-    (names as Record<string, string>)[id.replace(/^free-db:/, "")] ?? fallback
+    (names as Record<string, string>)[id.replace(/^hevy:/, "")] ?? fallback
   );
 }
 export function chestRegion(name: string) {
+  if (/上斜.*俯卧撑/.test(name)) return "下胸";
+  if (/下斜.*俯卧撑/.test(name)) return "上胸";
+  if (/上斜/.test(name)) return "上胸";
+  if (/下斜/.test(name)) return "下胸";
   if (/decline.*push.?up|feet.*elevated.*push.?up/i.test(name)) return "上胸";
   if (/incline.*push.?up/i.test(name)) return "下胸";
   if (/incline/i.test(name)) return "上胸";
   if (/decline|dips?.*chest|chest.*dips?/i.test(name)) return "下胸";
-  if (/bench press|flyes|flys|push.?up|butterfly|chest press/i.test(name))
+  if (/双杠|撑体/.test(name)) return "下胸";
+  if (
+    /俯卧撑|卧推|推胸|夹胸|飞鸟|bench press|flyes|flys|push.?up|butterfly|chest press/i.test(
+      name,
+    )
+  )
     return "中胸";
-  return "未细分";
+  return "";
 }
 export function exerciseDetail(group: string) {
   if (/^(胸|肩) \/ /.test(group)) return group.slice(4);
-  return group === "胸" ? "未细分" : group;
+  return group;
 }
 export function baseChestRegion(id: string) {
   return (chestRegions as Record<string, { region: string }>)[
@@ -57,16 +72,22 @@ export function baseShoulderRegion(id: string) {
   ]?.region;
 }
 export function adaptBaseExercise(item: BaseExercise) {
+  const region =
+    baseChestRegion(item.id) ?? chestRegion(item.localizedName ?? item.name);
   return {
-    id: `free-db:${item.id}`,
-    name: localizedExerciseName(item.id, item.name),
+    id: `hevy:${item.id}`,
+    name: item.localizedName ?? localizedExerciseName(item.id, item.name),
     originalName: item.name,
+    aliases: item.aliases ?? [],
+    primaryMuscles: item.primaryMuscles,
     equipment: item.equipment,
     category: item.category,
     muscle_group: item.primaryMuscles.includes("chest")
-      ? `胸 / ${baseChestRegion(item.id) ?? chestRegion(item.name)}`
+      ? region
+        ? `胸 / ${region}`
+        : "胸"
       : item.primaryMuscles.includes("shoulders")
-        ? `肩 / ${baseShoulderRegion(item.id) ?? "未细分"}`
+        ? "肩"
         : item.primaryMuscles.map((m) => muscles[m] ?? m).join(" / "),
     source: "base" as const,
   };
@@ -105,9 +126,18 @@ export function matchesLibraryFamily(
 }
 
 export const equipmentFilters = {
+  smith: "史密斯",
+  "plate-loaded": "挂片器械",
+  "trap-bar": "六角杠",
   dumbbell: "哑铃",
   barbell: "杠铃",
-  cable: "绳索器械",
+  cable: "绳索",
+  "resistance-band": "弹力带",
+  "suspension-band": "悬挂带",
+  bodyweight: "自重",
+  none: "无器械",
+  "weight-ball": "负重球",
+  "weight-plate": "杠铃片",
   kettlebells: "壶铃",
   bands: "弹力带",
   machine: "固定器械",

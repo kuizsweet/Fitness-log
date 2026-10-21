@@ -35,11 +35,12 @@ export function calendarDayState(
     rows: day,
   };
 }
-export function calendarMonth(date: string) {
+export function calendarMonth(date: string, weekStart: 0 | 1 = 1) {
   const year = Number(date.slice(0, 4)),
     month = Number(date.slice(5, 7));
   const days = new Date(Date.UTC(year, month, 0)).getUTCDate();
-  const offset = (new Date(Date.UTC(year, month - 1, 1)).getUTCDay() + 6) % 7;
+  const offset =
+    (new Date(Date.UTC(year, month - 1, 1)).getUTCDay() - weekStart + 7) % 7;
   return {
     year,
     month,
@@ -50,8 +51,11 @@ export function calendarMonth(date: string) {
   };
 }
 /** Keep weekday columns stable; overflow dates wrap into unused first-row cells. */
-export function fiveRowCalendarDays(date: string): (number | null)[] {
-  const { offset, days } = calendarMonth(date);
+export function fiveRowCalendarDays(
+  date: string,
+  weekStart: 0 | 1 = 1,
+): (number | null)[] {
+  const { offset, days } = calendarMonth(date, weekStart);
   const cells: (number | null)[] = Array(35).fill(null);
   for (let day = 1; day <= days; day++) {
     cells[(offset + day - 1) % 35] = day;

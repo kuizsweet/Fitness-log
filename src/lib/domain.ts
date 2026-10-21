@@ -128,6 +128,7 @@ export type Profile = {
   display_name: string;
   unit: "kg" | "lb";
   timezone: string;
+  week_start?: 0 | 1;
 };
 export type MealPhoto = {
   id: string;

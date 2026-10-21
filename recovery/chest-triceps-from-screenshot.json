@@ -1,0 +1,83 @@
+{
+  "notes": [
+    {
+      "id": "4cc886c8-3fc3-4216-afce-fd5f32541fb7",
+      "title": "胸三头",
+      "x": 12,
+      "y": 12,
+      "width": 520,
+      "height": 620,
+      "pinned": false,
+      "z": 2,
+      "temporary": false,
+      "savedToWarehouse": true,
+      "inWarehouse": false,
+      "exercises": [
+        {
+          "id": "1f0920da-1c32-45aa-ba72-7f3001607c8e",
+          "sourceId": "hevy:1651",
+          "name": "卧推（杠铃）",
+          "muscle": "胸",
+          "sets": 4,
+          "reps": 8,
+          "weight": 45
+        },
+        {
+          "id": "d4eb16d2-7f39-4358-abab-f2402a96b531",
+          "sourceId": "hevy:video-11ec9769cb6e20e2",
+          "name": "上斜推胸（器械）",
+          "muscle": "胸",
+          "sets": 3,
+          "reps": 12,
+          "weight": 25
+        },
+        {
+          "id": "71fc3823-592c-4a4e-9c08-6e5c1e91fe6a",
+          "sourceId": "hevy:video-db65d033af25c0e8",
+          "name": "下斜推胸（器械）",
+          "muscle": "胸",
+          "sets": 2,
+          "reps": 12,
+          "weight": 33
+        },
+        {
+          "id": "eaeea60e-b007-446c-aa1d-efe0b4299570",
+          "sourceId": "hevy:video-40f23501e11abb91",
+          "name": "蝴蝶机夹胸",
+          "muscle": "胸",
+          "sets": 2,
+          "reps": 12,
+          "weight": 26
+        },
+        {
+          "id": "2b40bad6-da83-42fa-b0d9-506a22dcf934",
+          "sourceId": "hevy:1866",
+          "name": "三头肌下压（绳索）",
+          "muscle": "肱三头肌",
+          "sets": 4,
+          "reps": 3,
+          "weight": 19
+        },
+        {
+          "id": "e01af860-121b-45e6-9844-30010fc0cd20",
+          "sourceId": "hevy:video-6462deda810b6248",
+          "name": "过顶臂屈伸（绳索）",
+          "muscle": "肱三头肌",
+          "sets": 2,
+          "reps": 12,
+          "weight": 26
+        },
+        {
+          "id": "3038bd2c-f09d-42e4-80e5-fdb2db968f3c",
+          "sourceId": "hevy:video-2ad4973f8e16763d",
+          "name": "三头肌臂屈伸（绳索）",
+          "muscle": "肱三头肌",
+          "sets": null,
+          "reps": null,
+          "weight": null
+        }
+      ]
+    }
+  ],
+  "assignments": {}
+}

@@ -1,0 +1,4806 @@
+{
+  "sourceVideo": "7eeec41acdc4e5437773f0062f66166c.mp4",
+  "durationSeconds": 116.8,
+  "decodedFrames": 3501,
+  "sampleIntervalSeconds": 0.2,
+  "reviewedChangeFrames": 552,
+  "entries": [
+    {
+      "rawName": "侧平举（哑铃）",
+      "localizedName": "侧平举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 0,
+      "seconds": 0.0,
+      "observations": 10
+    },
+    {
+      "rawName": "锤式弯举（哑铃）",
+      "localizedName": "锤式弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 0,
+      "seconds": 0.0,
+      "observations": 9
+    },
+    {
+      "rawName": "二头弯举（杠铃）",
+      "localizedName": "弯举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 0,
+      "seconds": 0.0,
+      "observations": 29
+    },
+    {
+      "rawName": "俯身划船（杠铃）",
+      "localizedName": "俯身划船（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 0,
+      "seconds": 0.0,
+      "observations": 19
+    },
+    {
+      "rawName": "滑轮飞鸟",
+      "localizedName": "飞鸟（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 0,
+      "seconds": 0.0,
+      "observations": 20
+    },
+    {
+      "rawName": "阔背肌下拉（滑轮机）",
+      "localizedName": "高位下拉（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 0,
+      "seconds": 0.0,
+      "observations": 29
+    },
+    {
+      "rawName": "肩推（哑铃）",
+      "localizedName": "肩推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 6,
+      "seconds": 0.2,
+      "observations": 27
+    },
+    {
+      "rawName": "三头肌绳索下压",
+      "localizedName": "三头肌下压（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 12,
+      "seconds": 0.4,
+      "observations": 19
+    },
+    {
+      "rawName": "三头肌下压",
+      "localizedName": "三头肌下压",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 24,
+      "seconds": 0.8,
+      "observations": 25
+    },
+    {
+      "rawName": "上斜推胸（哑铃）",
+      "localizedName": "上斜卧推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 36,
+      "seconds": 1.2,
+      "observations": 19
+    },
+    {
+      "rawName": "深蹲（杠铃）",
+      "localizedName": "深蹲（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 42,
+      "seconds": 1.4,
+      "observations": 20
+    },
+    {
+      "rawName": "繩索臉拉",
+      "localizedName": "面拉（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 60,
+      "seconds": 2.0,
+      "observations": 17
+    },
+    {
+      "rawName": "躺着腿弯举（机）",
+      "localizedName": "俯卧腿弯举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 66,
+      "seconds": 2.2,
+      "observations": 15
+    },
+    {
+      "rawName": "腿部伸展（机器）",
+      "localizedName": "腿屈伸（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 72,
+      "seconds": 2.4,
+      "observations": 21
+    },
+    {
+      "rawName": "腿举（机）",
+      "localizedName": "腿举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 84,
+      "seconds": 2.8,
+      "observations": 20
+    },
+    {
+      "rawName": "卧推（杠铃）",
+      "localizedName": "卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 96,
+      "seconds": 3.2,
+      "observations": 21
+    },
+    {
+      "rawName": "卧推（哑铃）",
+      "localizedName": "卧推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 108,
+      "seconds": 3.6,
+      "observations": 30
+    },
+    {
+      "rawName": "硬拉（杠铃）",
+      "localizedName": "硬拉（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 132,
+      "seconds": 4.4,
+      "observations": 19
+    },
+    {
+      "rawName": "坐姿腿弯举（机器）",
+      "localizedName": "坐姿腿弯举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 132,
+      "seconds": 4.4,
+      "observations": 19
+    },
+    {
+      "rawName": "SeatedCableROW-VGrip(Cable)",
+      "localizedName": "坐姿V把划船（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 162,
+      "seconds": 5.4,
+      "observations": 18
+    },
+    {
+      "rawName": "21s二头肌弯举",
+      "localizedName": "21s弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 180,
+      "seconds": 6.01,
+      "observations": 12
+    },
+    {
+      "rawName": "剪刀式踢脚",
+      "localizedName": "仰卧剪刀腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 204,
+      "seconds": 6.81,
+      "observations": 9
+    },
+    {
+      "rawName": "健腹轮",
+      "localizedName": "健腹轮",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 210,
+      "seconds": 7.01,
+      "observations": 11
+    },
+    {
+      "rawName": "有氧训练",
+      "localizedName": "有氧训练",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 228,
+      "seconds": 7.61,
+      "observations": 10
+    },
+    {
+      "rawName": "AirBike",
+      "localizedName": "风阻单车",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 234,
+      "seconds": 7.81,
+      "observations": 12
+    },
+    {
+      "rawName": "阿诺肩推（哑铃）",
+      "localizedName": "阿诺德推举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 258,
+      "seconds": 8.61,
+      "observations": 8
+    },
+    {
+      "rawName": "辅助单腿深蹲",
+      "localizedName": "辅助单腿深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 282,
+      "seconds": 9.41,
+      "observations": 10
+    },
+    {
+      "rawName": "背部伸展(Hyperextension)",
+      "localizedName": "背部伸展",
+      "equipment": null,
+      "primaryMuscles": [
+        "lower-back"
+      ],
+      "category": "strength",
+      "frame": 288,
+      "seconds": 9.61,
+      "observations": 11
+    },
+    {
+      "rawName": "背部伸展（训练机）",
+      "localizedName": "背部伸展（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "lower-back"
+      ],
+      "category": "strength",
+      "frame": 294,
+      "seconds": 9.81,
+      "observations": 12
+    },
+    {
+      "rawName": "背部伸展(WeightedHyperextension)",
+      "localizedName": "负重背部伸展",
+      "equipment": null,
+      "primaryMuscles": [
+        "lower-back"
+      ],
+      "category": "strength",
+      "frame": 318,
+      "seconds": 10.61,
+      "observations": 8
+    },
+    {
+      "rawName": "击球",
+      "localizedName": "药球砸地",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 318,
+      "seconds": 10.61,
+      "observations": 11
+    },
+    {
+      "rawName": "弹力带肩关节后拉",
+      "localizedName": "肩关节后拉（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 336,
+      "seconds": 11.21,
+      "observations": 9
+    },
+    {
+      "rawName": "战绳",
+      "localizedName": "战绳",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 342,
+      "seconds": 11.41,
+      "observations": 10
+    },
+    {
+      "rawName": "背后二头肌腕弯举（杠铃）",
+      "localizedName": "背后二头肌腕弯举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "category": "strength",
+      "frame": 354,
+      "seconds": 11.81,
+      "observations": 9
+    },
+    {
+      "rawName": "BehindtheBackCurl(Cable)",
+      "localizedName": "背后弯举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 378,
+      "seconds": 12.61,
+      "observations": 8
+    },
+    {
+      "rawName": "BeltSquat(Machine)",
+      "localizedName": "腰带深蹲（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 378,
+      "seconds": 12.61,
+      "observations": 6
+    },
+    {
+      "rawName": "凳上屈伸",
+      "localizedName": "凳上屈伸",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 384,
+      "seconds": 12.81,
+      "observations": 9
+    },
+    {
+      "rawName": "平板卧推．窄握（杠铃）",
+      "localizedName": "窄握卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 402,
+      "seconds": 13.41,
+      "observations": 9
+    },
+    {
+      "rawName": "卧推一宽握（杠铃）",
+      "localizedName": "宽握卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 408,
+      "seconds": 13.61,
+      "observations": 8
+    },
+    {
+      "rawName": "卧推（滑轮机）",
+      "localizedName": "卧推（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 420,
+      "seconds": 14.01,
+      "observations": 9
+    },
+    {
+      "rawName": "卧推（史密斯训练器）",
+      "localizedName": "卧推（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 438,
+      "seconds": 14.61,
+      "observations": 9
+    },
+    {
+      "rawName": "俯身划船（阻力带）",
+      "localizedName": "俯身划船（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 444,
+      "seconds": 14.81,
+      "observations": 11
+    },
+    {
+      "rawName": "俯身划船（哑铃）",
+      "localizedName": "俯身划船（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 462,
+      "seconds": 15.41,
+      "observations": 11
+    },
+    {
+      "rawName": "二头弯举（滑轮机）",
+      "localizedName": "弯举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 480,
+      "seconds": 16.01,
+      "observations": 18
+    },
+    {
+      "rawName": "二头弯举（训练机）",
+      "localizedName": "弯举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 498,
+      "seconds": 16.61,
+      "observations": 11
+    },
+    {
+      "rawName": "二头肌弯举（悬吊）",
+      "localizedName": "弯举（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 510,
+      "seconds": 17.01,
+      "observations": 11
+    },
+    {
+      "rawName": "单车式卷腹",
+      "localizedName": "单车式卷腹",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 516,
+      "seconds": 17.21,
+      "observations": 19
+    },
+    {
+      "rawName": "跳箱",
+      "localizedName": "跳箱",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 540,
+      "seconds": 18.02,
+      "observations": 11
+    },
+    {
+      "rawName": "箱式深蹲（杠铃）",
+      "localizedName": "箱式深蹲（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 558,
+      "seconds": 18.62,
+      "observations": 9
+    },
+    {
+      "rawName": "拳击",
+      "localizedName": "拳击",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 564,
+      "seconds": 18.82,
+      "observations": 10
+    },
+    {
+      "rawName": "保加利亚分腿蹲",
+      "localizedName": "保加利亚分腿蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 576,
+      "seconds": 19.22,
+      "observations": 9
+    },
+    {
+      "rawName": "波比跳",
+      "localizedName": "波比跳",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 582,
+      "seconds": 19.42,
+      "observations": 21
+    },
+    {
+      "rawName": "蝴蝶机夹胸",
+      "localizedName": "蝴蝶机夹胸",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 594,
+      "seconds": 19.82,
+      "observations": 11
+    },
+    {
+      "rawName": "滑轮推拉",
+      "localizedName": "推拉（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 606,
+      "seconds": 20.22,
+      "observations": 11
+    },
+    {
+      "rawName": "滑轮卷腹",
+      "localizedName": "卷腹（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 612,
+      "seconds": 20.42,
+      "observations": 11
+    },
+    {
+      "rawName": "滑轮绳索髋屈伸",
+      "localizedName": "绳索髋屈伸（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 630,
+      "seconds": 21.02,
+      "observations": 10
+    },
+    {
+      "rawName": "滑轮卷腹（从下到上）",
+      "localizedName": "卷腹（从下到上）（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 636,
+      "seconds": 21.22,
+      "observations": 10
+    },
+    {
+      "rawName": "滑轮卷腹（从上到下）",
+      "localizedName": "卷腹（从上到下）（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 648,
+      "seconds": 21.62,
+      "observations": 10
+    },
+    {
+      "rawName": "小腿伸展（机）",
+      "localizedName": "小腿伸展（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 654,
+      "seconds": 21.82,
+      "observations": 10
+    },
+    {
+      "rawName": "小腿推举机（机）",
+      "localizedName": "小腿推举机（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 666,
+      "seconds": 22.22,
+      "observations": 10
+    },
+    {
+      "rawName": "双杠撑体",
+      "localizedName": "双杠撑体",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 672,
+      "seconds": 22.42,
+      "observations": 6
+    },
+    {
+      "rawName": "双杠撑体（辅助）",
+      "localizedName": "双杠撑体（辅助）",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 696,
+      "seconds": 23.22,
+      "observations": 6
+    },
+    {
+      "rawName": "双杠撑体（加重）",
+      "localizedName": "双杠撑体（负重）",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 702,
+      "seconds": 23.42,
+      "observations": 6
+    },
+    {
+      "rawName": "飞鸟夹胸（阻力带）",
+      "localizedName": "飞鸟（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 708,
+      "seconds": 23.62,
+      "observations": 8
+    },
+    {
+      "rawName": "飞鸟夹胸（哑铃）",
+      "localizedName": "飞鸟（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 720,
+      "seconds": 24.02,
+      "observations": 6
+    },
+    {
+      "rawName": "飞鸟夹胸（机）",
+      "localizedName": "飞鸟（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 720,
+      "seconds": 24.02,
+      "observations": 9
+    },
+    {
+      "rawName": "胸蝇（悬吊）",
+      "localizedName": "飞鸟（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 738,
+      "seconds": 24.62,
+      "observations": 8
+    },
+    {
+      "rawName": "胸推（阻力带）",
+      "localizedName": "胸推（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 744,
+      "seconds": 24.82,
+      "observations": 10
+    },
+    {
+      "rawName": "胸推（训练机）",
+      "localizedName": "胸推（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 750,
+      "seconds": 25.02,
+      "observations": 9
+    },
+    {
+      "rawName": "胸部支撑上斜划船（哑铃）",
+      "localizedName": "上斜凳胸托划船（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 762,
+      "seconds": 25.42,
+      "observations": 8
+    },
+    {
+      "rawName": "反向飞鸟（哑铃）",
+      "localizedName": "反向飞鸟（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 768,
+      "seconds": 25.62,
+      "observations": 10
+    },
+    {
+      "rawName": "ChestSupportedYRaise(Dumbbell)",
+      "localizedName": "胸托Y举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 786,
+      "seconds": 26.22,
+      "observations": 8
+    },
+    {
+      "rawName": "引体向上",
+      "localizedName": "引体向上",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 786,
+      "seconds": 26.22,
+      "observations": 17
+    },
+    {
+      "rawName": "引体向上（辅助）",
+      "localizedName": "引体向上（辅助）",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 804,
+      "seconds": 26.82,
+      "observations": 17
+    },
+    {
+      "rawName": "引体向上（加重）",
+      "localizedName": "引体向上（负重）",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 810,
+      "seconds": 27.02,
+      "observations": 17
+    },
+    {
+      "rawName": "蚌式",
+      "localizedName": "蚌式",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 828,
+      "seconds": 27.62,
+      "observations": 5
+    },
+    {
+      "rawName": "拍手伏地挺身",
+      "localizedName": "拍手俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 846,
+      "seconds": 28.22,
+      "observations": 8
+    },
+    {
+      "rawName": "上搏",
+      "localizedName": "高翻",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 864,
+      "seconds": 28.82,
+      "observations": 9
+    },
+    {
+      "rawName": "挺举",
+      "localizedName": "挺举",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 870,
+      "seconds": 29.02,
+      "observations": 9
+    },
+    {
+      "rawName": "上膊推举",
+      "localizedName": "高翻推举",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 876,
+      "seconds": 29.23,
+      "observations": 10
+    },
+    {
+      "rawName": "速拉",
+      "localizedName": "高翻拉",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 882,
+      "seconds": 29.43,
+      "observations": 10
+    },
+    {
+      "rawName": "攀登",
+      "localizedName": "攀登",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 888,
+      "seconds": 29.63,
+      "observations": 11
+    },
+    {
+      "rawName": "单臂哑铃弯举",
+      "localizedName": "单臂弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 894,
+      "seconds": 29.83,
+      "observations": 11
+    },
+    {
+      "rawName": "跨身锤式弯举",
+      "localizedName": "跨身锤式弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 900,
+      "seconds": 30.03,
+      "observations": 11
+    },
+    {
+      "rawName": "卷腹",
+      "localizedName": "卷腹",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 918,
+      "seconds": 30.63,
+      "observations": 9
+    },
+    {
+      "rawName": "卷腹（机器）",
+      "localizedName": "卷腹（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 924,
+      "seconds": 30.83,
+      "observations": 9
+    },
+    {
+      "rawName": "卷腹（加重）",
+      "localizedName": "卷腹（负重）",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 936,
+      "seconds": 31.23,
+      "observations": 7
+    },
+    {
+      "rawName": "弓步屈膝礼（哑铃）",
+      "localizedName": "交叉后撤弓步（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 942,
+      "seconds": 31.43,
+      "observations": 8
+    },
+    {
+      "rawName": "踩单车",
+      "localizedName": "踩单车",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 960,
+      "seconds": 32.03,
+      "observations": 7
+    },
+    {
+      "rawName": "死虫式",
+      "localizedName": "死虫式",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 960,
+      "seconds": 32.03,
+      "observations": 8
+    },
+    {
+      "rawName": "双臂悬挂",
+      "localizedName": "双臂悬挂",
+      "equipment": null,
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 972,
+      "seconds": 32.43,
+      "observations": 7
+    },
+    {
+      "rawName": "硬拉（阻力带）",
+      "localizedName": "硬拉（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 978,
+      "seconds": 32.63,
+      "observations": 8
+    },
+    {
+      "rawName": "硬拉（哑铃）",
+      "localizedName": "硬拉（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 984,
+      "seconds": 32.83,
+      "observations": 10
+    },
+    {
+      "rawName": "硬拉（史密斯训练器）",
+      "localizedName": "硬拉（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 996,
+      "seconds": 33.23,
+      "observations": 9
+    },
+    {
+      "rawName": "硬拉（六角杠）",
+      "localizedName": "硬拉（六角杠）",
+      "equipment": "trap-bar",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1002,
+      "seconds": 33.43,
+      "observations": 9
+    },
+    {
+      "rawName": "相扑式硬举高拉",
+      "localizedName": "相扑硬拉高拉",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1002,
+      "seconds": 33.43,
+      "observations": 10
+    },
+    {
+      "rawName": "下斜推胸（杠铃）",
+      "localizedName": "下斜卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1014,
+      "seconds": 33.83,
+      "observations": 9
+    },
+    {
+      "rawName": "下斜推胸（哑铃）",
+      "localizedName": "下斜卧推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1026,
+      "seconds": 34.23,
+      "observations": 7
+    },
+    {
+      "rawName": "下斜推胸（训练机）",
+      "localizedName": "下斜推胸（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1032,
+      "seconds": 34.43,
+      "observations": 6
+    },
+    {
+      "rawName": "下斜推胸（史密斯训练器）",
+      "localizedName": "下斜卧推（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1044,
+      "seconds": 34.83,
+      "observations": 9
+    },
+    {
+      "rawName": "下斜飞鸟（哑铃）",
+      "localizedName": "下斜飞鸟（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1050,
+      "seconds": 35.03,
+      "observations": 8
+    },
+    {
+      "rawName": "斜板卷腹",
+      "localizedName": "斜板卷腹",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1056,
+      "seconds": 35.23,
+      "observations": 10
+    },
+    {
+      "rawName": "斜板卷腹（加重）",
+      "localizedName": "斜板卷腹（负重）",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1062,
+      "seconds": 35.43,
+      "observations": 11
+    },
+    {
+      "rawName": "下斜俯卧撑",
+      "localizedName": "下斜俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1074,
+      "seconds": 35.83,
+      "observations": 9
+    },
+    {
+      "rawName": "钻石伏地挺身",
+      "localizedName": "钻石俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 1086,
+      "seconds": 36.23,
+      "observations": 9
+    },
+    {
+      "rawName": "下犬式",
+      "localizedName": "下犬式",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1086,
+      "seconds": 36.23,
+      "observations": 10
+    },
+    {
+      "rawName": "拖动弯举",
+      "localizedName": "拖动弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 1098,
+      "seconds": 36.63,
+      "observations": 10
+    },
+    {
+      "rawName": "龙旗",
+      "localizedName": "龙旗",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1104,
+      "seconds": 36.83,
+      "observations": 9
+    },
+    {
+      "rawName": "蜻蜓",
+      "localizedName": "蜻蜓",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1110,
+      "seconds": 37.03,
+      "observations": 10
+    },
+    {
+      "rawName": "哑铃划船",
+      "localizedName": "划船（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 1128,
+      "seconds": 37.63,
+      "observations": 8
+    },
+    {
+      "rawName": "哑铃抓举",
+      "localizedName": "抓举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1128,
+      "seconds": 37.63,
+      "observations": 9
+    },
+    {
+      "rawName": "哑铃登階",
+      "localizedName": "登阶（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1146,
+      "seconds": 38.23,
+      "observations": 8
+    },
+    {
+      "rawName": "膝碰肘",
+      "localizedName": "膝碰肘",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1152,
+      "seconds": 38.43,
+      "observations": 8
+    },
+    {
+      "rawName": "椭圆机",
+      "localizedName": "椭圆机",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 1170,
+      "seconds": 39.03,
+      "observations": 7
+    },
+    {
+      "rawName": "EZ杠铃二头肌弯举",
+      "localizedName": "弯举（EZ杠铃）",
+      "equipment": "e-z curl bar",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 1188,
+      "seconds": 39.63,
+      "observations": 7
+    },
+    {
+      "rawName": "农夫走",
+      "localizedName": "农夫行走",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1194,
+      "seconds": 39.83,
+      "observations": 9
+    },
+    {
+      "rawName": "FeetUpBenchPress(Barbell)",
+      "localizedName": "抬脚卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1206,
+      "seconds": 40.23,
+      "observations": 8
+    },
+    {
+      "rawName": "消防栓式抬腿",
+      "localizedName": "消防栓式抬腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1212,
+      "seconds": 40.43,
+      "observations": 9
+    },
+    {
+      "rawName": "地板卧推（杠铃）",
+      "localizedName": "地板卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1218,
+      "seconds": 40.63,
+      "observations": 8
+    },
+    {
+      "rawName": "落地推举（哑铃）",
+      "localizedName": "地板卧推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1218,
+      "seconds": 40.63,
+      "observations": 9
+    },
+    {
+      "rawName": "坐姿體",
+      "localizedName": "坐姿撑体",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 1236,
+      "seconds": 41.24,
+      "observations": 6
+    },
+    {
+      "rawName": "踢腿",
+      "localizedName": "踢腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1236,
+      "seconds": 41.24,
+      "observations": 10
+    },
+    {
+      "rawName": "青蛙跳",
+      "localizedName": "蛙跳",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1242,
+      "seconds": 41.44,
+      "observations": 11
+    },
+    {
+      "rawName": "青蛙泵（哑铃）",
+      "localizedName": "青蛙泵（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1254,
+      "seconds": 41.84,
+      "observations": 8
+    },
+    {
+      "rawName": "前杆保持",
+      "localizedName": "前水平保持",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1266,
+      "seconds": 42.24,
+      "observations": 9
+    },
+    {
+      "rawName": "前杆升高",
+      "localizedName": "前水平抬升",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1272,
+      "seconds": 42.44,
+      "observations": 10
+    },
+    {
+      "rawName": "肩膀抬高（阻力带）",
+      "localizedName": "前平举（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1278,
+      "seconds": 42.64,
+      "observations": 10
+    },
+    {
+      "rawName": "肩膀抬高（杠铃）",
+      "localizedName": "前平举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1290,
+      "seconds": 43.04,
+      "observations": 10
+    },
+    {
+      "rawName": "肩膀抬高（滑轮）",
+      "localizedName": "前平举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1296,
+      "seconds": 43.24,
+      "observations": 10
+    },
+    {
+      "rawName": "肩膀抬高（哑铃）",
+      "localizedName": "前平举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1302,
+      "seconds": 43.44,
+      "observations": 10
+    },
+    {
+      "rawName": "前提升（悬吊）",
+      "localizedName": "前平举（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1314,
+      "seconds": 43.84,
+      "observations": 11
+    },
+    {
+      "rawName": "颈前深蹲",
+      "localizedName": "前蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1320,
+      "seconds": 44.04,
+      "observations": 10
+    },
+    {
+      "rawName": "颈后深蹲",
+      "localizedName": "颈后深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1332,
+      "seconds": 44.44,
+      "observations": 10
+    },
+    {
+      "rawName": "臀桥",
+      "localizedName": "臀桥",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1338,
+      "seconds": 44.64,
+      "observations": 10
+    },
+    {
+      "rawName": "臀部火腿抬高",
+      "localizedName": "臀腿挺身",
+      "equipment": null,
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 1350,
+      "seconds": 45.04,
+      "observations": 10
+    },
+    {
+      "rawName": "后踢腿机",
+      "localizedName": "后踢腿（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1356,
+      "seconds": 45.24,
+      "observations": 17
+    },
+    {
+      "rawName": "后踢腿",
+      "localizedName": "后踢腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1362,
+      "seconds": 45.44,
+      "observations": 9
+    },
+    {
+      "rawName": "哑铃高脚杯式深蹲",
+      "localizedName": "高脚杯深蹲（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1374,
+      "seconds": 45.84,
+      "observations": 8
+    },
+    {
+      "rawName": "早安运动（杠铃）",
+      "localizedName": "早安式（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 1380,
+      "seconds": 46.04,
+      "observations": 8
+    },
+    {
+      "rawName": "GorillaROW(Kettlebell)",
+      "localizedName": "猩猩划船（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 1398,
+      "seconds": 46.64,
+      "observations": 5
+    },
+    {
+      "rawName": "哈克深蹲",
+      "localizedName": "哈克深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1404,
+      "seconds": 46.84,
+      "observations": 8
+    },
+    {
+      "rawName": "哈克深蹲（机械）",
+      "localizedName": "哈克深蹲（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1410,
+      "seconds": 47.04,
+      "observations": 8
+    },
+    {
+      "rawName": "锤式弯举（阻力带）",
+      "localizedName": "锤式弯举（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 1422,
+      "seconds": 47.44,
+      "observations": 7
+    },
+    {
+      "rawName": "锤式弯举（滑轮机）",
+      "localizedName": "锤式弯举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 1422,
+      "seconds": 47.44,
+      "observations": 8
+    },
+    {
+      "rawName": "倒立",
+      "localizedName": "倒立",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1434,
+      "seconds": 47.84,
+      "observations": 9
+    },
+    {
+      "rawName": "倒立伏地挺身",
+      "localizedName": "倒立撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1446,
+      "seconds": 48.24,
+      "observations": 14
+    },
+    {
+      "rawName": "悬挂挺举",
+      "localizedName": "悬垂高翻",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1446,
+      "seconds": 48.24,
+      "observations": 8
+    },
+    {
+      "rawName": "悬挂抓举",
+      "localizedName": "悬挂抓举",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1452,
+      "seconds": 48.44,
+      "observations": 8
+    },
+    {
+      "rawName": "单杠曲膝上举",
+      "localizedName": "悬垂提膝",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1464,
+      "seconds": 48.84,
+      "observations": 7
+    },
+    {
+      "rawName": "单杠曲腿上举",
+      "localizedName": "悬垂举腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1470,
+      "seconds": 49.04,
+      "observations": 7
+    },
+    {
+      "rawName": "足跟轻叩",
+      "localizedName": "仰卧交替触踵",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1470,
+      "seconds": 49.04,
+      "observations": 8
+    },
+    {
+      "rawName": "HexPress(Dumbbell)",
+      "localizedName": "并握挤压卧推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1482,
+      "seconds": 49.44,
+      "observations": 6
+    },
+    {
+      "rawName": "高抬腿",
+      "localizedName": "高抬腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1488,
+      "seconds": 49.64,
+      "observations": 16
+    },
+    {
+      "rawName": "高强度间歇训练，HIIT",
+      "localizedName": "高强度间歇训练（HIIT）",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 1494,
+      "seconds": 49.84,
+      "observations": 9
+    },
+    {
+      "rawName": "健行",
+      "localizedName": "徒步",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 1506,
+      "seconds": 50.24,
+      "observations": 10
+    },
+    {
+      "rawName": "髋关节外展（机器）",
+      "localizedName": "髋外展（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "abductors"
+      ],
+      "category": "strength",
+      "frame": 1518,
+      "seconds": 50.64,
+      "observations": 9
+    },
+    {
+      "rawName": "髋关节内收（机器）",
+      "localizedName": "髋内收（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "adductors"
+      ],
+      "category": "strength",
+      "frame": 1518,
+      "seconds": 50.64,
+      "observations": 11
+    },
+    {
+      "rawName": "臀推",
+      "localizedName": "臀推",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1524,
+      "seconds": 50.84,
+      "observations": 10
+    },
+    {
+      "rawName": "臀推（杠铃）",
+      "localizedName": "臀推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1536,
+      "seconds": 51.24,
+      "observations": 9
+    },
+    {
+      "rawName": "HipThrust(Machine)",
+      "localizedName": "臀推（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1542,
+      "seconds": 51.44,
+      "observations": 9
+    },
+    {
+      "rawName": "HipThrust(SmithMachine)",
+      "localizedName": "臀推（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1554,
+      "seconds": 51.84,
+      "observations": 8
+    },
+    {
+      "rawName": "船式摇摆",
+      "localizedName": "空心支撑摇摆",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1560,
+      "seconds": 52.04,
+      "observations": 9
+    },
+    {
+      "rawName": "上斜推胸（杠铃）",
+      "localizedName": "上斜卧推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1566,
+      "seconds": 52.24,
+      "observations": 9
+    },
+    {
+      "rawName": "上斜推胸（史密斯训练器）",
+      "localizedName": "上斜卧推（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1590,
+      "seconds": 53.05,
+      "observations": 8
+    },
+    {
+      "rawName": "上斜飞鸟（哑铃）",
+      "localizedName": "上斜飞鸟（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1590,
+      "seconds": 53.05,
+      "observations": 9
+    },
+    {
+      "rawName": "上斜推胸（训练机）",
+      "localizedName": "上斜推胸（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1602,
+      "seconds": 53.45,
+      "observations": 8
+    },
+    {
+      "rawName": "上斜俯卧撑",
+      "localizedName": "上斜俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1602,
+      "seconds": 53.45,
+      "observations": 9
+    },
+    {
+      "rawName": "反向划船",
+      "localizedName": "反向划船",
+      "equipment": null,
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 1608,
+      "seconds": 53.65,
+      "observations": 10
+    },
+    {
+      "rawName": "等侧压胸器（机）",
+      "localizedName": "独立臂推胸（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1620,
+      "seconds": 54.05,
+      "observations": 9
+    },
+    {
+      "rawName": "等侧高位划船（训练机）",
+      "localizedName": "独立臂高位划船（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 1626,
+      "seconds": 54.25,
+      "observations": 9
+    },
+    {
+      "rawName": "|so-LateralLowRow",
+      "localizedName": "独立臂低位划船（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 1632,
+      "seconds": 54.45,
+      "observations": 6
+    },
+    {
+      "rawName": "等侧划船（训练机）",
+      "localizedName": "独立臂划船（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 1644,
+      "seconds": 54.85,
+      "observations": 9
+    },
+    {
+      "rawName": "\"杰克\"刀（悬吊）",
+      "localizedName": "折刀收腹（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1650,
+      "seconds": 55.05,
+      "observations": 9
+    },
+    {
+      "rawName": "折刀仰卧起坐",
+      "localizedName": "折刀仰卧起坐",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1656,
+      "seconds": 55.25,
+      "observations": 10
+    },
+    {
+      "rawName": "JMPress(Barbell)",
+      "localizedName": "JM推举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 1668,
+      "seconds": 55.65,
+      "observations": 8
+    },
+    {
+      "rawName": "跳绳",
+      "localizedName": "跳绳",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 1674,
+      "seconds": 55.85,
+      "observations": 9
+    },
+    {
+      "rawName": "跳耸肩",
+      "localizedName": "跳耸肩",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1680,
+      "seconds": 56.05,
+      "observations": 10
+    },
+    {
+      "rawName": "跳蹲",
+      "localizedName": "深蹲跳",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1686,
+      "seconds": 56.25,
+      "observations": 10
+    },
+    {
+      "rawName": "開合跳",
+      "localizedName": "开合跳",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1698,
+      "seconds": 56.65,
+      "observations": 9
+    },
+    {
+      "rawName": "\"跳跃\"箭步蹲",
+      "localizedName": "弓步跳",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1698,
+      "seconds": 56.65,
+      "observations": 9
+    },
+    {
+      "rawName": "KettlebellAroundtheWorld",
+      "localizedName": "绕体传递（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1710,
+      "seconds": 57.05,
+      "observations": 8
+    },
+    {
+      "rawName": "壶铃上膊",
+      "localizedName": "高翻（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1722,
+      "seconds": 57.45,
+      "observations": 8
+    },
+    {
+      "rawName": "壶铃弯举",
+      "localizedName": "弯举（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 1728,
+      "seconds": 57.65,
+      "observations": 9
+    },
+    {
+      "rawName": "高脚杯蹲（壶铃）",
+      "localizedName": "高脚杯深蹲（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1740,
+      "seconds": 58.05,
+      "observations": 8
+    },
+    {
+      "rawName": "KettlebellHalo",
+      "localizedName": "绕头（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1740,
+      "seconds": 58.05,
+      "observations": 8
+    },
+    {
+      "rawName": "壶铃高拉",
+      "localizedName": "高拉（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1746,
+      "seconds": 58.25,
+      "observations": 11
+    },
+    {
+      "rawName": "肩推（壶铃）",
+      "localizedName": "肩推（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1758,
+      "seconds": 58.65,
+      "observations": 10
+    },
+    {
+      "rawName": "壶铃抓举",
+      "localizedName": "抓举（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1764,
+      "seconds": 58.85,
+      "observations": 10
+    },
+    {
+      "rawName": "壶铃摆动",
+      "localizedName": "摆动（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1770,
+      "seconds": 59.05,
+      "observations": 12
+    },
+    {
+      "rawName": "壶铃土其起立",
+      "localizedName": "土耳其起立（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1782,
+      "seconds": 59.45,
+      "observations": 10
+    },
+    {
+      "rawName": "借力引体向上",
+      "localizedName": "借力引体向上",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 1788,
+      "seconds": 59.65,
+      "observations": 12
+    },
+    {
+      "rawName": "提膝",
+      "localizedName": "提膝",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1794,
+      "seconds": 59.85,
+      "observations": 13
+    },
+    {
+      "rawName": "跪姿下拉（阻力带）",
+      "localizedName": "跪姿下拉（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 1806,
+      "seconds": 60.25,
+      "observations": 13
+    },
+    {
+      "rawName": "跪姿伏地挺身",
+      "localizedName": "跪姿俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 1824,
+      "seconds": 60.85,
+      "observations": 10
+    },
+    {
+      "rawName": "LSit撑体",
+      "localizedName": "L字支撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1830,
+      "seconds": 61.05,
+      "observations": 11
+    },
+    {
+      "rawName": "地雷管180度",
+      "localizedName": "地雷管转体",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 1836,
+      "seconds": 61.25,
+      "observations": 11
+    },
+    {
+      "rawName": "LandmineRow",
+      "localizedName": "地雷管划船",
+      "equipment": null,
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 1848,
+      "seconds": 61.65,
+      "observations": 9
+    },
+    {
+      "rawName": "地雷深蹲和推举",
+      "localizedName": "地雷管深蹲推举",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 1860,
+      "seconds": 62.05,
+      "observations": 10
+    },
+    {
+      "rawName": "阔背肌下拉（阻力带）",
+      "localizedName": "高位下拉（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 1890,
+      "seconds": 63.05,
+      "observations": 8
+    },
+    {
+      "rawName": "阔背肌下拉（训练机）",
+      "localizedName": "高位下拉（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 1902,
+      "seconds": 63.45,
+      "observations": 9
+    },
+    {
+      "rawName": "横向阻力带行走",
+      "localizedName": "横向行走（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1908,
+      "seconds": 63.65,
+      "observations": 10
+    },
+    {
+      "rawName": "横向跳箱",
+      "localizedName": "横向跳箱",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1914,
+      "seconds": 63.85,
+      "observations": 10
+    },
+    {
+      "rawName": "侧腿抬高",
+      "localizedName": "侧腿抬高",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 1920,
+      "seconds": 64.05,
+      "observations": 9
+    },
+    {
+      "rawName": "侧箭步蹲",
+      "localizedName": "侧弓步蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1938,
+      "seconds": 64.66,
+      "observations": 13
+    },
+    {
+      "rawName": "亻则平举（阻力带）",
+      "localizedName": "侧平举（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1938,
+      "seconds": 64.66,
+      "observations": 9
+    },
+    {
+      "rawName": "侧平举（滑轮机）",
+      "localizedName": "侧平举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1944,
+      "seconds": 64.86,
+      "observations": 9
+    },
+    {
+      "rawName": "侧平举（训练机）",
+      "localizedName": "侧平举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 1962,
+      "seconds": 65.46,
+      "observations": 9
+    },
+    {
+      "rawName": "卧式腿举（机）",
+      "localizedName": "卧式腿举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 1992,
+      "seconds": 66.46,
+      "observations": 8
+    },
+    {
+      "rawName": "低滑轮飞鸟",
+      "localizedName": "低飞鸟（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2004,
+      "seconds": 66.86,
+      "observations": 8
+    },
+    {
+      "rawName": "低排（悬吊）",
+      "localizedName": "低位划船（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2016,
+      "seconds": 67.26,
+      "observations": 7
+    },
+    {
+      "rawName": "箭步蹲",
+      "localizedName": "弓步蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2022,
+      "seconds": 67.46,
+      "observations": 14
+    },
+    {
+      "rawName": "箭步蹲（杠铃）",
+      "localizedName": "弓步蹲（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2028,
+      "seconds": 67.66,
+      "observations": 16
+    },
+    {
+      "rawName": "箭步蹲（哑铃）",
+      "localizedName": "弓步蹲（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2034,
+      "seconds": 67.86,
+      "observations": 15
+    },
+    {
+      "rawName": "躺式抬膝",
+      "localizedName": "仰卧提膝",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2040,
+      "seconds": 68.06,
+      "observations": 7
+    },
+    {
+      "rawName": "躺式抬腿",
+      "localizedName": "仰卧举腿",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2052,
+      "seconds": 68.46,
+      "observations": 7
+    },
+    {
+      "rawName": "LyingNeckCurls",
+      "localizedName": "仰卧颈屈",
+      "equipment": null,
+      "primaryMuscles": [
+        "neck"
+      ],
+      "category": "strength",
+      "frame": 2058,
+      "seconds": 68.66,
+      "observations": 8
+    },
+    {
+      "rawName": "LyingNeckCurls(Weighted)",
+      "localizedName": "负重仰卧颈屈",
+      "equipment": null,
+      "primaryMuscles": [
+        "neck"
+      ],
+      "category": "strength",
+      "frame": 2064,
+      "seconds": 68.86,
+      "observations": 9
+    },
+    {
+      "rawName": "LyingNeckExtension",
+      "localizedName": "俯卧颈伸",
+      "equipment": null,
+      "primaryMuscles": [
+        "neck"
+      ],
+      "category": "strength",
+      "frame": 2076,
+      "seconds": 69.26,
+      "observations": 7
+    },
+    {
+      "rawName": "LyingNeckExtension(Weighted)",
+      "localizedName": "负重俯卧颈伸",
+      "equipment": null,
+      "primaryMuscles": [
+        "neck"
+      ],
+      "category": "strength",
+      "frame": 2076,
+      "seconds": 69.26,
+      "observations": 8
+    },
+    {
+      "rawName": "单臂地雷管划船",
+      "localizedName": "单臂地雷管划船",
+      "equipment": null,
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2082,
+      "seconds": 69.46,
+      "observations": 10
+    },
+    {
+      "rawName": "登山者式",
+      "localizedName": "登山跑",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2088,
+      "seconds": 69.66,
+      "observations": 9
+    },
+    {
+      "rawName": "暴力上杠",
+      "localizedName": "双力臂",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2094,
+      "seconds": 69.86,
+      "observations": 10
+    },
+    {
+      "rawName": "NegativePullUp",
+      "localizedName": "离心引体向上",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2106,
+      "seconds": 70.26,
+      "observations": 8
+    },
+    {
+      "rawName": "北欧胭绳肌弯举",
+      "localizedName": "北欧腿弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 2118,
+      "seconds": 70.66,
+      "observations": 8
+    },
+    {
+      "rawName": "斜卷腹",
+      "localizedName": "斜卷腹",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2118,
+      "seconds": 70.66,
+      "observations": 9
+    },
+    {
+      "rawName": "单手伏地挺身",
+      "localizedName": "单臂俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2130,
+      "seconds": 71.06,
+      "observations": 8
+    },
+    {
+      "rawName": "过头弯举（滑轮机）",
+      "localizedName": "过头弯举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2136,
+      "seconds": 71.26,
+      "observations": 8
+    },
+    {
+      "rawName": "过顶哑铃弓步",
+      "localizedName": "过顶弓步（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2142,
+      "seconds": 71.46,
+      "observations": 8
+    },
+    {
+      "rawName": "OverheadPlateRaise",
+      "localizedName": "过顶上举（杠铃片）",
+      "equipment": "weight-plate",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2154,
+      "seconds": 71.86,
+      "observations": 8
+    },
+    {
+      "rawName": "肩推（杠铃）",
+      "localizedName": "肩推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2160,
+      "seconds": 72.06,
+      "observations": 7
+    },
+    {
+      "rawName": "肩推（史密斯训练器）",
+      "localizedName": "肩推（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2166,
+      "seconds": 72.26,
+      "observations": 10
+    },
+    {
+      "rawName": "过头深蹲",
+      "localizedName": "过头深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2178,
+      "seconds": 72.66,
+      "observations": 16
+    },
+    {
+      "rawName": "OverheadTricepsExtension(Cable)",
+      "localizedName": "过顶臂屈伸（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2184,
+      "seconds": 72.86,
+      "observations": 7
+    },
+    {
+      "rawName": "PartialGluteBridge(Barbell)",
+      "localizedName": "半程臀桥（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 2190,
+      "seconds": 73.06,
+      "observations": 5
+    },
+    {
+      "rawName": "PauseSquat(Barbell)",
+      "localizedName": "暂停深蹲（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2202,
+      "seconds": 73.46,
+      "observations": 5
+    },
+    {
+      "rawName": "杠铃划船",
+      "localizedName": "潘德雷划船（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2202,
+      "seconds": 73.46,
+      "observations": 8
+    },
+    {
+      "rawName": "PendulumSquat(Machine)",
+      "localizedName": "摆式深蹲（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2208,
+      "seconds": 73.66,
+      "observations": 8
+    },
+    {
+      "rawName": "Pilates",
+      "localizedName": "普拉提",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2226,
+      "seconds": 74.26,
+      "observations": 8
+    },
+    {
+      "rawName": "风轮弯举（哑铃）",
+      "localizedName": "交叉锤式弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2232,
+      "seconds": 74.46,
+      "observations": 8
+    },
+    {
+      "rawName": "单脚深蹲",
+      "localizedName": "单腿深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2238,
+      "seconds": 74.66,
+      "observations": 8
+    },
+    {
+      "rawName": "棒式",
+      "localizedName": "平板支撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2244,
+      "seconds": 74.86,
+      "observations": 4
+    },
+    {
+      "rawName": "棒式伏地挺身",
+      "localizedName": "平板俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2250,
+      "seconds": 75.06,
+      "observations": 7
+    },
+    {
+      "rawName": "铁饼弯举",
+      "localizedName": "弯举（杠铃片）",
+      "equipment": "weight-plate",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2256,
+      "seconds": 75.26,
+      "observations": 7
+    },
+    {
+      "rawName": "杠片平举",
+      "localizedName": "前平举（杠铃片）",
+      "equipment": "weight-plate",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2262,
+      "seconds": 75.46,
+      "observations": 7
+    },
+    {
+      "rawName": "杠片卧推",
+      "localizedName": "推胸（杠铃片）",
+      "equipment": "weight-plate",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2268,
+      "seconds": 75.66,
+      "observations": 7
+    },
+    {
+      "rawName": "斯万推胸",
+      "localizedName": "斯万推胸（杠铃片）",
+      "equipment": "weight-plate",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2274,
+      "seconds": 75.86,
+      "observations": 8
+    },
+    {
+      "rawName": "强力挺举",
+      "localizedName": "力量翻",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2286,
+      "seconds": 76.27,
+      "observations": 7
+    },
+    {
+      "rawName": "抓举",
+      "localizedName": "抓举",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2286,
+      "seconds": 76.27,
+      "observations": 18
+    },
+    {
+      "rawName": "传教士弯举（杠铃）",
+      "localizedName": "牧师凳弯举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2292,
+      "seconds": 76.47,
+      "observations": 8
+    },
+    {
+      "rawName": "传教士弯举（哑铃）",
+      "localizedName": "牧师凳弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2298,
+      "seconds": 76.67,
+      "observations": 8
+    },
+    {
+      "rawName": "传教士弯举（训练机）",
+      "localizedName": "牧师凳弯举（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2304,
+      "seconds": 76.87,
+      "observations": 8
+    },
+    {
+      "rawName": "引体向上（阻力带）",
+      "localizedName": "引体向上（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2334,
+      "seconds": 77.87,
+      "observations": 8
+    },
+    {
+      "rawName": "仰卧拉举（哑铃）",
+      "localizedName": "仰卧上拉（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2340,
+      "seconds": 78.07,
+      "observations": 9
+    },
+    {
+      "rawName": "Pullover(Machine)",
+      "localizedName": "上拉（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2352,
+      "seconds": 78.47,
+      "observations": 6
+    },
+    {
+      "rawName": "借力推举",
+      "localizedName": "借力推举",
+      "equipment": null,
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2352,
+      "seconds": 78.47,
+      "observations": 8
+    },
+    {
+      "rawName": "伏地挺身",
+      "localizedName": "俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2358,
+      "seconds": 78.67,
+      "observations": 5
+    },
+    {
+      "rawName": "伏地挺身一窄距",
+      "localizedName": "窄距俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2370,
+      "seconds": 79.07,
+      "observations": 5
+    },
+    {
+      "rawName": "伏地挺身（加重）",
+      "localizedName": "负重俯卧撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2382,
+      "seconds": 79.47,
+      "observations": 7
+    },
+    {
+      "rawName": "架上硬拉（哑铃）",
+      "localizedName": "架上硬拉（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2388,
+      "seconds": 79.67,
+      "observations": 7
+    },
+    {
+      "rawName": "反向飞鸟（滑轮）",
+      "localizedName": "反向飞鸟（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2394,
+      "seconds": 79.87,
+      "observations": 8
+    },
+    {
+      "rawName": "俯身飞鸟（哑铃）",
+      "localizedName": "俯身飞鸟（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2406,
+      "seconds": 80.27,
+      "observations": 7
+    },
+    {
+      "rawName": "后三角肌反向飞鸟（机械）",
+      "localizedName": "反向飞鸟（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2406,
+      "seconds": 80.27,
+      "observations": 7
+    },
+    {
+      "rawName": "俯卧划船（哑铃）",
+      "localizedName": "俯卧划船（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2424,
+      "seconds": 80.87,
+      "observations": 5
+    },
+    {
+      "rawName": "反向卷腹",
+      "localizedName": "反向卷腹",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2424,
+      "seconds": 80.87,
+      "observations": 7
+    },
+    {
+      "rawName": "反向弯举（哑铃）",
+      "localizedName": "反向弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2430,
+      "seconds": 81.07,
+      "observations": 13
+    },
+    {
+      "rawName": "ReverseCurl(Cable)",
+      "localizedName": "反握弯举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2436,
+      "seconds": 81.27,
+      "observations": 6
+    },
+    {
+      "rawName": "反向飞行单臂（滑轮）",
+      "localizedName": "单臂反向飞鸟（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2448,
+      "seconds": 81.67,
+      "observations": 7
+    },
+    {
+      "rawName": "反向弯举",
+      "localizedName": "反向弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2454,
+      "seconds": 81.87,
+      "observations": 7
+    },
+    {
+      "rawName": "反握背阔肌下拉（绳索）",
+      "localizedName": "反握背阔肌下拉（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2454,
+      "seconds": 81.87,
+      "observations": 8
+    },
+    {
+      "rawName": "直腿后摆",
+      "localizedName": "直腿后摆",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 2460,
+      "seconds": 82.07,
+      "observations": 9
+    },
+    {
+      "rawName": "反向棒式",
+      "localizedName": "反向平板支撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2490,
+      "seconds": 83.07,
+      "observations": 7
+    },
+    {
+      "rawName": "吊环体撑",
+      "localizedName": "吊环臂屈伸（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2496,
+      "seconds": 83.27,
+      "observations": 7
+    },
+    {
+      "rawName": "RingPullUp",
+      "localizedName": "吊环引体向上（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2502,
+      "seconds": 83.47,
+      "observations": 7
+    },
+    {
+      "rawName": "罗马尼亚硬拉（杠铃）",
+      "localizedName": "罗马尼亚硬拉（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 2514,
+      "seconds": 83.87,
+      "observations": 7
+    },
+    {
+      "rawName": "罗马尼亚硬拉（哑铃）",
+      "localizedName": "罗马尼亚硬拉（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 2520,
+      "seconds": 84.07,
+      "observations": 7
+    },
+    {
+      "rawName": "RingPushUp",
+      "localizedName": "吊环俯卧撑（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2526,
+      "seconds": 84.27,
+      "observations": 4
+    },
+    {
+      "rawName": "绳索直臂下拉",
+      "localizedName": "直臂下拉（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2532,
+      "seconds": 84.47,
+      "observations": 16
+    },
+    {
+      "rawName": "划船机",
+      "localizedName": "划船机",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 2538,
+      "seconds": 84.67,
+      "observations": 7
+    },
+    {
+      "rawName": "跑步",
+      "localizedName": "跑步",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 2544,
+      "seconds": 84.87,
+      "observations": 7
+    },
+    {
+      "rawName": "俄罗斯转体（体重）",
+      "localizedName": "俄罗斯转体（自重）",
+      "equipment": "bodyweight",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2550,
+      "seconds": 85.07,
+      "observations": 7
+    },
+    {
+      "rawName": "俄式转体（加重）",
+      "localizedName": "负重俄罗斯转体",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2556,
+      "seconds": 85.27,
+      "observations": 8
+    },
+    {
+      "rawName": "肩胛引体向上",
+      "localizedName": "肩胛引体向上",
+      "equipment": null,
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2562,
+      "seconds": 85.47,
+      "observations": 8
+    },
+    {
+      "rawName": "坐式滑轮划船",
+      "localizedName": "坐姿划船（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2562,
+      "seconds": 85.47,
+      "observations": 10
+    },
+    {
+      "rawName": "坐式滑轮划船一宽握",
+      "localizedName": "宽握坐姿划船（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2574,
+      "seconds": 85.87,
+      "observations": 8
+    },
+    {
+      "rawName": "坐姿提踵",
+      "localizedName": "坐姿提踵",
+      "equipment": null,
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 2586,
+      "seconds": 86.27,
+      "observations": 10
+    },
+    {
+      "rawName": "SeatedChestFlys(Cable)",
+      "localizedName": "坐姿飞鸟（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2592,
+      "seconds": 86.47,
+      "observations": 9
+    },
+    {
+      "rawName": "三头下压训练",
+      "localizedName": "三头下压训练",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2604,
+      "seconds": 86.87,
+      "observations": 8
+    },
+    {
+      "rawName": "坐式亻顷斜弯举（哑铃）",
+      "localizedName": "上斜弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2610,
+      "seconds": 87.07,
+      "observations": 9
+    },
+    {
+      "rawName": "坐侧平举（哑铃）",
+      "localizedName": "坐姿侧平举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2622,
+      "seconds": 87.47,
+      "observations": 7
+    },
+    {
+      "rawName": "坐姿肩推（杠铃）",
+      "localizedName": "坐姿肩推（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2628,
+      "seconds": 87.68,
+      "observations": 9
+    },
+    {
+      "rawName": "坐姿肩推（哑铃）",
+      "localizedName": "坐姿肩推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2640,
+      "seconds": 88.08,
+      "observations": 8
+    },
+    {
+      "rawName": "坐姿手掌向上腕弯举",
+      "localizedName": "坐姿手掌向上腕弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "category": "strength",
+      "frame": 2646,
+      "seconds": 88.28,
+      "observations": 8
+    },
+    {
+      "rawName": "坐姿划船（机器）",
+      "localizedName": "坐姿划船（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2652,
+      "seconds": 88.48,
+      "observations": 8
+    },
+    {
+      "rawName": "坐姿肩推（训练机）",
+      "localizedName": "坐姿肩推（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2658,
+      "seconds": 88.68,
+      "observations": 8
+    },
+    {
+      "rawName": "坐式三头肌推举",
+      "localizedName": "坐姿三头肌推举",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2664,
+      "seconds": 88.88,
+      "observations": 8
+    },
+    {
+      "rawName": "坐式卷腕（杠铃）",
+      "localizedName": "坐姿卷腕（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "category": "strength",
+      "frame": 2670,
+      "seconds": 89.08,
+      "observations": 9
+    },
+    {
+      "rawName": "ShoulderPress(MachinePlates)",
+      "localizedName": "肩推（挂片器械）",
+      "equipment": "plate-loaded",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2688,
+      "seconds": 89.68,
+      "observations": 5
+    },
+    {
+      "rawName": "耸肩（杠铃）",
+      "localizedName": "耸肩（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "traps"
+      ],
+      "category": "strength",
+      "frame": 2700,
+      "seconds": 90.08,
+      "observations": 9
+    },
+    {
+      "rawName": "耸肩（滑轮机）",
+      "localizedName": "耸肩（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "traps"
+      ],
+      "category": "strength",
+      "frame": 2706,
+      "seconds": 90.28,
+      "observations": 8
+    },
+    {
+      "rawName": "耸肩（哑铃）",
+      "localizedName": "耸肩（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "traps"
+      ],
+      "category": "strength",
+      "frame": 2712,
+      "seconds": 90.48,
+      "observations": 8
+    },
+    {
+      "rawName": "Shrug(Machine)",
+      "localizedName": "耸肩（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "traps"
+      ],
+      "category": "strength",
+      "frame": 2718,
+      "seconds": 90.68,
+      "observations": 9
+    },
+    {
+      "rawName": "耸肩（史密斯机）",
+      "localizedName": "耸肩（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "traps"
+      ],
+      "category": "strength",
+      "frame": 2730,
+      "seconds": 91.08,
+      "observations": 8
+    },
+    {
+      "rawName": "侧弯",
+      "localizedName": "侧弯",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2736,
+      "seconds": 91.28,
+      "observations": 6
+    },
+    {
+      "rawName": "侧弯（哑铃）",
+      "localizedName": "侧弯（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2742,
+      "seconds": 91.48,
+      "observations": 6
+    },
+    {
+      "rawName": "侧棒式",
+      "localizedName": "侧棒式",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2748,
+      "seconds": 91.68,
+      "observations": 8
+    },
+    {
+      "rawName": "单臂滑轮交叉",
+      "localizedName": "单臂交叉（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "chest"
+      ],
+      "category": "strength",
+      "frame": 2754,
+      "seconds": 91.88,
+      "observations": 8
+    },
+    {
+      "rawName": "单臂滑轮划船",
+      "localizedName": "单臂划船（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 2760,
+      "seconds": 92.08,
+      "observations": 8
+    },
+    {
+      "rawName": "SingleArmCurl(Cable)",
+      "localizedName": "单臂弯举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2772,
+      "seconds": 92.48,
+      "observations": 8
+    },
+    {
+      "rawName": "单臂地雷推举（杠铃）",
+      "localizedName": "单臂地雷管推举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2778,
+      "seconds": 92.68,
+      "observations": 7
+    },
+    {
+      "rawName": "单臂高位下拉",
+      "localizedName": "单臂高位下拉",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 2778,
+      "seconds": 92.68,
+      "observations": 8
+    },
+    {
+      "rawName": "SingleArmLateralRaise(Cable)",
+      "localizedName": "单臂侧平举（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 2784,
+      "seconds": 92.88,
+      "observations": 8
+    },
+    {
+      "rawName": "哑铃单臂颈后臂屈伸（哑铃）",
+      "localizedName": "单臂过顶臂屈伸（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2796,
+      "seconds": 93.28,
+      "observations": 8
+    },
+    {
+      "rawName": "SingleArmTricepsPushdown(Cable)",
+      "localizedName": "单臂下压（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2802,
+      "seconds": 93.48,
+      "observations": 8
+    },
+    {
+      "rawName": "单腿伸展",
+      "localizedName": "单腿伸展",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2808,
+      "seconds": 93.68,
+      "observations": 8
+    },
+    {
+      "rawName": "单腿臀桥",
+      "localizedName": "单腿臀桥",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 2814,
+      "seconds": 93.88,
+      "observations": 9
+    },
+    {
+      "rawName": "单腿臀推",
+      "localizedName": "单腿臀推",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 2820,
+      "seconds": 94.08,
+      "observations": 9
+    },
+    {
+      "rawName": "SingleLegHipThrust(Dumbbell)",
+      "localizedName": "单腿臀推（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 2826,
+      "seconds": 94.28,
+      "observations": 9
+    },
+    {
+      "rawName": "单腿罗马尼亚硬拉（杠铃）",
+      "localizedName": "单腿罗马尼亚硬拉（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 2844,
+      "seconds": 94.88,
+      "observations": 8
+    },
+    {
+      "rawName": "单腿罗马尼亚硬拉（哑铃）",
+      "localizedName": "单腿罗马尼亚硬拉（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 2844,
+      "seconds": 94.88,
+      "observations": 9
+    },
+    {
+      "rawName": "单腿起脚尖",
+      "localizedName": "单腿提踵",
+      "equipment": null,
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 2850,
+      "seconds": 95.08,
+      "observations": 9
+    },
+    {
+      "rawName": "单腿起脚尖（杠铃）",
+      "localizedName": "单腿提踵（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 2862,
+      "seconds": 95.48,
+      "observations": 9
+    },
+    {
+      "rawName": "单腿起脚尖（哑铃）",
+      "localizedName": "单腿提踵（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 2874,
+      "seconds": 95.88,
+      "observations": 7
+    },
+    {
+      "rawName": "单腿起脚尖（训练机）",
+      "localizedName": "单腿提踵（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 2874,
+      "seconds": 95.88,
+      "observations": 10
+    },
+    {
+      "rawName": "西斯深蹲（負重）",
+      "localizedName": "负重西西深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 2886,
+      "seconds": 96.28,
+      "observations": 10
+    },
+    {
+      "rawName": "仰卧起坐",
+      "localizedName": "仰卧起坐",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2892,
+      "seconds": 96.48,
+      "observations": 10
+    },
+    {
+      "rawName": "仰卧起坐（加重）",
+      "localizedName": "仰卧起坐（负重）",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2898,
+      "seconds": 96.68,
+      "observations": 10
+    },
+    {
+      "rawName": "滑冰",
+      "localizedName": "滑冰",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 2904,
+      "seconds": 96.88,
+      "observations": 11
+    },
+    {
+      "rawName": "滑雪术",
+      "localizedName": "滑雪",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 2916,
+      "seconds": 97.28,
+      "observations": 9
+    },
+    {
+      "rawName": "碎颅者一仰卧臂屈伸（杠铃）",
+      "localizedName": "仰卧臂屈伸（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2928,
+      "seconds": 97.68,
+      "observations": 9
+    },
+    {
+      "rawName": "碎颅者一仰卧臂屈伸（哑铃）",
+      "localizedName": "仰卧臂屈伸（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 2934,
+      "seconds": 97.88,
+      "observations": 10
+    },
+    {
+      "rawName": "推雪橇",
+      "localizedName": "推雪橇",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2940,
+      "seconds": 98.08,
+      "observations": 9
+    },
+    {
+      "rawName": "单板滑雪",
+      "localizedName": "单板滑雪",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 2958,
+      "seconds": 98.68,
+      "observations": 9
+    },
+    {
+      "rawName": "蜘蛛弯举（杠铃）",
+      "localizedName": "蜘蛛弯举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2970,
+      "seconds": 99.08,
+      "observations": 8
+    },
+    {
+      "rawName": "SpiderCurl(Dumbbell)",
+      "localizedName": "蜘蛛弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 2976,
+      "seconds": 99.29,
+      "observations": 7
+    },
+    {
+      "rawName": "蜘蛛侠",
+      "localizedName": "蜘蛛侠",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 2982,
+      "seconds": 99.49,
+      "observations": 9
+    },
+    {
+      "rawName": "有氧飞轮",
+      "localizedName": "动感单车",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 2994,
+      "seconds": 99.89,
+      "observations": 7
+    },
+    {
+      "rawName": "箭步挺",
+      "localizedName": "分腿挺举",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 2994,
+      "seconds": 99.89,
+      "observations": 9
+    },
+    {
+      "rawName": "分腿深蹲（哑铃）",
+      "localizedName": "分腿蹲（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3012,
+      "seconds": 100.49,
+      "observations": 8
+    },
+    {
+      "rawName": "冲刺短跑",
+      "localizedName": "冲刺短跑",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 3018,
+      "seconds": 100.69,
+      "observations": 8
+    },
+    {
+      "rawName": "深蹲（阻力带）",
+      "localizedName": "深蹲（弹力带）",
+      "equipment": "resistance-band",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3024,
+      "seconds": 100.89,
+      "observations": 8
+    },
+    {
+      "rawName": "深蹲（体重）",
+      "localizedName": "深蹲（自重）",
+      "equipment": "bodyweight",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3036,
+      "seconds": 101.29,
+      "observations": 8
+    },
+    {
+      "rawName": "深蹲（哑铃）",
+      "localizedName": "深蹲（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3048,
+      "seconds": 101.69,
+      "observations": 7
+    },
+    {
+      "rawName": "深蹲（训练机）",
+      "localizedName": "深蹲（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3048,
+      "seconds": 101.69,
+      "observations": 8
+    },
+    {
+      "rawName": "深蹲（史密斯训练器）",
+      "localizedName": "深蹲（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3060,
+      "seconds": 102.09,
+      "observations": 7
+    },
+    {
+      "rawName": "深蹲（悬吊）",
+      "localizedName": "深蹲（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3066,
+      "seconds": 102.29,
+      "observations": 7
+    },
+    {
+      "rawName": "滑轮深蹲",
+      "localizedName": "深蹲（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 3072,
+      "seconds": 102.49,
+      "observations": 7
+    },
+    {
+      "rawName": "楼梯机",
+      "localizedName": "爬楼机",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 3078,
+      "seconds": 102.69,
+      "observations": 14
+    },
+    {
+      "rawName": "站立滑轮后踢腿",
+      "localizedName": "站立后踢腿（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 3090,
+      "seconds": 103.09,
+      "observations": 8
+    },
+    {
+      "rawName": "起脚尖",
+      "localizedName": "站姿提踵",
+      "equipment": null,
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 3090,
+      "seconds": 103.09,
+      "observations": 9
+    },
+    {
+      "rawName": "起脚尖（杠铃）",
+      "localizedName": "站姿提踵（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 3096,
+      "seconds": 103.29,
+      "observations": 8
+    },
+    {
+      "rawName": "起脚尖（哑铃）",
+      "localizedName": "站姿提踵（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 3108,
+      "seconds": 103.69,
+      "observations": 8
+    },
+    {
+      "rawName": "起脚尖（训练机）",
+      "localizedName": "站姿提踵（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 3114,
+      "seconds": 103.89,
+      "observations": 8
+    },
+    {
+      "rawName": "StandingCalfRaise(Smith)",
+      "localizedName": "站姿提踵（史密斯）",
+      "equipment": "smith",
+      "primaryMuscles": [
+        "calves"
+      ],
+      "category": "strength",
+      "frame": 3120,
+      "seconds": 104.09,
+      "observations": 9
+    },
+    {
+      "rawName": "站立腿弯举",
+      "localizedName": "站立腿弯举",
+      "equipment": null,
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 3126,
+      "seconds": 104.29,
+      "observations": 10
+    },
+    {
+      "rawName": "站立军事推举（杠铃）",
+      "localizedName": "站姿推举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 3132,
+      "seconds": 104.49,
+      "observations": 10
+    },
+    {
+      "rawName": "登阶",
+      "localizedName": "登阶",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3144,
+      "seconds": 104.89,
+      "observations": 8
+    },
+    {
+      "rawName": "胸骨上拉(Gironda)",
+      "localizedName": "吉龙达胸触杠引体向上",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 3150,
+      "seconds": 105.09,
+      "observations": 8
+    },
+    {
+      "rawName": "直腿硬拉",
+      "localizedName": "直腿硬拉",
+      "equipment": null,
+      "primaryMuscles": [
+        "hamstrings"
+      ],
+      "category": "strength",
+      "frame": 3168,
+      "seconds": 105.69,
+      "observations": 8
+    },
+    {
+      "rawName": "拉伸",
+      "localizedName": "拉伸",
+      "equipment": null,
+      "primaryMuscles": [
+        "other"
+      ],
+      "category": "strength",
+      "frame": 3174,
+      "seconds": 105.89,
+      "observations": 9
+    },
+    {
+      "rawName": "相扑硬拉",
+      "localizedName": "相扑硬拉",
+      "equipment": null,
+      "primaryMuscles": [
+        "glutes"
+      ],
+      "category": "strength",
+      "frame": 3180,
+      "seconds": 106.09,
+      "observations": 9
+    },
+    {
+      "rawName": "SumoSquat",
+      "localizedName": "相扑深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3186,
+      "seconds": 106.29,
+      "observations": 10
+    },
+    {
+      "rawName": "相扑深蹲（杠铃）",
+      "localizedName": "相扑深蹲（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3192,
+      "seconds": 106.49,
+      "observations": 10
+    },
+    {
+      "rawName": "SumoSquat(Dumbbell)",
+      "localizedName": "相扑深蹲（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3198,
+      "seconds": 106.69,
+      "observations": 7
+    },
+    {
+      "rawName": "SumoSquat(Kettlebell)",
+      "localizedName": "相扑深蹲（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3204,
+      "seconds": 106.89,
+      "observations": 8
+    },
+    {
+      "rawName": "超人式",
+      "localizedName": "超人式",
+      "equipment": null,
+      "primaryMuscles": [
+        "lower-back"
+      ],
+      "category": "strength",
+      "frame": 3216,
+      "seconds": 107.29,
+      "observations": 8
+    },
+    {
+      "rawName": "游泳",
+      "localizedName": "游泳",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 3234,
+      "seconds": 107.89,
+      "observations": 5
+    },
+    {
+      "rawName": "T杠划船",
+      "localizedName": "T杠划船",
+      "equipment": null,
+      "primaryMuscles": [
+        "upper-back"
+      ],
+      "category": "strength",
+      "frame": 3234,
+      "seconds": 107.89,
+      "observations": 7
+    },
+    {
+      "rawName": "火箭推（杠铃）",
+      "localizedName": "深蹲推举（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 3240,
+      "seconds": 108.09,
+      "observations": 7
+    },
+    {
+      "rawName": "火箭推（壶铃）",
+      "localizedName": "深蹲推举（壶铃）",
+      "equipment": "kettlebell",
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 3252,
+      "seconds": 108.49,
+      "observations": 6
+    },
+    {
+      "rawName": "脚趾触摸",
+      "localizedName": "脚趾触摸",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 3252,
+      "seconds": 108.49,
+      "observations": 7
+    },
+    {
+      "rawName": "抬腿碰楨",
+      "localizedName": "悬垂举腿触杠",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 3258,
+      "seconds": 108.69,
+      "observations": 6
+    },
+    {
+      "rawName": "躯干旋转",
+      "localizedName": "躯干旋转",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 3258,
+      "seconds": 108.69,
+      "observations": 8
+    },
+    {
+      "rawName": "跑步机",
+      "localizedName": "跑步机",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 3270,
+      "seconds": 109.09,
+      "observations": 7
+    },
+    {
+      "rawName": "三头肌撑体",
+      "localizedName": "三头肌撑体",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3270,
+      "seconds": 109.09,
+      "observations": 8
+    },
+    {
+      "rawName": "三头肌撑体（辅助）",
+      "localizedName": "三头肌撑体（辅助）",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3276,
+      "seconds": 109.29,
+      "observations": 8
+    },
+    {
+      "rawName": "三头肌撑体（加重）",
+      "localizedName": "三头肌撑体（负重）",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3282,
+      "seconds": 109.49,
+      "observations": 9
+    },
+    {
+      "rawName": "手臂颈后屈伸（杠铃）",
+      "localizedName": "过顶臂屈伸（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3288,
+      "seconds": 109.69,
+      "observations": 9
+    },
+    {
+      "rawName": "三头肌臂屈伸（滑轮机）",
+      "localizedName": "三头肌臂屈伸（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3300,
+      "seconds": 110.09,
+      "observations": 8
+    },
+    {
+      "rawName": "手臂颈后屈伸（哑铃）",
+      "localizedName": "过顶臂屈伸（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3306,
+      "seconds": 110.29,
+      "observations": 9
+    },
+    {
+      "rawName": "三头肌臂屈伸（训练机）",
+      "localizedName": "三头肌臂屈伸（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3312,
+      "seconds": 110.49,
+      "observations": 7
+    },
+    {
+      "rawName": "三头肌伸展（悬吊）",
+      "localizedName": "三头肌伸展（悬挂带）",
+      "equipment": "suspension-band",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3318,
+      "seconds": 110.69,
+      "observations": 8
+    },
+    {
+      "rawName": "TricepsKickback(Cable)",
+      "localizedName": "俯身臂屈伸（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3324,
+      "seconds": 110.89,
+      "observations": 6
+    },
+    {
+      "rawName": "三头肌屈伸",
+      "localizedName": "三头肌屈伸",
+      "equipment": null,
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3330,
+      "seconds": 111.1,
+      "observations": 7
+    },
+    {
+      "rawName": "直立划船（杠铃）",
+      "localizedName": "直立划船（杠铃）",
+      "equipment": "barbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 3360,
+      "seconds": 112.1,
+      "observations": 7
+    },
+    {
+      "rawName": "直立划船（滑轮）",
+      "localizedName": "直立划船（绳索）",
+      "equipment": "cable",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 3366,
+      "seconds": 112.3,
+      "observations": 6
+    },
+    {
+      "rawName": "直立划船（哑铃）",
+      "localizedName": "直立划船（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "shoulders"
+      ],
+      "category": "strength",
+      "frame": 3366,
+      "seconds": 112.3,
+      "observations": 7
+    },
+    {
+      "rawName": "v字侧棒式",
+      "localizedName": "V字侧支撑",
+      "equipment": null,
+      "primaryMuscles": [
+        "abdominals"
+      ],
+      "category": "strength",
+      "frame": 3372,
+      "seconds": 112.5,
+      "observations": 8
+    },
+    {
+      "rawName": "VerticalTraction(Machine)",
+      "localizedName": "垂直下拉（器械）",
+      "equipment": "machine",
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 3384,
+      "seconds": 112.9,
+      "observations": 6
+    },
+    {
+      "rawName": "WaiterCurl(Dumbbell)",
+      "localizedName": "侍者弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 3384,
+      "seconds": 112.9,
+      "observations": 7
+    },
+    {
+      "rawName": "步行",
+      "localizedName": "步行",
+      "equipment": null,
+      "primaryMuscles": [],
+      "category": "cardio",
+      "frame": 3390,
+      "seconds": 113.1,
+      "observations": 9
+    },
+    {
+      "rawName": "WalkingLunge",
+      "localizedName": "行走弓步",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3402,
+      "seconds": 113.5,
+      "observations": 7
+    },
+    {
+      "rawName": "WalkingLunge(Dumbbell)",
+      "localizedName": "行走弓步（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3402,
+      "seconds": 113.5,
+      "observations": 9
+    },
+    {
+      "rawName": "壁球",
+      "localizedName": "壁球",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 3408,
+      "seconds": 113.7,
+      "observations": 9
+    },
+    {
+      "rawName": "靠墙坐",
+      "localizedName": "靠墙坐",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3414,
+      "seconds": 113.9,
+      "observations": 8
+    },
+    {
+      "rawName": "WarmUp",
+      "localizedName": "热身",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 3426,
+      "seconds": 114.3,
+      "observations": 13
+    },
+    {
+      "rawName": "宽上拉",
+      "localizedName": "宽握引体向上",
+      "equipment": null,
+      "primaryMuscles": [
+        "lats"
+      ],
+      "category": "strength",
+      "frame": 3432,
+      "seconds": 114.5,
+      "observations": 12
+    },
+    {
+      "rawName": "Wide-EIbowTricepsPress(Dumbbell)",
+      "localizedName": "宽肘臂屈伸（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "triceps"
+      ],
+      "category": "strength",
+      "frame": 3438,
+      "seconds": 114.7,
+      "observations": 10
+    },
+    {
+      "rawName": "手腕滚轮",
+      "localizedName": "手腕滚轮",
+      "equipment": null,
+      "primaryMuscles": [
+        "forearms"
+      ],
+      "category": "strength",
+      "frame": 3444,
+      "seconds": 114.9,
+      "observations": 10
+    },
+    {
+      "rawName": "瑜伽",
+      "localizedName": "瑜伽",
+      "equipment": null,
+      "primaryMuscles": [
+        "full-body"
+      ],
+      "category": "strength",
+      "frame": 3450,
+      "seconds": 115.1,
+      "observations": 9
+    },
+    {
+      "rawName": "泽奇深蹲",
+      "localizedName": "泽奇深蹲",
+      "equipment": null,
+      "primaryMuscles": [
+        "quadriceps"
+      ],
+      "category": "strength",
+      "frame": 3462,
+      "seconds": 115.5,
+      "observations": 7
+    },
+    {
+      "rawName": "佐特曼弯举（哑铃）",
+      "localizedName": "佐特曼弯举（哑铃）",
+      "equipment": "dumbbell",
+      "primaryMuscles": [
+        "biceps"
+      ],
+      "category": "strength",
+      "frame": 3462,
+      "seconds": 115.5,
+      "observations": 7
+    }
+  ],
+  "pending": [
+    {
+      "rawName": "平卧划举",
+      "frame": 264,
+      "reason": "名称“平卧划举”不能可靠对应具体动作"
+    },
+    {
+      "rawName": "跪姿撑体",
+      "frame": 534,
+      "reason": "名称“跪姿撑体”不能可靠对应具体动作"
+    },
+    {
+      "rawName": "双杠",
+      "frame": 1998,
+      "reason": "原文仅显示“双杠”，动作含义不足"
+    },
+    {
+      "rawName": "肩部水龙头",
+      "frame": 2688,
+      "reason": "原文“肩部水龙头”含义不明确"
+    },
+    {
+      "rawName": "单腿（机器）",
+      "frame": 2832,
+      "reason": "原文“单腿（机器）”缺少动作名"
+    }
+  ]
+}

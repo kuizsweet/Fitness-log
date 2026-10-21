@@ -32,6 +32,7 @@ export function TrainingMonthCalendar({
   error,
   onSelect,
   checkedDate,
+  weekStart = 1,
 }: {
   date: string;
   timezone: string;
@@ -40,6 +41,7 @@ export function TrainingMonthCalendar({
   error: string;
   onSelect: (date: string) => void;
   checkedDate?: string;
+  weekStart?: 0 | 1;
 }) {
   const info = calendarMonth(date);
   const currentDay = today(timezone);
@@ -156,12 +158,14 @@ export function TrainingMonthCalendar({
         </Button>
       </div>
       <div className={styles.calendarGrid}>
-        {["一", "二", "三", "四", "五", "六", "日"].map((day) => (
-          <span className={styles.calendarWeekday} key={day}>
-            {day}
-          </span>
-        ))}
-        {fiveRowCalendarDays(date).map((number, i) => {
+        {[...(weekStart === 1 ? "一二三四五六日" : "日一二三四五六")].map(
+          (day) => (
+            <span className={styles.calendarWeekday} key={day}>
+              {day}
+            </span>
+          ),
+        )}
+        {fiveRowCalendarDays(date, weekStart).map((number, i) => {
           if (number === null)
             return (
               <span

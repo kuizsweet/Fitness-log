@@ -12,7 +12,7 @@ export function Settings({ embedded = false }: { embedded?: boolean }) {
       <Feedback error={profile.error} loading={profile.loading} />
       {profile.data && (
         <SettingsForm
-          key={`${profile.data.timezone}:${profile.data.unit}`}
+          key={`${profile.data.timezone}:${profile.data.unit}:${profile.data.week_start ?? 1}`}
           profile={profile.data}
           reload={profile.reload}
         />
@@ -71,6 +71,21 @@ function SettingsForm({
           >
             <option>kg</option>
             <option>lb</option>
+          </select>
+        </label>
+        <label>
+          一周开始于
+          <select
+            value={draft.week_start ?? 1}
+            onChange={(event) =>
+              setDraft({
+                ...draft,
+                week_start: Number(event.target.value) as 0 | 1,
+              })
+            }
+          >
+            <option value={1}>周一</option>
+            <option value={0}>周日</option>
           </select>
         </label>
         <label>
