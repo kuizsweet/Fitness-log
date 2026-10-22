@@ -210,87 +210,116 @@ function MealsWorkspace({
           </nav>
         )}
       </section>
-      <button
-        ref={recordToggle}
-        className={styles.recordToggle}
-        aria-label={recordHidden ? "展开饮食记录" : "收起饮食记录"}
-        aria-expanded={!recordHidden}
-        aria-controls="meal-record-panel"
-        onClick={() => setRecordHidden((hidden) => !hidden)}
-      >
-        {recordHidden ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
-      </button>
-      <aside
-        id="meal-record-panel"
-        className={styles.today}
-        aria-label="当天饮食记录"
-        inert={recordHidden}
-        aria-hidden={recordHidden}
-        onKeyDown={(event) => {
-          if (event.key === "Escape") {
-            setRecordHidden(true);
-            recordToggle.current?.focus();
-          }
-        }}
-      >
-        <header className={styles.todayHeading}>
-          <div>
-            <h2>{date === currentDay ? "今天" : "饮食记录"}</h2>
-            <label className={styles.dateLabel}>
-              {new Intl.DateTimeFormat("zh-CN", {
-                month: "long",
-                day: "numeric",
-                weekday: "long",
-                timeZone: "UTC",
-              }).format(new Date(`${date}T00:00:00Z`))}
-              <input
-                type="date"
-                aria-label="三餐日期"
-                value={date}
-                min="2020-01-01"
-                max="2030-12-31"
-                onChange={(event) => {
-                  if (event.target.value) {
-                    setPicked(event.target.value);
-                    setPage(0);
-                  }
-                }}
-              />
-            </label>
-          </div>
-          {date !== currentDay && (
-            <button onClick={() => setPicked(currentDay)}>今天</button>
-          )}
-        </header>
-        {capabilities.data && !capabilities.data.photoNotes && (
-          <p className={styles.pending}>
-            照片独立备注、加餐和热量保存尚未启用。
-          </p>
-        )}
-        {(meals.error || capabilities.error) && (
-          <p role="alert">{meals.error || capabilities.error}</p>
-        )}
-        {mealTypes.map(([type, label, Icon]) => (
-          <MealSlot
-            key={`${date}:${type}`}
-            date={date}
-            type={type}
-            label={label}
-            Icon={Icon}
-            meal={meals.data?.find((meal) => meal.meal_type === type)}
-            disabled={
-              meals.loading ||
-              Boolean(meals.error) ||
-              (type === "snack" && !capabilities.data?.extendedMeals)
+      <div className={styles.recordPanel}>
+        <button
+          ref={recordToggle}
+          className={styles.recordToggle}
+          aria-label={recordHidden ? "展开饮食记录" : "收起饮食记录"}
+          aria-expanded={!recordHidden}
+          aria-controls="meal-record-panel"
+          onClick={() => setRecordHidden((hidden) => !hidden)}
+        >
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect
+              x="3"
+              y="3"
+              width="18"
+              height="18"
+              rx="1"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            {recordHidden ? (
+              <>
+                <path d="M9 4H20V20H9Z" fill="currentColor" />
+                <path d="M16 7L11 12L16 17Z" fill="var(--surface)" />
+              </>
+            ) : (
+              <>
+                <path d="M15 3V21" stroke="currentColor" strokeWidth="2" />
+                <path d="M7 7L12 12L7 17Z" fill="currentColor" />
+              </>
+            )}
+          </svg>
+        </button>
+        <aside
+          id="meal-record-panel"
+          className={styles.today}
+          aria-label="当天饮食记录"
+          inert={recordHidden}
+          aria-hidden={recordHidden}
+          onKeyDown={(event) => {
+            if (event.key === "Escape") {
+              setRecordHidden(true);
+              recordToggle.current?.focus();
             }
-            onView={() => {
-              setFilter("date");
-              setPage(0);
-            }}
-            onChanged={changed}
-          />
-        ))}
-      </aside>
+          }}
+        >
+          <header className={styles.todayHeading}>
+            <div>
+              <h2>{date === currentDay ? "今天" : "饮食记录"}</h2>
+              <label className={styles.dateLabel}>
+                {new Intl.DateTimeFormat("zh-CN", {
+                  month: "long",
+                  day: "numeric",
+                  weekday: "long",
+                  timeZone: "UTC",
+                }).format(new Date(`${date}T00:00:00Z`))}
+                <input
+                  type="date"
+                  aria-label="三餐日期"
+                  value={date}
+                  min="2020-01-01"
+                  max="2030-12-31"
+                  onChange={(event) => {
+                    if (event.target.value) {
+                      setPicked(event.target.value);
+                      setPage(0);
+                    }
+                  }}
+                />
+              </label>
+            </div>
+            {date !== currentDay && (
+              <button onClick={() => setPicked(currentDay)}>今天</button>
+            )}
+          </header>
+          {capabilities.data && !capabilities.data.photoNotes && (
+            <p className={styles.pending}>
+              照片独立备注、加餐和热量保存尚未启用。
+            </p>
+          )}
+          {(meals.error || capabilities.error) && (
+            <p role="alert">{meals.error || capabilities.error}</p>
+          )}
+          {mealTypes.map(([type, label, Icon]) => (
+            <MealSlot
+              key={`${date}:${type}`}
+              date={date}
+              type={type}
+              label={label}
+              Icon={Icon}
+              meal={meals.data?.find((meal) => meal.meal_type === type)}
+              disabled={
+                meals.loading ||
+                Boolean(meals.error) ||
+                (type === "snack" && !capabilities.data?.extendedMeals)
+              }
+              onView={() => {
+                setFilter("date");
+                setPage(0);
+              }}
+              onChanged={changed}
+            />
+          ))}
+        </aside>
+      </div>
     </div>
   );
 }

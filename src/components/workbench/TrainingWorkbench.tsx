@@ -933,6 +933,7 @@ function Workbench({
           <aside
             ref={libraryRef}
             className={styles.library}
+            data-offset={panelOffsets.right > 0 || undefined}
             data-collapsed={panelOffsets.right === 226 || undefined}
             aria-label="动作搜索库"
             onPointerDown={(event) => slidePanel(event, "right")}

@@ -4,11 +4,10 @@ import Image from "next/image";
 import { BRAND_ASSET } from "@/lib/brand-assets";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import appStyles from "./AppShell.module.css";
 import { useThemePreference } from "./ThemeProvider";
 import { BRAND_NAME } from "@/lib/brand";
-import { MobileDock } from "./MobileDock";
 import { LanguageMorphButton } from "./LanguageMorphButton";
 import { AccountMenu } from "./MyMenu";
 import { SunMoonIcon } from "./ui/SunMoonIcon";
@@ -66,7 +65,6 @@ export function AppNavigation() {
           </Link>
         ))}
       </nav>
-      <MobileDock />
     </>
   );
 }
@@ -104,8 +102,42 @@ function ThemeMenu() {
 export function AppMain({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const area = links.find(([href]) => href === path)?.[2] ?? "neutral";
+  const mainRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (area !== "dashboard") return;
+    const main = mainRef.current;
+    const shell = main?.parentElement;
+    const header = shell?.querySelector<HTMLElement>(":scope > .app-header");
+    if (!main || !shell || !header) return;
+    const compact = window.matchMedia("(max-width: 1023px)");
+    const update = () => {
+      const height = header.getBoundingClientRect().height;
+      const offset = compact.matches
+        ? Math.min(height, Math.max(0, main.scrollTop))
+        : 0;
+      shell.style.setProperty("--dashboard-header-height", `${height}px`);
+      shell.style.setProperty("--dashboard-header-offset", `${offset}px`);
+      header.style.opacity = `${1 - offset / Math.max(height, 1)}`;
+      header.inert = compact.matches && offset >= height;
+    };
+    const observer = new ResizeObserver(update);
+    observer.observe(header);
+    main.addEventListener("scroll", update, { passive: true });
+    compact.addEventListener("change", update);
+    update();
+    return () => {
+      observer.disconnect();
+      main.removeEventListener("scroll", update);
+      compact.removeEventListener("change", update);
+      header.inert = false;
+      header.style.removeProperty("opacity");
+      shell.style.removeProperty("--dashboard-header-height");
+      shell.style.removeProperty("--dashboard-header-offset");
+    };
+  }, [area]);
   return (
     <main
+      ref={mainRef}
       className={appStyles.main}
       data-area={area}
       aria-label={area === "dashboard" ? "控制台" : undefined}

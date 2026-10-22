@@ -1507,3 +1507,16 @@
   outline: none;
   box-shadow: none;
 }
+
+/* Avoid a redundant transformed backdrop layer at the viewport edge. */
+.workbench .library:not([data-offset]) {
+  transform: none;
+}
+.workbench.workbench .search {
+  isolation: isolate;
+  overflow: hidden;
+}
+.workbench.workbench .search input {
+  appearance: none;
+  -webkit-appearance: none;
+}

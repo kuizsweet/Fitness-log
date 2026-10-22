@@ -629,12 +629,130 @@
   }
 }
 
-/* The recovery edge belongs to the viewport edge, outside the centered content width. */
-:global(main):has(.page[data-record-hidden]) {
-  max-width: none;
-  padding-right: 0;
+.today {
+  border: 1px solid var(--line);
 }
-.page[data-record-hidden] {
-  max-width: none;
-  width: 100%;
+.page .recordToggle,
+.page[data-record-hidden] .recordToggle,
+.page:not([data-record-hidden]) .recordToggle {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: start;
+  align-self: start;
+  left: 12px;
+  right: auto;
+  top: 12px;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+}
+.page[data-record-hidden] .recordToggle {
+  background: var(--field);
+}
+.todayHeading {
+  padding-left: 48px;
+  padding-right: 0 !important;
+  flex-direction: row-reverse;
+  text-align: right;
+}
+.page[data-record-hidden] .history {
+  margin-right: 0;
+}
+@media (max-width: 760px) {
+  .page .recordToggle,
+  .page[data-record-hidden] .recordToggle,
+  .page:not([data-record-hidden]) .recordToggle {
+    grid-column: 1;
+    left: 10px;
+    top: 10px;
+  }
+  .page[data-record-hidden] .history {
+    padding-top: 48px;
+  }
+}
+
+/* The toggle and record card travel together as a single side panel. */
+.page {
+  overflow: visible;
+}
+.recordPanel {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  min-height: 0;
+  z-index: 6;
+  transform: translateX(0);
+  transition: transform 250ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+.page[data-record-hidden] .recordPanel {
+  transform: translateX(calc(100% + max(24px, (100vw - 1152px) / 2) - 64px));
+}
+.recordPanel .today,
+.page[data-record-hidden] .recordPanel .today {
+  height: 100%;
+  box-sizing: border-box;
+  transform: none;
+  opacity: 1;
+  transition: none;
+}
+.page .recordToggle,
+.page[data-record-hidden] .recordToggle,
+.page:not([data-record-hidden]) .recordToggle {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  right: auto;
+}
+@media (max-width: 760px) {
+  .recordPanel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .recordPanel {
+    transition: none;
+  }
+}
+.recordPanel .today > * {
+  transition: opacity 150ms ease-out;
+}
+.page[data-record-hidden] .recordPanel .today > * {
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .recordPanel .today > * {
+    transition: none;
+  }
+}
+
+/* Keep the record panel attached to the right viewport wall. */
+.recordPanel .today {
+  position: relative;
+  border-right: 0;
+  border-radius: 22px 0 0 22px;
+  overflow: visible;
+}
+.recordPanel .today::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 100%;
+  width: max(24px, calc((100vw - 1152px) / 2));
+  box-sizing: border-box;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  pointer-events: none;
+}
+
+:global(main):has(.page) {
+  overflow: visible;
 }

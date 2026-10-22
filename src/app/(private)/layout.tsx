@@ -13,6 +13,7 @@ import { DevPerformance } from "@/components/DevPerformance";
 import { ResourceProvider } from "@/components/ResourceProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { MobileDock } from "@/components/MobileDock";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +38,7 @@ export default async function PrivateLayout({
               <AppNavigation />
               <HeaderActions />
             </header>
+            <MobileDock />
             <AppMain>{children}</AppMain>
           </div>
         </ResourceProvider>
