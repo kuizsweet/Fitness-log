@@ -1468,8 +1468,13 @@
 }
 
 .workbench .noteTrash {
-  bottom: 110px;
+  bottom: 24px;
   z-index: 1;
+}
+@media (max-width: 1199px), (pointer: coarse) and (max-width: 1366px) {
+  .workbench .noteTrash {
+    bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 .workbench .left .canvasNewNote {
