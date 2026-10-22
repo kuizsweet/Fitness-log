@@ -1,14 +1,64 @@
-import { baseChestRegion, baseShoulderRegion } from "./exercise-base";
+import { isCardioExercise, type CardioValues } from "./cardio";
+import {
+  baseChestRegion,
+  baseShoulderRegion,
+  chestRegion,
+  exerciseMuscleMetadata,
+} from "./exercise-base";
 import { dateSchema, type Session } from "./domain";
 export type PlanExercise = {
   id: string;
   sourceId?: string;
   name: string;
   muscle: string;
+  primaryMuscles?: string[];
+  secondaryMuscles?: string[];
+  category?: string;
+  sets: number | null;
+  reps: number | null;
+  weight: number | null;
+  groups?: ExerciseGroup[];
+  cardio?: CardioValues;
+};
+export type ExerciseGroup = {
+  id: string;
+  kind: "warmup" | "working" | "backoff";
   sets: number | null;
   reps: number | null;
   weight: number | null;
 };
+export function isBenchExercise(exercise: Pick<PlanExercise, "name">) {
+  return /^卧推(?:[（(]|$)/.test(exercise.name);
+}
+export function benchGroups(exercise: PlanExercise): ExerciseGroup[] {
+  return (
+    exercise.groups ??
+    (["warmup", "working", "backoff"] as const).map((kind) => ({
+      id: `${exercise.id}:${kind}`,
+      kind,
+      sets: kind === "working" ? exercise.sets : null,
+      reps: kind === "working" ? exercise.reps : null,
+      weight: kind === "working" ? exercise.weight : null,
+    }))
+  );
+}
+export function trainingSets(exercise: PlanExercise) {
+  if (isCardioExercise(exercise)) return 0;
+  return exercise.groups
+    ? exercise.groups
+        .filter((g) => g.kind !== "warmup")
+        .reduce((sum, g) => sum + (g.sets ?? 0), 0)
+    : exercise.sets;
+}
+export function copyExerciseGroup(groups: ExerciseGroup[], id: string) {
+  const index = groups.findIndex((group) => group.id === id);
+  if (index < 0) return groups;
+  return [
+    ...groups.slice(0, index + 1),
+    { ...groups[index], id: crypto.randomUUID() },
+    ...groups.slice(index + 1),
+  ];
+}
 export function nearTrashEdge(
   card: { left: number; right: number; top: number; bottom: number },
   target: { left: number; right: number; top: number; bottom: number },
@@ -257,9 +307,10 @@ export function importPlan(session: Session, index: number): PlanNote {
 export function muscleTotals(note?: PlanNote) {
   const totals: Record<string, number> = {};
   for (const exercise of note?.exercises ?? []) {
-    if (exercise.sets && exercise.sets > 0) {
+    const sets = trainingSets(exercise);
+    if (sets && sets > 0) {
       const key = muscleFamily(exercise.muscle);
-      totals[key] = (totals[key] ?? 0) + exercise.sets;
+      totals[key] = (totals[key] ?? 0) + sets;
     }
   }
   return Object.entries(totals);
@@ -327,13 +378,37 @@ export function readWorkbench(raw: string | null): WorkbenchState {
   // A pre-existing persisted note predates explicit warehouse saves; retain it.
   for (const note of data.notes)
     if (note.savedToWarehouse === undefined) note.savedToWarehouse = true;
+  for (const note of data.notes)
+    for (const exercise of note.exercises) {
+      if (
+        exercise.groups &&
+        (!Array.isArray(exercise.groups) ||
+          exercise.groups.some(
+            (group: ExerciseGroup) =>
+              typeof group.id !== "string" ||
+              !["warmup", "working", "backoff"].includes(group.kind) ||
+              ![group.sets, group.reps, group.weight].every(
+                (value) =>
+                  value === null || (Number.isFinite(value) && value >= 0),
+              ),
+          ))
+      )
+        throw Error("无效的动作子词条");
+      if (exercise.cardio && (typeof exercise.cardio !== "object" ||
+        Object.values(exercise.cardio).some((value) => value !== null &&
+          (typeof value !== "number" || !Number.isFinite(value) || value < 0))))
+        throw Error("无效的有氧参数");
+      const metadata = exerciseMuscleMetadata(exercise.sourceId);
+      if (metadata) Object.assign(exercise, metadata);
+    }
   return data;
 }
 
 export function chestTotals(note?: PlanNote): [string, number][] {
   const totals: Record<string, number> = {};
   for (const exercise of note?.exercises ?? []) {
-    if (!exercise.sets || exercise.sets <= 0) continue;
+    const sets = trainingSets(exercise);
+    if (!sets || sets <= 0) continue;
     const region = exercise.sourceId?.startsWith("free-db:")
       ? baseChestRegion(exercise.sourceId)
       : exercise.muscle.startsWith("胸 / ")
@@ -342,7 +417,7 @@ export function chestTotals(note?: PlanNote): [string, number][] {
           ? "未细分"
           : undefined;
     if (!region || region === "拉伸") continue;
-    totals[region] = (totals[region] ?? 0) + exercise.sets;
+    totals[region] = (totals[region] ?? 0) + sets;
   }
   return ["上胸", "中胸", "下胸", "综合", "未细分"]
     .filter((r) => totals[r])
@@ -367,9 +442,61 @@ export function fitNoteToCanvas(
 }
 export function planMuscleDistribution(exercises: PlanExercise[]) {
   const result: Record<string, Record<string, number>> = {};
+  const labels: Record<string, [string, string]> = {
+    chest: ["胸", "胸大肌"],
+    shoulders: ["肩", "三角肌"],
+    biceps: ["手臂", "肱二头肌"],
+    triceps: ["手臂", "肱三头肌"],
+    forearms: ["手臂", "前臂"],
+    lats: ["背", "背阔肌"],
+    "upper-back": ["背", "上背"],
+    "lower-back": ["背", "下背"],
+    traps: ["背", "斜方肌"],
+    quadriceps: ["下肢", "股四头肌"],
+    hamstrings: ["下肢", "腘绳肌"],
+    glutes: ["下肢", "臀肌"],
+    calves: ["下肢", "小腿"],
+    adductors: ["下肢", "内收肌"],
+    abductors: ["下肢", "外展肌"],
+    abdominals: ["核心", "腹肌"],
+    neck: ["颈部", "颈部"],
+    "full-body": ["全身", "全身"],
+  };
   for (const exercise of exercises) {
-    if (!Number.isFinite(exercise.sets) || !exercise.sets || exercise.sets <= 0)
+    const sets = trainingSets(exercise);
+    if (!Number.isFinite(sets) || !sets || sets <= 0) continue;
+    const metadata = exerciseMuscleMetadata(exercise.sourceId);
+    if (
+      (metadata?.category ?? exercise.category) === "cardio" ||
+      /拉伸/.test(exercise.name)
+    )
       continue;
+    const primary = [
+      ...new Set(metadata?.primaryMuscles ?? exercise.primaryMuscles ?? []),
+    ].filter((m) => labels[m]);
+    if (primary.length) {
+      for (const muscle of primary) {
+        const [family, fallback] = labels[muscle];
+        let region = fallback;
+        if (muscle === "chest") region = chestRegion(exercise.name) || fallback;
+        if (muscle === "shoulders") {
+          if (
+            /反向飞鸟|后束|面拉|reverse.*fly|rear.*delt|face.?pull/i.test(
+              exercise.name,
+            )
+          )
+            region = "后束";
+          else if (/侧平举|中束|lateral.?raise/i.test(exercise.name))
+            region = "中束";
+          else if (/前平举|前束|front.?raise/i.test(exercise.name))
+            region = "前束";
+        }
+        result[family] ??= {};
+        result[family][region] =
+          (result[family][region] ?? 0) + sets / primary.length;
+      }
+      continue;
+    }
     const family = muscleFamily(exercise.muscle);
     const sourceRegion = exercise.sourceId?.startsWith("free-db:")
       ? (baseChestRegion(exercise.sourceId) ??
@@ -386,7 +513,7 @@ export function planMuscleDistribution(exercises: PlanExercise[]) {
           : exercise.muscle.split(" / ")[0];
     if (region === "拉伸") continue;
     result[family] ??= {};
-    result[family][region] = (result[family][region] ?? 0) + exercise.sets;
+    result[family][region] = (result[family][region] ?? 0) + sets;
   }
   return result;
 }

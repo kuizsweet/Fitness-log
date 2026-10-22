@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Flag, Pause, Play, RotateCcw } from "lucide-react";
 import styles from "./stopwatch.module.css";
+import { stopwatchElapsed } from "@/lib/stopwatch-clock";
 import { Button as BaseButton } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 function usePrefersReducedMotion() {
@@ -223,7 +224,7 @@ export const Stopwatch = React.forwardRef<HTMLDivElement, StopwatchProps>(
     const readElapsed = React.useCallback(() => {
       const startedAt = startedAtRef.current;
       if (!runningRef.current || startedAt === null) return baseRef.current;
-      return baseRef.current + (readClock() - startedAt);
+      return stopwatchElapsed(baseRef.current, startedAt, readClock());
     }, []);
 
     // autoStart stamps the clock here, not in render: the server has no clock and

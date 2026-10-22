@@ -780,6 +780,13 @@
   align-items: center;
   justify-content: center;
 }
+.workspace .consoleDemo {
+  scrollbar-width: none;
+  background: var(--shell-bg);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  corner-shape: round;
+}
 /* Compact Dock: preserve the existing control footprint. */
 .tabs [data-slot="tabs-list"] {
   position: relative;

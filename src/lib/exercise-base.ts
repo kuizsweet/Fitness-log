@@ -1,6 +1,15 @@
 import shoulderRegions from "../data/exercise-shoulder-regions.json";
 import chestRegions from "../data/exercise-chest-regions.json";
 import names from "../data/hevy-exercises-zh.json";
+import metadata from "../data/exercise-muscle-metadata.json";
+export function exerciseMuscleMetadata(id?: string) {
+  return (
+    metadata as Record<
+      string,
+      { primaryMuscles: string[]; secondaryMuscles: string[]; category: string }
+    >
+  )[id?.replace(/^hevy:/, "") ?? ""];
+}
 export type BaseExercise = {
   id: string;
   name: string;
@@ -72,6 +81,7 @@ export function baseShoulderRegion(id: string) {
   ]?.region;
 }
 export function adaptBaseExercise(item: BaseExercise) {
+  const details = exerciseMuscleMetadata(item.id) ?? item;
   const region =
     baseChestRegion(item.id) ?? chestRegion(item.localizedName ?? item.name);
   return {
@@ -79,16 +89,20 @@ export function adaptBaseExercise(item: BaseExercise) {
     name: item.localizedName ?? localizedExerciseName(item.id, item.name),
     originalName: item.name,
     aliases: item.aliases ?? [],
-    primaryMuscles: item.primaryMuscles,
+    primaryMuscles: details.primaryMuscles,
+    secondaryMuscles: details.secondaryMuscles,
     equipment: item.equipment,
     category: item.category,
-    muscle_group: item.primaryMuscles.includes("chest")
-      ? region
-        ? `胸 / ${region}`
-        : "胸"
-      : item.primaryMuscles.includes("shoulders")
-        ? "肩"
-        : item.primaryMuscles.map((m) => muscles[m] ?? m).join(" / "),
+    muscle_group:
+      item.category === "cardio"
+        ? "有氧运动"
+        : details.primaryMuscles.includes("chest")
+          ? region
+            ? `胸 / ${region}`
+            : "胸"
+          : details.primaryMuscles.includes("shoulders")
+            ? "肩"
+            : details.primaryMuscles.map((m) => muscles[m] ?? m).join(" / "),
     source: "base" as const,
   };
 }

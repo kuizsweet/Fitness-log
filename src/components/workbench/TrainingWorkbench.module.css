@@ -432,7 +432,7 @@
 .workbench .exercise,
 .workbench .columnLabels {
   display: grid;
-  grid-template-columns: 16px minmax(70px, 1fr) 36px 36px 46px;
+  grid-template-columns: 16px minmax(70px, 1fr) 36px 36px 46px 24px;
   gap: 4px;
   align-items: center;
 }
@@ -448,6 +448,88 @@
 .workbench .exercise {
   padding: 6px 0;
   border-top: 1px solid var(--line);
+}
+.workbench.workbench .benchHeading {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  justify-content: start;
+  gap: 4px;
+  padding: 3px 0;
+  border: 0;
+  text-align: left;
+  min-width: 0;
+}
+.benchHeading span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.benchHeading svg {
+  transition: transform 180ms ease-out;
+}
+.benchHeading svg[data-open] { transform: rotate(180deg); }
+.benchChildren {
+  grid-column: 1 / -1;
+  position: relative;
+  padding: 6px 0 8px;
+}
+.benchChildren::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 26px;
+  border-left: 1px solid var(--muted);
+  pointer-events: none;
+}
+.workbench.workbench .benchHeading:hover,
+.workbench.workbench .benchHeading:active {
+  background: transparent !important;
+  box-shadow: none;
+}
+.benchHeading:focus:not(:focus-visible) { outline: none; }
+.benchGroup {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16px minmax(70px, 1fr) 36px 36px 46px 24px;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 0;
+  font-size: 11px;
+}
+.benchGroup + .benchGroup {
+  border-top: 1px dashed var(--line);
+}
+.benchGroup[data-dragging] { opacity: 1; z-index: 1; }
+.benchGroup:global(.opacity-50) { opacity: 1; z-index: 1; }
+.workbench.workbench .groupLabel {
+  cursor: grab;
+  touch-action: none;
+  background: transparent !important;
+}
+.workbench.workbench .groupLabel:active { cursor: grabbing; }
+.workbench .benchGroup button {
+  padding: 0;
+  min-height: 24px;
+  border: 0;
+}
+.groupName {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding-left: 8px;
+}
+.groupName > span { white-space: nowrap; }
+.groupBranch {
+  position: relative;
+  height: 1px;
+  margin-left: 8px;
+  border-bottom: 1px solid var(--muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .benchHeading svg { transition: none; }
 }
 .workbench .exercise > span {
   font-size: 12px;
@@ -537,8 +619,30 @@
   font-weight: 500;
 }
 .workbench .libraryRow small {
-  font-size: 10px;
+  font-size: 11px;
+  line-height: 1.5;
   color: var(--muted);
+}
+/* Scroll gestures stay within the panel instead of spilling onto the canvas. */
+.workbench :is(.exerciseList, .warehouse) {
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+  scroll-padding-block: 12px;
+}
+.workbench :is(.exerciseList, .warehouse)::-webkit-scrollbar {
+  display: none;
+}
+@media (pointer: coarse) {
+  .workbench .monthHeading button,
+  .workbench .monthHeading select {
+    min-height: 36px;
+  }
+  .workbench .monthHeading button {
+    min-width: 32px;
+  }
+  .workbench.workbench input {
+    font-size: 16px;
+  }
 }
 .workbench .canvasSurface {
   position: relative;
@@ -1338,8 +1442,11 @@
   bottom: 0;
   width: 12px;
   z-index: 20;
-  cursor: ew-resize;
+  cursor: grab;
   touch-action: none;
+}
+.panelEdge:active {
+  cursor: grabbing;
 }
 .panelEdge[data-side="left"] {
   right: 0;
@@ -1418,6 +1525,7 @@
 }
 
 :global(body) :global(main):has(.workbench) {
+  padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
 .workbench .workspace::before {
@@ -1496,7 +1604,20 @@
   pointer-events: none;
 }
 
-/* Raising a grabbed note changes only paint order, never its geometry. */
+/* Pointer movement stays immediate; only the elevation eases in and out. */
+.workbench .note {
+  transition: box-shadow 140ms ease-out, scale 140ms ease-out;
+}
+.workbench .note[data-grabbed],
+.fullNotePreview .note {
+  scale: 1.008;
+  box-shadow: 0 18px 40px #00000030, 0 6px 14px #00000024;
+}
+.workbench .note[data-grabbed] > header { cursor: grabbing; }
+@media (prefers-reduced-motion: reduce) {
+  .workbench .note { transition: none; }
+  .workbench .note[data-grabbed], .fullNotePreview .note { scale: 1; }
+}
 .workbench .center {
   z-index: auto;
 }
@@ -1524,4 +1645,35 @@
 .workbench.workbench .search input {
   appearance: none;
   -webkit-appearance: none;
+}
+
+.workbench .cardioFields {
+  grid-column: 3 / -1;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.cardioFields label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 60px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.workbench .cardioFields input { width: 100%; }
+
+.workbench .columnLabels .cardioColumnLabels > span {
+  width: 60px;
+  flex: none;
+  text-align: center;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.workbench .cardioFields label > span[hidden] { display: none; }
+
+.workbench .cardioFields label,
+.workbench .columnLabels .cardioColumnLabels > span {
+  width: 46px;
 }

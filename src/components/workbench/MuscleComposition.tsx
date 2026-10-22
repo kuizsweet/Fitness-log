@@ -37,10 +37,19 @@ export const MuscleComposition = memo(function MuscleComposition({
   preferredFamily: string;
   editing: number;
 }) {
-  const distribution = useMemo(
-    () => planMuscleDistribution(exercises),
-    [exercises],
-  );
+  const distribution = useMemo<Record<string, Record<string, number>>>(() => {
+    const groups = planMuscleDistribution(exercises);
+    const details: Record<string, number> = {};
+    for (const regions of Object.values(groups)) {
+      for (const [region, sets] of Object.entries(regions)) {
+        details[region] = (details[region] ?? 0) + sets;
+      }
+    }
+    return {
+      ...groups,
+      全部: details,
+    };
+  }, [exercises]);
   const [expanded, setExpanded] = useState(false);
   const panelRef = useRef<HTMLElement>(null);
   const [position, setPosition] = useState({ left: 12, bottom: 12 });
@@ -95,9 +104,7 @@ export const MuscleComposition = memo(function MuscleComposition({
     }
   }, [editing]);
   const families = Object.keys(distribution);
-  const family = families.includes(preferredFamily)
-    ? preferredFamily
-    : (families[0] ?? "");
+  const family = families.includes(preferredFamily) ? preferredFamily : "全部";
   const { data, total, config } = useMemo(() => {
     const counts = distribution[family] ?? {};
     const labels = [

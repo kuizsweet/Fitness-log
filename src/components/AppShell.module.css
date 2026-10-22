@@ -399,6 +399,7 @@
   }
   .shell .main[data-area] {
     padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+    scroll-padding-bottom: calc(94px + env(safe-area-inset-bottom, 0px));
   }
 }
 @media (max-width: 600px) {

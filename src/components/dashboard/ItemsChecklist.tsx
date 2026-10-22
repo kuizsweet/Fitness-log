@@ -8,7 +8,6 @@ import {
 } from "react";
 import { Checkbox } from "@base-ui/react/checkbox";
 import { Check, GripVertical, Plus, X } from "lucide-react";
-import { TabsContent } from "../ui/tabs";
 import { Button } from "../ui/button";
 import {
   Sortable,
@@ -233,7 +232,7 @@ function Checklist({
         </form>
         {controls}
       </div>
-      <TabsContent value="items">
+      <div>
         <Sortable
           value={visibleItems}
           onValueChange={(next) =>
@@ -350,7 +349,7 @@ function Checklist({
             </Button>
           </div>
         )}
-      </TabsContent>
+      </div>
       {error && (
         <p role="alert" className={styles.error}>
           {error}

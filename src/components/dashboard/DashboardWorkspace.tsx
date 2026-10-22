@@ -1,18 +1,16 @@
 "use client";
 import { useState, type ReactNode } from "react";
-import { Stopwatch } from "../ui/stopwatch";
+import { TrainingConsole } from "./TrainingConsole";
 import type { CheckinDashboard } from "@/lib/checkins";
 import { ItemsChecklist } from "./ItemsChecklist";
 
 import { TrainingMonthCalendar } from "./TrainingMonthCalendar";
 import { Checkins } from "../Checkins";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { BodyGoalCard } from "./BodyGoalCard";
 import type { DashboardData } from "./useDashboardData";
 import styles from "./Dashboard.module.css";
 import { BRAND_NAME } from "@/lib/brand";
 import { TrainingLoadCard } from "./TrainingLoadCard";
-import { useDockSegments } from "../useDockSegments";
 
 export function DashboardWorkspace({ data }: { data: DashboardData }) {
   const { date, profile, calendar, setPicked } = data;
@@ -23,7 +21,7 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
       <h1 className={styles.srOnly}>{BRAND_NAME} 训练控制台</h1>
       <Checkins dataOnly onData={setCheckin} />
       <div className={styles.grid}>
-        <TrainingConsole />
+        <TrainingConsoleCard />
         <PlanCard />
         <div className={styles.calendarSlot}>
           <TrainingMonthCalendar
@@ -61,53 +59,21 @@ export function DashboardWorkspace({ data }: { data: DashboardData }) {
   );
 }
 
-function TrainingConsole() {
+function TrainingConsoleCard() {
   return (
     <section
-      className={`${styles.card} ${styles.console} ${styles.stopwatchConsole}`}
-      aria-label="Stopwatch"
+      className={`${styles.card} ${styles.console} ${styles.consoleDemo}`}
+      aria-label="训练控制台"
     >
-      <Stopwatch />
+      <TrainingConsole />
     </section>
   );
 }
 
 function PlanCard() {
-  const [tab, setTab] = useState("items");
-  const dock = useDockSegments(tab, setTab);
   return (
-    <section
-      className={`${styles.card} ${styles.plan}`}
-      aria-label="训练计划与物品清单"
-    >
-      <Tabs value={tab} onValueChange={setTab} className={styles.tabs}>
-        <ItemsChecklist
-          active={tab === "items"}
-          controls={
-            <TabsList
-              ref={dock.host}
-              aria-label="训练计划与物品清单"
-              onClickCapture={(event) => {
-                if (event.detail > 0)
-                  (event.target as HTMLElement).closest("button")?.blur();
-              }}
-            >
-              <span
-                ref={dock.indicator}
-                className={styles.segmentLens}
-                aria-hidden="true"
-              />
-              <TabsTrigger value="plan" data-dock-value="plan">
-                Plan
-              </TabsTrigger>
-              <TabsTrigger value="items" data-dock-value="items">
-                List
-              </TabsTrigger>
-            </TabsList>
-          }
-        />
-        <TabsContent value="plan" />
-      </Tabs>
+    <section className={`${styles.card} ${styles.plan}`} aria-label="物品清单">
+      <ItemsChecklist active controls={null} />
     </section>
   );
 }

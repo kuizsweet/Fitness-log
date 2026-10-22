@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <title>FitnessLog — glass dumbbell and note</title>
+  <desc>Original vector concept. Yellow translucent note behind a matte dark metal dumbbell on a white rounded tile. Static glass illustration.</desc>
+  <defs>
+    <linearGradient id="tile" x1="300" y1="80" x2="720" y2="960" gradientUnits="userSpaceOnUse"><stop stop-color="#fff"/><stop offset="1" stop-color="#efeff2"/></linearGradient>
+    <linearGradient id="note" x1="280" y1="330" x2="580" y2="810" gradientUnits="userSpaceOnUse"><stop stop-color="#f3bd20" stop-opacity=".94"/><stop offset=".48" stop-color="#ffda55" stop-opacity=".7"/><stop offset="1" stop-color="#ffeaa0" stop-opacity=".76"/></linearGradient>
+    <linearGradient id="glass" x1="320" y1="310" x2="760" y2="650" gradientUnits="userSpaceOnUse"><stop stop-color="#232426"/><stop offset="1" stop-color="#3b3c3f"/></linearGradient>
+    <linearGradient id="rim" x1="330" y1="280" x2="680" y2="750" gradientUnits="userSpaceOnUse"><stop stop-color="white" stop-opacity=".38"/><stop offset=".45" stop-color="white" stop-opacity=".08"/><stop offset=".76" stop-color="#555b60" stop-opacity=".24"/><stop offset="1" stop-color="white" stop-opacity=".28"/></linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="200%"><feDropShadow dx="0" dy="15" stdDeviation="16" flood-color="#333854" flood-opacity=".16"/></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="17"/></filter>
+    <clipPath id="noteClip"><rect x="287" y="328" width="336" height="440" rx="72"/></clipPath>
+    <path id="weight" d="M337 327C337 311 350 298 366 298H399C415 298 428 311 428 327V426H654V327C654 311 667 298 683 298H716C732 298 745 311 745 327V365H759C772 365 782 375 782 388V516C782 529 772 539 759 539H745V577C745 593 732 606 716 606H683C667 606 654 593 654 577V478H428V577C428 593 415 606 399 606H366C350 606 337 593 337 577V539H323C310 539 300 529 300 516V388C300 375 310 365 323 365H337V327Z"/>
+    <clipPath id="weightClip"><use href="#weight"/></clipPath>
+  </defs>
+  <!-- Preview tile only; native icon production should use a full-bleed background. -->
+  <g id="artwork" transform="translate(512 512) scale(1.18) translate(-512 -512)">
+  <g id="note-layer" transform="translate(455 548) scale(1.13) translate(-455 -548) rotate(-11 455 548)">
+    <rect x="287" y="328" width="336" height="440" rx="72" fill="url(#note)" filter="url(#shadow)"/>
+    <g clip-path="url(#noteClip)"><ellipse cx="344" cy="371" rx="97" ry="164" fill="#e9aa00" opacity=".25" filter="url(#soft)"/><path d="M325 692C400 755 519 765 592 689" stroke="#fff1b8" stroke-width="25" opacity=".12" filter="url(#soft)"/></g>
+    <rect x="290" y="331" width="330" height="434" rx="69" stroke="url(#rim)" stroke-width="4"/>
+    <path d="M347 609H509M347 654H459" stroke="#fff8dc" stroke-opacity=".72" stroke-width="17" stroke-linecap="round"/>
+    <path d="M306 452V405C306 373 327 349 360 347" stroke="white" stroke-opacity=".2" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g id="dumbbell-layer" transform="rotate(13 541 452)" filter="url(#shadow)">
+    <!-- Matte metal: a dark side face and a flat front, without specular strokes. -->
+    <use href="#weight" transform="translate(0 8)" fill="#202124"/>
+    <use href="#weight" fill="#38393c"/>
+    <g clip-path="url(#weightClip)">
+      <path d="M300 298H352V606H300ZM654 298H669V606H654Z" fill="#414245"/>
+      <path d="M416 298H428V606H416ZM732 298H782V606H732Z" fill="#2d2e31"/>
+      <path d="M428 466H654V478H428Z" fill="#292a2d"/>
+    </g>
+  </g>
+  </g>
+</svg>

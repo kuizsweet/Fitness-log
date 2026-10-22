@@ -40,6 +40,7 @@ export type LibraryRecord = {
   originalName?: string;
   aliases?: string[];
   primaryMuscles?: string[];
+  secondaryMuscles?: string[];
 };
 const machineCodes = new Set([
   "machine",

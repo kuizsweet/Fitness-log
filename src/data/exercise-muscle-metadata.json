@@ -1,0 +1,3453 @@
+{
+  "8136": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "8126": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "8090": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "8043": {
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "8016": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "olympic",
+    "classificationSource": "catalog"
+  },
+  "7969": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7920": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7861": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7856": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "shoulders",
+      "abdominals"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "7834": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7810": {
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7759": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7726": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7722": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7644": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7595": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7576": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7551": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7544": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7515": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7460": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7445": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7398": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7332": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7326": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7292": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7279": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7274": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "olympic",
+    "classificationSource": "catalog"
+  },
+  "7251": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "olympic",
+    "classificationSource": "catalog"
+  },
+  "7246": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7207": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7157": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "shoulders",
+      "abdominals"
+    ],
+    "category": "olympic",
+    "classificationSource": "curated-from-movement"
+  },
+  "7150": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7142": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7138": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7126": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7117": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "7083": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "5573": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4916": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4873": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "calves"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "4865": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4862": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4854": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4724": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4719": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4685": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4646": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4639": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4629": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4605": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4577": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4570": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4560": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4552": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4493": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4489": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4485": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4479": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4444": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4438": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4388": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4377": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4367": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4357": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4300": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4290": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4283": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4273": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4270": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4261": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4254": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4250": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "4186": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2020": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2016": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2014": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2012": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "duration",
+    "classificationSource": "catalog"
+  },
+  "2010": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2018": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1994": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1992": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2008": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1996": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1998": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2000": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2002": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2004": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "2006": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "duration",
+    "classificationSource": "catalog"
+  },
+  "1990": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1984": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1985": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1986": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1988": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1896": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1892": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1890": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1888": {
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1886": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1884": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1894": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1864": {
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1861": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1862": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1866": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1874": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1876": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1878": {
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1868": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1666": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1659": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1660": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1661": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1655": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1654": {
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1653": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1652": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1651": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "1650": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-91940c8781687b91": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4d6b09b98262b0ac": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e34652a6b83589af": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c5796301ce8c5af3": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-6bf1b3c603065982": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-367f20e4149f1e30": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4bbbf79355e0c017": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-153cc49c7cd22f10": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-51c0680d6b22d7e7": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8a15a5b88f94355d": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bc8a62da01fa25ab": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e18e19758759fd51": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-518a254c8cd4d0c2": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c2fa131d5feb9808": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-47abf5a20db11b55": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7cc898c06f3d20c3": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-4a2dba19269e647d": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-83350bdb70c24215": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-48d6d8aa296d2f59": {
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e9cb49406e4215bd": {
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d222e47ed3ab7589": {
+    "primaryMuscles": [
+      "lower-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-69682147b4806ddb": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b16645847daff477": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5012f46c46848660": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-c91424caaf7da947": {
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4e38df1b837fac77": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2f4ac78a9c6c4b50": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-1fc9d50e80476604": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c94d3e542f7605b5": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2db040679a0c3667": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b6af23e429807213": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-82bca0bef824bbbe": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-1ea6d3f9ec256e78": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-38da9108f8170b23": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-04934089281fb522": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b502c9f2d9eed185": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8ee813aa033e726c": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a2cde1b98780b3ac": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b609872e77c53e0a": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-57e3fa6074e85b3b": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e794fe242da50296": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-40f23501e11abb91": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-62bebfeb28069454": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dca685f355df90c7": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-35a427cce3649246": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a17c9383ff0362c0": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b214ec6bf09c49a1": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-76c97a0ad698d235": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4812b120937c6a0a": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5df57d20f9032fe1": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-63a209868e8f2190": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9fe96f8dc994a14a": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e82cb2435b6b26ca": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-655af79e6f91e307": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2c2952dac4e10bbd": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c5e1ceb09e4ff540": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4e075e66c6a9da66": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-07420372fee1c6fb": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b3ce888654665814": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4d5a27b429b17e6a": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e715e752a9c541ca": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-18c8bb463033ff5e": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d459347db286abfd": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4bedd74c7d561cbd": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-c5f080c328eaff30": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-ee4210108cf654bc": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-067d026fa11cba0e": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-47f90a8fa5a921ef": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-64f6bebc7eee2db4": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9c3ca7621ae0fdfb": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-ce0d6a78c762476f": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5f3ac44a8546019d": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0636a035b9f37d88": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-53a66b4f6574fb2b": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4f6e78d216b1f318": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-aa909eb395657835": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-db65d033af25c0e8": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9eca74ff7ed03fca": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-6e529e6e9baf821d": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-51c8a71a7f7043ad": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3b00f45a869f4a0c": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-43ed4995bbd34112": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4bc15c5e63eedd9a": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c09c8734762931c3": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-379038ffc88b9616": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-295191ecef34d9a7": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-62d09a6fbf081b1f": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a7f25f2cd7caf43d": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c5c0319ea4fb1e2b": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3ed6d5d86af827b5": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-750b9fbbf101e923": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9411a3f366636c60": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dbe4a1a1c66d045f": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8cbd1f9a28a96c04": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2a632e8a072e50ad": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2d8da514005522f3": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7c9577d37f9e2ecc": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "abdominals",
+      "shoulders"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "video-1a68806c01552687": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-fe94692776a61cc6": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9caad31696302edf": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8163b904cca43662": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2ad512ec64ee5a7d": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3ab96d3cd7332a50": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3aac385fb0c84749": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9f8530413f81781f": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-45030eeddc443bab": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-62741a939d5c0241": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d7dd46234fd0aaa1": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c9d795d21c76c1a4": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-87856bf2a34900ad": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "abdominals"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "video-5f59d3bf654f0d6f": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a55a46566e75cbaa": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5a736181dbf441df": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b138bc0a1f3a5abb": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-38f722d8543f024f": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a1a565dd76c56685": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-882892b8f3cc6e9a": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-a0d4309fe260c23b": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-0c62f04b37177c3d": {
+    "primaryMuscles": [
+      "abductors"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7cb8b70ee303163e": {
+    "primaryMuscles": [
+      "adductors"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-29ebe98b5f446a6b": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-72b9ddff575fb74f": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-ba05bcadf9b3dc23": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5436145b1873bdfb": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-656e7be681a5fbc1": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-11ec9769cb6e20e2": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-340b2844e7992fa4": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0cd3dc0ae1a7479d": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e2af4c1424113c2b": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5c3cf371f86e23ec": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7f4c5a58ab718bc2": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a079f6979b9e4f73": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-182ed6b7412c0ace": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-203cc8f947e2e41a": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-c25e28ecbb599ccb": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e6275b4b4d81126a": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3828ddb5cd354784": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e74900ffd15a9a05": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-df9a39ec97884a3b": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2a56ae29bf973b2d": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-96883d2f5ff45d95": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4aa0a5de02238e0e": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3b4db8d904fec4a1": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-59a55586fa60ba5d": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dd82b53b3422bb6a": {
+    "primaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "lower-back",
+      "abdominals"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "video-68d6e41609533ed9": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-49282a331193a65f": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-83d66ac8e90d86f0": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b210ef56cfec2d52": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-97652161b461822c": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-6ec62369d5b71a55": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-f712af5b29fe93de": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a12085ddb4f06af4": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c6706ccb4cd5592e": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3b7bebb12b158093": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2531cc8fe23255c5": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-25e89abc10028689": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a1c72a1b212f7f0f": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bee40986a0335168": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9fce991868b5ae64": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-cfa6394c203edc6f": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3f7cd0ec2c8cada1": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dc7f3a0e71551495": {
+    "primaryMuscles": [
+      "neck"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5c9022195609c088": {
+    "primaryMuscles": [
+      "neck"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-979ad11514041be2": {
+    "primaryMuscles": [
+      "neck"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-1def1fceb08b5d4e": {
+    "primaryMuscles": [
+      "neck"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a5937e2692f1bb19": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-98f1fb8de2822c6b": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "quadriceps"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "video-9bc5c3b1df4bc225": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8bed9d7c598a5fed": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-332eb7ec3474a6d8": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a0c8b70a2062b3df": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-be02a5c2ffa11595": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-76e764b36de96371": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2c5949668803acd3": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-f07c3dcb41db2bb5": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-81c9ef7007a67295": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "shoulders",
+      "abdominals"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "video-6462deda810b6248": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9a2f57e4bd8ca595": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-693ea9decb662dd6": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b925b443dcbc4cf4": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-ddb8a77b1ca95e5b": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0076be556b04ab8d": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-17f856755af7a442": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8678d0aef7e03480": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8c8eea399a0eec09": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d7731046979625f9": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bc5560ef58935925": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2e3bcf12e9716f0f": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d985f37370e8ab11": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a1b557f192c5fd26": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-52ae9e5121510e9f": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8009da2f8dd295d5": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a2c014ee7d1b0c44": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-97162c6b391d206c": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5eb577147e45af0f": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-cb8375af879e7c73": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0db107aaf1124c53": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-582da17ee577df56": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a4c4ead7f2f4844f": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a857a38e17bcd426": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a22fc767ccc20e8d": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-683761880af5eeba": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-ce796711e51f8caf": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7811c38d51f3d2de": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-1fecbae9a5f45155": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bad6fefcbb0d2735": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-91588e589c9a78e2": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-264eea3d194dc184": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a21f75cfc1301663": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-591052c733499bad": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-d4be193489a0cfea": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5714caac53e780ec": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3773ece800bb230c": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-34292e84eb820961": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e671007df41eb4f7": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a91ce514ad925db5": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-48459b1412a053a1": {
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5baf4a634bd808cd": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bf2fa684d1356d56": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2b2a240b8522d366": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-129846b676471f46": {
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-cbbae65214c81549": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5057014817676fd1": {
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-69ea5e7bbf5e6624": {
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7012ddcdbe88fa0a": {
+    "primaryMuscles": [
+      "traps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9bee506f224c6f35": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-fb75e740eb83a8a7": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3c7703e2da3cbca9": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-973ada3812d481c9": {
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b7d3a7d1c18b83f9": {
+    "primaryMuscles": [
+      "upper-back"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-aebb6d42a07c9429": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-92ff4e62e09e0235": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-633455585b316652": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-56a08112b798757e": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3c0584243839eae6": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c7edf9fb18cf1024": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-fca0eddc5e7bc14b": {
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c81f9d30b174e152": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-6097bfab031a1857": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2e2d84a1661653d8": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0ac634f1daf4b182": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dfe10273d1a08dff": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d710f5b53d4ddac5": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-6ae9b614455e2e43": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-5e6dbb1fcc4e27af": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-83fd71f7f76a2531": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b21b7381b47ab5aa": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-bbbccf3bbcc8259c": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-85aa696671e5a791": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d946f0e17d8a4063": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-c96f3a5d5a5dab78": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-c14c2aa1d8351f32": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-735972212d52dd2c": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-57c3b7d79f6b8259": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-14906fe65951b860": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-7540b9429a7813b6": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4a00c0928fa1d51c": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-81341b39c214b39a": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8c22cf80702ea5ea": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a110da5c87dd103b": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "category": "strength",
+    "classificationSource": "curated-from-movement"
+  },
+  "video-67986bc442ea7382": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-59944edfdb13b2d6": {
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-e23594cf302da6d3": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-947cf41241f9f18c": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dcc399038637b06b": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b4fcef4951492510": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-caae114eba33a36b": {
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-1c5ec02477b27f65": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-5d7d4daca250eac9": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "curated-broad"
+  },
+  "video-ab7c2badd5691cc3": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dda33c34a63152eb": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-f864303afb4e4a85": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-dcf9ee3ebf608121": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2e194ffae4bc16ab": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0991c0044437af83": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-da402aa9bf6b24d0": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-1fc91987002ccf2c": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-c01f48acb17bff59": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-03d9df151066c3be": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-dcc2c9c8e7de8190": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-2ad4973f8e16763d": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bd02b5f86a236b99": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-6e17d8c9b8748871": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-8c8355a5085d4de1": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-4d84630da5b98292": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-93ee9770b2dcaeda": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-76f5ebf582058229": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-9c5d6b527a80a050": {
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-68353cddcdc8fd12": {
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-250dd861a87559ee": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-d87fca8782bf853e": {
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3a8b5cef5790719f": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "category": "cardio",
+    "classificationSource": "curated-broad"
+  },
+  "video-2c19e73796202b33": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-b23d238f94a0572a": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-3cb4f46bb8a1271a": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-84a74cfc1a51b138": {
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bc266d1610c100b9": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-a00292b597e53637": {
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-0875195844746214": {
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-ee460bd4ef8682a9": {
+    "primaryMuscles": [
+      "forearms"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  },
+  "video-bd4e166240089036": {
+    "primaryMuscles": [
+      "full-body"
+    ],
+    "secondaryMuscles": [],
+    "category": "strength",
+    "classificationSource": "catalog"
+  }
+}

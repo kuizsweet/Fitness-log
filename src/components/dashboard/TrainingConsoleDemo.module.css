@@ -1,0 +1,348 @@
+.demo {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.demo button,
+.rest,
+.badge {
+  corner-shape: round;
+}
+:global(html[data-theme="dark"]) .rest {
+  background: #111111;
+}
+.heading {
+  position: static;
+  padding: 0;
+  min-height: 0;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.demo.demo.demo button:disabled {
+  opacity: 1;
+  cursor: default;
+}
+.heading h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 650;
+}
+.demo.demo .reset {
+  flex: none;
+  margin-right: auto;
+  min-height: 28px;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+.demo.demo .reset:hover:not(:disabled) {
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.badge {
+  flex: none;
+  font-size: 12px;
+  color: #22a65a;
+  background: #22a65a1a;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.rest {
+  background: color-mix(in srgb, var(--ink) 4%, var(--surface));
+  border-radius: 20px;
+  text-align: center;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.rest > span {
+  color: var(--muted);
+  font-weight: 550;
+}
+.time {
+  font-size: 48px;
+  line-height: 1.15;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -1px;
+  font-weight: 650;
+}
+.timerActions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.demo.demo .timerActions button {
+  min-height: 26px;
+  padding: 2px 10px;
+  border: 0;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  color: var(--ink);
+  font-size: 13px;
+  opacity: 1;
+  cursor: default;
+}
+.exercise {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.exercise > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.exercise > div:last-child {
+  text-align: right;
+}
+.exercise span {
+  color: var(--muted);
+}
+.exercise strong {
+  font-size: 16px;
+  font-weight: 650;
+}
+.rir {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.rir legend {
+  padding: 0;
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+}
+.demo.demo .choices button {
+  min-height: 32px;
+  padding: 4px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  box-shadow: none;
+}
+.demo.demo .choices button[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  color: var(--ink);
+}
+.demo.demo .choices button:hover {
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.rir p,
+.caption {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.demo.demo .complete {
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--ink) 7%, transparent);
+  color: var(--muted);
+  font-size: 14px;
+  opacity: 1;
+  cursor: default;
+  box-shadow: none;
+}
+.caption {
+  margin: 0;
+}
+.planColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 6px;
+}
+.planColumns section {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.planColumns section + section {
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
+}
+.planColumns h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.planColumns span,
+.next {
+  color: var(--muted);
+  font-size: 12px;
+}
+.planColumns strong {
+  font-weight: 550;
+}
+.demo.demo .complete:not(:disabled) {
+  background: var(--ink);
+  color: var(--surface);
+  cursor: pointer;
+}
+.demo.demo .timerActions button:not(:disabled) {
+  cursor: pointer;
+}
+.demo.demo.demo .timerActions button:disabled {
+  opacity: 0.4;
+}
+.timerActions {
+  flex-wrap: wrap;
+}
+.actualFields {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.actualFields label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.actualFields input {
+  width: 60px;
+  min-height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--field);
+  color: var(--ink);
+  padding: 3px 6px;
+  font: inherit;
+}
+.demo.demo .textButton {
+  border: 0;
+  background: transparent;
+  font-size: 12px;
+  color: var(--muted);
+  align-self: center;
+  padding: 2px 8px;
+}
+.records {
+  font-size: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+.records summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.records ol {
+  list-style: none;
+  padding: 10px 0 0;
+  display: grid;
+  gap: 10px;
+}
+.records li {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--line);
+}
+.records li strong {
+  font-weight: 550;
+}
+.records li small {
+  color: var(--muted);
+}
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.result span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.error {
+  font-size: 12px;
+  color: var(--ink);
+  border-left: 2px solid #e65f55;
+  padding-left: 8px;
+}
+@media (max-width: 480px) {
+  .timerActions {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .demo.demo .timerActions button {
+    min-width: 0;
+    padding-inline: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  .demo {
+    gap: 12px;
+  }
+  .heading h2 {
+    font-size: 14px;
+  }
+  .badge {
+    font-size: 11px;
+    padding-inline: 8px;
+  }
+  .rest {
+    padding: 14px;
+  }
+}
+
+.badge[data-paused] {
+  color: #946200;
+  background: #f5bd2633;
+}
+:global(html[data-theme="dark"]) .badge[data-paused] {
+  color: #f5ca59;
+}
+
+.demo[data-idle] {
+  flex: 1;
+}
+.idlePlans {
+  flex: 1;
+  min-height: 190px;
+}
+.planExercises {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.planExercises li {
+  padding-left: 2px;
+}
+.demo[data-idle] > .complete {
+  flex: none;
+}

@@ -1,6 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
-import { Menu } from "@base-ui/react/menu";
+import * as Menu from "@radix-ui/react-dropdown-menu";
 import { ChevronDown } from "lucide-react";
 import styles from "./LibraryFilterMenu.module.css";
 type Option = { value: string; label: string };
@@ -23,6 +23,7 @@ export function LibraryFilterMenu({
 }) {
   const trigger = useRef<HTMLButtonElement>(null);
   const [width, setWidth] = useState(220);
+  const [triggerHeight, setTriggerHeight] = useState(32);
   const groups =
     kind === "muscles"
       ? [
@@ -54,8 +55,10 @@ export function LibraryFilterMenu({
         open={open}
         modal={false}
         onOpenChange={(next) => {
-          if (next)
+          if (next) {
             setWidth(trigger.current?.parentElement?.clientWidth ?? 220);
+            setTriggerHeight(trigger.current?.offsetHeight ?? 32);
+          }
           onOpenChange(next);
         }}
       >
@@ -64,8 +67,13 @@ export function LibraryFilterMenu({
           className={styles.trigger}
           data-open={open || undefined}
           aria-label={label}
-          onClick={(event) => {
-            if (event.detail > 0) event.currentTarget.blur();
+          onPointerDown={(event) => {
+            if (event.button === 0) event.preventDefault();
+          }}
+          onClick={() => {
+            setWidth(trigger.current?.parentElement?.clientWidth ?? 220);
+            setTriggerHeight(trigger.current?.offsetHeight ?? 32);
+            onOpenChange(!open);
           }}
         >
           <span className={styles.surface} />
@@ -73,25 +81,17 @@ export function LibraryFilterMenu({
           <ChevronDown aria-hidden size={13} />
         </Menu.Trigger>
         <Menu.Portal>
-          <Menu.Positioner
-            side="bottom"
-            align={kind === "devices" ? "start" : "end"}
-            sideOffset={-32}
-            collisionPadding={12}
-            collisionAvoidance={{
-              side: "shift",
-              align: "shift",
-              fallbackAxisSide: "none",
-            }}
-            className={styles.positioner}
-          >
             {/* Keep the portal and its text outside shared layout projection. */}
-            <Menu.Popup
-              className={styles.popup}
+            <Menu.Content
+              side="bottom"
+              align={kind === "devices" ? "start" : "end"}
+              sideOffset={-triggerHeight}
+              collisionPadding={12}
+              className={`${styles.positioner} ${styles.popup}`}
               style={{ width }}
               data-kind={kind}
               aria-label={label}
-              finalFocus={(type) => type === "keyboard"}
+              onCloseAutoFocus={(event) => event.preventDefault()}
               onKeyDownCapture={(event) => {
                 const columns = kind === "muscles" ? 3 : 2;
                 const step = {
@@ -129,20 +129,21 @@ export function LibraryFilterMenu({
                   ) : (
                     <Menu.Item
                       key={option.value}
-                      label={option.label}
+                      textValue={option.label}
                       className={styles.item}
-                      onClick={() => {
+                      asChild
+                    >
+                      <button type="button" onClick={() => {
                         onSelect(value === option.value ? "all" : option.value);
                         onOpenChange(false);
-                      }}
-                    >
-                      <span>{option.label}</span>
+                      }}>
+                        <span>{option.label}</span>
+                      </button>
                     </Menu.Item>
                   ),
                 )}
               </div>
-            </Menu.Popup>
-          </Menu.Positioner>
+            </Menu.Content>
         </Menu.Portal>
       </Menu.Root>
     </>

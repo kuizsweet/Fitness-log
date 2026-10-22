@@ -52,6 +52,7 @@ import { today, type Exercise, type Profile } from "@/lib/domain";
 import { api } from "@/lib/client";
 import {
   adaptBaseExercise,
+  exerciseMuscleMetadata,
   baseChestRegion,
   baseShoulderRegion,
   localizedExerciseName,
@@ -60,6 +61,7 @@ import {
 
 import {
   createNote,
+  isBenchExercise,
   nearTrashEdge,
   exerciseInsertionIndex,
   copyWarehouseNote,
@@ -82,6 +84,8 @@ import {
 } from "@/lib/training-workbench";
 import styles from "./TrainingWorkbench.module.css";
 import { MuscleComposition } from "./MuscleComposition";
+import { BenchExerciseFields } from "./BenchExerciseFields";
+import { isCardioExercise, cardioFields } from "@/lib/cardio";
 import { LibraryFilterMenu } from "./LibraryFilterMenu";
 import {
   deviceOptions,
@@ -93,7 +97,6 @@ import {
   Sortable,
   SortableContent,
   SortableItem,
-  SortableItemHandle,
   SortableOverlay,
 } from "../ui/sortable";
 
@@ -240,7 +243,7 @@ function Workbench({
   }, []);
   const catalog = useResource<{ exercises: Exercise[] }>("catalog");
   const base = useResource<BaseExercise[]>(
-    "exercise-base?source=hevy-classified-v3",
+    "exercise-base?source=hevy-classified-v4",
   );
   const [visibleCount, setVisibleCount] = useState(60);
   const [customName, setCustomName] = useState("");
@@ -250,7 +253,11 @@ function Workbench({
   const key = `kuizfit:workbench:v1:${user}`;
   const draftKey = `${key}:drafts`;
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 6 },
+      bypassActivationConstraint: ({ activeNode }) =>
+        activeNode.data.current?.kind === "note",
+    }),
     useSensor(KeyboardSensor),
   );
   useEffect(() => {
@@ -354,6 +361,7 @@ function Workbench({
           sourceId: exercise.id,
           name: exercise.name,
           muscle: exercise.muscle_group,
+          ...exerciseMuscleMetadata(exercise.id),
           sets: null,
           reps: null,
           weight: null,
@@ -448,6 +456,7 @@ function Workbench({
           sourceId: move.exercise.id,
           name: move.exercise.name,
           muscle: move.exercise.muscle_group,
+          ...exerciseMuscleMetadata(move.exercise.id),
           sets: null,
           reps: null,
           weight: null,
@@ -504,6 +513,7 @@ function Workbench({
       category: undefined as string | undefined,
     })),
     ...(base.data ?? []).map(adaptBaseExercise),
+    { id: "kuizfit:incline-treadmill", name: "爬坡机", muscle_group: "有氧运动", category: "cardio", equipment: "machine", source: "kuizFit" },
   ];
   const filtered = filterLibrary(exercises, device, muscle, search);
   const isFiltered =
@@ -1153,6 +1163,23 @@ function Workbench({
     </DndContext>
   );
 }
+function NoteColumnLabels({ note }: { note: PlanNote }) {
+  const cardioOnly = note.exercises.every(isCardioExercise);
+  const fields = [...new Map(note.exercises.flatMap((exercise) =>
+    cardioFields(exercise.name)).map((field) => [field.key, field])).values()];
+  return (
+    <div className={styles.columnLabels}>
+      <span />
+      <span>动作</span>
+      {cardioOnly ? (
+        <div className={`${styles.cardioFields} ${styles.cardioColumnLabels}`}>
+          {fields.map((field) => <span key={field.key}>{field.key === "minutes" ? "分钟" : `${field.label} ${field.unit}`}</span>)}
+        </div>
+      ) : <><span>组</span><span>次</span><span>kg</span></>}
+    </div>
+  );
+}
+
 function FullNotePreview({ note }: { note: PlanNote }) {
   return (
     <div
@@ -1185,25 +1212,37 @@ function FullNotePreview({ note }: { note: PlanNote }) {
         <div className={styles.noteBody}>
           {note.exercises.length ? (
             <>
-              <div className={styles.columnLabels}>
-                <span />
-                <span>动作</span>
-                <span>组</span>
-                <span>次</span>
-                <span>kg</span>
-              </div>
+              <NoteColumnLabels note={note} />
               {note.exercises.map((exercise) => (
                 <div className={styles.exercise} key={exercise.id}>
-                  <GripVertical />
-                  <span>{exercise.name}</span>
-                  {(["sets", "reps", "weight"] as const).map((field) => (
-                    <input
-                      key={field}
-                      readOnly
-                      value={exercise[field] ?? ""}
-                      placeholder="—"
-                    />
-                  ))}
+                  <span aria-hidden />
+                  <span
+                    style={
+                      isBenchExercise(exercise)
+                        ? { gridColumn: "2 / -1" }
+                        : undefined
+                    }
+                  >
+                    {exercise.name}
+                  </span>
+                  {isCardioExercise(exercise) ? (
+                    <div className={styles.cardioFields}>
+                      {cardioFields(exercise.name).map((field) => (
+                        <label key={field.key}>
+                          <span hidden={note.exercises.every(isCardioExercise)}>{field.label} · {field.unit}</span>
+                          <input readOnly value={exercise.cardio?.[field.key] ?? ""} placeholder="—" />
+                        </label>
+                      ))}
+                    </div>
+                  ) : !isBenchExercise(exercise) &&
+                    (["sets", "reps", "weight"] as const).map((field) => (
+                      <input
+                        key={field}
+                        readOnly
+                        value={exercise[field] ?? ""}
+                        placeholder="—"
+                      />
+                    ))}
                 </div>
               ))}
             </>
@@ -1581,6 +1620,7 @@ function Note({
       }}
       className={styles.note}
       data-note-id={note.id}
+      data-grabbed={grabbed || drag.isDragging || undefined}
       data-note-color={note.color}
       data-selected={selected}
       data-over={isOver || undefined}
@@ -1668,13 +1708,7 @@ function Note({
           </div>
         ) : (
           <>
-            <div className={styles.columnLabels}>
-              <span />
-              <span>动作</span>
-              <span>组</span>
-              <span>次</span>
-              <span>kg</span>
-            </div>
+            <NoteColumnLabels note={note} />
             <Sortable
               value={note.exercises}
               getItemValue={(exercise) => exercise.id}
@@ -1731,44 +1765,76 @@ function Note({
                       undefined
                     }
                   >
-                    <SortableItemHandle
-                      className={styles.exerciseHandle}
-                      aria-label={`排序动作：${exercise.name}`}
-                    >
-                      <GripVertical aria-hidden />
-                    </SortableItemHandle>
-                    <span title={exercise.name}>{exercise.name}</span>
-                    {(["sets", "reps", "weight"] as const).map((field) => (
-                      <input
-                        key={field}
-                        type="number"
-                        min="0"
-                        max={field === "weight" ? 10000 : 1000}
-                        step={field === "weight" ? 0.5 : 1}
-                        aria-label={`${exercise.name}${field === "sets" ? "组数" : field === "reps" ? "次数" : "重量"}`}
-                        placeholder="—"
-                        value={exercise[field] ?? ""}
-                        onChange={(e) => {
-                          const value =
-                            e.target.value === "" ? null : +e.target.value;
-                          if (
-                            value !== null &&
-                            (!Number.isFinite(value) ||
-                              value < 0 ||
-                              value > (field === "weight" ? 10000 : 1000) ||
-                              (field !== "weight" && !Number.isInteger(value)))
-                          )
-                            return;
+                    {isCardioExercise(exercise) ? (
+                      <>
+                        <span aria-hidden />
+                        <span title={exercise.name}>{exercise.name}</span>
+                        <div className={styles.cardioFields}>
+                          {cardioFields(exercise.name).map((field) => (
+                            <label key={field.key}>
+                              <span hidden={note.exercises.every(isCardioExercise)}>{field.label} · {field.unit}</span>
+                              <input type="number" min={0} max={field.max} step={0.1}
+                                aria-label={`${exercise.name}${field.label}（${field.unit}）`}
+                                placeholder="—" value={exercise.cardio?.[field.key] ?? ""}
+                                onChange={(event) => {
+                                  const value = event.target.value === "" ? null : Number(event.target.value);
+                                  if (value !== null && (!Number.isFinite(value) || value < 0 || value > field.max)) return;
+                                  onChange({ exercises: note.exercises.map((item) => item.id === exercise.id
+                                    ? { ...item, cardio: { ...item.cardio, [field.key]: value } } : item) });
+                                }} />
+                            </label>
+                          ))}
+                        </div>
+                      </>
+                    ) : isBenchExercise(exercise) ? (
+                      <BenchExerciseFields
+                        exercise={exercise}
+                        onChange={(next) =>
                           onChange({
                             exercises: note.exercises.map((v) =>
-                              v.id === exercise.id
-                                ? { ...v, [field]: value }
-                                : v,
+                              v.id === exercise.id ? next : v,
                             ),
-                          });
-                        }}
+                          })
+                        }
                       />
-                    ))}
+                    ) : (
+                      <>
+                        <span aria-hidden />
+                        <span title={exercise.name}>{exercise.name}</span>
+                        {(["sets", "reps", "weight"] as const).map((field) => (
+                          <input
+                            key={field}
+                            type="number"
+                            min="0"
+                            max={field === "weight" ? 10000 : 1000}
+                            step={field === "weight" ? 0.5 : 1}
+                            aria-label={`${exercise.name}${field === "sets" ? "组数" : field === "reps" ? "次数" : "重量"}`}
+                            placeholder="—"
+                            value={exercise[field] ?? ""}
+                            onChange={(e) => {
+                              const value =
+                                e.target.value === "" ? null : +e.target.value;
+                              if (
+                                value !== null &&
+                                (!Number.isFinite(value) ||
+                                  value < 0 ||
+                                  value > (field === "weight" ? 10000 : 1000) ||
+                                  (field !== "weight" &&
+                                    !Number.isInteger(value)))
+                              )
+                                return;
+                              onChange({
+                                exercises: note.exercises.map((v) =>
+                                  v.id === exercise.id
+                                    ? { ...v, [field]: value }
+                                    : v,
+                                ),
+                              });
+                            }}
+                          />
+                        ))}
+                      </>
+                    )}
                   </SortableItem>
                 ))}
               </SortableContent>
