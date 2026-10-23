@@ -85,7 +85,7 @@ import {
 import styles from "./TrainingWorkbench.module.css";
 import { MuscleComposition } from "./MuscleComposition";
 import { BenchExerciseFields } from "./BenchExerciseFields";
-import { isCardioExercise, cardioFields } from "@/lib/cardio";
+import { isCardioExercise, cardioFields, canAddExercise } from "@/lib/cardio";
 import { LibraryFilterMenu } from "./LibraryFilterMenu";
 import {
   deviceOptions,
@@ -352,7 +352,7 @@ function Workbench({
     index?: number,
   ) {
     const note = state.notes.find((n) => n.id === noteId);
-    if (!note || note.exercises.length >= 100) return;
+    if (!note || note.exercises.length >= 100 || !canAddExercise(note.exercises, { name: exercise.name, muscle: exercise.muscle_group, ...exerciseMuscleMetadata(exercise.id) })) return;
     changeNote(note.id, {
       exercises: [
         ...note.exercises.slice(0, index ?? note.exercises.length),
@@ -657,8 +657,13 @@ function Workbench({
             rows.map((row) => row.getBoundingClientRect()),
             point.y,
           );
+          const target = state.notes.find(note => note.id === article?.dataset.noteId);
+          const incoming = (event.active.data.current as Extract<Move, { kind: "exercise" }>).exercise;
+          const accepts = target && canAddExercise(target.exercises, {
+            name: incoming.name, muscle: incoming.muscle_group, ...exerciseMuscleMetadata(incoming.id),
+          });
           setExerciseInsertion(
-            article
+            article && accepts
               ? {
                   noteId: article.dataset.noteId!,
                   index,

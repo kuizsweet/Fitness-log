@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
+  experimental: { agentUpgrade: "security" },
   turbopack: { root: process.cwd() },
   serverExternalPackages: ["exceljs", "sharp", "undici"],
   async headers() {

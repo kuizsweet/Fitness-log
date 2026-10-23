@@ -12,6 +12,7 @@ import {
   readTrainingRun,
   segmentElapsed,
   trainingSession,
+  trainingSessions,
 } from "../src/lib/training-run";
 import { sessionSchema } from "../src/lib/domain";
 const plan: PlanNote = {
@@ -164,4 +165,28 @@ test("paused work can complete; rest requires RIR even when paused and on the fi
     assert.equal(run.logs[i].restMs, 1000);
     assert.equal(run.phase, i === run.queue.length - 1 ? "completed" : "working");
   }
+});
+
+test("cardio runs without strength sets or RIR, follows selected strength, and saves separately", () => {
+  const cardio = { id: "incline", name: "爬坡机", muscle: "有氧运动", sets: null, reps: null, weight: null,
+    cardio: { minutes: 20, incline: 10, speed: 5 } };
+  let cardioRun = beginTraining({ ...plan, exercises: [cardio] }, "2026-10-23", stamp);
+  assert.equal(cardioRun.queue.length, 1);
+  cardioRun = pauseTraining(cardioRun, stamp + 60000);
+  cardioRun = completeTrainingSet(cardioRun, stamp + 120000);
+  assert.equal(cardioRun.phase, "completed");
+  assert.equal(cardioRun.logs[0].workMs, 60000);
+  assert.equal(trainingSessions(cardioRun)[0].training_type, "cardio");
+  let combined = beginTraining({ ...plan, exercises: [plan.exercises[1], cardio] }, "2026-10-23", stamp);
+  combined = completeTrainingSet(combined, stamp + 20000);
+  combined = recordTrainingRir(combined, "2");
+  combined = finishTrainingRest(combined, stamp + 30000);
+  assert.ok(combined.queue[combined.cursor].cardio);
+  combined = completeTrainingSet(combined, stamp + 90000);
+  const sessions = trainingSessions(combined);
+  assert.deepEqual(sessions.map(session => session.training_type), ["strength", "cardio"]);
+  assert.notEqual(sessions[0].id, sessions[1].id);
+  assert.equal(sessions[0].exercises.length, 1);
+  assert.equal(sessions[1].exercises.length, 1);
+  assert.ok(sessions.every(session => sessionSchema.safeParse(session).success));
 });

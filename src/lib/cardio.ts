@@ -21,3 +21,13 @@ export function cardioFields(name: string) {
   );
   return fields;
 }
+
+export function canAddExercise(existing: { name: string; category?: string; muscle?: string }[], incoming: { name: string; category?: string; muscle?: string }) {
+  return existing.every((exercise) => isCardioExercise(exercise) === isCardioExercise(incoming));
+}
+export function noteTrainingType(note: { exercises: { name: string; category?: string; muscle?: string }[] }) {
+  if (!note.exercises.length) return null;
+  if (note.exercises.every(isCardioExercise)) return "cardio";
+  if (note.exercises.every((exercise) => !isCardioExercise(exercise))) return "strength";
+  return null;
+}

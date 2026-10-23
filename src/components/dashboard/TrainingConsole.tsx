@@ -13,9 +13,10 @@ import {
   finishTrainingRest,
   recordTrainingRir,
   readTrainingRun,
-  trainingSession,
+  trainingSessions,
   type TrainingRun,
 } from "@/lib/training-run";
+import { noteTrainingType } from "@/lib/cardio";
 import styles from "./TrainingConsoleDemo.module.css";
 
 const kinds = { warmup: "热身组", working: "正式组", backoff: "回退组" };
@@ -29,6 +30,8 @@ export function TrainingConsole() {
 }
 function Console({ user }: { user: string }) {
   const [plan, setPlan] = useState<PlanNote | null>(null);
+  const [cardioPlan, setCardioPlan] = useState<PlanNote | null>(null);
+  const [selectedType, setSelectedType] = useState<"strength" | "cardio" | null>(null);
   const [tomorrowPlans, setTomorrowPlans] = useState<PlanNote[]>([]);
   const [run, setRun] = useState<TrainingRun | null>(null);
   const runRef = useRef<TrainingRun | null>(null),
@@ -48,11 +51,12 @@ function Console({ user }: { user: string }) {
           localStorage.getItem(`${source}:drafts`) ??
             localStorage.getItem(source),
         );
-        const chest = state.notes.find((note) => /胸.*三头/.test(note.title));
-        const assigned = state.notes.find((note) =>
-          state.assignments[date]?.includes(note.id),
-        );
-        setPlan(chest ?? assigned ?? null);
+        const assigned = state.notes.filter((note) => state.assignments[date]?.includes(note.id));
+        const strengthNotes = state.notes.filter((note) => noteTrainingType(note) === "strength");
+        const cardioNotes = state.notes.filter((note) => noteTrainingType(note) === "cardio");
+        setPlan(assigned.find(note => noteTrainingType(note) === "strength") ??
+          strengthNotes.find(note => /胸.*三头/.test(note.title)) ?? strengthNotes[0] ?? null);
+        setCardioPlan(assigned.find(note => noteTrainingType(note) === "cardio") ?? cardioNotes[0] ?? null);
         const tomorrow = new Date(`${date}T00:00:00Z`);
         tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
         const tomorrowDate = tomorrow.toISOString().slice(0, 10);
@@ -129,26 +133,19 @@ function Console({ user }: { user: string }) {
   async function sync(value: TrainingRun) {
     setSaving(true);
     try {
-      // Reconcile a lost POST response before retrying the same session ID.
-      const existing = await api<Session[]>(`sessions?id=${value.id}`);
-      const prior = existing[0];
-      if (
-        prior &&
-        (prior.status !== "completed" ||
-          Date.parse(prior.started_at ?? "") !== value.startedAt ||
-          prior.exercises.reduce((sum, e) => sum + e.sets.length, 0) !==
-            value.logs.length)
-      )
-        throw Error("云端记录已有变更，请先核对训练历史。");
-      const saved = prior
-        ? { id: prior.id, revision: prior.revision }
-        : await api<{ id: string; revision: number }>(
-            "sessions",
-            trainingSession(value),
-          );
+      let revision = value.revision;
+      for (const session of trainingSessions(value)) {
+        const existing = await api<Session[]>(`sessions?id=${session.id}`);
+        const prior = existing[0];
+        if (prior && (prior.status !== "completed" || Date.parse(prior.started_at ?? "") !== Date.parse(session.started_at ?? "") ||
+          prior.exercises.reduce((sum, e) => sum + e.sets.length, 0) !== session.exercises.reduce((sum, e) => sum + e.sets.length, 0)))
+          throw Error("云端记录已有变更，请先核对训练历史。");
+        const saved = prior ?? await api<{ id: string; revision: number }>("sessions", session);
+        revision = saved.revision;
+      }
       const current = runRef.current;
       if (current?.id === value.id)
-        commit({ ...current, revision: saved.revision, synced: true });
+        commit({ ...current, revision, synced: true });
     } catch (e) {
       setError(
         `已保存在本机，数据库保存失败：${e instanceof Error ? e.message : "请重试"}`,
@@ -185,12 +182,7 @@ function Console({ user }: { user: string }) {
     : 0;
   return (
     <div className={styles.demo} data-idle={!run || undefined}>
-      <header className={styles.heading}>
-        <h2>
-          {run
-            ? `${finished ? "训练完成" : paused ? "训练已暂停" : "训练进行中"} · ${run.title}`
-            : "准备训练"}
-        </h2>
+      <div className={styles.rest} data-active={Boolean(run) || undefined}>
         {finished && (
           <button
             className={styles.reset}
@@ -223,16 +215,14 @@ function Console({ user }: { user: string }) {
                   : "训练中"}
           </span>
         )}
-      </header>
-      <div className={styles.rest}>
-        <span>
+        <span className={styles.timerLabel}>
           {!run
             ? "准备开始"
             : finished
               ? "训练与休息总计时"
               : run.phase === "resting"
                 ? "组间休息计时"
-                : "本组训练计时"}
+                : current?.cardio ? "有氧训练计时" : "本组训练计时"}
         </span>
         <strong className={styles.time} role="timer" aria-label="当前计时">
           {time(elapsed)}
@@ -268,7 +258,8 @@ function Console({ user }: { user: string }) {
         <>
           <div className={`${styles.planColumns} ${styles.idlePlans}`}>
             <section>
-              <h3>力量计划</h3>
+              <h3 className={styles.planHeading}>力量计划<input type="checkbox" aria-label="选择力量计划" disabled={!plan}
+                checked={Boolean(plan && selectedType === "strength")} onChange={(event) => setSelectedType(event.target.checked ? "strength" : null)} /></h3>
               {plan ? (
                 <>
                   <strong>{plan.title}</strong>
@@ -283,17 +274,21 @@ function Console({ user }: { user: string }) {
               )}
             </section>
             <section>
-              <h3>有氧计划</h3>
-              <span>暂无有氧计划</span>
+              <h3 className={styles.planHeading}>有氧计划<input type="checkbox" aria-label="选择有氧计划" disabled={!cardioPlan}
+                checked={Boolean(cardioPlan && selectedType === "cardio")} onChange={(event) => setSelectedType(event.target.checked ? "cardio" : null)} /></h3>
+              {cardioPlan ? <><strong>{cardioPlan.title}</strong><ol className={styles.planExercises}>
+                {cardioPlan.exercises.map(exercise => <li key={exercise.id}>{exercise.name}</li>)}
+              </ol></> : <span>暂无有氧计划</span>}
             </section>
           </div>
           <button
             className={styles.complete}
-            disabled={!ready || !plan}
+            disabled={!ready || !(selectedType === "strength" ? plan : selectedType === "cardio" ? cardioPlan : null)}
             onClick={() => {
-              if (!plan) return;
+              const chosen = selectedType === "strength" ? plan : selectedType === "cardio" ? cardioPlan : null;
+              if (!chosen) return;
               try {
-                commit(beginTraining(plan, date, Date.now()));
+                commit(beginTraining(chosen, date, Date.now()));
               } catch (e) {
                 setError(e instanceof Error ? e.message : "无法开始训练");
               }
@@ -310,26 +305,11 @@ function Console({ user }: { user: string }) {
                 <div>
                   <span>当前动作</span>
                   <strong>{current.name}</strong>
-                  <span>
-                    第 {current.ordinal} / {current.count} 组 ·{" "}
-                    {kinds[current.kind]}
-                  </span>
+                  {!current.cardio && <span>第 {current.ordinal} / {current.count} 组 · {kinds[current.kind]}</span>}
                 </div>
-                <div>
-                  <span>上一组</span>
-                  <strong>
-                    {previous
-                      ? `${previous.weight} kg × ${previous.reps}`
-                      : "—"}
-                  </strong>
-                  <span>
-                    {previous
-                      ? `RIR ${previous.rir ?? "未填写"}`
-                      : "尚未完成训练组"}
-                  </span>
-                </div>
+
               </div>
-              {run.phase === "working" ? (
+              {current.cardio ? null : run.phase === "working" ? (
                 <div className={styles.actualFields}>
                   <label>
                     本组重量{" "}
@@ -422,44 +402,25 @@ function Console({ user }: { user: string }) {
                 </p>
               )}
               <button
-                className={styles.complete}
+                className={`${styles.complete} ${styles.trainingAction}`}
                 disabled={saving || (run.phase === "resting" && previous?.rir == null)}
                 onClick={primary}
               >
                 {run.phase === "working"
-                  ? "完成本组并开始休息"
+                  ? current.cardio ? "完成有氧训练" : "完成本组并开始休息"
                   : next
                     ? next.exerciseKey === current.exerciseKey
                       ? "结束休息，开始下一组"
                       : "结束休息，开始下一个动作"
                     : "结束训练并保存"}
               </button>
-              {run.logs.length === 0 && (
-                <button
-                  className={styles.textButton}
-                  onClick={() => commit(null)}
-                >
-                  返回计划
-                </button>
-              )}
+
             </>
           )}
-          {finished && (
-            <div className={styles.result}>
-              <strong>{run.logs.length} 组已完成</strong>
-              <span>
-                {saving
-                  ? "正在保存训练记录…"
-                  : run.synced
-                    ? "已保存到数据库"
-                    : "已保存在本机"}
-              </span>
-              {!run.synced && (
-                <button disabled={saving} onClick={() => void sync(run)}>
-                  重试保存
-                </button>
-              )}
-            </div>
+          {finished && !run.synced && error && (
+            <button className={styles.textButton} disabled={saving} onClick={() => void sync(run)}>
+              重试保存
+            </button>
           )}
           {finished && (
             <div className={styles.planColumns}>

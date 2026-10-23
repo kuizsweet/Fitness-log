@@ -69,7 +69,7 @@
   align-items: center;
   gap: 8px;
 }
-.rest > span {
+.rest > .timerLabel {
   color: var(--muted);
   font-weight: 550;
 }
@@ -326,7 +326,7 @@
   color: #f5ca59;
 }
 
-.demo[data-idle] {
+.demo {
   flex: 1;
 }
 .idlePlans {
@@ -345,4 +345,27 @@
 }
 .demo[data-idle] > .complete {
   flex: none;
+}
+
+.planHeading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.planHeading input[type="checkbox"] { width: 16px; height: 16px; margin: 0; accent-color: var(--ink); cursor: pointer; color-scheme: light; }
+:global(html[data-theme="dark"]) .planHeading input[type="checkbox"] { color-scheme: dark; }
+
+.rest {
+  position: relative;
+  box-sizing: border-box;
+  height: 174px;
+  flex: none;
+  padding: 40px 16px 16px;
+}
+.rest > .badge { position: absolute; top: 12px; right: 12px; }
+.demo.demo .rest > .reset { position: absolute; top: 8px; left: 12px; }
+
+.demo.demo.demo > .trainingAction {
+  margin-top: auto;
+  flex: none;
+}
+.exercise > div:only-child {
+  text-align: left;
+  align-items: flex-start;
 }

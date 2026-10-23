@@ -1,4 +1,4 @@
-import { isCardioExercise } from "./cardio";
+import { isCardioExercise, type CardioValues } from "./cardio";
 import { z } from "zod";
 import { sessionSchema, type Session } from "./domain";
 import {
@@ -15,6 +15,7 @@ const runSetSchema = z.object({
   exerciseId: z.uuid(),
   name: z.string(),
   muscle: z.string(),
+  cardio: z.object({ minutes: number.optional(), incline: number.optional(), speed: number.optional(), resistance: number.optional() }).optional(),
   kind: z.enum(["warmup", "working", "backoff"]),
   ordinal: z.number().int().positive(),
   count: z.number().int().positive(),
@@ -36,6 +37,7 @@ const runSchema = z.object({
   version: z.literal(1),
   id: z.uuid(),
   planId: z.string(),
+  cardioSessionId: z.uuid().optional(),
   title: z.string(),
   date: z.string(),
   phase: z.enum(["working", "resting", "completed"]),
@@ -66,7 +68,13 @@ export function beginTraining(
 ): TrainingRun {
   const queue: TrainingRun["queue"] = [];
   for (const exercise of plan.exercises) {
-    if (isCardioExercise(exercise)) continue;
+    if (isCardioExercise(exercise)) {
+      queue.push({ id: crypto.randomUUID(), exerciseKey: exercise.id, exerciseId: crypto.randomUUID(),
+        name: exercise.name, muscle: exercise.muscle, kind: "working", ordinal: 1, count: 1,
+        reps: 0, weight: 0, plannedReps: null, plannedWeight: null,
+        cardio: { ...exercise.cardio } as CardioValues });
+      continue;
+    }
     const blocks =
       exercise.groups ??
       (isBenchExercise(exercise)
@@ -115,6 +123,7 @@ export function beginTraining(
     version: 1,
     id: crypto.randomUUID(),
     planId: plan.id,
+    cardioSessionId: crypto.randomUUID(),
     title: plan.title || "未命名计划",
     date,
     phase: "working",
@@ -170,10 +179,12 @@ export function completeTrainingSet(
   return {
     ...run,
     logs: [...run.logs, log],
-    phase: "resting",
+    phase: set.cardio ? (run.cursor === run.queue.length - 1 ? "completed" : "working") : "resting",
+    cursor: set.cardio && run.cursor < run.queue.length - 1 ? run.cursor + 1 : run.cursor,
+    endedAt: set.cardio && run.cursor === run.queue.length - 1 ? now : run.endedAt,
     segmentBeganAt: now,
     baseMs: 0,
-    anchorMs: now,
+    anchorMs: set.cardio && run.cursor === run.queue.length - 1 ? null : now,
   };
 }
 export function finishTrainingRest(run: TrainingRun, now: number): TrainingRun {
@@ -247,7 +258,7 @@ export function trainingSession(run: TrainingRun): Session {
         exercise_name: first.name,
         muscle_group: first.muscle,
         equipment_snapshot: null,
-        notes: "",
+        notes: first.cardio ? JSON.stringify({ type: "cardio", ...first.cardio, actualMinutes: first.workMs / 60000 }) : "",
         sets: logs.map((log) => ({
           id: log.id,
           role:
@@ -275,7 +286,7 @@ export function trainingSession(run: TrainingRun): Session {
   return sessionSchema.parse({
     id: run.id,
     training_date: run.date,
-    training_type: "strength",
+    training_type: run.logs.every(log => log.cardio) ? "cardio" : "strength",
     status: "completed",
     started_at: new Date(run.startedAt).toISOString(),
     ended_at: new Date(run.endedAt!).toISOString(),
@@ -284,4 +295,13 @@ export function trainingSession(run: TrainingRun): Session {
     revision: run.revision,
     exercises,
   });
+}
+
+export function trainingSessions(run: TrainingRun): Session[] {
+  const strength = run.logs.filter(log => !log.cardio);
+  const cardio = run.logs.filter(log => log.cardio);
+  return [
+    ...(strength.length ? [trainingSession({ ...run, logs: strength })] : []),
+    ...(cardio.length ? [trainingSession({ ...run, id: strength.length ? run.cardioSessionId! : run.id, logs: cardio })] : []),
+  ];
 }

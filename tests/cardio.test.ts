@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { cardioFields, isCardioExercise } from "../src/lib/cardio";
+import { cardioFields, isCardioExercise, canAddExercise, noteTrainingType } from "../src/lib/cardio";
 import { createNote, readWorkbench, trainingSets } from "../src/lib/training-workbench";
 
 test("cardio plans expose minutes and machine settings without distance or strength counts", () => {
@@ -16,4 +16,18 @@ test("cardio plans expose minutes and machine settings without distance or stren
   const restored = readWorkbench(JSON.stringify({ notes: [note], assignments: {} }));
   assert.deepEqual(restored.notes[0].exercises[0].cardio, exercise.cardio);
   assert.throws(() => readWorkbench(JSON.stringify({ notes: [{ ...note, exercises: [{ ...exercise, cardio: { minutes: -1 } }] }], assignments: {} })));
+});
+
+test("notes reject mixed training types in either direction and classify only homogeneous notes", () => {
+  const cardio = { name: "爬坡机", muscle: "有氧运动" };
+  const strength = { name: "卧推（杠铃）", muscle: "胸" };
+  assert.equal(canAddExercise([], cardio), true);
+  assert.equal(canAddExercise([], strength), true);
+  assert.equal(canAddExercise([strength], cardio), false);
+  assert.equal(canAddExercise([cardio], strength), false);
+  assert.equal(canAddExercise([cardio], cardio), true);
+  assert.equal(noteTrainingType({ exercises: [] }), null);
+  assert.equal(noteTrainingType({ exercises: [cardio] }), "cardio");
+  assert.equal(noteTrainingType({ exercises: [strength] }), "strength");
+  assert.equal(noteTrainingType({ exercises: [cardio, strength] }), null);
 });
