@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+<title>kuizFit — bright note and bold dumbbell</title>
+<desc>Transparent background, pale lemon note and a large matte graphite dumbbell designed for small sizes.</desc>
+<defs>
+ <linearGradient id="paper" x1="250" y1="120" x2="720" y2="950" gradientUnits="userSpaceOnUse"><stop stop-color="#fff17b"/><stop offset="1" stop-color="#ffe65b"/></linearGradient>
+ <linearGradient id="edge" x1="170" y1="120" x2="800" y2="950" gradientUnits="userSpaceOnUse"><stop stop-color="#fffbc7"/><stop offset="1" stop-color="#f2d44c"/></linearGradient>
+</defs>
+<g id="note" transform="rotate(-7 512 522)">
+ <rect x="152" y="104" width="720" height="836" rx="105" fill="url(#paper)"/>
+ <rect x="156" y="108" width="712" height="828" rx="101" stroke="url(#edge)" stroke-width="8"/>
+ <path d="M265 713H650M265 803H548" stroke="#fffbdc" stroke-width="35" stroke-linecap="round"/>
+</g>
+<g id="dumbbell" transform="rotate(13 512 425)">
+ <!-- Three clear masses: two symmetric weights and a long exposed grip. -->
+ <rect x="267" y="391" width="490" height="92" rx="24" fill="#202328"/>
+ <rect x="82" y="322" width="110" height="220" rx="34" fill="#272a2e"/>
+ <rect x="832" y="322" width="110" height="220" rx="34" fill="#272a2e"/>
+ <rect x="159" y="226" width="160" height="410" rx="46" fill="#202328"/>
+ <rect x="705" y="226" width="160" height="410" rx="46" fill="#202328"/>
+ <rect x="159" y="218" width="145" height="402" rx="43" fill="#363a3f"/>
+ <rect x="705" y="218" width="145" height="402" rx="43" fill="#363a3f"/>
+ <path d="M324 392H700V405H324Z" fill="#41454a"/>
+</g>
+</svg>
