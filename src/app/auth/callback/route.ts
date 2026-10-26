@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { serverClient } from "@/lib/supabase/server";
 import { authLinkFailureUrl } from "@/lib/auth-links";
 import { BRAND_NAME } from "@/lib/brand";
+import {
+  callbackRequestOrigin,
+  trustedRequestOrigin,
+} from "@/lib/request-origin";
 
 const headers = {
   "Cache-Control": "private, no-store",
@@ -9,11 +13,7 @@ const headers = {
 };
 const validTypes = ["signup", "recovery", "email"];
 function requestOrigin(request: Request) {
-  const url = new URL(request.url);
-  // Next dev's 0.0.0.0 listener can expose its bind address instead of the browser's localhost.
-  return url.hostname === "0.0.0.0" && process.env.NEXT_PUBLIC_SITE_URL
-    ? new URL(process.env.NEXT_PUBLIC_SITE_URL).origin
-    : url.origin;
+  return callbackRequestOrigin(request, process.env.NEXT_PUBLIC_SITE_URL);
 }
 function failed(origin: string, recovery = false) {
   const response = NextResponse.redirect(
@@ -82,7 +82,13 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const origin = requestOrigin(request);
   let recovery = false;
-  if (request.headers.get("origin") !== origin)
+  if (
+    !trustedRequestOrigin(
+      request,
+      process.env.NEXT_PUBLIC_SITE_URL,
+      process.env.NODE_ENV === "development",
+    )
+  )
     return new Response("Forbidden", { status: 403, headers });
   if (
     !request.headers

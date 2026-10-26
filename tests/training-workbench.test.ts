@@ -1,8 +1,10 @@
+import { NOTE_COLORS, NOTE_COLOR_NAMES } from "../src/lib/note-colors";
 import { chestTotals } from "../src/lib/training-workbench";
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
   createNote,
+  placeNoteAtPointer,
   assignWorkbenchNote,
   unassignWorkbenchNote,
   warehouseSections,
@@ -62,12 +64,12 @@ test("日历颜色跟随便签颜色且合并同色，删除后清除对应色�
     assignments: { "2026-10-19": ["0", "1", "2", "missing"] },
   };
   assert.deepEqual(calendarNoteColors(state, "2026-10-19"), [
-    "#e76b73",
-    "#58b68b",
+    NOTE_COLORS.red,
+    NOTE_COLORS.green,
   ]);
   assert.deepEqual(
     calendarNoteColors(deleteWorkbenchNote(state, "1"), "2026-10-19"),
-    ["#e76b73"],
+    [NOTE_COLORS.red],
   );
   assert.deepEqual(calendarNoteColors(state, "2026-10-20"), []);
 });
@@ -267,8 +269,8 @@ test("旧持久便签保留；新草稿只有入库才保存，取回后继续�
   );
 });
 
-test("便签四种颜色可持久化与复制，旧便签无需颜色字段", () => {
-  for (const color of ["red", "green", "yellow", "blue"] as const) {
+test("便签灰色和七色可持久化与复制，旧便签无需颜色字段", () => {
+  for (const color of NOTE_COLOR_NAMES) {
     const note = {
       ...createNote(0),
       color,
@@ -280,7 +282,8 @@ test("便签四种颜色可持久化与复制，旧便签无需颜色字段", ()
     assert.equal(saved.notes[0].color, color);
     assert.equal(copyWarehouseNote(saved, note.id).notes[1].color, color);
   }
-  const old = { ...createNote(0), savedToWarehouse: true };
+  assert.equal(createNote(0).color, "gray");
+  const old = { ...createNote(0), color: undefined, savedToWarehouse: true };
   assert.equal(
     readWorkbench(JSON.stringify({ notes: [old], assignments: {} })).notes[0]
       .color,
@@ -391,4 +394,24 @@ test("trash feedback starts before card edges touch and clears beyond the proxim
     nearTrashEdge({ left: 40, right: 80, top: 40, bottom: 80 }, bin),
     false,
   );
+});
+
+test("warehouse preview and drop share top-center placement without recentering", () => {
+  const note = { ...createNote(0), width: 300, height: 240 };
+  const placed = placeNoteAtPointer(note, 1000, 700, 740, 390);
+  assert.equal(placed.x, 590);
+  assert.equal(placed.y, 390);
+  const edge = placeNoteAtPointer(note, 1000, 700, 980, 680);
+  assert.equal(edge.x, 700);
+  assert.equal(edge.y, 460);
+});
+
+test("warehouse drop preserves left and right horizontal grab percentages", () => {
+  const note = { ...createNote(0), width: 400, height: 240 };
+  const left = placeNoteAtPointer(note, 1200, 800, 600, 200, 0.2);
+  const right = placeNoteAtPointer(note, 1200, 800, 600, 200, 0.8);
+  assert.equal(left.x, 520);
+  assert.equal(right.x, 280);
+  assert.equal(left.y, 200);
+  assert.equal(right.y, 200);
 });

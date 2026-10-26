@@ -84,3 +84,9 @@ export function readItems(value: string | null): ChecklistItem[] {
   }
   return orderItems(items.sort((a, b) => a.order - b.order));
 }
+
+export function appendChecklistItem(items: ChecklistItem[], text: string, id: string): ChecklistItem[] {
+  const name = text.trim().slice(0, 32);
+  if (!name || items.length >= ITEM_LIMIT) return items;
+  return orderItems([...items, { id, text: name, completed: false, order: items.length }]);
+}

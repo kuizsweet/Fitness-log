@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   checklistDay,
+  appendChecklistItem,
   addChecklistExamples,
   orderItems,
   readChecklist,
@@ -72,4 +73,12 @@ test("跨日清除完成状态并保留顺序；同日刷新保留完成状态�
   assert.deepEqual(readChecklist(JSON.stringify(checked)).items, checked);
   assert.equal(checklistDay(new Date(2026, 9, 17, 23, 59)), "2026-10-17");
   assert.equal(checklistDay(new Date(2026, 9, 18, 0, 0)), "2026-10-18");
+});
+
+test("blank draft is excluded from storage, ordering and completion; named draft becomes an item", () => {
+  const items: ChecklistItem[] = [{ id: "a", text: "水杯", completed: true, order: 0 }];
+  assert.equal(appendChecklistItem(items, "  ", "draft"), items);
+  const next = appendChecklistItem(items, "  毛巾  ", "b");
+  assert.deepEqual(next.map(item => [item.id, item.text, item.completed]), [["b", "毛巾", false], ["a", "水杯", true]]);
+  assert.equal(appendChecklistItem(Array.from({ length: 10 }, (_, i) => ({ id: String(i), text: "物品", completed: false, order: i })), "毛巾", "extra").length, 10);
 });

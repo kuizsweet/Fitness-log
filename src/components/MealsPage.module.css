@@ -721,10 +721,7 @@
   }
 }
 .recordPanel .today > * {
-  transition: opacity 150ms ease-out;
-}
-.page[data-record-hidden] .recordPanel .today > * {
-  opacity: 0;
+  transition: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .recordPanel .today > * {
@@ -755,4 +752,35 @@
 
 :global(main):has(.page) {
   overflow: visible;
+}
+
+/* One fixed content layout slides behind the wall; the exposed rail stays empty. */
+:global(main):has(.page) {
+  max-width: none;
+  padding-right: 0;
+  overflow: hidden;
+}
+.page {
+  max-width: none;
+  grid-template-columns: minmax(0, 1.65fr) minmax(340px, 0.85fr);
+}
+.recordPanel .today,
+.page[data-record-hidden] .recordPanel .today {
+  padding: 20px 76px;
+}
+.recordPanel .today::after { display: none; }
+.recordPanel .todayHeading {
+  padding-left: 0;
+  padding-right: 0 !important;
+}
+.page[data-record-hidden] .recordPanel {
+  transform: translateX(calc(100% - 64px));
+}
+.page[data-record-hidden] .recordPanel .today > * { opacity: 1; }
+@media (max-width: 760px) {
+  .page { grid-template-columns: minmax(0, 1fr); }
+  .recordPanel .today,
+  .page[data-record-hidden] .recordPanel .today {
+    padding: 16px 76px;
+  }
 }

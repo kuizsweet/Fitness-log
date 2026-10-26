@@ -369,3 +369,7 @@
   text-align: left;
   align-items: flex-start;
 }
+
+.rest { border-radius: 15px; }
+.demo > :not(.rest) { margin-inline: 10px; max-width: calc(100% - 20px); }
+.demo > :last-child:not(.rest) { margin-bottom: 10px; }

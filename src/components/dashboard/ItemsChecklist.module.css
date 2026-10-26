@@ -169,3 +169,26 @@
     transition: none !important;
   }
 }
+
+.checklist .draftRow { margin-top: 2px; }
+.checklist .draftRow:hover { background: transparent; }
+.draftHandle { width: 24px; flex: none; }
+.checklist .draftRow .checkbox { opacity: 0.35; cursor: default; }
+.checklist.checklist .draftName,
+.checklist.checklist .draftName:is(:focus, :focus-visible, :hover) {
+  flex: 1;
+  width: 0;
+  min-width: 0;
+  height: 22px;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+}
+.checklist .draftName::placeholder { color: var(--muted); opacity: 1; }

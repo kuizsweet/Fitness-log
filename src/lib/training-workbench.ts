@@ -1,3 +1,5 @@
+import { NOTE_COLOR_NAMES, NOTE_COLORS, type NoteColor } from "./note-colors";
+export { NOTE_COLORS } from "./note-colors";
 import { isCardioExercise, type CardioValues } from "./cardio";
 import {
   baseChestRegion,
@@ -79,7 +81,7 @@ export function exerciseInsertionIndex(
 export type PlanNote = {
   id: string;
   title: string;
-  color?: "red" | "green" | "yellow" | "blue";
+  color?: NoteColor;
   x: number;
   y: number;
   width: number;
@@ -156,12 +158,6 @@ export function insertWarehouseNote(
   });
   return { ...state, notes };
 }
-export const NOTE_COLORS = {
-  red: "#e76b73",
-  green: "#58b68b",
-  yellow: "#e5b94f",
-  blue: "#659fe5",
-} as const;
 export function warehouseSections(state: WorkbenchState, date: string) {
   const assigned = new Set(state.assignments[date] ?? []);
   return {
@@ -254,6 +250,7 @@ export function createNote(index: number): PlanNote {
   return {
     id: crypto.randomUUID(),
     title: "",
+    color: "gray",
     temporary: true,
     savedToWarehouse: false,
     x: 24 + (index % 4) * 28,
@@ -336,7 +333,7 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       note.title.length > 60 ||
       typeof note.pinned !== "boolean" ||
       (note.color !== undefined &&
-        !["red", "green", "yellow", "blue"].includes(note.color)) ||
+        !NOTE_COLOR_NAMES.includes(note.color)) ||
       (note.inWarehouse !== undefined &&
         typeof note.inWarehouse !== "boolean") ||
       (note.savedToWarehouse !== undefined &&
@@ -568,4 +565,9 @@ export function centerNoteInCanvas(
     x: Math.max(0, (width - fitted.width) / 2),
     y: Math.max(0, (height - fitted.height) / 2),
   };
+}
+
+/** Preserve the horizontal grab percentage along the note header. */
+export function placeNoteAtPointer(note: PlanNote, width: number, height: number, x: number, y: number, grabX = 0.5) {
+  return fitNoteToCanvas({ ...note, x: x - Math.min(note.width, width) * Math.max(0, Math.min(1, grabX)), y }, width, height);
 }

@@ -7,7 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import { Checkbox } from "@base-ui/react/checkbox";
-import { Check, GripVertical, Plus, X } from "lucide-react";
+import { Check, GripVertical, X } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Sortable,
@@ -19,6 +19,7 @@ import {
 import { useResourceUser } from "../ResourceProvider";
 import {
   ITEM_LIMIT,
+  appendChecklistItem,
   orderItems,
   readChecklist,
   checklistDay,
@@ -50,6 +51,8 @@ function Checklist({
   active: boolean;
 }) {
   const [items, setItems] = useState<ChecklistItem[]>([]);
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
   const [text, setText] = useState("");
   const [ready, setReady] = useState(false);
   const [error, setError] = useState("");
@@ -96,7 +99,8 @@ function Checklist({
         card!.clientHeight -
         parseFloat(style.paddingTop) -
         parseFloat(style.paddingBottom) -
-        44;
+        (controls ? 44 : 0) -
+        (active && items.length < ITEM_LIMIT ? 24 : 0);
       const full = Math.max(1, Math.min(10, Math.floor((available + 2) / 24)));
       setCapacity(
         items.length > full
@@ -108,7 +112,7 @@ function Checklist({
     observer.observe(card);
     measure();
     return () => observer.disconnect();
-  }, [items.length, active]);
+  }, [items.length, active, controls]);
   const pages = Math.max(1, Math.ceil(items.length / capacity));
   const currentPage = Math.min(page, pages - 1);
   const visibleItems = items.slice(
@@ -180,6 +184,7 @@ function Checklist({
           examplesInitialized: true,
         }),
       );
+      itemsRef.current = ordered;
       setItems(ordered);
       setError("");
       return true;
@@ -188,50 +193,17 @@ function Checklist({
       return false;
     }
   }
+  function commitDraft() {
+    if (!ready || !text.trim() || items.length >= ITEM_LIMIT) return;
+    const next = appendChecklistItem(itemsRef.current, text, crypto.randomUUID());
+    if (save(next)) {
+      setText("");
+      setPage(Math.floor((next.length - 1) / capacity));
+    }
+  }
   return (
     <div ref={root} className={styles.checklist}>
-      <div className={styles.header}>
-        <form
-          className={styles.add}
-          style={{ visibility: active ? "visible" : "hidden" }}
-          aria-hidden={!active}
-          inert={!active}
-          onSubmit={(event) => {
-            event.preventDefault();
-            if (!ready || !text.trim() || items.length >= ITEM_LIMIT) return;
-            if (
-              save([
-                ...items,
-                {
-                  id: crypto.randomUUID(),
-                  text: text.trim(),
-                  completed: false,
-                  order: items.length,
-                },
-              ])
-            )
-              setText("");
-          }}
-        >
-          <input
-            aria-label="新增物品"
-            placeholder={items.length >= ITEM_LIMIT ? "最多 10 项" : "添加物品"}
-            maxLength={32}
-            value={text}
-            disabled={!ready || items.length >= ITEM_LIMIT}
-            onChange={(event) => setText(event.target.value)}
-          />
-          <Button
-            type="submit"
-            className={styles.addButton}
-            aria-label="添加物品"
-            disabled={!ready || !text.trim() || items.length >= ITEM_LIMIT}
-          >
-            <Plus aria-hidden />
-          </Button>
-        </form>
-        {controls}
-      </div>
+      {controls && <div className={styles.header}>{controls}</div>}
       <div>
         <Sortable
           value={visibleItems}
@@ -280,7 +252,7 @@ function Checklist({
                       );
                     motions.current.forEach((animation) => animation.cancel());
                     motions.current = [];
-                    if (!save(toggleItem(items, item.id, completed)))
+                    if (!save(toggleItem(itemsRef.current, item.id, completed)))
                       before.current.clear();
                   }}
                   aria-label={`已准备：${item.text}`}
@@ -300,7 +272,7 @@ function Checklist({
                   className={styles.remove}
                   aria-label={`删除：${item.text}`}
                   onClick={() =>
-                    save(items.filter((value) => value.id !== item.id))
+                    save(itemsRef.current.filter((value) => value.id !== item.id))
                   }
                 >
                   <X aria-hidden />
@@ -328,6 +300,35 @@ function Checklist({
             }}
           </SortableOverlay>
         </Sortable>
+        {active && items.length < ITEM_LIMIT && currentPage === pages - 1 && (
+          <div className={`${styles.row} ${styles.draftRow}`}>
+            <span className={styles.draftHandle} aria-hidden />
+            <Checkbox.Root
+              className={styles.checkbox}
+              checked={false}
+              disabled
+              aria-label="空白物品不参与勾选"
+            />
+            <input
+              className={styles.draftName}
+              aria-label="物品名称"
+              placeholder="物品"
+              maxLength={32}
+              value={text}
+              disabled={!ready}
+              onChange={(event) => setText(event.target.value)}
+              onBlur={() => commitDraft()}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" && !event.nativeEvent.isComposing) {
+                  event.preventDefault();
+                  commitDraft();
+                }
+                if (event.key === "Escape") setText("");
+              }}
+            />
+            <span className={styles.draftHandle} aria-hidden />
+          </div>
+        )}
         {pages > 1 && (
           <div className={styles.pagination} aria-label="物品清单分页">
             <Button

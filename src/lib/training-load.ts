@@ -1,6 +1,7 @@
-export type LoadColor = "red" | "green" | "yellow" | "blue";
+import { NOTE_COLOR_NAMES, type NoteColor } from "./note-colors";
+export type LoadColor = NoteColor;
 export type LoadPeriod = "days" | "weeks";
-export const LOAD_COLORS: LoadColor[] = ["red", "green", "yellow", "blue"];
+export const LOAD_COLORS: LoadColor[] = NOTE_COLOR_NAMES;
 export type LoadEntry = {
   date: string;
   noteId: string;
@@ -36,10 +37,7 @@ export function loadRanges(
   }));
 }
 const emptyColors = (): Record<LoadColor, number> => ({
-  red: 0,
-  green: 0,
-  yellow: 0,
-  blue: 0,
+  gray: 0, red: 0, orange: 0, yellow: 0, green: 0, cyan: 0, blue: 0, purple: 0,
 });
 export function buildLoadDays(
   dates: string[],

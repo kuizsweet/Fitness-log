@@ -183,15 +183,14 @@ export function AuthForm({ configured }: { configured: boolean }) {
         router.replace("/dashboard");
       }
       if (mode === "reset") {
-        const r = await auth.resetPasswordForEmail(email, {
-          redirectTo: authCallbackUrl(
-            window.location.origin,
-            process.env.NEXT_PUBLIC_SITE_URL,
-            true,
-          ),
-          captchaToken,
+        const response = await fetch("/api/auth/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email.trim(), captchaToken }),
         });
-        if (r.error) throw r.error;
+        const result = await response.json();
+        if (!response.ok)
+          throw new Error(result.error || "重置邮件发送失败，请稍后重试。");
         setMessage("重置邮件请求已提交。若账号存在，请查看邮箱。");
       }
       if (isSignup) {

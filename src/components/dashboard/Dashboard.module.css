@@ -831,3 +831,14 @@
   transform: var(--jelly-matrix, translateX(3px));
   transform-origin: center;
 }
+
+/* The training console defines the radius for dashboard outer cards. */
+.workspace { --dashboard-card-radius: 24px; }
+.workspace .grid .card,
+.workspace .calendarSlot > .monthCalendar {
+  border-radius: var(--dashboard-card-radius);
+  corner-shape: round;
+}
+
+/* Only the timer frame moves closer to its enclosing 24px corner. */
+.workspace .consoleDemo { padding: 8px; }

@@ -1,3 +1,19 @@
+export function callbackRequestOrigin(request: Request, canonical?: string) {
+  const url = new URL(request.url);
+  if (url.hostname !== "0.0.0.0") return url.origin;
+  const host = request.headers.get("host");
+  if (host) {
+    const incoming = new URL(`${url.protocol}//${host}`);
+    if (
+      ["localhost", "127.0.0.1", "[::1]"].includes(incoming.hostname) &&
+      incoming.port === url.port
+    )
+      return incoming.origin;
+  }
+  if (canonical) return new URL(canonical).origin;
+  throw new Error("无法确定认证回调地址");
+}
+
 export function trustedRequestOrigin(
   request: Request,
   canonical: string | undefined,

@@ -28,7 +28,7 @@ import {
   type DragMoveEvent,
   type Modifier,
 } from "@dnd-kit/core";
-import { createPortal } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import {
   ChevronLeft,
   ChevronRight,
@@ -76,6 +76,7 @@ import {
   muscleFamily,
   fitNoteToCanvas,
   centerNoteInCanvas,
+  placeNoteAtPointer,
   resizeNoteFromEdge,
   type ResizeEdge,
   readWorkbench,
@@ -86,6 +87,7 @@ import styles from "./TrainingWorkbench.module.css";
 import { MuscleComposition } from "./MuscleComposition";
 import { BenchExerciseFields } from "./BenchExerciseFields";
 import { isCardioExercise, cardioFields, canAddExercise } from "@/lib/cardio";
+import { NOTE_PALETTE, NOTE_PALETTE_CSS, toggleNoteColor, noteColorArc } from "@/lib/note-colors";
 import { LibraryFilterMenu } from "./LibraryFilterMenu";
 import {
   deviceOptions,
@@ -170,6 +172,7 @@ function Workbench({
   } | null>(null);
   const [previewSize, setPreviewSize] = useState({ width: 194, minHeight: 50 });
   const canvas = useRef<HTMLDivElement>(null);
+  const warehouseGrabX = useRef(0.5);
   const dragPointer = useRef<{ x: number; y: number } | null>(null);
   const libraryRef = useRef<HTMLElement>(null);
   const leftPanelRef = useRef<HTMLElement>(null);
@@ -478,9 +481,16 @@ function Workbench({
       if (!note) return;
       const box = canvas.current?.getBoundingClientRect();
       if (move.kind === "warehouse") {
+        if (!box) return;
+        const start = event.activatorEvent as globalThis.PointerEvent;
+        const point = dragPointer.current ?? {
+          x: start.clientX + event.delta.x,
+          y: start.clientY + event.delta.y,
+        };
         changeNote(note.id, {
-          ...centerNoteInCanvas(note, canvasSize.width, canvasSize.height),
+          ...placeNoteAtPointer(note, box.width, box.height, point.x - box.left, point.y - box.top, warehouseGrabX.current),
           inWarehouse: false,
+          z: Math.max(0, ...state.notes.map((n) => n.z)) + 1,
         });
         setSelected(note.id);
         return;
@@ -537,15 +547,18 @@ function Workbench({
       autoScroll={false}
       collisionDetection={(args) => {
         dragPointer.current = args.pointerCoordinates;
-        const trash = pointerWithin({
+        const trashTargets = {
           ...args,
           droppableContainers: args.droppableContainers.filter(
             (container) =>
               container.id === "note-trash" &&
               args.active.data.current?.kind !== "exercise",
           ),
-        });
+        };
+        const trash = pointerWithin(trashTargets);
         if (trash.length) return trash;
+        const trashOverlap = rectIntersection(trashTargets);
+        if (trashOverlap.length) return trashOverlap;
         const targets = {
           ...args,
           droppableContainers: args.droppableContainers.filter(
@@ -569,6 +582,14 @@ function Workbench({
       }}
       onDragStart={(e) => {
         const move = e.active.data.current as Move;
+        if (move.kind === "warehouse") {
+          const event = e.activatorEvent as globalThis.PointerEvent;
+          const row = [...document.querySelectorAll<HTMLElement>("[data-warehouse-id]")].find((node) => node.dataset.warehouseId === move.id);
+          const rect = row?.getBoundingClientRect() ?? e.active.rect.current.initial;
+          warehouseGrabX.current = rect && typeof event.clientX === "number"
+            ? Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width))
+            : 0.5;
+        }
         if (move.kind !== "exercise") {
           const row = canvas.current
             ?.closest("main")
@@ -693,7 +714,7 @@ function Workbench({
       }}
       onDragEnd={endDrag}
     >
-      <div className={styles.workbench}>
+      <div className={styles.workbench} style={NOTE_PALETTE_CSS as CSSProperties}>
         <div ref={overlayHost} className={styles.overlayHost} />
         {error && error !== "请先为便签命名。" && (
           <p className={styles.error} role="alert">
@@ -1118,10 +1139,28 @@ function Workbench({
       <DragOverlay
         zIndex={300000}
         dropAnimation={null}
-        modifiers={outsideCanvas ? [followNotePointer] : []}
+        modifiers={dragging?.kind === "warehouse" ? [(args) => {
+          const transform = followNotePointer(args);
+          const box = canvas.current?.getBoundingClientRect();
+          const source = args.activeNodeRect;
+          const preview = args.overlayNodeRect;
+          const note = state.notes.find((n) => n.id === dragging.id);
+          if (outsideCanvas || !box || !source || !preview || !note) {
+            return preview ? { ...transform, x: transform.x + preview.width * (0.5 - warehouseGrabX.current) } : transform;
+          }
+          const placed = placeNoteAtPointer(note, box.width, box.height,
+            source.left + transform.x + preview.width / 2 - box.left,
+            source.top + transform.y + preview.height / 2 - box.top, warehouseGrabX.current);
+          return { ...transform, x: box.left + placed.x - source.left, y: box.top + placed.y - source.top };
+        }] : outsideCanvas ? [followNotePointer] : []}
         style={
           dragging && dragging.kind !== "exercise"
-            ? dragging.kind === "note" &&
+            ? dragging.kind === "warehouse" && !outsideCanvas
+              ? {
+                  width: Math.min(state.notes.find((n) => n.id === dragging.id)?.width ?? 340, canvasSize.width),
+                  height: Math.min(state.notes.find((n) => n.id === dragging.id)?.height ?? 300, canvasSize.height),
+                }
+              : dragging.kind === "note" &&
               !outsideCanvas &&
               dragStartRect.current
               ? {
@@ -1132,7 +1171,7 @@ function Workbench({
             : undefined
         }
       >
-        {dragging?.kind === "note" && raisedNote && !outsideCanvas ? (
+        {dragging && dragging.kind !== "exercise" && !outsideCanvas && (dragging.kind === "warehouse" || raisedNote) ? (
           <FullNotePreview
             note={state.notes.find((note) => note.id === dragging.id)!}
           />
@@ -1142,7 +1181,7 @@ function Workbench({
             data-kind={dragging.kind}
             data-note-color={
               dragging.kind !== "exercise"
-                ? state.notes.find((n) => n.id === dragging.id)?.color
+                ? state.notes.find((n) => n.id === dragging.id)?.color ?? "gray"
                 : undefined
             }
             style={dragging.kind !== "exercise" ? previewSize : undefined}
@@ -1189,11 +1228,12 @@ function FullNotePreview({ note }: { note: PlanNote }) {
   return (
     <div
       className={`${styles.workbench} ${styles.fullNotePreview}`}
+      style={NOTE_PALETTE_CSS as CSSProperties}
       aria-hidden
     >
       <article
         className={styles.note}
-        data-note-color={note.color}
+        data-note-color={note.color ?? "gray"}
         style={{
           position: "relative",
           left: 0,
@@ -1415,7 +1455,7 @@ function CalendarDay({
       style={
         colors.length
           ? ({
-              "--plan-background": `linear-gradient(135deg, ${colors.flatMap((color, i) => [`${color}44 ${(i * 100) / colors.length}%`, `${color}44 ${((i + 1) * 100) / colors.length}%`]).join(", ")})`,
+              "--plan-background": `linear-gradient(135deg, ${colors.flatMap((color, i) => [`${color} ${(i * 100) / colors.length}%`, `${color} ${((i + 1) * 100) / colors.length}%`]).join(", ")})`,
             } as CSSProperties)
           : undefined
       }
@@ -1450,7 +1490,7 @@ function WarehouseNote({
       data-warehouse-id={note.id}
       data-insert-before={insertBefore || undefined}
       data-warehouse-note
-      data-note-color={note.color}
+      data-note-color={note.color ?? "gray"}
       className={styles.storedNote}
       data-selected={selected}
       style={{ opacity: isDragging ? 0.4 : 1 }}
@@ -1463,7 +1503,6 @@ function WarehouseNote({
         aria-label={`拖动便签：${note.title || "未命名计划"}`}
         onClick={onSelect}
       >
-        <GripVertical />
         <span>
           <strong>{note.title || "未命名计划"}</strong>
           <small>{note.exercises.length} 个动作</small>
@@ -1626,7 +1665,7 @@ function Note({
       className={styles.note}
       data-note-id={note.id}
       data-grabbed={grabbed || drag.isDragging || undefined}
-      data-note-color={note.color}
+      data-note-color={note.color ?? "gray"}
       data-selected={selected}
       data-over={isOver || undefined}
       onPointerDown={onSelect}
@@ -1916,6 +1955,144 @@ function NoteColorPicker({
   const trigger = useRef<HTMLButtonElement>(null);
   const id = useId();
   const menu = useRef<HTMLDivElement>(null);
+  const openedAt = useRef(0);
+  const exchanging = useRef(false);
+  const pointerInside = useRef(false);
+  const [exchangeSlot, setSlotColor] = useState<PlanNote["color"] | null>(null);
+  const slotColor = exchangeSlot ?? color;
+  async function exchangeColor(value: NonNullable<PlanNote["color"]>) {
+    if (exchanging.current) return;
+    const note = trigger.current?.closest<HTMLElement>("[data-note-id]");
+    const next = toggleNoteColor(color, value);
+    if (!note || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      onChange(next);
+      setSlotColor(null);
+      if (!pointerInside.current) setOpen(false);
+      return;
+    }
+    exchanging.current = true;
+    const header = trigger.current?.closest<HTMLElement>("header");
+    const previousHeader = header?.style.background;
+    const previousBackground = note.style.background;
+    const previousBorder = note.style.borderColor;
+    const overlay = document.createElement("span");
+    overlay.className = styles.noteColorWash;
+    overlay.setAttribute("aria-hidden", "true");
+    note.append(overlay);
+    note.dataset.colorExchanging = "true";
+    note.style.background = getComputedStyle(note).getPropertyValue("--note-gray");
+    note.style.borderColor = getComputedStyle(note).getPropertyValue("--note-gray-border");
+    if (header) header.style.background = "transparent";
+    const bounds = note.getBoundingClientRect();
+    Object.assign(overlay.style, {
+      left: "0px", top: "0px",
+      width: `${bounds.width}px`, height: `${bounds.height}px`,
+    });
+    const paint = async (hue: NonNullable<PlanNote["color"]>, returning: boolean) => {
+      const dark = document.documentElement.dataset.theme === "dark";
+      overlay.style.background = getComputedStyle(note).getPropertyValue(`--note-${hue}-${dark ? "dark" : "light"}`);
+      const slot = menu.current?.querySelector<HTMLElement>(`[data-color-slot="${hue}"]`)?.getBoundingClientRect();
+      const centerX = bounds.left + bounds.width / 2;
+      const centerY = bounds.top + bounds.height / 2;
+      const targetX = slot ? slot.left + slot.width / 2 : centerX;
+      const targetY = slot ? slot.top + slot.height / 2 : bounds.top;
+      const full = { transform: "translate(0px, 0px) scale(1, 1)", borderRadius: "14px", opacity: 1 };
+      const gathered = {
+        transform: `translate(${bounds.width * 0.2}px, ${-bounds.height * 0.3}px) scale(${48 / bounds.width}, ${48 / bounds.height})`,
+        borderRadius: "50%", opacity: 1,
+      };
+      const chip = {
+        transform: `translate(${targetX - centerX}px, ${targetY - centerY}px) scale(${28 / bounds.width}, ${28 / bounds.height})`,
+        borderRadius: "50%", opacity: 1,
+      };
+      const arrivalPoint = {
+        ...chip,
+        transform: `translate(${targetX - centerX}px, ${targetY - centerY}px) scale(${2 / bounds.width}, ${2 / bounds.height})`,
+      };
+      const frames = returning
+        ? [{ ...full, offset: 0 }, { ...gathered, offset: 0.65 }, { ...arrivalPoint, offset: 1 }]
+        : [{ ...chip, offset: 0 }, { ...gathered, offset: 0.35 }, { ...full, offset: 1 }];
+      // Outside the note, draw above the palette. Cut out the whole note so text
+      // and inputs remain above the internal paint layer throughout the flight.
+      const flight = document.createElement("span");
+      flight.className = styles.noteColorFlight;
+      flight.setAttribute("aria-hidden", "true");
+      flight.style.clipPath = `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${bounds.left}px ${bounds.top}px, ${bounds.right}px ${bounds.top}px, ${bounds.right}px ${bounds.bottom}px, ${bounds.left}px ${bounds.bottom}px, ${bounds.left}px ${bounds.top}px)`;
+      const flyingColor = overlay.cloneNode(false) as HTMLElement;
+      Object.assign(flyingColor.style, {
+        position: "fixed", left: `${bounds.left}px`, top: `${bounds.top}px`,
+      });
+      flight.append(flyingColor);
+      menu.current?.append(flight);
+      const timing: KeyframeAnimationOptions = {
+        duration: 320, easing: "ease-in-out", fill: "forwards",
+      };
+      const animation = overlay.animate(frames, timing);
+      const outsideAnimation = flyingColor.animate(frames, timing);
+      try {
+        await Promise.all([animation.finished, outsideAnimation.finished]);
+        const end = returning ? arrivalPoint : full;
+        Object.assign(overlay.style, end);
+        if (returning) overlay.style.opacity = "0";
+      } finally {
+        animation.cancel();
+        outsideAnimation.cancel();
+        flight.remove();
+      }
+    };
+    const exchangeSlotLayer = async (hue: NonNullable<PlanNote["color"]>, returning: boolean) => {
+      const button = menu.current?.querySelector<HTMLElement>(`[data-color-slot="${hue}"]`);
+      if (!button) return;
+      const wash = document.createElement("span");
+      wash.className = styles.noteColorSlotWash;
+      wash.setAttribute("aria-hidden", "true");
+      // Gray is always the base. Only the colored layer expands or retreats.
+      wash.style.background = getComputedStyle(note).getPropertyValue(`--note-${hue}`);
+      button.append(wash);
+      // Transfer ownership to the slot; do not leave another colored disc below it.
+      overlay.style.opacity = "0";
+      if (!returning) flushSync(() => setSlotColor(hue));
+      const empty = "circle(0% at 50% 50%)";
+      const full = "circle(72% at 50% 50%)";
+      const animation = wash.animate(
+        [{ clipPath: returning ? empty : full }, { clipPath: returning ? full : empty }],
+        { duration: 140, easing: "ease-in-out", fill: "forwards" },
+      );
+      await animation.finished;
+      flushSync(() => setSlotColor(returning ? "gray" : hue));
+      wash.remove();
+    };
+    try {
+      if (color && color !== "gray") {
+        await paint(color, true);
+        await exchangeSlotLayer(color, true);
+      }
+      if (next !== "gray") {
+        await exchangeSlotLayer(next, false);
+        await paint(next, false);
+      }
+      flushSync(() => {
+        onChange(next);
+        setSlotColor(null);
+      });
+    } finally {
+      overlay.remove();
+      delete note.dataset.colorExchanging;
+      note.style.background = previousBackground;
+      note.style.borderColor = previousBorder;
+      if (header) header.style.background = previousHeader ?? "";
+      exchanging.current = false;
+      setSlotColor(null);
+      if (!pointerInside.current) setOpen(false);
+    }
+  }
+  const showPicker = () => {
+    if (leaveTimer.current) clearTimeout(leaveTimer.current);
+    if (!open) {
+      openedAt.current = performance.now();
+      setOpen(true);
+    }
+  };
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelLeave = () => {
     if (leaveTimer.current) clearTimeout(leaveTimer.current);
@@ -1931,13 +2108,15 @@ function NoteColorPicker({
     if (!panel) return;
     if (open && trigger.current) {
       const bounds = trigger.current.getBoundingClientRect();
-      panel.style.left = `${Math.max(8, Math.min(bounds.left - 72, window.innerWidth - 204))}px`;
-      panel.style.top = `${Math.max(8, bounds.top - 88)}px`;
+      const centerX = bounds.left + bounds.width / 2;
+      const centerY = bounds.top + bounds.height / 2;
+      panel.style.left = `${centerX - 14}px`;
+      panel.style.top = `${centerY - 14}px`;
       if (!panel.matches(":popover-open")) panel.showPopover();
     } else {
       const closing = window.setTimeout(() => {
         if (panel.matches(":popover-open")) panel.hidePopover();
-      }, 260);
+      }, 340);
       return () => window.clearTimeout(closing);
     }
   }, [open]);
@@ -1962,15 +2141,18 @@ function NoteColorPicker({
       className={styles.noteColorCorner}
       data-open={open || undefined}
       onPointerEnter={(event) => {
+        pointerInside.current = true;
         cancelLeave();
-        if (event.pointerType === "mouse") setOpen(true);
+        if (event.pointerType === "mouse") showPicker();
       }}
       onPointerLeave={(event) => {
-        if (
-          event.pointerType === "mouse" &&
-          !event.currentTarget.contains(document.activeElement)
-        )
-          leaveTimer.current = setTimeout(() => setOpen(false), 150);
+        pointerInside.current = false;
+        if (event.pointerType === "mouse") {
+          cancelLeave();
+          leaveTimer.current = setTimeout(() => {
+            if (!exchanging.current) setOpen(false);
+          }, 150);
+        }
       }}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget as Node | null))
@@ -1994,33 +2176,35 @@ function NoteColorPicker({
         aria-hidden={!open}
         inert={!open}
       >
-        {(
-          [
-            ["red", "红色", -24, 36],
-            ["green", "绿色", 8, 36],
-            ["yellow", "黄色", 36, 8],
-            ["blue", "蓝色", 36, -24],
-          ] as const
-        ).map(([value, label, x, y], index) => (
+        {NOTE_PALETTE.map(({ id: value, label }, index) => {
+          const { x, y } = noteColorArc(index);
+          const sector = ["50% 50%", ...Array.from({ length: 32 }, (_, step) => {
+            const angle = (-90 + (index + step / 31) * 360 / 7) * Math.PI / 180;
+            return `${50 + 50 * Math.cos(angle)}% ${50 + 50 * Math.sin(angle)}%`;
+          })].join(", ");
+          return (
           <button
             key={value}
-            data-note-color={value}
-            aria-label={label}
-            aria-pressed={color === value}
+            data-color-slot={value}
+            data-note-color={slotColor === value ? "gray" : value}
+            aria-label={slotColor === value ? "灰色" : label}
+            aria-pressed={slotColor === value}
             style={
               {
                 "--color-x": `${x}px`,
                 "--color-y": `${y}px`,
                 "--color-index": index,
+                "--color-sector": `polygon(${sector})`,
               } as CSSProperties
             }
-            onClick={() => {
-              onChange(value);
+            onClick={(event) => {
+              if (event.detail > 0 && performance.now() - openedAt.current < 250) return;
+              void exchangeColor(value);
               trigger.current?.focus();
-              setOpen(false);
             }}
           />
-        ))}
+          );
+        })}
       </div>
       <button
         ref={trigger}
@@ -2028,7 +2212,7 @@ function NoteColorPicker({
         aria-label="选择便签颜色"
         aria-expanded={open}
         aria-controls={id}
-        onClick={() => setOpen(true)}
+        onClick={showPicker}
       >
         <span className={styles.colorWheel} aria-hidden="true" />
       </button>
