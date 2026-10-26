@@ -94,3 +94,5 @@
 - Next 绑定0.0.0.0时，请求URL不是浏览器的localhost。来源校验复用 trustedRequestOrigin，回调地址使用已验证的Origin。
 
 - 认证回调遇到0.0.0.0时，先恢复同端口的本地Host，不能优先使用线上SITE_URL。否则localhost的PKCE cookie在跳转后不可用。POST来源校验复用trustedRequestOrigin。
+
+- 保存新密码改走/api/auth/update-password，服务端用当前用户cookie校验并更新。禁止用管理员权限代改。getUser网络错误不能当作链接过期。区分连接失败、会话失效、相同密码和弱密码。只改本地不等于线上生效。

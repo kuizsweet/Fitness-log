@@ -215,10 +215,14 @@ export function AuthForm({ configured }: { configured: boolean }) {
       if (mode === "update") {
         const validationError = passwordResetError(password, confirmPassword);
         if (validationError) throw new Error(validationError);
-        const u = await auth.getUser();
-        if (!u.data.user) throw new Error("重置链接已过期，请重新发送重置邮件");
-        const r = await auth.updateUser({ password });
-        if (r.error) throw r.error;
+        const response = await fetch("/api/auth/update-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password, confirmation: confirmPassword }),
+        });
+        const result = await response.json();
+        if (!response.ok)
+          throw new Error(result.error || "新密码未能保存，请稍后重试。");
         setPassword("");
         setConfirmPassword("");
         setPasswordUpdated(true);

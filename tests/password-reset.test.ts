@@ -1,6 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { passwordResetError } from "../src/lib/password-reset";
+import { passwordResetError, passwordUpdateFailure } from "../src/lib/password-reset";
+
+test("网络故障不能误报为链接过期", () => {
+  assert.equal(passwordUpdateFailure({ name: "AuthRetryableFetchError", status: 0 }).status, 503);
+  assert.equal(passwordUpdateFailure({ status: 502 }).status, 503);
+  assert.equal(passwordUpdateFailure({ name: "AuthSessionMissingError", status: 400 }).status, 401);
+  assert.equal(passwordUpdateFailure({ code: "bad_jwt", status: 403 }).status, 401);
+  assert.equal(passwordUpdateFailure({ code: "same_password", status: 422 }).message, "新密码不能与原密码相同。");
+});
 
 test("password reset rejects short passwords even when confirmation matches", () => {
   for (const password of ["", "1234567"])
