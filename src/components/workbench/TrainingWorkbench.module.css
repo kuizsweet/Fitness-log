@@ -1035,7 +1035,8 @@
   margin-bottom: 16px;
 }
 
-.workbench {
+.workbench,
+.dragPreview[data-note-color] {
   --note-red: var(--note-red-light);
   --note-red-border: var(--note-red-border-light);
   --note-orange: var(--note-orange-light);
@@ -1051,7 +1052,7 @@
   --note-purple: var(--note-purple-light);
   --note-purple-border: var(--note-purple-border-light);
 }
-:global(html[data-theme="dark"]) .workbench {
+:global(html[data-theme="dark"]) :is(.workbench, .dragPreview[data-note-color]) {
   --note-red: var(--note-red-dark);
   --note-red-border: var(--note-red-border-dark);
   --note-orange: var(--note-orange-dark);
@@ -1262,22 +1263,8 @@
 .workbench .storedNote {
   position: relative;
 }
-.workbench .storedNote[data-insert-before]::before,
-.workbench .warehouseList[data-insert-end]::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 1px;
-  pointer-events: none;
-}
-.workbench .storedNote[data-insert-before]::before {
-  top: -5px;
-}
-.workbench .warehouseList[data-insert-end]::after {
-  bottom: -5px;
+@media (prefers-reduced-motion: reduce) {
+  .workbench .storedNote { transition: none; }
 }
 
 .workbench .warehouseGroup {
@@ -1306,21 +1293,11 @@
   font-size: 11px;
   text-align: center;
 }
-.workbench .warehouseGroup[data-over] {
-  outline: 1px dashed var(--line);
-  outline-offset: 3px;
-  border-radius: 8px;
-}
-.workbench
-  .warehouseGroup:not([data-over])
-  .warehouseList[data-insert-end]::after {
-  display: none;
-}
 .workbench.workbench .days button[data-has-plans],
 .workbench.workbench .days button[data-has-plans]:hover {
   background: var(
     --plan-background,
-    color-mix(in srgb, var(--accent) 22%, var(--surface))
+    color-mix(in srgb, var(--muted) 12%, var(--surface))
   );
   color: var(--ink);
 }
@@ -1721,11 +1698,12 @@
   border-color: var(--note-border);
 }
 
-.workbench {
+.workbench,
+.dragPreview[data-note-color] {
   --note-gray: var(--note-gray-light);
   --note-gray-border: var(--note-gray-border-light);
 }
-:global(html[data-theme="dark"]) .workbench {
+:global(html[data-theme="dark"]) :is(.workbench, .dragPreview[data-note-color]) {
   --note-gray: var(--note-gray-dark);
   --note-gray-border: var(--note-gray-border-dark);
 }
@@ -1843,3 +1821,253 @@
   background: transparent;
   box-shadow: none;
 }
+
+/* Wall and the approved first refrigerator. The action library stays unchanged. */
+.workbench .left {
+  width: 312px;
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  border-right: 1px solid #d7dcda;
+  border-radius: 0;
+  background: #eef1f0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  box-shadow: 5px 0 18px #00000007;
+}
+.workbench .left::-webkit-scrollbar { display: none; }
+.workbench .left .calendar {
+  position: relative;
+  flex: none;
+  margin: 20px 16px 18px;
+  padding: 14px 12px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px 6px 12px 12px;
+  background: var(--popover);
+  box-shadow: 0 3px 5px #00000006, 0 12px 22px #00000008;
+}
+.workbench .left .calendar::before,
+.workbench .left .calendar::after {
+  content: "";
+  position: absolute;
+  top: -7px;
+  width: 5px;
+  height: 14px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #868e8b, #d7dcda, #868e8b);
+}
+.workbench .left .calendar::before { left: 56px; }
+.workbench .left .calendar::after { right: 56px; }
+.workbench .left .calendar .days small,
+.workbench .left .calendar .days button { font-size: 12px; }
+.workbench .left .calendar .days { grid-auto-rows: 24px; }
+.workbench .left .warehouse.fridgeWarehouse {
+  position: relative;
+  flex: none;
+  width: 280px;
+  height: 472px;
+  margin: 0 auto 20px;
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+  outline: none;
+}
+.fridgeArtwork {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 10px #00000012);
+}
+.workbench .fridgeWarehouse .warehouseGroup {
+  position: absolute;
+  left: 10px;
+  width: 260px;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  border: 0;
+  background: transparent;
+}
+.workbench .fridgeWarehouse .warehouseGroup[data-warehouse-group="day"] { top: 13px; height: 155px; }
+.workbench .fridgeWarehouse .warehouseGroup[data-warehouse-group="backup"] { top: 173px; height: 275px; }
+.workbench .fridgeWarehouse .warehouseGroup h3 {
+  margin: 12px 0 12px 13px;
+  font-size: 12px;
+  color: #687076;
+  font-weight: 400;
+}
+.workbench .fridgeWarehouse .warehouseList {
+  display: grid;
+  grid-template-columns: repeat(2, 104px);
+  justify-content: center;
+  align-content: start;
+  align-items: start;
+  gap: 9px 8px;
+  padding: 5px 3px 10px;
+  max-height: 234px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+.workbench .fridgeWarehouse [data-warehouse-group="day"] .warehouseList {
+  width: 118px;
+  grid-template-columns: 104px;
+  max-height: 119px;
+  overflow: auto;
+}
+.workbench .fridgeWarehouse .warehouseEmpty { display: none; }
+.workbench .fridgeWarehouse .storedNote {
+  display: block;
+  flex: none;
+  min-height: 0;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border-radius: 3px 3px 6px 3px;
+  corner-shape: round;
+  box-shadow: 0 2px 3px #0000000a, 0 7px 10px #00000005;
+}
+.workbench .fridgeWarehouse .storedNote .warehouseHandle {
+  width: 100%;
+  height: 100%;
+  padding: 19px 7px 17px;
+  background: transparent;
+  border-radius: inherit;
+  display: flex;
+  align-items: flex-start;
+}
+.workbench .fridgeWarehouse .storedNote .warehouseHandle > span { overflow: visible; gap: 6px; }
+.workbench .fridgeWarehouse .storedNote strong { font-size: 12px; white-space: normal; line-height: 1.45; }
+.workbench .fridgeWarehouse .storedNote small { font-size: 12px; }
+.workbench .fridgeWarehouse .storedNote > button:last-child {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  top: auto;
+  transform: none;
+  padding: 2px;
+  background: transparent;
+}
+.workbench .fridgeWarehouse .storedNote > button:last-child svg { width: 13px; height: 13px; }
+.workbench .fridgeNewNote {
+  position: absolute;
+  top: 42px;
+  right: 14px;
+  width: 104px;
+  height: 89px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 5px 10px;
+  background: #f0f0f0;
+  border: 1px solid #cecece;
+  border-radius: 3px 3px 6px 3px;
+  corner-shape: round;
+  box-shadow: 0 2px 3px #0000000a, 0 7px 10px #00000005;
+  cursor: grab;
+  touch-action: none;
+}
+.workbench .fridgeNewNote strong { font-size: 12px; font-weight: 400; }
+.workbench .fridgeNewNote > svg { width: 17px; height: 17px; color: #8d8d8d; }
+.workbench .fridgeNewNote:active { cursor: grabbing; }
+.dragPreview.dragPreview[data-kind="new"] { min-width: 0; max-width: none; box-sizing: border-box; }
+:global(html[data-theme="dark"]) .workbench .left { background: #191b1b; border-color: #363b39; }
+@media (prefers-reduced-motion: reduce) {
+  .workbench .fridgeWarehouse .storedNote { transition: none; }
+}
+
+.workbench .left { bottom: 16px; }
+.workbench .fridgeWarehouse .warehouseHandle > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+.dragPreview.dragPreview[data-kind="new"] > span { display: flex; flex-direction: column; align-items: center; }
+.dragPreview.dragPreview[data-kind="new"] strong { font-size: 12px; font-weight: 500; }
+
+.workbench .fridgeWarehouse .warehouseList { grid-template-columns: repeat(2, 92px); gap: 9px 12px; max-height: 240px; }
+.workbench .fridgeWarehouse [data-warehouse-group="day"] .warehouseList { width: 114px; grid-template-columns: 92px; }
+
+.workbench .fridgeNewNote { width: 92px; height: auto; aspect-ratio: 340 / 290; right: 32px; }
+.workbench .fridgeNewNote:focus-visible { outline: 1px solid var(--muted); outline-offset: 2px; box-shadow: 0 2px 3px #0000000a; }
+
+.fridgeSlot { position: relative; flex: none; }
+.paperSurface { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; z-index: 0; filter: drop-shadow(0 3px 4px #00000012); }
+.paperSurface path { fill: var(--note-color); stroke: var(--note-border); stroke-width: 1; stroke-linejoin: round; }
+.workbench .note[data-paper-shape], .workbench .fridgeWarehouse .storedNote[data-paper-shape] { background: transparent; border-color: transparent; box-shadow: none; isolation: isolate; }
+.workbench .note[data-paper-shape] > header, .workbench .note[data-paper-shape] > .noteBody { position: relative; z-index: 2; background: transparent; }
+.workbench .note[data-paper-shape][data-grabbed] > .paperSurface { filter: drop-shadow(0 12px 15px #00000030); }
+.workbench .fridgeWarehouse .storedNote > .warehouseHandle { position: relative; inset: auto; transform: none; margin: 0; width: 100%; height: 100%; padding: 19px 7px 17px; z-index: 1; }
+.workbench .fridgeWarehouse .storedNote[data-folded-shape="landscape"] > .warehouseHandle { padding: 20px 5px 5px; align-items: center; }
+.workbench .fridgeWarehouse .storedNote[data-folded-shape="landscape"] small { display: none; }
+.workbench .note > .paperSurface, .workbench .fridgeWarehouse .storedNote > .paperSurface { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; max-width: none; color: inherit; }
+.dragPreview[data-paper-shape] { position: relative; background: transparent; border-color: transparent; box-shadow: none; isolation: isolate; }
+.dragPreview[data-paper-shape] > .paperSurface { width: 100%; height: 100%; position: absolute; inset: 0; }
+.dragPreview[data-paper-shape] > span { position: relative; z-index: 1; }
+.workbench .fridgeWarehouse > .fridgeMagnets { position: absolute; inset: 0; z-index: 12; pointer-events: none; }
+.workbench .fridgeMagnets > .independentMagnet {
+ position: absolute; left: 0; top: 0; width: 18px; height: 18px; min-height: 0; padding: 0; margin: 0;
+ border-radius: 50%; corner-shape: round; border: 1px solid var(--sage-10, #63766d);
+ background: var(--sage-9, #868e8b); box-shadow: inset 0 1px 2px #ffffff55, 0 1px 2px #00000026;
+ pointer-events: auto; touch-action: none; cursor: grab;
+ transition: box-shadow 150ms ease-out;
+}
+.workbench .fridgeMagnets > .independentMagnet::after { content: ""; position: absolute; inset: -7px; border-radius: 50%; }
+.workbench .fridgeMagnets > .independentMagnet[data-held] { z-index: 2; cursor: grabbing; box-shadow: inset 0 1px 2px #ffffff55, 0 7px 9px #00000040; }
+@media (prefers-reduced-motion: reduce) { .workbench .fridgeMagnets > .independentMagnet { transition: none; } }
+.workbench.workbench .fridgeMagnets > .independentMagnet:is(:hover, :active):not(:disabled) { background: var(--sage-9, #868e8b); }
+/* Match the taller hanging calendar and the paper edge beneath each magnet. */
+.workbench .left .calendar { padding: 18px 12px 14px; }
+.workbench .left .calendar .days { grid-template-rows: 24px; grid-auto-rows: 28px; gap: 3px 2px; }
+.workbench .left .calendar .monthHeading { min-height: 30px; margin-bottom: 13px; gap: 8px; }
+.workbench.workbench .calendar .monthHeading button { background: transparent; border: 0; box-shadow: none; padding: 0; height: 28px; min-height: 28px; }
+.workbench.workbench .calendar .monthHeading .monthPickerTrigger { width: auto; flex: 1; white-space: nowrap; font-size: 14px; font-weight: 600; }
+.workbench.workbench .calendar .monthHeading > button:not([aria-label]) { width: 36px; font-size: 14px; }
+.monthPickerMenu { z-index: 400010; min-width: 234px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--popover); color: var(--ink); box-shadow: 0 8px 24px #00000018; font-size: 12px; }
+.monthPickerLabel { color: var(--muted); margin: 0 0 6px; }
+.yearChoices, .monthChoices { display: grid; grid-template-columns: repeat(4,1fr); gap: 4px; }
+.yearChoices > *, .monthChoices > * { padding: 6px; text-align: center; cursor: pointer; border-radius: 5px; outline: none; }
+.yearChoices > [data-state="checked"], .monthChoices > [data-state="checked"] { background: var(--field); font-weight: 600; }
+.yearChoices > [data-highlighted], .monthChoices > [data-highlighted] { background: var(--line); }
+.monthPickerSeparator { height: 1px; background: var(--line); margin: 10px 0; }
+.workbench .fridgeWarehouse .storedNote > .warehouseHandle,
+.workbench .fridgeWarehouse .storedNote[data-folded-shape="landscape"] > .warehouseHandle { padding: 0; align-items: normal; }
+.workbench .fridgeWarehouse .warehouseHandle > span { position: absolute; inset: 0; display: block; }
+.workbench .fridgeWarehouse .warehouseHandle strong { position: absolute; left: 5px; right: 5px; top: 33.333%; transform: translateY(-50%); font-weight: 500; }
+.workbench .fridgeWarehouse .warehouseHandle small { position: absolute; left: 5px; right: 5px; top: calc(33.333% + 14px); color: var(--muted); }
+.workbench.workbench .fridgeWarehouse .fridgeNewNote,
+.workbench.workbench .fridgeWarehouse .fridgeNewNote:is(:hover,:active):not(:disabled) { left: 11px; right: auto; top: 60px; width: 104px; height: 71px; aspect-ratio: auto; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; overflow: visible; }
+.workbench .fridgeNewNote > .newPaperStack { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 4px 3px #00000012); }
+.stackBack, .stackMiddle, .stackFront { fill: var(--note-gray-light, #f0f0f0); stroke: var(--note-gray-border-light, #cecece); stroke-width: .8; stroke-linejoin: round; }
+.stackBack { transform: rotate(2deg); transform-origin: 56px 38px; }
+.stackMiddle { transform: rotate(-2deg); transform-origin: 56px 38px; }
+.stackCurlShadow { fill: #0000000d; }
+.stackCurl { fill: var(--popover); stroke: var(--note-gray-border-light, #cecece); stroke-width: .6; }
+.workbench .fridgeMagnets > .independentMagnet,
+.workbench.workbench .fridgeMagnets > .independentMagnet:is(:hover,:active):not(:disabled) { border-color: var(--sage-10, #63766d); background: radial-gradient(circle at 32% 26%, var(--sage-7, #b9c6c0), var(--sage-9, #868e8b) 55%, var(--sage-10, #63766d) 100%); box-shadow: inset 0 1px 2px #ffffff55, inset -1px -1px 2px #00000014, 0 2px 3px #00000030; }
+.workbench .fridgeMagnets > .independentMagnet[data-held] { box-shadow: inset 0 1px 2px #ffffff55, 0 7px 9px #00000040; }
+.workbench .left .calendar { padding: 16px 12px 12px; }
+.workbench .left .calendar .days { grid-auto-rows: 26px; }
+.workbench .fridgeWarehouse .warehouseList { row-gap: 0; }
+.workbench.workbench .fridgeWarehouse .fridgeNewNote,
+.workbench.workbench .fridgeWarehouse .fridgeNewNote:is(:hover,:active):not(:disabled) { top: 58px; }
+.yearChoices > button, .monthChoices > button { appearance: none; border: 0; background: transparent; color: inherit; font: inherit; }
+.yearChoices > [aria-pressed="true"], .monthChoices > [aria-pressed="true"] { background: var(--field); font-weight: 600; }
+.workbench.workbench .fridgeMagnets > .independentMagnet[data-held],
+.workbench.workbench .fridgeMagnets > .independentMagnet[data-held]:is(:hover,:active):not(:disabled) { box-shadow: inset 0 1px 2px #ffffff55, 0 7px 9px #00000040; }
+.workbench .fridgeWarehouse .storedNote { transition: none; }
+.workbench .fridgeWarehouse .storedNote[data-magnet-held] > .paperSurface { filter: drop-shadow(0 10px 9px #00000030); }
+.workbench.workbench.compactNotePreview { width: 100%; height: 100%; min-width: 0; min-height: 0; pointer-events: none; }
+.workbench .fridgeWarehouse .storedNote[data-lifted] > .paperSurface,
+.workbench .fridgeWarehouse .storedNote:has(.warehouseHandle:focus-visible) > .paperSurface,
+.workbench.compactNotePreview .storedNote > .paperSurface { filter: drop-shadow(0 9px 9px #00000030); }
+.workbench.workbench .warehouseHandle:is(:focus,:focus-visible,:active),
+.workbench.workbench .independentMagnet:is(:focus,:focus-visible,:active),
+.workbench.workbench .fridgeNewNote:is(:focus,:focus-visible,:active),
+.workbench.workbench .note > header:is(:focus,:focus-visible) { outline: none; box-shadow: none; }
+.workbench .fridgeWarehouse > .fridgeMagnets { z-index: 100; }
+.workbench .fridgeNewNote[data-magnet-held] > .newPaperStack { filter: drop-shadow(0 9px 9px #00000030); }

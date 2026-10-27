@@ -29,8 +29,8 @@ export type ExerciseGroup = {
   reps: number | null;
   weight: number | null;
 };
-export function isBenchExercise(exercise: Pick<PlanExercise, "name">) {
-  return /^卧推(?:[（(]|$)/.test(exercise.name);
+export function isBenchExercise(exercise: Pick<PlanExercise, "name" | "groups">) {
+  return Boolean(exercise.groups?.length) || /^卧推(?:[（(]|$)/.test(exercise.name);
 }
 export function benchGroups(exercise: PlanExercise): ExerciseGroup[] {
   return (
@@ -82,6 +82,9 @@ export type PlanNote = {
   id: string;
   title: string;
   color?: NoteColor;
+  paperVariant?: number;
+  foldedShape?: "scaled" | "landscape";
+  fridgePosition?: { x: number; y: number };
   x: number;
   y: number;
   width: number;
@@ -131,9 +134,19 @@ export function closeWorkbenchNote(
   };
 }
 export function warehouseInsertBefore(
-  rows: { id: string; top: number; height: number }[],
+  rows: { id: string; top: number; height: number; left?: number; width?: number }[],
   pointerY: number,
+  pointerX?: number,
 ): string | null {
+  if (pointerX !== undefined) {
+    const index = rows.findIndex((row) => row.left !== undefined && row.width !== undefined &&
+      pointerX >= row.left && pointerX <= row.left + row.width &&
+      pointerY >= row.top - 4 && pointerY <= row.top + row.height + 4);
+    if (index >= 0) {
+      const row = rows[index];
+      return pointerY < row.top + row.height / 2 ? row.id : rows[index + 1]?.id ?? null;
+    }
+  }
   return rows.find((row) => pointerY < row.top + row.height / 2)?.id ?? null;
 }
 export function insertWarehouseNote(
@@ -169,13 +182,14 @@ export function warehouseSections(state: WorkbenchState, date: string) {
     ),
   };
 }
-export function calendarNoteColors(state: WorkbenchState, date: string) {
+export function calendarNoteColors(state: WorkbenchState, date: string, recordTitles?: string[]) {
+  const normalize = (title: string) => title.trim().replace(/日$/, "").replace(/^肩$/, "肩腿").replace(/^胸$/, "胸三头");
+  const notes = recordTitles
+    ? state.notes.filter((note) => recordTitles.some((title) => normalize(title) === normalize(note.title)))
+    : (state.assignments[date] ?? []).flatMap((id) => state.notes.filter((note) => note.id === id));
   return [
     ...new Set(
-      (state.assignments[date] ?? []).flatMap((id) => {
-        const color = state.notes.find((note) => note.id === id)?.color;
-        return color ? [NOTE_COLORS[color]] : [];
-      }),
+      notes.map((note) => NOTE_COLORS[note.color ?? "gray"]),
     ),
   ];
 }
@@ -184,7 +198,9 @@ export function assignWorkbenchNote(
   id: string,
   date: string,
   before: string | null = null,
+  earliestDate?: string,
 ): WorkbenchState {
+  if (earliestDate && date < earliestDate) return state;
   if (!state.notes.some((note) => note.id === id)) return state;
   const stored = insertWarehouseNote(state, id, before);
   return {
@@ -251,6 +267,8 @@ export function createNote(index: number): PlanNote {
     id: crypto.randomUUID(),
     title: "",
     color: "gray",
+    paperVariant: Math.floor(Math.random() * 4),
+    foldedShape: Math.random() < 0.5 ? "landscape" : "scaled",
     temporary: true,
     savedToWarehouse: false,
     x: 24 + (index % 4) * 28,
@@ -334,6 +352,10 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       typeof note.pinned !== "boolean" ||
       (note.color !== undefined &&
         !NOTE_COLOR_NAMES.includes(note.color)) ||
+      (note.paperVariant !== undefined && (!Number.isInteger(note.paperVariant) || note.paperVariant < 0 || note.paperVariant > 3)) ||
+      (note.foldedShape !== undefined && !["scaled", "landscape"].includes(note.foldedShape)) ||
+      (note.fridgePosition !== undefined && (!note.fridgePosition ||
+        ![note.fridgePosition.x, note.fridgePosition.y].every((value: number) => Number.isFinite(value) && value >= 0 && value <= 1))) ||
       (note.inWarehouse !== undefined &&
         typeof note.inWarehouse !== "boolean") ||
       (note.savedToWarehouse !== undefined &&
@@ -341,8 +363,6 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       ![note.x, note.y, note.width, note.height, note.z].every(
         Number.isFinite,
       ) ||
-      note.x < 0 ||
-      note.y < 0 ||
       note.width < 300 ||
       note.width > 720 ||
       note.height < 220 ||
@@ -433,8 +453,8 @@ export function fitNoteToCanvas(
     ...note,
     width: w,
     height: h,
-    x: Math.max(0, Math.min(note.x, width - w)),
-    y: Math.max(0, Math.min(note.y, height - h)),
+    x: note.x,
+    y: note.y,
   };
 }
 export function planMuscleDistribution(exercises: PlanExercise[]) {
@@ -567,7 +587,34 @@ export function centerNoteInCanvas(
   };
 }
 
-/** Preserve the horizontal grab percentage along the note header. */
-export function placeNoteAtPointer(note: PlanNote, width: number, height: number, x: number, y: number, grabX = 0.5) {
-  return fitNoteToCanvas({ ...note, x: x - Math.min(note.width, width) * Math.max(0, Math.min(1, grabX)), y }, width, height);
+/** Preview and release share the same pointer anchor, including title offsets. */
+export function placeNoteAtPointer(note: PlanNote, width: number, height: number, x: number, y: number, grabX = 0.5, grabY = 0) {
+  return fitNoteToCanvas({ ...note, x: x - Math.min(note.width, width) * Math.max(0, Math.min(1, grabX)), y: y - grabY }, width, height);
+}
+
+/** The fridge paper keeps the canvas note's proportions, including tall notes. */
+export function warehousePaperSize(note: Pick<PlanNote, "width" | "height" | "foldedShape">, width = 92) {
+  return { width, height: note.foldedShape === "landscape" ? width * 0.62 : width * note.height / note.width };
+}
+
+export function paperVariant(note: Pick<PlanNote, "id" | "paperVariant">) {
+  return note.paperVariant ?? [...note.id].reduce((hash, character) => hash + character.charCodeAt(0), 0) % 4;
+}
+
+export function clampFridgePosition(x: number, y: number) {
+  return { x: Math.max(0, Math.min(1, x)), y: Math.max(0, Math.min(1, y)) };
+}
+
+/** Keep an attached paper and its magnet inside the refrigerator together. */
+export function fridgePaperDelta(dx: number, dy: number, paper: {left:number;top:number;width:number;height:number}, fridge: {width:number;height:number}) {
+ return {
+  x: Math.max(-paper.left, Math.min(fridge.width-paper.left-paper.width, dx)),
+  y: Math.max(-paper.top, Math.min(fridge.height-paper.top-paper.height, dy)),
+ };
+}
+
+/** A magnet can catch only the paper's upper half, with a small edge tolerance. */
+export function magnetInPaperUpperHalf(magnet: {x:number;y:number}, paper: {left:number;top:number;width:number;height:number}) {
+ return magnet.x >= paper.left-9 && magnet.x <= paper.left+paper.width+9 &&
+  magnet.y >= paper.top-9 && magnet.y <= paper.top+paper.height/2;
 }

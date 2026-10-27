@@ -18,6 +18,14 @@ export async function GET(request: Request) {
     const from = dateSchema.parse(p.get("from") ?? TRAINING_FROM);
     const to = dateSchema.parse(p.get("to") ?? TRAINING_TO);
     if (from > to) throw new ApiError("日期范围无效");
+    if (p.get("view") === "appearance") {
+      if (from.slice(0, 7) !== to.slice(0, 7)) throw new ApiError("月历仅查询一个月");
+      const result = await db.from("workout_sessions").select("training_date,notes")
+        .eq("user_id", user.id).eq("status", "completed").is("deleted_at", null)
+        .gte("training_date", from).lte("training_date", to).limit(1000);
+      check(result.error);
+      return json((result.data ?? []).map((record) => ({ training_date: record.training_date, title: record.notes.split("\n")[0] })));
+    }
     if (p.get("view") === "calendar") {
       if (from.slice(0, 7) !== to.slice(0, 7))
         throw new ApiError("月历仅查询一个月");

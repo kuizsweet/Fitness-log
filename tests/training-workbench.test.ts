@@ -1,3 +1,6 @@
+import { magnetInPaperUpperHalf } from "../src/lib/training-workbench";
+import { fridgePaperDelta } from "../src/lib/training-workbench";
+import { clampFridgePosition, warehousePaperSize, paperVariant } from "../src/lib/training-workbench";
 import { NOTE_COLORS, NOTE_COLOR_NAMES } from "../src/lib/note-colors";
 import { chestTotals } from "../src/lib/training-workbench";
 import test from "node:test";
@@ -20,6 +23,20 @@ import {
   readWorkbench,
   persistedWorkbench,
 } from "../src/lib/training-workbench";
+test("过去日期不可安排便签，当天与未来可以安排", () => {
+  const note = createNote(0);
+  const state = { notes: [note], assignments: {} };
+  assert.equal(assignWorkbenchNote(state, note.id, "2026-10-25", null, "2026-10-26"), state);
+  for (const date of ["2026-10-26", "2026-10-27"])
+    assert.deepEqual(assignWorkbenchNote(state, note.id, date, null, "2026-10-26").assignments[date], [note.id]);
+});
+test("历史成果颜色跟随对应便签，旧肩日匹配肩腿日且不沿用过期安排", () => {
+  const note = { ...createNote(0), title: "肩腿日", color: "blue" as const };
+  const state = { notes: [note], assignments: {} };
+  assert.deepEqual(calendarNoteColors(state, "2026-10-12", ["肩日"]), [NOTE_COLORS.blue]);
+  assert.deepEqual(calendarNoteColors({ ...state, notes: [{ ...note, color: "red" }] }, "2026-10-12", ["肩日"]), [NOTE_COLORS.red]);
+  assert.deepEqual(calendarNoteColors(state, "2026-10-12", []), []);
+});
 test("日期安排保存便签，仓库按当天分层，拖回备选只取消当天", () => {
   const a = { ...createNote(0), id: "a", color: "red" as const };
   const b = {
@@ -402,8 +419,12 @@ test("warehouse preview and drop share top-center placement without recentering"
   assert.equal(placed.x, 590);
   assert.equal(placed.y, 390);
   const edge = placeNoteAtPointer(note, 1000, 700, 980, 680);
-  assert.equal(edge.x, 700);
-  assert.equal(edge.y, 460);
+  assert.equal(edge.x, 830);
+  assert.equal(edge.y, 680);
+  const outside = placeNoteAtPointer(note, 1000, 700, 30, -20);
+  assert.equal(outside.x, -120);
+  assert.equal(outside.y, -20);
+  assert.equal(readWorkbench(JSON.stringify({ notes: [outside], assignments: {} })).notes[0].x, -120);
 });
 
 test("warehouse drop preserves left and right horizontal grab percentages", () => {
@@ -414,4 +435,69 @@ test("warehouse drop preserves left and right horizontal grab percentages", () =
   assert.equal(right.x, 280);
   assert.equal(left.y, 200);
   assert.equal(right.y, 200);
+});
+test("仓库标题的抓取点在展开和落点中保持相同，纵向对齐标题而不是顶边", () => {
+  const note = { ...createNote(0), width: 520, height: 600 };
+  const placed = placeNoteAtPointer(note, 1200, 700, 600, 650, 0.5, 26);
+  assert.equal(placed.x + placed.width / 2, 600);
+  assert.equal(placed.y + 26, 650);
+  const titleLeft = placeNoteAtPointer(note, 1200, 700, 600, 650, (260 - 12) / 520, 26);
+  assert.equal(titleLeft.x + 260 - 12, 600);
+  assert.equal(titleLeft.y, placed.y);
+});
+
+
+test("冰箱缩略便签保留宽高比例，不把高便签压成长条", async () => {
+  const { warehousePaperSize } = await import("../src/lib/training-workbench");
+  const tall = warehousePaperSize({ width: 520, height: 600 });
+  const wide = warehousePaperSize({ width: 700, height: 300 });
+  assert.equal(tall.width, wide.width);
+  assert.ok(tall.height > tall.width);
+  assert.ok(wide.height < wide.width);
+  assert.ok(Math.abs(tall.width / tall.height - 520 / 600) < 1e-10);
+  assert.ok(Math.abs(wide.width / wide.height - 700 / 300) < 1e-10);
+});
+
+
+test("冰箱两列便签按鼠标所在列判断插入，不误选同排左侧", () => {
+  const rows = [
+    { id: "a", left: 20, top: 10, width: 92, height: 100 },
+    { id: "b", left: 124, top: 10, width: 92, height: 100 },
+    { id: "c", left: 20, top: 120, width: 92, height: 100 },
+  ];
+  assert.equal(warehouseInsertBefore(rows, 30, 150), "b");
+  assert.equal(warehouseInsertBefore(rows, 90, 150), "c");
+  assert.equal(warehouseInsertBefore(rows, 30, 50), "a");
+  assert.equal(warehouseInsertBefore(rows, 200, 50), null);
+});
+
+test("纸边和收纳形态保存后保持，旧便签纸边稳定", () => {
+ const note = {...createNote(0), foldedShape: "landscape" as const, fridgePosition: {x:.2,y:.8}};
+ const restored=readWorkbench(JSON.stringify({notes:[note],assignments:{}})).notes[0];
+ assert.equal(restored.paperVariant,note.paperVariant);
+ assert.equal(restored.foldedShape,"landscape");
+ assert.deepEqual(restored.fridgePosition,{x:.2,y:.8});
+ assert.ok(warehousePaperSize(note).height < warehousePaperSize(note).width);
+ assert.equal(paperVariant({id:"legacy"}),paperVariant({id:"legacy"}));
+});
+test("磁铁坐标不能离开冰箱范围", () => {
+ assert.deepEqual(clampFridgePosition(-.5,2),{x:0,y:1});
+ assert.deepEqual(clampFridgePosition(.3,.7),{x:.3,y:.7});
+});
+
+test("挂在磁铁上的纸张同步移动，整张纸不能越过冰箱边缘", () => {
+ const paper={left:40,top:80,width:92,height:106};
+ const fridge={width:280,height:472};
+ assert.deepEqual(fridgePaperDelta(20,15,paper,fridge),{x:20,y:15});
+ assert.deepEqual(fridgePaperDelta(-100,-200,paper,fridge),{x:-40,y:-80});
+ assert.deepEqual(fridgePaperDelta(500,500,paper,fridge),{x:148,y:286});
+});
+
+test("磁铁只吸附便签上半部，鼠标靠近或下半部接触不算挂上", () => {
+ const paper={left:100,top:100,width:92,height:106};
+ assert.equal(magnetInPaperUpperHalf({x:146,y:100},paper),true);
+ assert.equal(magnetInPaperUpperHalf({x:146,y:150},paper),true);
+ assert.equal(magnetInPaperUpperHalf({x:146,y:180},paper),false);
+ assert.equal(magnetInPaperUpperHalf({x:146,y:206},paper),false);
+ assert.equal(magnetInPaperUpperHalf({x:220,y:120},paper),false);
 });
