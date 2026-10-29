@@ -6,10 +6,7 @@ export type ChecklistItem = {
   order: number;
 };
 export function orderItems(items: ChecklistItem[]): ChecklistItem[] {
-  return [
-    ...items.filter((item) => !item.completed),
-    ...items.filter((item) => item.completed),
-  ].map((item, order) => ({ ...item, order }));
+  return items.map((item, order) => ({ ...item, order }));
 }
 export function checklistDay(now = new Date()) {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
@@ -33,18 +30,8 @@ export function toggleItem(
   id: string,
   completed: boolean,
 ) {
-  const updated = items.map((item) =>
-    item.id === id ? { ...item, completed } : item,
-  );
-  // Insert at the nearest boundary: above existing completed items.
   return orderItems(
-    completed
-      ? [
-          ...updated.filter((item) => item.id !== id && !item.completed),
-          ...updated.filter((item) => item.id === id),
-          ...updated.filter((item) => item.id !== id && item.completed),
-        ]
-      : updated,
+    items.map((item) => (item.id === id ? { ...item, completed } : item)),
   );
 }
 export function readChecklist(value: string | null, day = checklistDay()) {
@@ -85,8 +72,15 @@ export function readItems(value: string | null): ChecklistItem[] {
   return orderItems(items.sort((a, b) => a.order - b.order));
 }
 
-export function appendChecklistItem(items: ChecklistItem[], text: string, id: string): ChecklistItem[] {
+export function appendChecklistItem(
+  items: ChecklistItem[],
+  text: string,
+  id: string,
+): ChecklistItem[] {
   const name = text.trim().slice(0, 32);
   if (!name || items.length >= ITEM_LIMIT) return items;
-  return orderItems([...items, { id, text: name, completed: false, order: items.length }]);
+  return orderItems([
+    ...items,
+    { id, text: name, completed: false, order: items.length },
+  ]);
 }

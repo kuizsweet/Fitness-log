@@ -3,6 +3,24 @@ import type { Session } from "@/lib/domain";
 import { useResource } from "../resource";
 import styles from "./TrainingHistory.module.css";
 
+function displayNotes(notes: string) {
+  try {
+    const value = JSON.parse(notes);
+    if (value.type === "cardio")
+      return [
+        value.actualMinutes == null ? null : `${value.actualMinutes} 分钟`,
+        value.incline == null ? null : `坡度 ${value.incline}%`,
+        value.speed == null ? null : `${value.speed} km/h`,
+        value.resistance == null ? null : `阻力 ${value.resistance}`,
+      ]
+        .filter(Boolean)
+        .join("，");
+  } catch {
+    /* Plain exercise notes remain plain text. */
+  }
+  return notes;
+}
+
 export function TrainingHistory({ date }: { date: string }) {
   const records = useResource<Session[]>(
     `sessions?from=${date}&to=${date}&limit=100`,
@@ -45,7 +63,7 @@ export function TrainingHistory({ date }: { date: string }) {
                       ? exercise.notes
                           .replace(/哑铃单只重量[；;]?|单只重量[；;]?/g, "")
                           .trim()
-                      : exercise.notes}
+                      : displayNotes(exercise.notes)}
                   </small>
                 )}
               </div>

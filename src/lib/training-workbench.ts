@@ -7,7 +7,72 @@ import {
   chestRegion,
   exerciseMuscleMetadata,
 } from "./exercise-base";
-import { dateSchema, type Session } from "./domain";
+import { dateSchema, emptyWeight, type Session } from "./domain";
+
+/** Import a note as performed work without inventing RIR or timing. */
+export function completedNoteSession(note: PlanNote, date: string): Session {
+  return {
+    id: crypto.randomUUID(),
+    training_date: date,
+    training_type: note.exercises.every(isCardioExercise)
+      ? "cardio"
+      : "strength",
+    status: "completed",
+    revision: 0,
+    notes: note.title || "训练记录",
+    started_at: null,
+    ended_at: null,
+    paused_at: null,
+    exercises: note.exercises.map((exercise) => ({
+      id: crypto.randomUUID(),
+      exercise_id: null,
+      equipment_id: null,
+      exercise_name: exercise.name,
+      muscle_group: exercise.muscle,
+      equipment_snapshot: null,
+      notes: isCardioExercise(exercise)
+        ? JSON.stringify({
+            type: "cardio",
+            ...exercise.cardio,
+            actualMinutes: exercise.cardio?.minutes ?? null,
+          })
+        : "",
+      sets: (isCardioExercise(exercise)
+        ? []
+        : (exercise.groups ?? [
+            {
+              kind: "working" as const,
+              sets: exercise.sets,
+              reps: exercise.reps,
+              weight: exercise.weight,
+            },
+          ])
+      ).flatMap((group) =>
+        Array.from({ length: group.sets ?? 0 }, () => ({
+          id: crypto.randomUUID(),
+          role:
+            group.kind === "warmup"
+              ? ("warmup" as const)
+              : group.kind === "backoff"
+                ? ("supplement" as const)
+                : ("work" as const),
+          tags: [],
+          weight: { ...emptyWeight("kg", "unknown"), value: group.weight },
+          planned_weight: null,
+          reps: group.reps ?? 0,
+          completed: true,
+          notes: "",
+          rir: null,
+          rpe: null,
+          started_at: null,
+          completed_at: null,
+          rest_seconds: null,
+          rest_ends_at: null,
+        })),
+      ),
+    })),
+  };
+}
 export type PlanExercise = {
   id: string;
   sourceId?: string;
@@ -29,8 +94,12 @@ export type ExerciseGroup = {
   reps: number | null;
   weight: number | null;
 };
-export function isBenchExercise(exercise: Pick<PlanExercise, "name" | "groups">) {
-  return Boolean(exercise.groups?.length) || /^卧推(?:[（(]|$)/.test(exercise.name);
+export function isBenchExercise(
+  exercise: Pick<PlanExercise, "name" | "groups">,
+) {
+  return (
+    Boolean(exercise.groups?.length) || /^卧推(?:[（(]|$)/.test(exercise.name)
+  );
 }
 export function benchGroups(exercise: PlanExercise): ExerciseGroup[] {
   return (
@@ -78,11 +147,16 @@ export function exerciseInsertionIndex(
   const index = rows.findIndex((row) => y < row.top + row.height / 2);
   return index < 0 ? rows.length : index;
 }
+export type PaperCurlStyle =
+  "none" | "left" | "right" | "large-left" | "large-right";
 export type PlanNote = {
   id: string;
   title: string;
   color?: NoteColor;
   paperVariant?: number;
+  paperCurl?: boolean;
+  paperCurlSide?: "left" | "right";
+  paperCurlSize?: "small" | "large";
   foldedShape?: "scaled" | "landscape";
   fridgePosition?: { x: number; y: number };
   x: number;
@@ -134,17 +208,31 @@ export function closeWorkbenchNote(
   };
 }
 export function warehouseInsertBefore(
-  rows: { id: string; top: number; height: number; left?: number; width?: number }[],
+  rows: {
+    id: string;
+    top: number;
+    height: number;
+    left?: number;
+    width?: number;
+  }[],
   pointerY: number,
   pointerX?: number,
 ): string | null {
   if (pointerX !== undefined) {
-    const index = rows.findIndex((row) => row.left !== undefined && row.width !== undefined &&
-      pointerX >= row.left && pointerX <= row.left + row.width &&
-      pointerY >= row.top - 4 && pointerY <= row.top + row.height + 4);
+    const index = rows.findIndex(
+      (row) =>
+        row.left !== undefined &&
+        row.width !== undefined &&
+        pointerX >= row.left &&
+        pointerX <= row.left + row.width &&
+        pointerY >= row.top - 4 &&
+        pointerY <= row.top + row.height + 4,
+    );
     if (index >= 0) {
       const row = rows[index];
-      return pointerY < row.top + row.height / 2 ? row.id : rows[index + 1]?.id ?? null;
+      return pointerY < row.top + row.height / 2
+        ? row.id
+        : (rows[index + 1]?.id ?? null);
     }
   }
   return rows.find((row) => pointerY < row.top + row.height / 2)?.id ?? null;
@@ -182,16 +270,27 @@ export function warehouseSections(state: WorkbenchState, date: string) {
     ),
   };
 }
-export function calendarNoteColors(state: WorkbenchState, date: string, recordTitles?: string[]) {
-  const normalize = (title: string) => title.trim().replace(/日$/, "").replace(/^肩$/, "肩腿").replace(/^胸$/, "胸三头");
+export function calendarNoteColors(
+  state: WorkbenchState,
+  date: string,
+  recordTitles?: string[],
+) {
+  const normalize = (title: string) =>
+    title
+      .trim()
+      .replace(/日$/, "")
+      .replace(/^肩$/, "肩腿")
+      .replace(/^胸$/, "胸三头");
   const notes = recordTitles
-    ? state.notes.filter((note) => recordTitles.some((title) => normalize(title) === normalize(note.title)))
-    : (state.assignments[date] ?? []).flatMap((id) => state.notes.filter((note) => note.id === id));
-  return [
-    ...new Set(
-      notes.map((note) => NOTE_COLORS[note.color ?? "gray"]),
-    ),
-  ];
+    ? state.notes.filter((note) =>
+        recordTitles.some(
+          (title) => normalize(title) === normalize(note.title),
+        ),
+      )
+    : (state.assignments[date] ?? []).flatMap((id) =>
+        state.notes.filter((note) => note.id === id),
+      );
+  return [...new Set(notes.map((note) => NOTE_COLORS[note.color ?? "gray"]))];
 }
 export function assignWorkbenchNote(
   state: WorkbenchState,
@@ -268,6 +367,8 @@ export function createNote(index: number): PlanNote {
     title: "",
     color: "gray",
     paperVariant: Math.floor(Math.random() * 4),
+    paperCurl: Math.random() < 0.5,
+    paperCurlSide: Math.random() < 0.5 ? "left" : "right",
     foldedShape: Math.random() < 0.5 ? "landscape" : "scaled",
     temporary: true,
     savedToWarehouse: false,
@@ -350,12 +451,24 @@ export function readWorkbench(raw: string | null): WorkbenchState {
       typeof note.title !== "string" ||
       note.title.length > 60 ||
       typeof note.pinned !== "boolean" ||
-      (note.color !== undefined &&
-        !NOTE_COLOR_NAMES.includes(note.color)) ||
-      (note.paperVariant !== undefined && (!Number.isInteger(note.paperVariant) || note.paperVariant < 0 || note.paperVariant > 3)) ||
-      (note.foldedShape !== undefined && !["scaled", "landscape"].includes(note.foldedShape)) ||
-      (note.fridgePosition !== undefined && (!note.fridgePosition ||
-        ![note.fridgePosition.x, note.fridgePosition.y].every((value: number) => Number.isFinite(value) && value >= 0 && value <= 1))) ||
+      (note.color !== undefined && !NOTE_COLOR_NAMES.includes(note.color)) ||
+      (note.paperCurlSize !== undefined &&
+        !["small", "large"].includes(note.paperCurlSize)) ||
+      (note.paperCurlSide !== undefined &&
+        !["left", "right"].includes(note.paperCurlSide)) ||
+      (note.paperCurl !== undefined && typeof note.paperCurl !== "boolean") ||
+      (note.paperVariant !== undefined &&
+        (!Number.isInteger(note.paperVariant) ||
+          note.paperVariant < 0 ||
+          note.paperVariant > 3)) ||
+      (note.foldedShape !== undefined &&
+        !["scaled", "landscape"].includes(note.foldedShape)) ||
+      (note.fridgePosition !== undefined &&
+        (!note.fridgePosition ||
+          ![note.fridgePosition.x, note.fridgePosition.y].every(
+            (value: number) =>
+              Number.isFinite(value) && value >= 0 && value <= 1,
+          ))) ||
       (note.inWarehouse !== undefined &&
         typeof note.inWarehouse !== "boolean") ||
       (note.savedToWarehouse !== undefined &&
@@ -411,9 +524,17 @@ export function readWorkbench(raw: string | null): WorkbenchState {
           ))
       )
         throw Error("无效的动作子词条");
-      if (exercise.cardio && (typeof exercise.cardio !== "object" ||
-        Object.values(exercise.cardio).some((value) => value !== null &&
-          (typeof value !== "number" || !Number.isFinite(value) || value < 0))))
+      if (
+        exercise.cardio &&
+        (typeof exercise.cardio !== "object" ||
+          Object.values(exercise.cardio).some(
+            (value) =>
+              value !== null &&
+              (typeof value !== "number" ||
+                !Number.isFinite(value) ||
+                value < 0),
+          ))
+      )
         throw Error("无效的有氧参数");
       const metadata = exerciseMuscleMetadata(exercise.sourceId);
       if (metadata) Object.assign(exercise, metadata);
@@ -588,17 +709,48 @@ export function centerNoteInCanvas(
 }
 
 /** Preview and release share the same pointer anchor, including title offsets. */
-export function placeNoteAtPointer(note: PlanNote, width: number, height: number, x: number, y: number, grabX = 0.5, grabY = 0) {
-  return fitNoteToCanvas({ ...note, x: x - Math.min(note.width, width) * Math.max(0, Math.min(1, grabX)), y: y - grabY }, width, height);
+export function placeNoteAtPointer(
+  note: PlanNote,
+  width: number,
+  height: number,
+  x: number,
+  y: number,
+  grabX = 0.5,
+  grabY = 0,
+) {
+  return fitNoteToCanvas(
+    {
+      ...note,
+      x: x - Math.min(note.width, width) * Math.max(0, Math.min(1, grabX)),
+      y: y - grabY,
+    },
+    width,
+    height,
+  );
 }
 
 /** The fridge paper keeps the canvas note's proportions, including tall notes. */
-export function warehousePaperSize(note: Pick<PlanNote, "width" | "height" | "foldedShape">, width = 92) {
-  return { width, height: note.foldedShape === "landscape" ? width * 0.62 : width * note.height / note.width };
+export function warehousePaperSize(
+  note: Pick<PlanNote, "width" | "height" | "foldedShape">,
+  width = 92,
+) {
+  return {
+    width,
+    height:
+      note.foldedShape === "landscape"
+        ? width * 0.62
+        : (width * note.height) / note.width,
+  };
 }
 
 export function paperVariant(note: Pick<PlanNote, "id" | "paperVariant">) {
-  return note.paperVariant ?? [...note.id].reduce((hash, character) => hash + character.charCodeAt(0), 0) % 4;
+  return (
+    note.paperVariant ??
+    [...note.id].reduce(
+      (hash, character) => hash + character.charCodeAt(0),
+      0,
+    ) % 4
+  );
 }
 
 export function clampFridgePosition(x: number, y: number) {
@@ -606,15 +758,76 @@ export function clampFridgePosition(x: number, y: number) {
 }
 
 /** Keep an attached paper and its magnet inside the refrigerator together. */
-export function fridgePaperDelta(dx: number, dy: number, paper: {left:number;top:number;width:number;height:number}, fridge: {width:number;height:number}) {
- return {
-  x: Math.max(-paper.left, Math.min(fridge.width-paper.left-paper.width, dx)),
-  y: Math.max(-paper.top, Math.min(fridge.height-paper.top-paper.height, dy)),
- };
+export function fridgePaperDelta(
+  dx: number,
+  dy: number,
+  paper: { left: number; top: number; width: number; height: number },
+  fridge: { width: number; height: number },
+) {
+  return {
+    x: Math.max(
+      -paper.left,
+      Math.min(fridge.width - paper.left - paper.width, dx),
+    ),
+    y: Math.max(
+      -paper.top,
+      Math.min(fridge.height - paper.top - paper.height, dy),
+    ),
+  };
 }
 
 /** A magnet can catch only the paper's upper half, with a small edge tolerance. */
-export function magnetInPaperUpperHalf(magnet: {x:number;y:number}, paper: {left:number;top:number;width:number;height:number}) {
- return magnet.x >= paper.left-9 && magnet.x <= paper.left+paper.width+9 &&
-  magnet.y >= paper.top-9 && magnet.y <= paper.top+paper.height/2;
+export function magnetInPaperUpperHalf(
+  magnet: { x: number; y: number },
+  paper: { left: number; top: number; width: number; height: number },
+) {
+  return (
+    magnet.x >= paper.left - 9 &&
+    magnet.x <= paper.left + paper.width + 9 &&
+    magnet.y >= paper.top - 9 &&
+    magnet.y <= paper.top + Math.min(14, paper.height * 0.2)
+  );
+}
+
+export function noteHasCurl(
+  note: Pick<PlanNote, "id" | "paperVariant" | "paperCurl">,
+) {
+  return note.paperCurl ?? paperVariant(note) % 2 === 0;
+}
+export function takeSourcePaper<T>(stack: readonly T[], refill: T) {
+  return [...stack.slice(1, 3), refill];
+}
+export function randomPaperStyle(): PaperCurlStyle {
+  return (["none", "left", "right", "large-left", "large-right"] as const)[
+    Math.floor(Math.random() * 5)
+  ];
+}
+export function paperCurlStyle(
+  note: Pick<
+    PlanNote,
+    "id" | "paperVariant" | "paperCurl" | "paperCurlSide" | "paperCurlSize"
+  >,
+): PaperCurlStyle {
+  if (!noteHasCurl(note)) return "none";
+  const side =
+    note.paperCurlSide ??
+    (parseInt(note.id.replaceAll("-", "").slice(-1), 16) % 2 === 0
+      ? "left"
+      : "right");
+  return note.paperCurlSize === "large" ? `large-${side}` : side;
+}
+export function createSourceNote(
+  index: number,
+  curl: boolean | PaperCurlStyle,
+): PlanNote {
+  const style = typeof curl === "boolean" ? (curl ? "right" : "none") : curl;
+  return {
+    ...createNote(index),
+    paperCurl: style !== "none",
+    paperCurlSide: style.endsWith("left") ? "left" : "right",
+    paperCurlSize: style.startsWith("large-") ? "large" : "small",
+    foldedShape: "scaled",
+    width: 340,
+    height: 232,
+  };
 }

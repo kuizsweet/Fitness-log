@@ -39,36 +39,34 @@ const items: ChecklistItem[] = [
   { id: "b", text: "b", completed: false, order: 1 },
   { id: "c", text: "c", completed: false, order: 2 },
 ];
-test("勾选插入已完成分组顶部；手动只调整组内顺序，取消勾选返回未完成分组", () => {
+test("勾选与取消都保留词条原位，不再排序", () => {
   const first = toggleItem(items, "a", true);
   const second = toggleItem(first, "b", true);
   assert.deepEqual(
     second.map((item) => item.id),
-    ["c", "b", "a"],
+    ["a", "b", "c"],
   );
-  const manual = orderItems([second[1], second[0], second[2]]);
   assert.deepEqual(
-    manual.map((item) => item.id),
-    ["c", "b", "a"],
+    toggleItem(second, "b", false).map((item) => item.id),
+    ["a", "b", "c"],
   );
-  const unchecked = toggleItem(second, "b", false);
-  assert.deepEqual(
-    unchecked.map((item) => item.id),
-    ["c", "b", "a"],
-  );
-  assert.equal(unchecked[1].completed, false);
+  assert.equal(toggleItem(second, "b", false)[1].completed, false);
   assert.equal(items[0].completed, false);
+  assert.deepEqual(
+    orderItems(second).map((item) => item.id),
+    ["a", "b", "c"],
+  );
 });
 test("跨日清除完成状态并保留顺序；同日刷新保留完成状态；旧格式无损迁移", () => {
   const checked = toggleItem(items, "b", true);
   const stored = JSON.stringify({ day: "2026-10-17", items: checked });
-  assert.equal(readChecklist(stored, "2026-10-17").items[2].completed, true);
+  assert.equal(readChecklist(stored, "2026-10-17").items[1].completed, true);
   const reset = readChecklist(stored, "2026-10-18");
   assert.equal(reset.needsReset, true);
   assert.ok(reset.items.every((item) => !item.completed));
   assert.deepEqual(
     reset.items.map((item) => item.id),
-    ["a", "c", "b"],
+    ["a", "b", "c"],
   );
   assert.deepEqual(readChecklist(JSON.stringify(checked)).items, checked);
   assert.equal(checklistDay(new Date(2026, 9, 17, 23, 59)), "2026-10-17");
@@ -76,9 +74,29 @@ test("跨日清除完成状态并保留顺序；同日刷新保留完成状态�
 });
 
 test("blank draft is excluded from storage, ordering and completion; named draft becomes an item", () => {
-  const items: ChecklistItem[] = [{ id: "a", text: "水杯", completed: true, order: 0 }];
+  const items: ChecklistItem[] = [
+    { id: "a", text: "水杯", completed: true, order: 0 },
+  ];
   assert.equal(appendChecklistItem(items, "  ", "draft"), items);
   const next = appendChecklistItem(items, "  毛巾  ", "b");
-  assert.deepEqual(next.map(item => [item.id, item.text, item.completed]), [["b", "毛巾", false], ["a", "水杯", true]]);
-  assert.equal(appendChecklistItem(Array.from({ length: 10 }, (_, i) => ({ id: String(i), text: "物品", completed: false, order: i })), "毛巾", "extra").length, 10);
+  assert.deepEqual(
+    next.map((item) => [item.id, item.text, item.completed]),
+    [
+      ["a", "水杯", true],
+      ["b", "毛巾", false],
+    ],
+  );
+  assert.equal(
+    appendChecklistItem(
+      Array.from({ length: 10 }, (_, i) => ({
+        id: String(i),
+        text: "物品",
+        completed: false,
+        order: i,
+      })),
+      "毛巾",
+      "extra",
+    ).length,
+    10,
+  );
 });

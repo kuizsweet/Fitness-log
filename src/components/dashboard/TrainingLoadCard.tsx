@@ -111,6 +111,7 @@ export function TrainingLoadCard({
     return () => controls.forEach((control) => control?.stop());
   }, [
     active,
+    baseline,
     x,
     top,
     bottom,

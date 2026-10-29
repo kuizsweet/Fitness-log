@@ -42,15 +42,15 @@ test("分肌群分母独立，未知归未细分，零/空组数不编造，源�
   assert.deepEqual(planMuscleDistribution([]), {});
   assert.equal(list[6].muscle, "胸 / 未细分");
 });
-test("便签完整限制在可用画布内，窗口缩小/旧坐标/放大均无越界且不修改原数据", () => {
+test("便签尺寸适配画布但保留越界位置，不拉回鼠标抓取点或修改原数据", () => {
   const n = { ...createNote(0), x: 600, y: 900, width: 650, height: 600 };
   const fitted = fitNoteToCanvas(n, 520, 500);
   assert.deepEqual(
     [fitted.x, fitted.y, fitted.width, fitted.height],
-    [0, 0, 520, 500],
+    [600, 900, 520, 500],
   );
   const moved = fitNoteToCanvas({ ...n, width: 300, height: 220 }, 520, 500);
-  assert.deepEqual([moved.x, moved.y], [220, 280]);
+  assert.deepEqual([moved.x, moved.y], [600, 900]);
   assert.equal(n.x, 600);
   assert.equal(fitNoteToCanvas(n, 0, 0), n);
 });

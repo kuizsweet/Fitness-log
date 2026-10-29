@@ -1,14 +1,19 @@
+/* Radix Slate: surfaces 1, controls 8, secondary text 11, primary text 12. */
 .checklist {
+  --check-bg: #fcfcfd;
+  --check-hover: #b9bbc6;
+  --check-muted: #60646c;
+  --check-ink: #1c2024;
   min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+:global(html[data-theme="dark"]) .checklist {
+  --check-bg: #111113;
+  --check-hover: #5a6169;
+  --check-muted: #b0b4ba;
+  --check-ink: #edeef0;
 }
 .header {
   display: flex;
@@ -24,25 +29,37 @@
 .header > [data-slot="tabs-list"] {
   flex: none;
 }
-.row {
-  height: 22px;
+.listFrame {
+  padding: 1px 12px;
+  border: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  position: relative;
+  background: transparent;
   min-width: 0;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+.row {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 7px;
-  border-radius: 5px;
-  color: var(--ink, #f4f4f5);
+  height: 40px;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  color: var(--check-ink);
+  background: transparent;
 }
-.row:hover {
-  background: var(--field, #202020);
-}
-.row[data-dragging] {
-  opacity: 0.3;
-  background: var(--field, #202020);
-}
-.checklist .handle,
-.checklist .remove,
-.checklist .addButton {
+.checklist .remove {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -51,129 +68,48 @@
   height: 22px;
   min-height: 22px !important;
   padding: 0 !important;
+  margin-left: 2px;
   border: 0 !important;
   background: transparent !important;
-  color: var(--muted, #a1a1aa);
+  color: var(--check-muted);
 }
-.checklist .handle {
-  touch-action: none;
-  cursor: grab;
-}
-.checklist .handle[data-dragging] {
-  cursor: grabbing;
-}
-.row svg,
-.add svg {
+.remove svg {
   width: 15px;
   height: 15px;
   flex: none;
 }
-.checklist .checkbox,
-.previewCheck {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 15px;
-  height: 15px;
-  min-height: 15px !important;
-  padding: 0 !important;
-  border: 1px solid var(--muted, #a1a1aa) !important;
-  border-radius: 3px;
-  background: transparent !important;
-}
-.checklist .checkbox[data-checked] {
-  color: var(--surface, #111);
-  background: var(--accent, #a8c5ef) !important;
-  border-color: var(--accent, #a8c5ef) !important;
-}
-.checkbox svg {
-  width: 12px;
-  height: 12px;
-}
-.name {
-  flex: 1;
-  min-width: 0;
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.name[data-completed] {
-  color: var(--muted, #a1a1aa);
-  text-decoration: line-through;
-}
-.checklist .remove:hover,
-.checklist .handle:hover {
-  color: var(--ink, #f4f4f5);
-}
-.add {
-  display: flex;
-  gap: 4px;
-  height: 29px;
-  align-items: center;
-  border: 1px solid var(--line, #303030);
-  border-radius: 6px;
-  padding: 0 3px 0 8px;
-}
-.checklist .add input {
-  width: 0;
-  flex: 1;
-  min-width: 0;
-  height: 22px;
-  min-height: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  color: inherit;
-  font: inherit;
-  font-size: 12px;
-  outline: none;
-}
-.add:focus-within {
-  outline: 2px solid var(--focus, #91b9ef);
-  outline-offset: 2px;
-}
-.error {
-  font-size: 11px;
-  color: var(--muted, #a1a1aa);
-  line-height: 1.4;
-}
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  height: 22px;
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--muted);
-}
-.checklist .pagination button {
-  min-height: 22px;
-  height: 22px;
-  padding: 0 6px;
-  line-height: 1;
-}
-.overlay {
-  padding: 0 6px;
-  background: var(--field, #242424);
-  border: 1px solid var(--line, #404040);
-  box-shadow: 0 4px 12px #0003;
-  pointer-events: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .row {
-    transition: none !important;
+@media (hover: hover) and (pointer: fine) {
+  .checklist .remove:hover {
+    color: var(--check-ink);
   }
 }
-
-.checklist .draftRow { margin-top: 2px; }
-.checklist .draftRow:hover { background: transparent; }
-.draftHandle { width: 24px; flex: none; }
-.checklist .draftRow .checkbox { opacity: 0.35; cursor: default; }
+.checklist .checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  min-height: 18px !important;
+  padding: 0 !important;
+  border: 1px solid var(--check-hover) !important;
+  border-radius: 5px;
+  background: transparent !important;
+}
+.checklist .draftRow {
+  margin-top: 0;
+  gap: 12px;
+  height: 40px;
+  font-size: 14px;
+}
+.checklist .draftRow .checkbox {
+  opacity: 0.35;
+  cursor: default;
+}
+.list:has([data-fell]) + .draftRow {
+  opacity: 0;
+  pointer-events: none;
+}
 .checklist.checklist .draftName,
 .checklist.checklist .draftName:is(:focus, :focus-visible, :hover) {
   flex: 1;
@@ -187,8 +123,123 @@
   outline: none;
   box-shadow: none;
   background: transparent;
-  color: var(--ink);
+  color: var(--check-ink);
   font: inherit;
-  font-size: 13px;
+  font-size: 14px;
+  letter-spacing: -0.01em;
 }
-.checklist .draftName::placeholder { color: var(--muted); opacity: 1; }
+.checklist .draftName::placeholder {
+  color: var(--check-muted);
+  opacity: 1;
+}
+.error {
+  font-size: 12px;
+  color: var(--check-muted);
+  line-height: 1.4;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  height: 22px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--check-muted);
+}
+.checklist .pagination button {
+  min-height: 22px;
+  height: 22px;
+  padding: 0 6px;
+  line-height: 1;
+}
+.checklist .taskToggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  min-width: 0;
+  padding: 0 !important;
+  margin: 0;
+  height: 40px;
+  min-height: 40px;
+  border: 0 !important;
+  border-radius: 10px;
+  background: transparent !important;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.checklist .taskToggle:focus-visible {
+  outline: 2px solid var(--check-muted);
+  outline-offset: 2px;
+}
+.springBox {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 18px;
+  height: 18px;
+  border-radius: 5.76px;
+  box-shadow: inset 0 0 0 1.5px
+    color-mix(in srgb, var(--check-ink) 28%, transparent);
+}
+.springFill {
+  position: absolute;
+  inset: 0;
+  background: var(--check-ink);
+  border-radius: inherit;
+  transform-origin: center;
+}
+.checklist .springTick {
+  position: relative;
+  width: 68%;
+  height: 68%;
+  overflow: visible;
+  fill: none;
+  stroke: var(--check-bg);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.springSay {
+  position: relative;
+  display: inline-block;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.springRule {
+  position: absolute;
+  inset-inline: 0;
+  top: 46%;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transform-origin: left center;
+  pointer-events: none;
+}
+.row[data-fell]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: var(--slip, 11px);
+  bottom: var(--slip, 11px);
+  border-radius: 10px;
+  background: var(--check-bg);
+  z-index: -1;
+}
+.row[data-fell] {
+  clip-path: inset(var(--slip, 11px) 0 round 8px);
+}

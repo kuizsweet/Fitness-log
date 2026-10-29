@@ -1,7 +1,7 @@
 // Lens Design System (MIT), see LICENSE.
 import {tokens} from './tokens.js';
 import {OpticalDragMotion} from './optical-motion.js';
-import {opticClamp, opticRange, opticXY, opticPoint, opticDropTarget, opticColor, setOpticalState, readOpticalState, clearOpticalState, opticalSelection} from './optics.js';
+import {opticClamp, opticXY, opticPoint, opticDropTarget, opticColor, setOpticalState, readOpticalState, clearOpticalState} from './optics.js';
 
 let opticalId = 0;
 const opticalNode = (tag, className, text) => {

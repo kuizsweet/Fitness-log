@@ -55,3 +55,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+# Bencho Checklist
+
+Source: https://bencho.dev/blocks/checklist
+React and CSS source supplied by the project owner. Adapted shared-spring checkbox feedback and the completed-list heap animation to the existing Motion dependency, persistent checklist data, pagination, and delete controls. Demo task reset is excluded. Original licence terms remain applicable.

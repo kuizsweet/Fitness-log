@@ -1,5 +1,6 @@
 "use client";
 import { CalendarMonthPicker } from "./CalendarMonthPicker";
+import { HangingCalendar } from "./HangingCalendar";
 import { FridgeMagnets, type MagnetPaperMove } from "./FridgeMagnets";
 import { WarehouseNote, PaperSurface, FoldedNotePreview } from "./FridgeNote";
 import {
@@ -33,8 +34,6 @@ import {
 } from "@dnd-kit/core";
 import { createPortal, flushSync } from "react-dom";
 import {
-  ChevronLeft,
-  ChevronRight,
   GripVertical,
   Pin,
   Plus,
@@ -63,6 +62,11 @@ import {
 
 import {
   createNote,
+  createSourceNote,
+  takeSourcePaper,
+  randomPaperStyle,
+  completedNoteSession,
+  type PaperCurlStyle,
   isBenchExercise,
   nearTrashEdge,
   exerciseInsertionIndex,
@@ -140,10 +144,15 @@ function Workbench({
   const [openFilter, setOpenFilter] = useState<"devices" | "muscles" | null>(
     null,
   );
+  const [sourcePapers, setSourcePapers] = useState<PaperCurlStyle[]>(["right","none","left"]);
+  const sourceRefill = useRef<PaperCurlStyle>("none");
   const [sourcePosition, setSourcePosition] = useState<{x:number;y:number} | undefined>();
   const [magnetPaper, setMagnetPaper] = useState<{noteId:string;position:{x:number;y:number}} | null>(null);
   const [dragging, setDragging] = useState<Move | null>(null);
   const [outsideCanvas, setOutsideCanvas] = useState(false);
+  const expandTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const clearExpandTimer = () => { if (expandTimer.current) clearTimeout(expandTimer.current); expandTimer.current = null; };
+  useEffect(() => () => clearExpandTimer(), []);
   const [grabbedNote, setGrabbedNote] = useState<string | null>(null);
   useEffect(() => {
     if (!grabbedNote) return;
@@ -271,7 +280,7 @@ function Workbench({
     useSensor(PointerSensor, {
       activationConstraint: { distance: 6 },
       bypassActivationConstraint: ({ activeNode }) =>
-        activeNode.data.current?.kind === "note",
+        ["note", "warehouse"].includes(activeNode.data.current?.kind),
     }),
     useSensor(KeyboardSensor),
   );
@@ -281,13 +290,25 @@ function Workbench({
       let source: {x:number;y:number} | undefined;
       try {source=savedSource?JSON.parse(savedSource):undefined;} catch {source=undefined;}
       setSourcePosition(source && [source.x,source.y].every((value)=>Number.isFinite(value)&&value>=0&&value<=1) ? source : undefined);
+      let stack: unknown;
+      try {const raw=localStorage.getItem(`${key}:paper-stack`);stack=raw?JSON.parse(raw):undefined;} catch {stack=undefined;}
+      const validStack=Array.isArray(stack)&&stack.length===3&&stack.every(value=>typeof value==="boolean"||["none","left","right","large-left","large-right"].includes(value));
+      const loadedStack:PaperCurlStyle[]=validStack?(stack as (boolean|PaperCurlStyle)[]).map(value=>typeof value==="boolean"?(value?(Math.random()<.5?"left":"right"):"none"):value):[randomPaperStyle(),randomPaperStyle(),randomPaperStyle()];
+      setSourcePapers(loadedStack);
+      if(!validStack||(stack as unknown[]).some(value=>typeof value==="boolean"))try {localStorage.setItem(`${key}:paper-stack`,JSON.stringify(loadedStack));} catch { /* Keep the paper source usable when storage is full. */ }
       const restored = readWorkbench(
         localStorage.getItem(draftKey) ?? localStorage.getItem(key),
       );
+      const legacyStored = restored.notes.filter(note=>note.inWarehouse&&note.paperCurl===undefined);
+      const curled = new Set(legacyStored.map(note=>({id:note.id,random:Math.random()})).sort((a,b)=>a.random-b.random).slice(0,Math.ceil(legacyStored.length/2)).map(note=>note.id));
       setState({
         ...restored,
         notes: restored.notes.map((note) => ({
           ...note,
+          ...(restored.assignments[today()]?.includes(note.id) && !note.inWarehouse
+            ? {inWarehouse:true,savedToWarehouse:true,fridgePosition:{x:.12,y:.12}} : {}),
+          paperCurlSide: note.paperCurlSide ?? (Math.random()<.5 ? "left" : "right"),
+          paperCurl: note.paperCurl ?? (note.inWarehouse ? curled.has(note.id) : Math.random()<.5),
           exercises: note.exercises.map((exercise) => ({
             ...exercise,
             muscle:
@@ -349,6 +370,16 @@ function Workbench({
     const highest = Math.max(0, ...state.notes.map((n) => n.z));
     if (note && note.z < highest) changeNote(id, { z: highest + 1 });
   }
+  function consumeSourcePaper(refill:PaperCurlStyle) {
+    const next=takeSourcePaper(sourcePapers,refill);
+    setSourcePapers(next);
+    try {localStorage.setItem(`${key}:paper-stack`,JSON.stringify(next));} catch {setError("未能保存纸叠样式，请检查本地存储空间。");}
+  }
+  function createFromSource() {
+    if (!ready || state.notes.length>=30) return;
+    addNote(createSourceNote(state.notes.length,sourcePapers[0]));
+    consumeSourcePaper(randomPaperStyle());
+  }
   function addNote(note = createNote(state.notes.length), atPointer = false) {
     if (state.notes.length >= 30) {
       setError("最多保留 30 张便签。");
@@ -383,9 +414,28 @@ function Workbench({
     });
     setSelected(note.id);
   }
-  function assign(id: string, target: string, before: string | null = null) {
-    if (target < today()) return;
-    update(assignWorkbenchNote(state, id, target, before, today()));
+  const recording = useRef(new Set<string>());
+  async function assign(id: string, target: string, before: string | null = null) {
+    const note = state.notes.find((item) => item.id === id);
+    if (!note) return;
+    if (target < today()) {
+      const token = `${id}:${target}`;
+      if (recording.current.has(token)) return;
+      recording.current.add(token);
+      try {
+        await api("sessions", completedNoteSession(note, target));
+        setDate(target);
+        setError("");
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "训练记录保存失败");
+      } finally { recording.current.delete(token); }
+      return;
+    }
+    const next = assignWorkbenchNote(state, id, target, before, today());
+    const index = Math.max(0, (next.assignments[target]?.length ?? 1) - 1);
+    update({...next, notes:next.notes.map((item) => item.id === id ? {...item,
+      fridgePosition:{x:.08 + (index % 3) * .26, y:.12 + (Math.floor(index / 3) % 2) * .08},
+      z:Math.max(0,...next.notes.map((value)=>value.z))+1} : item)});
     setError("");
     setDate(target);
   }
@@ -438,22 +488,25 @@ function Workbench({
     return { before: warehouseInsertBefore(rows, y, x), group: group.dataset.warehouseGroup ?? "backup" };
   }
   function endDrag(event: DragEndEvent) {
+    clearExpandTimer();
     const move = event.active.data.current as Move | undefined;
     setDragging(null);
     setExerciseInsertion(null);
-    const point = dragPointer.current;
-    if (point && [...document.querySelectorAll<HTMLElement>("[data-calendar-date]")].some((node) => {
-      const rect = node.getBoundingClientRect();
-      return node.dataset.calendarDate! < today() && point.x >= rect.left && point.x <= rect.right && point.y >= rect.top && point.y <= rect.bottom;
-    })) return;
     if (!move || !event.over) return;
+    if (move.kind === "warehouse" && Math.hypot(event.delta.x, event.delta.y) < 1) return;
     if (move.kind === "new") {
+      if (event.over.id === "note-trash") {
+        newNoteDraft.current = null;
+        consumeSourcePaper(sourceRefill.current);
+        return;
+      }
       const box = canvas.current?.getBoundingClientRect();
       const note = newNoteDraft.current;
       if (box && note && (event.over.id === "canvas" || event.over.data.current?.noteId)) {
         const point = dragPointer.current ?? { x: dragOrigin.current.pointerX + event.delta.x, y: dragOrigin.current.pointerY + event.delta.y };
         const grab = warehouseGrabPoint(note, box.width);
         addNote(placeNoteAtPointer(note, box.width, box.height, point.x - box.left, point.y - box.top, grab.x, grab.y), true);
+        consumeSourcePaper(sourceRefill.current);
       }
       newNoteDraft.current = null;
       return;
@@ -495,8 +548,10 @@ function Workbench({
         addNote(note);
       }
     } else if (event.over.id === "warehouse" || over?.warehouseGroup) {
-      const before = warehouseTarget(event)?.before ?? null;
-      const next = over?.warehouseGroup === "day"
+      const target = warehouseTarget(event);
+      const before = target?.before ?? null;
+      const toDay = (over?.warehouseGroup ?? target?.group) === "day";
+      const next = toDay
         ? assignWorkbenchNote(state, move.id, date, before, today())
         : unassignWorkbenchNote(state, move.id, date, before);
       const host = canvas.current?.closest("main")?.querySelector<HTMLElement>('[aria-label="便签仓库"]');
@@ -507,18 +562,35 @@ function Workbench({
         const box = host.getBoundingClientRect();
         const size = warehousePaperSize(fitNoteToCanvas(note, canvasSize.width, canvasSize.height));
         const paper = {left:point.x-size.width*compactGrab.current.x,top:point.y-size.height*compactGrab.current.y,width:size.width,height:size.height};
-        position = {x:Math.max(0,Math.min(1,(paper.left-box.left)/Math.max(1,box.width-size.width))),y:Math.max(0,Math.min(1,(paper.top-box.top-9)/Math.max(1,box.height-size.height)))};
         const magnets = [...host.querySelectorAll<HTMLElement>("[data-fridge-magnet-id]")]
           .map((element) => { const rect = element.getBoundingClientRect(); return {x:rect.left+rect.width/2,y:rect.top+rect.height/2}; })
           .filter((magnet) => magnetInPaperUpperHalf(magnet,paper))
           .sort((a,b) => Math.hypot(a.x-point.x,a.y-point.y)-Math.hypot(b.x-point.x,b.y-point.y));
         const magnet = magnets[0];
-        if (magnet) {
+        if (magnet || toDay) {
           position = {
-            x: Math.max(0, Math.min(1,(magnet.x-box.left-size.width/2)/Math.max(1,box.width-size.width))),
-            y: Math.max(0, Math.min(1,(magnet.y-box.top-9)/Math.max(1,box.height-size.height))),
+            x: Math.max(0, Math.min(1,(paper.left-box.left)/Math.max(1,box.width-size.width))),
+            y: Math.max(0, Math.min(1,(paper.top-box.top-9)/Math.max(1,box.height-size.height))),
           };
         }
+      }
+      // A fridge drop is valid only when the top of the paper catches a magnet.
+      // Otherwise detach it onto the canvas instead of saving a loose fridge paper.
+      if (!position) {
+        const original = state.notes.find((item) => item.id === move.id);
+        const board = canvas.current?.getBoundingClientRect();
+        if (original && board) {
+          const grab = warehouseGrabPoint(original, board.width);
+          const pointer = point ?? {x:board.left + grab.x, y:board.top + grab.y};
+          const fridgeRight = host?.getBoundingClientRect().right ?? board.left;
+          const dropped = placeNoteAtPointer(original, board.width, board.height,
+            Math.max(pointer.x, fridgeRight + grab.x + 16) - board.left,
+            pointer.y - board.top, grab.x, grab.y);
+          changeNote(original.id, {...dropped, inWarehouse:false, fridgePosition:undefined,
+            z:Math.max(0,...state.notes.map((item)=>item.z))+1});
+          setSelected(original.id);
+        }
+        return;
       }
       update({...next, notes:next.notes.map((item) => item.id === move.id ? {...item, fridgePosition:position, z:Math.max(0,...next.notes.map((value)=>value.z))+1} : item)});
       if (selected === move.id)
@@ -633,8 +705,9 @@ function Workbench({
               : rectIntersection(targets);
       }}
       onDragStart={(e) => {
+        clearExpandTimer();
         const move = e.active.data.current as Move;
-        if (move.kind === "new") newNoteDraft.current = createNote(state.notes.length);
+        if (move.kind === "new") { newNoteDraft.current = createSourceNote(state.notes.length,sourcePapers[0]); sourceRefill.current=randomPaperStyle(); }
         // dnd-kit publishes active.rect after onDragStart. Read the source now,
         // before hiding it, rather than silently using the viewport origin.
         const source = move.kind === "new" ? document.querySelector<HTMLElement>("[data-new-note-source]") : move.kind !== "exercise"
@@ -678,7 +751,7 @@ function Workbench({
           const note = move.kind === "new" ? newNoteDraft.current : state.notes.find((item) => item.id === move.id);
           if (note) {
             const paper = warehousePaperSize(fitNoteToCanvas(note, canvasSize.width, canvasSize.height), 92);
-            setPreviewSize({ width: paper.width, minHeight: paper.height });
+            setPreviewSize(move.kind === "new" && initial ? {width:initial.width,minHeight:initial.height} : { width: paper.width, minHeight: paper.height });
           }
         }
         setDragging(move);
@@ -696,6 +769,7 @@ function Workbench({
         if (move.kind === "note") setEditing((value) => value + 1);
       }}
       onDragCancel={() => {
+        clearExpandTimer();
         newNoteDraft.current = null;
         setDragging(null);
         setExerciseInsertion(null);
@@ -751,33 +825,20 @@ function Workbench({
               : null,
           );
         }
-        setOutsideCanvas((previous) =>
-          Boolean(
-            [leftPanelRef.current, libraryRef.current].some((panel) => {
-              const box = panel?.getBoundingClientRect();
-              if (panel === leftPanelRef.current) {
-                return [...(panel?.querySelectorAll<HTMLElement>("[data-fridge-magnet]") ?? [])].some((magnet) => {
-                  const rect = magnet.getBoundingClientRect();
-                  if (!draggedPlan) return false;
-                  const size=warehousePaperSize(draggedPlan);
-                  return magnetInPaperUpperHalf({x:rect.left+rect.width/2,y:rect.top+rect.height/2}, {left:point.x-size.width*compactGrab.current.x,top:point.y-size.height*compactGrab.current.y,width:size.width,height:size.height});
-                });
-              }
-              return (
-                box &&
-                point.x >= box.left - (previous ? 6 : 0) &&
-                point.x <= box.right + (previous ? 6 : 0) &&
-                point.y >= box.top - (previous ? 6 : 0) &&
-                point.y <= box.bottom + (previous ? 6 : 0)
-              );
-            }) ||
-            (bounds &&
-              (point.x < bounds.left ||
-                point.x > bounds.right ||
-                point.y < bounds.top ||
-                point.y > bounds.bottom)),
-          ),
-        );
+        const fridge = leftPanelRef.current?.querySelector<HTMLElement>('[aria-label="便签仓库"]')?.getBoundingClientRect();
+        const paperSize = draggedPlan ? warehousePaperSize(draggedPlan) : previewSize;
+        const paper = {left:point.x-paperSize.width*compactGrab.current.x,top:point.y-("height" in paperSize ? paperSize.height : paperSize.minHeight)*compactGrab.current.y,width:paperSize.width,height:"height" in paperSize ? paperSize.height : paperSize.minHeight};
+        const inFridge = fridge && paper.left <= fridge.right && paper.left+paper.width >= fridge.left && paper.top <= fridge.bottom && paper.top+paper.height >= fridge.top;
+        const library = libraryRef.current?.getBoundingClientRect();
+        const compact = Boolean(inFridge || (library && point.x >= library.left && point.x <= library.right && point.y >= library.top && point.y <= library.bottom) ||
+          (bounds && (point.x < bounds.left || point.x > bounds.right || point.y < bounds.top || point.y > bounds.bottom)));
+        if (compact) {
+          clearExpandTimer();
+          setOutsideCanvas(true);
+        } else if (outsideCanvas && !expandTimer.current) {
+          expandTimer.current = setTimeout(() => { expandTimer.current = null; setOutsideCanvas(false); }, 160);
+        }
+
       }}
       onDragEnd={endDrag}
     >
@@ -826,23 +887,8 @@ function Workbench({
                 }
               }}
             />
-            <section className={styles.calendar} aria-label="计划日历">
+            <HangingCalendar><section className={styles.calendar} aria-label="计划日历">
               <div className={styles.monthHeading}>
-                <button
-                  aria-label="上一月"
-                  disabled={month.from <= "2020-01-01"}
-                  onClick={() =>
-                    setMonthDate(
-                      changeCalendarMonth(
-                        monthDate,
-                        month.month === 1 ? month.year - 1 : month.year,
-                        month.month === 1 ? 12 : month.month - 1,
-                      ),
-                    )
-                  }
-                >
-                  <ChevronLeft />
-                </button>
                 <CalendarMonthPicker year={month.year} month={month.month}
                   onChange={(year, value) => setMonthDate(changeCalendarMonth(monthDate, year, value))} />
                 <button
@@ -853,21 +899,6 @@ function Workbench({
                   }}
                 >
                   今天
-                </button>
-                <button
-                  aria-label="下一月"
-                  disabled={month.to >= "2030-12-31"}
-                  onClick={() =>
-                    setMonthDate(
-                      changeCalendarMonth(
-                        monthDate,
-                        month.month === 12 ? month.year + 1 : month.year,
-                        month.month === 12 ? 1 : month.month + 1,
-                      ),
-                    )
-                  }
-                >
-                  <ChevronRight />
                 </button>
               </div>
               <div className={styles.days}>
@@ -894,7 +925,7 @@ function Workbench({
                   );
                 })}
               </div>
-            </section>
+            </section></HangingCalendar>
             {date < today() ? <TrainingHistory key={date} date={date} /> : <Warehouse storageKey={`${key}:magnets`} onPaperMove={(movement) => {
               if (movement.cancel) { setMagnetPaper(null); return; }
               if (movement.commit) {
@@ -912,7 +943,7 @@ function Workbench({
                 ] as const
               ).map(([group, title, notes]) => (
                 <WarehouseGroup key={group} group={group} title={title}>
-                  {group === "day" && <NewNoteSource position={magnetPaper?.noteId === "new-note-source" ? magnetPaper.position : sourcePosition} magnetHeld={magnetPaper?.noteId === "new-note-source"} onCreate={() => addNote()} disabled={!ready || state.notes.length >= 30} />}
+                  {group === "day" && <NewNoteSource position={magnetPaper?.noteId === "new-note-source" ? magnetPaper.position : sourcePosition} magnetHeld={magnetPaper?.noteId === "new-note-source"} papers={dragging?.kind === "new" ? takeSourcePaper(sourcePapers,sourceRefill.current) : sourcePapers} onCreate={createFromSource} disabled={!ready || state.notes.length >= 30} />}
                   <div
                     className={styles.warehouseList}
                   >
@@ -1212,8 +1243,8 @@ function Workbench({
             note={draggedPlan!}
             onHeader={measurePreviewHeader}
           />
-        ) : dragging && dragging.kind !== "exercise" && dragging.kind !== "new" && draggedPlan ? (
-          <FoldedNotePreview note={draggedPlan} />
+        ) : dragging && dragging.kind !== "exercise" && draggedPlan ? (
+          <FoldedNotePreview note={draggedPlan} blank={dragging.kind === "new"} />
         ) : dragging && (dragging.kind !== "note" || outsideCanvas) ? (
           <div
             className={styles.dragPreview}
@@ -1420,7 +1451,7 @@ function Warehouse({ children, storageKey, onPaperMove }: { children: ReactNode;
       data-over={isOver || undefined}
       aria-label="便签仓库"
     >
-      <img className={styles.fridgeArtwork} src="/illustrations/training-fridge.svg" alt="" aria-hidden />
+      <img className={styles.fridgeArtwork} src="/illustrations/training-fridge.svg?v=4" alt="" aria-hidden />
       {children}
       <FridgeMagnets storageKey={storageKey} onPaperMove={onPaperMove} />
     </section>
@@ -1489,7 +1520,6 @@ function CalendarDay({
   const { setNodeRef, isOver } = useDroppable({
     id: `day:${date}`,
     data: { date },
-    disabled: date < today(),
   });
   return (
     <button
@@ -1513,7 +1543,7 @@ function CalendarDay({
     </button>
   );
 }
-function NewNoteSource({ onCreate, disabled, position, magnetHeld }: { onCreate: () => void; disabled: boolean; position?:{x:number;y:number}; magnetHeld:boolean }) {
+function NewNoteSource({ onCreate, disabled, position, magnetHeld, papers }: { onCreate: () => void; disabled: boolean; position?:{x:number;y:number}; magnetHeld:boolean; papers:PaperCurlStyle[] }) {
   const sourceRef=useRef<HTMLButtonElement>(null);
   const [geometry,setGeometry]=useState({width:280,height:472,x:10,y:13,paperWidth:104,paperHeight:71});
   useLayoutEffect(()=>{
@@ -1530,13 +1560,9 @@ function NewNoteSource({ onCreate, disabled, position, magnetHeld }: { onCreate:
     style={position?{left:position.x*Math.max(0,geometry.width-geometry.paperWidth)-geometry.x,top:position.y*Math.max(0,geometry.height-geometry.paperHeight)+9-geometry.y,zIndex:magnetHeld?90:undefined}:undefined}
     data-magnet-held={magnetHeld||undefined} className={styles.fridgeNewNote} data-new-note-source disabled={disabled}
     aria-label="新建便签" onClick={onCreate}>
-    <svg className={styles.newPaperStack} viewBox="0 0 112 76" aria-hidden>
-      <path className={styles.stackBack} d="M5 9L105 5L109 71L8 74Z" />
-      <path className={styles.stackMiddle} d="M2 4L104 7L103 72L3 69Z" />
-      <path className={styles.stackFront} d="M5 2H107V55Q106 66 91 68H5Z" />
-      <path className={styles.stackCurlShadow} d="M91 68Q100 59 107 55Q105 68 91 68Z" />
-      <path className={styles.stackCurl} d="M91 68Q96 56 107 55Q103 63 91 68Z" />
-    </svg>
+    <span className={styles.sourcePaperStack} aria-hidden>
+      {[2,1,0].map(index=><span key={index} className={styles.sourcePaperLayer} data-layer={index} data-note-color="gray"><PaperSurface note={{id:`source-${index}`,paperCurl:papers[index]!=="none",paperCurlSide:papers[index].endsWith("left")?"left":"right",paperCurlSize:papers[index].startsWith("large-")?"large":"small"}} /></span>)}
+    </span>
   </button>;
 }
 function LibraryExercise({

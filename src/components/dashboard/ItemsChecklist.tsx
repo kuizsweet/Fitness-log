@@ -1,21 +1,8 @@
 "use client";
-import {
-  useEffect,
-  useLayoutEffect,
-  useState,
-  useRef,
-  type ReactNode,
-} from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 import { Checkbox } from "@base-ui/react/checkbox";
-import { Check, GripVertical, X } from "lucide-react";
+import { ChecklistRows } from "./ChecklistRows";
 import { Button } from "../ui/button";
-import {
-  Sortable,
-  SortableContent,
-  SortableItem,
-  SortableItemHandle,
-  SortableOverlay,
-} from "../ui/sortable";
 import { useResourceUser } from "../ResourceProvider";
 import {
   ITEM_LIMIT,
@@ -57,37 +44,6 @@ function Checklist({
   const [ready, setReady] = useState(false);
   const [error, setError] = useState("");
   const root = useRef<HTMLDivElement>(null);
-  const before = useRef(new Map<string, DOMRect>());
-  const motions = useRef<Animation[]>([]);
-  useLayoutEffect(() => {
-    const positions = before.current;
-    before.current = new Map();
-    if (
-      !positions.size ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    root.current
-      ?.querySelectorAll<HTMLElement>("[data-checklist-id]")
-      .forEach((node) => {
-        const old = positions.get(node.dataset.checklistId!);
-        const next = node.getBoundingClientRect();
-        if (old && old.y !== next.y)
-          motions.current.push(
-            node.animate(
-              [
-                { transform: `translateY(${old.y - next.y}px)` },
-                { transform: "translateY(0)" },
-              ],
-              { duration: 180, easing: "cubic-bezier(0.23, 1, 0.32, 1)" },
-            ),
-          );
-      });
-  }, [items]);
-  useEffect(
-    () => () => motions.current.forEach((animation) => animation.cancel()),
-    [],
-  );
   const [capacity, setCapacity] = useState(10);
   const [page, setPage] = useState(0);
   useEffect(() => {
@@ -99,12 +55,13 @@ function Checklist({
         card!.clientHeight -
         parseFloat(style.paddingTop) -
         parseFloat(style.paddingBottom) -
+        2 -
         (controls ? 44 : 0) -
-        (active && items.length < ITEM_LIMIT ? 24 : 0);
-      const full = Math.max(1, Math.min(10, Math.floor((available + 2) / 24)));
+        (active && items.length < ITEM_LIMIT ? 40 : 0);
+      const full = Math.max(1, Math.min(10, Math.floor(available / 40)));
       setCapacity(
         items.length > full
-          ? Math.max(1, Math.floor((available - 26) / 24))
+          ? Math.max(1, Math.floor((available - 26) / 40))
           : full,
       );
     }
@@ -195,7 +152,11 @@ function Checklist({
   }
   function commitDraft() {
     if (!ready || !text.trim() || items.length >= ITEM_LIMIT) return;
-    const next = appendChecklistItem(itemsRef.current, text, crypto.randomUUID());
+    const next = appendChecklistItem(
+      itemsRef.current,
+      text,
+      crypto.randomUUID(),
+    );
     if (save(next)) {
       setText("");
       setPage(Math.floor((next.length - 1) / capacity));
@@ -204,105 +165,20 @@ function Checklist({
   return (
     <div ref={root} className={styles.checklist}>
       {controls && <div className={styles.header}>{controls}</div>}
-      <div>
-        <Sortable
-          value={visibleItems}
-          onValueChange={(next) =>
-            save([
-              ...items.slice(0, currentPage * capacity),
-              ...next,
-              ...items.slice((currentPage + 1) * capacity),
-            ])
+      <div className={styles.listFrame}>
+        <ChecklistRows
+          items={visibleItems}
+          allDone={items.length > 0 && items.every((item) => item.completed)}
+          spare={
+            active && items.length < ITEM_LIMIT && currentPage === pages - 1
           }
-          getItemValue={(item) => item.id}
-          orientation="vertical"
-          autoScroll={false}
-        >
-          <SortableContent
-            className={styles.list}
-            role="list"
-            aria-label="物品清单"
-          >
-            {visibleItems.map((item) => (
-              <SortableItem
-                key={item.id}
-                value={item.id}
-                className={styles.row}
-                role="listitem"
-                data-checklist-id={item.id}
-              >
-                <SortableItemHandle
-                  className={styles.handle}
-                  aria-label={`拖动排序：${item.text}`}
-                >
-                  <GripVertical aria-hidden />
-                </SortableItemHandle>
-                <Checkbox.Root
-                  className={styles.checkbox}
-                  checked={item.completed}
-                  onCheckedChange={(completed) => {
-                    before.current = new Map();
-                    root.current
-                      ?.querySelectorAll<HTMLElement>("[data-checklist-id]")
-                      .forEach((node) =>
-                        before.current.set(
-                          node.dataset.checklistId!,
-                          node.getBoundingClientRect(),
-                        ),
-                      );
-                    motions.current.forEach((animation) => animation.cancel());
-                    motions.current = [];
-                    if (!save(toggleItem(itemsRef.current, item.id, completed)))
-                      before.current.clear();
-                  }}
-                  aria-label={`已准备：${item.text}`}
-                >
-                  <Checkbox.Indicator>
-                    <Check aria-hidden />
-                  </Checkbox.Indicator>
-                </Checkbox.Root>
-                <span
-                  className={styles.name}
-                  data-completed={item.completed || undefined}
-                  title={item.text}
-                >
-                  {item.text}
-                </span>
-                <Button
-                  className={styles.remove}
-                  aria-label={`删除：${item.text}`}
-                  onClick={() =>
-                    save(itemsRef.current.filter((value) => value.id !== item.id))
-                  }
-                >
-                  <X aria-hidden />
-                </Button>
-              </SortableItem>
-            ))}
-          </SortableContent>
-          <SortableOverlay>
-            {({ value }) => {
-              const item = items.find((item) => item.id === value);
-              return item ? (
-                <div className={`${styles.row} ${styles.overlay}`}>
-                  <GripVertical aria-hidden />
-                  <span className={styles.previewCheck}>
-                    {item.completed ? <Check aria-hidden /> : null}
-                  </span>
-                  <span
-                    className={styles.name}
-                    data-completed={item.completed || undefined}
-                  >
-                    {item.text}
-                  </span>
-                </div>
-              ) : null;
-            }}
-          </SortableOverlay>
-        </Sortable>
+          onToggle={(id, on) => save(toggleItem(itemsRef.current, id, on))}
+          onDelete={(id) =>
+            save(itemsRef.current.filter((item) => item.id !== id))
+          }
+        />
         {active && items.length < ITEM_LIMIT && currentPage === pages - 1 && (
           <div className={`${styles.row} ${styles.draftRow}`}>
-            <span className={styles.draftHandle} aria-hidden />
             <Checkbox.Root
               className={styles.checkbox}
               checked={false}
@@ -326,7 +202,6 @@ function Checklist({
                 if (event.key === "Escape") setText("");
               }}
             />
-            <span className={styles.draftHandle} aria-hidden />
           </div>
         )}
         {pages > 1 && (

@@ -10,3 +10,6 @@ playwright-report/
 .impeccable/review/
 .local/browser-profile/
 .local/browser-auth/
+
+# Local design studies and verification screenshots
+.design-previews/

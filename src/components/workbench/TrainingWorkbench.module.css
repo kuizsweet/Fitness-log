@@ -1840,7 +1840,10 @@
 .workbench .left .calendar {
   position: relative;
   flex: none;
-  margin: 20px 16px 18px;
+  width: 260px;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  margin: 20px auto 18px;
   padding: 14px 12px 12px;
   border: 1px solid var(--line);
   border-radius: 6px 6px 12px 12px;
@@ -2071,3 +2074,121 @@
 .workbench.workbench .note > header:is(:focus,:focus-visible) { outline: none; box-shadow: none; }
 .workbench .fridgeWarehouse > .fridgeMagnets { z-index: 100; }
 .workbench .fridgeNewNote[data-magnet-held] > .newPaperStack { filter: drop-shadow(0 9px 9px #00000030); }
+/* Rounded paper; elevation belongs to the card, not an SVG filter. */
+.workbench .note > .paperSurface,
+.workbench .fridgeWarehouse .storedNote > .paperSurface,
+.dragPreview[data-paper-shape] > .paperSurface {
+ background: var(--note-color); border: 1px solid var(--note-border); border-radius: inherit;
+ box-sizing: border-box; filter: none;
+}
+.workbench .note[data-paper-shape] { border-radius: 14px; box-shadow: 0 3px 12px #0002; }
+.workbench .fridgeWarehouse .storedNote[data-paper-shape] { border-radius: 6px; box-shadow: 0 2px 6px #00000018; }
+.workbench .note[data-paper-shape][data-grabbed],
+.workbench.fullNotePreview .note[data-paper-shape] { scale: 1.008; box-shadow: 0 18px 40px #00000030, 0 6px 14px #00000024; }
+.workbench .note[data-paper-shape][data-grabbed] > .paperSurface,
+.workbench .fridgeWarehouse .storedNote:is([data-lifted],[data-magnet-held]) > .paperSurface,
+.workbench .fridgeWarehouse .storedNote:has(.warehouseHandle:focus-visible) > .paperSurface,
+.workbench.compactNotePreview .storedNote > .paperSurface { filter: none; }
+.workbench .fridgeWarehouse .storedNote:is([data-lifted],[data-magnet-held]),
+.workbench .fridgeWarehouse .storedNote:has(.warehouseHandle:focus-visible),
+.workbench.compactNotePreview .storedNote { box-shadow: 0 14px 28px #00000030, 0 5px 12px #00000024; }
+@media (prefers-reduced-motion: reduce) {
+ .workbench .note[data-paper-shape][data-grabbed], .workbench.fullNotePreview .note[data-paper-shape] { scale: 1; }
+}
+/* The source top sheet, drag preview and saved note use the same paper surface. */
+.paperSurface { overflow: visible; }
+.workbench .paperSurface > .paperCurl, .dragPreview .paperSurface > .paperCurl { position: absolute; right: 0; bottom: 0; width: 17%; height: 22%; max-width: 46px; max-height: 42px; min-width: 0; pointer-events: none; overflow: visible; }
+.paperCurl path { fill: var(--popover); stroke: var(--note-border); stroke-width: .8; filter: drop-shadow(-1px -1px 1px #00000012); }
+.workbench .sourcePaperStack { position: relative; display: block; width: 100%; height: 100%; }
+.workbench .sourcePaperLayer { position: absolute; inset: 0; display: block; border-radius: 6px; --note-color: var(--note-gray-light); --note-border: var(--note-gray-border-light); }
+.workbench .sourcePaperLayer[data-layer="2"] { transform: translate(-4px,5px) rotate(-2deg); z-index: 0; }
+.workbench .sourcePaperLayer[data-layer="1"] { transform: translate(-2px,3px) rotate(1deg); z-index: 1; }
+.workbench .sourcePaperLayer[data-layer="0"] { z-index: 2; }
+.workbench .sourcePaperLayer > .paperSurface { background: var(--note-color); border: 1px solid var(--note-border); border-radius: inherit; box-shadow: 0 2px 3px #00000012; filter: none; }
+.workbench .sourcePaperLayer .paperSurface > .paperCurl { max-width: none; max-height: none; }
+.workbench .fridgeNewNote[data-magnet-held] > .sourcePaperStack { filter: drop-shadow(0 9px 9px #00000030); }
+.workbench .sourcePaperLayer:not([data-layer="0"]) .paperCurl { visibility: hidden; }
+/* A folded corner replaces the original corner; it is not pasted over it. */
+.workbench .note > .paperSurface,
+.workbench .fridgeWarehouse .storedNote > .paperSurface,
+.workbench .sourcePaperLayer > .paperSurface,
+.dragPreview[data-paper-shape] > .paperSurface { background: transparent; border: 0; --paper-curl-size: 12px; }
+.workbench .note > .paperSurface { --paper-curl-size: 22px; }
+.workbench .sourcePaperLayer > .paperSurface { --paper-curl-size: 14px; }
+.paperFill { position: absolute; inset: 0; border: 1px solid var(--note-border); border-radius: inherit; background: var(--note-color); }
+.paperSurface[data-curl="right"] > .paperFill { clip-path: polygon(0 0,100% 0,100% calc(100% - var(--paper-curl-size)),calc(100% - var(--paper-curl-size)) 100%,0 100%); }
+.paperSurface[data-curl="left"] > .paperFill { clip-path: polygon(0 0,100% 0,100% 100%,var(--paper-curl-size) 100%,0 calc(100% - var(--paper-curl-size))); }
+.workbench .paperSurface > .paperCurl,
+.dragPreview .paperSurface > .paperCurl { width: var(--paper-curl-size); height: var(--paper-curl-size); max-width: none; max-height: none; right: 0; bottom: 0; }
+.paperSurface[data-curl="left"] > .paperCurl { left: 0; right: auto; transform: scaleX(-1); }
+.paperCurl path { fill: var(--popover); stroke: var(--note-border); stroke-width: .55; filter: drop-shadow(-.5px -.5px .6px #00000012); }
+.workbench.compactNotePreview[data-source-sheet] .storedNote > .paperSurface { --paper-curl-size: 14px; }
+/* Paper back stays on the paper side; the missing triangle is fully transparent. */
+.workbench .paperSurface > .paperCurl,
+.dragPreview .paperSurface > .paperCurl { background: transparent; clip-path: polygon(0 0, 100% 0, 0 100%); }
+/* Cast elevation from the visible paper silhouette, not its rectangular carrier. */
+.workbench .note[data-paper-shape],
+.workbench .note[data-paper-shape][data-grabbed],
+.workbench.fullNotePreview .note[data-paper-shape],
+.workbench .fridgeWarehouse .storedNote[data-paper-shape],
+.workbench .fridgeWarehouse .storedNote:is([data-lifted],[data-magnet-held]),
+.workbench .fridgeWarehouse .storedNote:has(.warehouseHandle:focus-visible),
+.workbench.compactNotePreview .storedNote { box-shadow: none; }
+.workbench .note > .paperSurface { filter: drop-shadow(0 3px 6px #0002); }
+.workbench .note[data-grabbed] > .paperSurface,
+.workbench.fullNotePreview .note > .paperSurface { filter: drop-shadow(0 18px 20px #00000030) drop-shadow(0 6px 7px #00000024); }
+.workbench .fridgeWarehouse .storedNote > .paperSurface { filter: drop-shadow(0 2px 3px #00000018); }
+.workbench .fridgeWarehouse .storedNote:is([data-lifted],[data-magnet-held]) > .paperSurface,
+.workbench .fridgeWarehouse .storedNote:has(.warehouseHandle:focus-visible) > .paperSurface,
+.workbench.compactNotePreview .storedNote > .paperSurface { filter: drop-shadow(0 14px 14px #00000030) drop-shadow(0 5px 6px #00000024); }
+.workbench .sourcePaperLayer > .paperSurface { box-shadow: none; filter: drop-shadow(0 2px 1.5px #00000012); }
+/* Larger curl is an additional saved paper variant. */
+.workbench .note > .paperSurface[data-curl-size="large"] { --paper-curl-size: 38px; }
+.workbench .fridgeWarehouse .storedNote > .paperSurface[data-curl-size="large"] { --paper-curl-size: 21px; }
+.workbench .sourcePaperLayer > .paperSurface[data-curl-size="large"],
+.workbench.compactNotePreview[data-source-sheet] .storedNote > .paperSurface[data-curl-size="large"] { --paper-curl-size: 24px; }
+/* Approved quiet refrigerator and plain calendar clips. */
+.workbench .left .calendar::before,
+.workbench .left .calendar::after {
+  top: -7px;
+  width: 5px;
+  height: 17px;
+  border-radius: 1.5px;
+  background: var(--sage-8, #b2bcb7);
+  border: .5px solid var(--sage-7, #c4cdc8);
+  box-shadow: none;
+}
+/* Direct manipulation of the existing date text; no picker surface. */
+.monthRoller { display:flex; flex:1; justify-content:center; align-items:center; gap:4px; min-width:0; font-size:14px; font-weight:600; white-space:nowrap; }
+.rollingDate { display:inline-flex; align-items:center; height:28px; cursor:ns-resize; touch-action:none; user-select:none; outline:none; background:transparent; }
+.rollingDate:focus-visible { text-decoration:underline; text-underline-offset:4px; }
+.rollingDigit { display:inline-block; height:1.5em; line-height:1.5; overflow:hidden; font-variant-numeric:tabular-nums; }
+.rollingDigit > span { display:block; }
+@media (prefers-reduced-motion:reduce) { .rollingDigit > span { transform:none !important; } }
+.rollingDigit { position:relative; width:.64em; }
+.rollingDigit > span { position:absolute; inset:0; }
+.workbench .left .calendar .rollingDate:is(:focus,:focus-visible,:active) { outline:none; box-shadow:none; background:transparent; }
+.hangingCalendar { position:relative; flex:none; padding:20px 0 18px; }
+.workbench .left .hangingCalendar .calendar { margin:0 auto; transform:rotate(-2deg); transform-origin:50% 0; }
+.calendarRope { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
+.calendarRope path { fill:none; stroke:var(--sage-9,#8a9992); stroke-width:1.4px; stroke-linecap:round; }
+@media (prefers-reduced-motion:reduce) { .workbench .left .hangingCalendar .calendar { transform:none !important; } }
+.workbench .left .hangingCalendar .calendar { touch-action:pan-y; cursor:grab; }
+.workbench .left .hangingCalendar .calendar[data-tugging] { cursor:grabbing; user-select:none; }
+.workbench .left .hangingCalendar .calendar button { cursor:pointer; }
+.workbench .left .hangingCalendar .calendar { touch-action:none; }
+/* Hanging paper must pass in front of the refrigerator while being pulled. */
+.hangingCalendar { z-index:120; }
+/* Let hanging paper extend beyond the wall into the canvas. */
+.workbench .left { overflow:visible; }
+.workbench .left .calendar .days button { font-size:14px; }
+.workbench .left .calendar .monthRoller { font-size:20px; font-weight:600; gap:5px; }
+.workbench .left .calendar .monthHeading { min-height:34px; }
+.workbench .left .calendar .rollingDate { height:34px; }
+/* Keep the title's descendants from inheriting the workbench's compact text size. */
+.workbench .left .calendar .monthHeading { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; column-gap:8px; min-height:30px; }
+.workbench .left .calendar .monthRoller { grid-column:2; gap:3px; }
+.workbench .left .calendar .monthRoller,
+.workbench .left .calendar .monthRoller span { font-size:18px; font-weight:600; }
+.workbench .left .calendar .rollingDate { height:30px; }
+.workbench .left .calendar .monthHeading > button:not([aria-label]) { grid-column:3; justify-self:start; width:auto; margin:0; }
