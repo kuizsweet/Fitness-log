@@ -10,7 +10,7 @@ do $fj_apply$ begin
 if exists(select 1 from fitness_journal_meta.migrations where version='202610130001') then
  if not exists(select 1 from fitness_journal_meta.migrations where version='202610130001' and checksum='112e18c8fd50e8a77fac55cf26d1c53e400cef5e2bd110a5b81a6824a0d6643d') then raise exception '迁移 202610130001 校验和不匹配，已停止'; end if;
 else
- if exists(select 1 from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname in ('profiles','exercises','equipment','workout_sessions','workout_exercises','workout_sets','meal_entries','meal_photos','import_batches','import_previews','daily_checkins','checkin_preferences','body_goals','body_measurements')) then raise exception '已有业务表但没有迁移记录：为保留数据已停止，请先运行 supabase/inspect.sql 核对，不要重建表'; end if;
+ if exists(select 1 from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname in ('profiles','exercises','equipment','workout_sessions','workout_exercises','workout_sets','meal_entries','meal_photos','import_batches','import_previews','daily_checkins','checkin_preferences','body_goals','body_measurements','training_workbenches')) then raise exception '已有业务表但没有迁移记录：为保留数据已停止，请先运行 supabase/inspect.sql 核对，不要重建表'; end if;
  execute $fj_migration_202610130001$
 -- Apply through Supabase migrations / SQL editor, never through the browser.
 create extension if not exists pgcrypto;
@@ -672,6 +672,68 @@ grant execute on function public.training_calendar(date,date) to authenticated;
 
 $fj_migration_202610170002$;
  insert into fitness_journal_meta.migrations(version,checksum) values('202610170002','10c595511c8a43024565fdca53410c0f997ecf9e9d33569861aed45bee6efe83');
+end if; end $fj_apply$;
+
+do $fj_apply$ begin
+if exists(select 1 from fitness_journal_meta.migrations where version='202610180001') then
+ if not exists(select 1 from fitness_journal_meta.migrations where version='202610180001' and checksum='3cf9a01436e4e882ddd886e8a791a2b631f234f509e3308dfe36c0d5d46fa0dc') then raise exception '迁移 202610180001 校验和不匹配，已停止'; end if;
+else
+
+ execute $fj_migration_202610180001$
+alter table public.meal_photos add column notes text not null default '' check (length(notes) <= 4000);
+alter table public.meal_entries drop constraint meal_entries_meal_type_check;
+alter table public.meal_entries add constraint meal_entries_meal_type_check check(meal_type in ('breakfast','lunch','dinner','snack'));
+alter table public.meal_entries add column calories integer check (calories between 0 and 20000);
+notify pgrst, 'reload schema';
+
+$fj_migration_202610180001$;
+ insert into fitness_journal_meta.migrations(version,checksum) values('202610180001','3cf9a01436e4e882ddd886e8a791a2b631f234f509e3308dfe36c0d5d46fa0dc');
+end if; end $fj_apply$;
+
+do $fj_apply$ begin
+if exists(select 1 from fitness_journal_meta.migrations where version='202610290001') then
+ if not exists(select 1 from fitness_journal_meta.migrations where version='202610290001' and checksum='c38bb78a74409cebea1d39910ec4971d236094b477943ca2891de5db98f2af44') then raise exception '迁移 202610290001 校验和不匹配，已停止'; end if;
+else
+
+ execute $fj_migration_202610290001$
+create table public.training_workbenches (
+ user_id uuid primary key references auth.users(id) on delete cascade,
+ state jsonb not null check (jsonb_typeof(state)='object' and octet_length(state::text)<=2097152),
+ revision bigint not null default 1 check (revision>0),
+ updated_at timestamptz not null default now()
+);
+alter table public.training_workbenches enable row level security;
+create policy training_workbenches_owner on public.training_workbenches
+ for select to authenticated using (user_id=auth.uid());
+revoke all on public.training_workbenches from public,anon,authenticated;
+grant select on public.training_workbenches to authenticated;
+
+-- All writes use a compare-and-swap. A stale browser cannot erase newer plans.
+create function public.save_training_workbench(p_state jsonb,p_expected bigint)
+returns jsonb language plpgsql security definer set search_path=public,pg_temp as $$
+declare uid uuid=auth.uid(); saved public.training_workbenches;
+begin
+ if uid is null then raise exception '请先登录'; end if;
+ if p_state is null or jsonb_typeof(p_state)<>'object'
+  or jsonb_typeof(p_state->'notes') is distinct from 'array'
+  or jsonb_typeof(p_state->'assignments') is distinct from 'object'
+  or octet_length(p_state::text)>2097152 then raise exception '无效的计划数据'; end if;
+ if jsonb_array_length(p_state->'notes')>30 then raise exception '最多保留30张便签'; end if;
+ if p_expected=0 then
+  insert into public.training_workbenches(user_id,state) values(uid,p_state)
+   on conflict do nothing returning * into saved;
+ else
+  update public.training_workbenches set state=p_state,revision=revision+1,updated_at=now()
+   where user_id=uid and revision=p_expected returning * into saved;
+ end if;
+ if saved.user_id is null then raise exception '版本冲突，请重新读取计划'; end if;
+ return jsonb_build_object('state',saved.state,'revision',saved.revision);
+end $$;
+revoke all on function public.save_training_workbench(jsonb,bigint) from public,anon;
+grant execute on function public.save_training_workbench(jsonb,bigint) to authenticated;
+
+$fj_migration_202610290001$;
+ insert into fitness_journal_meta.migrations(version,checksum) values('202610290001','c38bb78a74409cebea1d39910ec4971d236094b477943ca2891de5db98f2af44');
 end if; end $fj_apply$;
 
 commit;

@@ -6,6 +6,7 @@ import { clearUserCache } from "@/lib/query-cache";
 import { browserClient } from "@/lib/supabase/browser";
 import { applyResourceChange } from "@/lib/training-cache";
 import type { ResourceChange } from "@/lib/resource-keys";
+import { WorkbenchSync } from "./WorkbenchSync";
 const ResourceUser = createContext("");
 export const useResourceUser = () => useContext(ResourceUser);
 export function ResourceProvider({
@@ -45,6 +46,7 @@ export function ResourceProvider({
   return (
     <ResourceUser.Provider value={user}>
       <QueryClientProvider client={client}>{children}</QueryClientProvider>
+      <WorkbenchSync user={user} />
     </ResourceUser.Provider>
   );
 }

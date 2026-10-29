@@ -335,10 +335,34 @@ function Workbench({
     if (!ready) return;
     try {
       localStorage.setItem(draftKey, JSON.stringify(state));
+      window.dispatchEvent(new CustomEvent("kuizfit-workbench-changed", {detail:{user}}));
     } catch {
       setError("未能自动保存草稿，请检查浏览器存储空间。");
     }
-  }, [state, ready, draftKey]);
+  }, [state, ready, draftKey, user]);
+  useEffect(() => {
+    const applied = (event:Event) => {
+      if((event as CustomEvent).detail?.user!==user) return;
+      try {
+        setState(readWorkbench(localStorage.getItem(draftKey) ?? localStorage.getItem(key)));
+      } catch { setError("云端计划读取失败，本地计划已保留。"); }
+    };
+    const failed = (event:Event) => {
+      const detail=(event as CustomEvent).detail;
+      if(detail?.user===user) setError(old=>detail.message || (old.startsWith("计划暂未同步：") ? "" : old));
+    };
+    const stored = (event:StorageEvent) => {
+      if(event.key===key || event.key===draftKey) applied(new CustomEvent("storage-applied",{detail:{user}}));
+    };
+    window.addEventListener("kuizfit-workbench-applied",applied);
+    window.addEventListener("storage",stored);
+    window.addEventListener("kuizfit-workbench-sync-error",failed);
+    return ()=>{
+      window.removeEventListener("kuizfit-workbench-applied",applied);
+      window.removeEventListener("storage",stored);
+      window.removeEventListener("kuizfit-workbench-sync-error",failed);
+    };
+  },[user,key,draftKey]);
   function update(next: WorkbenchState) {
     if (!ready) return;
     try {

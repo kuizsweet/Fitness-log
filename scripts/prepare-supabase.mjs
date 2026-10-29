@@ -15,6 +15,7 @@ export const businessTables = [
   "checkin_preferences",
   "body_goals",
   "body_measurements",
+  "training_workbenches",
 ];
 export async function migrationBundle() {
   const files = (await readdir("supabase/migrations"))

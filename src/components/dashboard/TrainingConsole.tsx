@@ -89,9 +89,17 @@ function Console({ user }: { user: string }) {
     };
     window.addEventListener("storage", changed);
     window.addEventListener("focus", loadPlan);
+    window.addEventListener("kuizfit-workbench-applied", loadPlan);
+    const syncError=(event:Event)=>{
+      const detail=(event as CustomEvent).detail;
+      if(detail?.user===user) setError(old=>detail.message || (old.startsWith("计划暂未同步：") ? "" : old));
+    };
+    window.addEventListener("kuizfit-workbench-sync-error",syncError);
     return () => {
       window.removeEventListener("storage", changed);
       window.removeEventListener("focus", loadPlan);
+      window.removeEventListener("kuizfit-workbench-applied", loadPlan);
+      window.removeEventListener("kuizfit-workbench-sync-error",syncError);
     };
   }, [key, user, date]);
   const anchorMs = run?.anchorMs ?? null;
